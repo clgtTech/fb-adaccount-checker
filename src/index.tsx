@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ReactQueryCacheProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query-devtools';
+import { queryCache } from './query-cache';
+import { App } from './app';
+import './variables.css';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ReactQueryCacheProvider queryCache={queryCache}>
+      <App />
+      {process.env.NODE_ENV === 'development' && (
+        <ReactQueryDevtools position="bottom-right" />
+      )}
+    </ReactQueryCacheProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

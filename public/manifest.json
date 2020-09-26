@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Facebook Ad Account Checker",
+  "name": "The simple app built with React.js that lets you view the disable reason your Facebook ad accounts.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#5A67D8",
   "background_color": "#ffffff"
 }
