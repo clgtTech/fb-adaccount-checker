@@ -1,0 +1,16 @@
+.container {
+  text-align: center;
+  color: var(--text-secondary-color);
+}
+
+.icon :global {
+  animation: fa-spin 800ms infinite linear;
+  font-size: 1.5em;
+  color: var(--primary-color);
+}
+
+.caption {
+  padding-top: 0.75rem;
+  font-size: var(--text-base);
+  font-weight: 600;
+}

@@ -1,0 +1,98 @@
+.title {
+  margin: 0;
+  padding: 0 0.125rem;
+  color: var(--text-color);
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.list {
+  display: flex;
+  overflow-x: auto;
+  margin: 0.8125rem -0.1875rem -0.1875rem;
+  padding: 0.1875rem;
+  list-style: none;
+}
+
+.list > * {
+  flex-shrink: 0;
+}
+
+.list > * + * {
+  margin-left: 1.25rem;
+}
+
+.user {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0.5rem;
+  width: 10rem;
+  text-align: center;
+  cursor: default;
+  color: var(--text-color);
+  border-radius: 0.625rem;
+  border: 0.0625rem solid var(--divide-gray-400);
+  box-shadow: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.05);
+}
+
+.user:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm), var(--focus-ring);
+}
+
+.user > *:first-child {
+  border-top-right-radius: inherit;
+  border-top-left-radius: inherit;
+}
+
+.user > *:last-child {
+  border-bottom-right-radius: inherit;
+  border-bottom-left-radius: inherit;
+}
+
+.userImage {
+  width: 100%;
+  object-fit: cover;
+}
+
+.userRemoveBtn {
+  position: absolute;
+  top: 0.375rem;
+  left: 0.375rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  cursor: pointer;
+  color: white;
+  border: 0.0625rem solid rgba(255, 255, 255, 0.75);
+  border-radius: 0.375rem;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 0.75rem;
+  appearance: none;
+}
+
+.userRemoveBtn:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: var(--focus-ring);
+}
+
+.userName,
+.userId {
+  display: block;
+  margin: 0.25rem 0 0;
+  font-size: var(--text-sm);
+}
+
+.userName {
+  font-weight: 600;
+}
+
+.userId {
+  color: var(--text-secondary-color);
+  font-size: var(--text-xs);
+}

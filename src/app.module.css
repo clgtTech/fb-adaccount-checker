@@ -1,0 +1,18 @@
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.tokenHelp {
+  margin-top: 0.5rem;
+}
+
+.savedUsers {
+  margin-top: 2rem;
+}
+
+.loader,
+.error {
+  padding: 4rem;
+}

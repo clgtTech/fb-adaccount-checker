@@ -1,0 +1,29 @@
+.container {
+  text-align: center;
+  color: var(--text-color);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--leading-snug);
+}
+
+.icon {
+  margin-bottom: 1rem;
+  color: var(--gray-400);
+  font-size: 2.75rem;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+}
+
+.description {
+  margin-top: 0.5rem;
+  color: var(--text-secondary-color);
+}
+
+.actions {
+  margin-top: 0.75rem;
+}
