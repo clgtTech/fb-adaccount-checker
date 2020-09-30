@@ -1,0 +1,77 @@
+.container {
+}
+
+.layout {
+  display: flex;
+}
+
+.thumbnail {
+  flex: 0 0 4rem;
+  margin-right: 1rem;
+  border-radius: 0.5rem;
+}
+
+.contents {
+}
+
+.name {
+  margin: 0;
+  color: var(--text-color);
+  font-size: var(--text-base);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+}
+
+.effectiveStatus {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: var(--text-sm);
+}
+
+.reviewFeedback {
+  margin-top: 1rem;
+}
+
+.reviewFeedback a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.feedbacks {
+  border-left: 0.125rem solid var(--gray-400);
+  margin: 0.25rem 0 0 0.5rem;
+  padding: 0.5rem 0 0 1rem;
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+}
+
+.feedbacks dt {
+  position: relative;
+  color: var(--red-500);
+  font-weight: 600;
+}
+
+.feedbacks dt::before {
+  position: absolute;
+  top: 50%;
+  left: -1.5625rem;
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  content: '';
+  transform: translateY(-50%);
+  border: 0.125rem solid white;
+  border-radius: 50%;
+  background: var(--gray-400);
+}
+
+.feedbacks * + dt {
+  margin-top: 0.5rem;
+}
+
+.feedbacks dd {
+  margin: 0.25rem 0 0;
+  color: var(--text-secondary-color);
+}

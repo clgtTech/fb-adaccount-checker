@@ -1,0 +1,15 @@
+.container {
+}
+
+.adsList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.adsList > * + * {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 0.0625rem solid var(--gray-200);
+  /*margin-top: 3rem;*/
+}

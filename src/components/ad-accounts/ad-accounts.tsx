@@ -7,6 +7,7 @@ import { FacebookError } from 'components/facebook-error';
 import { NonIdealState } from 'components/non-ideal-state';
 import { SectionTitle } from 'components/section-title';
 import { AdAccountsList } from 'components/ad-accounts-list';
+import { Ads } from 'components/ads';
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons/faLayerGroup';
 import styles from './ad-accounts.module.css';
 
@@ -44,7 +45,7 @@ export function AdAccounts({ className, user }: AdAccountsProps) {
       <div>
         <SectionTitle className={styles.adsTitle}>Объявления</SectionTitle>
         {selectedAccountId ? (
-          'Ads'
+          <Ads accessToken={user.accessToken} accountId={selectedAccountId} />
         ) : (
           <NonIdealState
             className={styles.noAds}

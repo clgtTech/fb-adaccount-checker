@@ -1,5 +1,10 @@
-import type { User, AdAccount } from 'common-types';
-import { Locale, AccountStatus, AccountDisableReason } from 'enums';
+import type { User, AdAccount, Ad } from 'common-types';
+import {
+  Locale,
+  AccountStatus,
+  AccountDisableReason,
+  AdEffectiveStatus,
+} from 'enums';
 import axios, { AxiosError } from 'axios';
 
 const API_URL = 'https://graph.facebook.com/v8.0';
@@ -41,7 +46,7 @@ export async function getUser(params: GetUserParams): Promise<User> {
     params: {
       access_token: params.accessToken,
       locale: params.locale || Locale.Ru,
-      fields: 'id, name, picture.width(200).height(200)',
+      fields: ['id', 'name', 'picture.width(200).height(200)'].join(','),
     },
   });
   return {
@@ -78,7 +83,13 @@ export async function getAdAccounts(
       params: {
         access_token: params.accessToken,
         locale: params.locale || Locale.Ru,
-        fields: 'id, account_id, account_status, disable_reason, name',
+        fields: [
+          'id',
+          'account_id',
+          'account_status',
+          'disable_reason',
+          'name',
+        ].join(','),
       },
     }
   );
@@ -91,4 +102,57 @@ export async function getAdAccounts(
   }));
 }
 
-export async function getAds() {}
+/**
+ * @see https://developers.facebook.com/docs/marketing-api/reference/adgroup
+ */
+type FbAdNode = {
+  id: string;
+  name: string;
+  effective_status: AdEffectiveStatus;
+  delivery_info: {
+    status: string;
+  };
+  ad_review_feedback: {
+    global: {
+      [definition: string]: string;
+    };
+  };
+  creative: {
+    id: string;
+    thumbnail_url: string;
+  };
+};
+
+type GetAdsParams = {
+  accessToken: string;
+  accountId: string;
+  locale?: Locale;
+};
+
+export async function getAds(params: GetAdsParams): Promise<Ad[]> {
+  const response = await axios.get<{ data: FbAdNode[] }>(
+    `${API_URL}/${params.accountId}/ads`,
+    {
+      params: {
+        access_token: params.accessToken,
+        locale: params.locale || Locale.Ru,
+        fields: [
+          'id',
+          'name',
+          'effective_status',
+          'delivery_info',
+          'ad_review_feedback{global}',
+          'creative.thumbnail_width(200).thumbnail_height(200){thumbnail_url}',
+        ].join(','),
+      },
+    }
+  );
+  return response.data.data.map((rawAd) => ({
+    id: rawAd.id,
+    name: rawAd.name,
+    effectiveStatus: rawAd.effective_status,
+    deliveryStatus: rawAd.delivery_info?.status || '',
+    reviewFeedback: rawAd.ad_review_feedback?.global || {},
+    creativeThumbnailUrl: rawAd.creative?.thumbnail_url || '',
+  }));
+}

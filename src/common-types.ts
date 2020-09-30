@@ -1,4 +1,8 @@
-import { AccountStatus, AccountDisableReason } from './enums';
+import {
+  AccountStatus,
+  AccountDisableReason,
+  AdEffectiveStatus,
+} from './enums';
 
 export type User = {
   id: string;
@@ -15,4 +19,13 @@ export type AdAccount = {
   disableReason: AccountDisableReason;
 };
 
-export type Ad = {};
+export type Ad = {
+  id: string;
+  name: string;
+  effectiveStatus: AdEffectiveStatus;
+  deliveryStatus: string;
+  reviewFeedback: {
+    [definition: string]: string;
+  };
+  creativeThumbnailUrl: string;
+};
