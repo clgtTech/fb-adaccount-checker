@@ -33,7 +33,7 @@ kbd {
 
 a {
   text-decoration: none;
-  color: var(--blue);
+  color: var(--blue-500);
   border-radius: 0.125rem;
 }
 

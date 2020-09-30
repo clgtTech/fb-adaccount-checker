@@ -1,0 +1,30 @@
+export enum Locale {
+  En = 'en',
+  Ru = 'ru',
+}
+
+export enum AccountStatus {
+  ACTIVE = 1,
+  DISABLED = 2,
+  UNSETTLED = 3,
+  PENDING_RISK_REVIEW = 7,
+  PENDING_SETTLEMENT = 8,
+  IN_GRACE_PERIOD = 9,
+  PENDING_CLOSURE = 100,
+  CLOSED = 101,
+  ANY_ACTIVE = 201,
+  ANY_CLOSED = 202,
+}
+
+export enum AccountDisableReason {
+  NONE = 0,
+  ADS_INTEGRITY_POLICY = 1,
+  ADS_IP_REVIEW = 2,
+  RISK_PAYMENT = 3,
+  GRAY_ACCOUNT_SHUT_DOWN = 4,
+  ADS_AFC_REVIEW = 5,
+  BUSINESS_INTEGRITY_RAR = 6,
+  PERMANENT_CLOSE = 7,
+  UNUSED_RESELLER_ACCOUNT = 8,
+  UNUSED_ACCOUNT = 9,
+}

@@ -5,15 +5,25 @@ import { TokenHelp } from 'components/token-help';
 import { SavedUsers } from 'components/saved-users';
 import { Loader } from 'components/loader';
 import { FacebookError } from 'components/facebook-error';
+import { AdAccounts } from 'components/ad-accounts';
 import styles from './app.module.css';
 
 export function App() {
-  const [accessToken, setAccessToken] = useState('');
+  const [accessToken, setAccessToken] = useState(
+    window.location.pathname.replace('/', '')
+  );
   const { users, saveUser, removeUser } = useSavedUsers();
   const { isLoading, isError, isSuccess, user, userLoadError } = useUser(
     accessToken,
     {
-      onSuccess: (user) => saveUser(user),
+      onSuccess: (user) => {
+        saveUser(user);
+        window.history.pushState(
+          null,
+          window.document.title,
+          `/${user.accessToken}`
+        );
+      },
     }
   );
 
@@ -26,18 +36,21 @@ export function App() {
   } else if (isError && userLoadError) {
     content = <FacebookError className={styles.error} error={userLoadError} />;
   } else if (isSuccess && user) {
-    content = <pre>{JSON.stringify(user, null, 2)}</pre>;
+    content = (
+      <AdAccounts key={user.id} className={styles.adAccounts} user={user} />
+    );
   }
 
   return (
     <main className={styles.container}>
-      <AccessTokenInput
-        isDisabled={isLoading}
-        value={accessToken}
-        onValueChange={setAccessToken}
-      />
-
-      <TokenHelp className={styles.tokenHelp} />
+      <div className={styles.accessToken}>
+        <AccessTokenInput
+          isDisabled={isLoading}
+          value={accessToken}
+          onValueChange={setAccessToken}
+        />
+        <TokenHelp className={styles.tokenHelp} />
+      </div>
 
       {users.length ? (
         <SavedUsers

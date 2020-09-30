@@ -5,7 +5,7 @@ import { NonIdealState } from 'components/non-ideal-state';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons/faExclamationCircle';
 
 export type FacebookErrorProps = {
-  className: NonIdealStateProps['className'];
+  className?: NonIdealStateProps['className'];
   error: FbApiError;
 };
 

@@ -1,3 +1,4 @@
+import type { User } from 'common-types';
 import type { ServiceOptions } from './contetx-types';
 import type { FbApiError } from 'api/facebook-api';
 import pick from 'lodash/pick';

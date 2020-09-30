@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  border-top: 0.0625rem solid var(--gray-300);
+}
+
+.container > * {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.container > *:first-child {
+  flex: 0 0 32%;
+  padding-right: 1rem;
+  padding-left: 0;
+  border-right: 0.0625rem solid var(--gray-300);
+}
+
+.container > *:last-child {
+  flex: 0 0 68%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.adAccountsTitle,
+.adsTitle {
+  margin-bottom: 1.5rem;
+}
+
+.noAds {
+  padding-top: 6rem;
+}

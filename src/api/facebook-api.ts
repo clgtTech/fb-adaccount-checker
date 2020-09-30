@@ -1,6 +1,8 @@
-import { Locale } from 'constants/common';
-import { FB_API_URL } from 'constants/facebook';
+import type { User, AdAccount } from 'common-types';
+import { Locale, AccountStatus, AccountDisableReason } from 'enums';
 import axios, { AxiosError } from 'axios';
+
+const API_URL = 'https://graph.facebook.com/v8.0';
 
 /**
  * @see https://developers.facebook.com/docs/graph-api/using-graph-api/error-handling/
@@ -22,7 +24,7 @@ export type FbApiError = AxiosError<FbApiErrorResponse>;
  * @see https://developers.facebook.com/docs/graph-api/using-graph-api#me
  * @see https://developers.facebook.com/docs/graph-api/reference/user
  */
-export type FbMeNodeResponse = {
+type FbMeNodeResponse = {
   id: string;
   name: string;
   picture: {
@@ -30,12 +32,12 @@ export type FbMeNodeResponse = {
   };
 };
 
-export type GetUserParams = {
+type GetUserParams = {
   accessToken: string;
   locale?: Locale;
 };
 export async function getUser(params: GetUserParams): Promise<User> {
-  const response = await axios.get<FbMeNodeResponse>(`${FB_API_URL}/me`, {
+  const response = await axios.get<FbMeNodeResponse>(`${API_URL}/me`, {
     params: {
       access_token: params.accessToken,
       locale: params.locale || Locale.Ru,
@@ -50,6 +52,43 @@ export async function getUser(params: GetUserParams): Promise<User> {
   };
 }
 
-export async function getAdAccounts() {}
+/**
+ * @see https://developers.facebook.com/docs/marketing-api/reference/ad-account
+ */
+type FbAdAccountNode = {
+  id: string;
+  account_id: string;
+  account_status: AccountStatus;
+  disable_reason: AccountDisableReason;
+  name: string;
+};
+
+type GetAdAccountsParams = {
+  accessToken: string;
+  userId: string;
+  locale?: Locale;
+};
+
+export async function getAdAccounts(
+  params: GetAdAccountsParams
+): Promise<AdAccount[]> {
+  const response = await axios.get<{ data: FbAdAccountNode[] }>(
+    `${API_URL}/${params.userId}/adaccounts`,
+    {
+      params: {
+        access_token: params.accessToken,
+        locale: params.locale || Locale.Ru,
+        fields: 'id, account_id, account_status, disable_reason, name',
+      },
+    }
+  );
+  return response.data.data.map((rawAdAccount) => ({
+    id: rawAdAccount.id,
+    accountId: rawAdAccount.account_id,
+    name: rawAdAccount.name,
+    status: rawAdAccount.account_status,
+    disableReason: rawAdAccount.disable_reason,
+  }));
+}
 
 export async function getAds() {}

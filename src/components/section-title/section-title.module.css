@@ -1,0 +1,6 @@
+.text {
+  margin: 0;
+  color: var(--text-color);
+  font-size: var(--text-xl);
+  font-weight: 700;
+}

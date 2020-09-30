@@ -9,11 +9,12 @@
   --gray-800: #2d3748;
   --gray-900: #1a202c;
 
-  --blue: #327bf6;
-  --green: #65c366;
-  --red: #eb4d3d;
+  --blue-500: #4299e1;
+  --green-500: #48bb78;
+  --red-500: #f56565;
+  --orange-500: #ed8936;
 
-  --primary-color: var(--blue);
+  --primary-color: var(--blue-500);
   --text-color: var(--gray-900);
   --text-secondary-color: var(--gray-700);
 

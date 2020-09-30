@@ -1,9 +1,5 @@
 .title {
-  margin: 0;
   padding: 0 0.125rem;
-  color: var(--text-color);
-  font-size: var(--text-xl);
-  font-weight: 700;
 }
 
 .list {

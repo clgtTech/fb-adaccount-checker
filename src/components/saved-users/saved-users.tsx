@@ -1,5 +1,7 @@
+import type { User } from 'common-types';
 import React from 'react';
 import classNames from 'classnames';
+import { SectionTitle } from 'components/section-title';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import styles from './saved-users.module.css';
@@ -19,7 +21,7 @@ export function SavedUsers({
 }: SavedUsersProps) {
   return (
     <div className={classNames(className)}>
-      <h2 className={styles.title}>Недавно добавленные</h2>
+      <SectionTitle className={styles.title}>История</SectionTitle>
       <ul className={styles.list}>
         {users.map((user) => (
           <li key={user.id}>
