@@ -4,10 +4,12 @@ import classNames from 'classnames';
 import { SectionTitle } from 'components/section-title';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import styles from './saved-users.module.css';
 
 export type SavedUsersProps = {
   className?: string;
+  activeUser?: User | null;
   users: User[];
   onUserSelect: (user: User) => void;
   onUserRemove: (id: string) => void;
@@ -15,6 +17,7 @@ export type SavedUsersProps = {
 
 export function SavedUsers({
   className,
+  activeUser,
   users,
   onUserSelect,
   onUserRemove,
@@ -54,6 +57,12 @@ export function SavedUsers({
               >
                 <FontAwesomeIcon icon={faTrash} />
               </button>
+              {activeUser?.id === user.id ? (
+                <FontAwesomeIcon
+                  className={styles.iconCheck}
+                  icon={faCheckCircle}
+                />
+              ) : null}
               <h2 className={styles.userName}>{user.name}</h2>
               <p className={styles.userId}>{user.id}</p>
             </article>

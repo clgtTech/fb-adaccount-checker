@@ -77,6 +77,14 @@
   box-shadow: var(--focus-ring);
 }
 
+.iconCheck {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.25rem;
+  color: var(--green-500);
+}
+
 .userName,
 .userId {
   display: block;

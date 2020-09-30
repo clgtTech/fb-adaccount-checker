@@ -55,6 +55,7 @@ export function App() {
       {users.length ? (
         <SavedUsers
           className={styles.savedUsers}
+          activeUser={user}
           users={users}
           onUserRemove={removeUser}
           onUserSelect={(user) => setAccessToken(user.accessToken)}
