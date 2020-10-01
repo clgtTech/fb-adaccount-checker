@@ -24,7 +24,7 @@ export function TokenHelp({
           откройте инструменты разработчика:
           <ul>
             <li>
-              Windows: <kbd>CTRL</kbd> + <kbd>Alt</kbd> + <kbd>I</kbd>
+              Windows: <kbd>CTRL</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd>
             </li>
             <li>
               macOS: <kbd>Cmd ⌘</kbd> + <kbd>Alt ⌥</kbd> + <kbd>I</kbd>
