@@ -11,6 +11,10 @@
   border-radius: 0.5rem;
 }
 
+.thumbnail_withBorder {
+  border: 0.0625rem solid var(--gray-400);
+}
+
 .contents {
 }
 
@@ -20,6 +24,11 @@
   font-size: var(--text-base);
   font-weight: 700;
   line-height: var(--leading-tight);
+}
+
+.body {
+  margin: 0.5rem 0 0;
+  color: var(--text-secondary-color);
 }
 
 .effectiveStatus {

@@ -119,7 +119,8 @@ type FbAdNode = {
   };
   creative: {
     id: string;
-    thumbnail_url: string;
+    body?: string;
+    thumbnail_url?: string;
   };
 };
 
@@ -142,7 +143,7 @@ export async function getAds(params: GetAdsParams): Promise<Ad[]> {
           'effective_status',
           'delivery_info',
           'ad_review_feedback{global}',
-          'creative.thumbnail_width(200).thumbnail_height(200){thumbnail_url}',
+          'creative.thumbnail_width(200).thumbnail_height(200){body,thumbnail_url}',
         ].join(','),
       },
     }
@@ -153,6 +154,7 @@ export async function getAds(params: GetAdsParams): Promise<Ad[]> {
     effectiveStatus: rawAd.effective_status,
     deliveryStatus: rawAd.delivery_info?.status || '',
     reviewFeedback: rawAd.ad_review_feedback?.global || {},
+    creativeBody: rawAd.creative?.body || '',
     creativeThumbnailUrl: rawAd.creative?.thumbnail_url || '',
   }));
 }

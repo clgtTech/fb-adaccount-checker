@@ -27,5 +27,6 @@ export type Ad = {
   reviewFeedback: {
     [definition: string]: string;
   };
+  creativeBody: string;
   creativeThumbnailUrl: string;
 };

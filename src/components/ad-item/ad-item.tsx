@@ -1,7 +1,8 @@
 import type { Ad } from 'common-types';
-import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import classNames from 'classnames';
+import isEmpty from 'lodash/isEmpty';
+import imagePlaceholder from './image-placeholder.png';
 import styles from './ad-item.module.css';
 
 export type AdItemProps = {
@@ -14,14 +15,17 @@ export function AdItem({ className, ad }: AdItemProps) {
     <article className={classNames(className, styles.container)}>
       <div className={styles.layout}>
         <img
-          className={styles.thumbnail}
-          src={ad.creativeThumbnailUrl}
+          className={classNames(styles.thumbnail, {
+            [styles.thumbnail_withBorder]: !ad.creativeThumbnailUrl,
+          })}
+          src={ad.creativeThumbnailUrl || imagePlaceholder}
           alt={ad.name}
           width={64}
           height={64}
         />
         <div className={styles.contents}>
           <h3 className={styles.name}>{ad.name}</h3>
+          {ad.creativeBody && <p className={styles.body}>{ad.creativeBody}</p>}
           <code className={styles.effectiveStatus}>
             {ad.effectiveStatus}{' '}
             {ad.deliveryStatus ? `(${ad.deliveryStatus})` : null}
