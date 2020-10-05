@@ -4,6 +4,7 @@
 
 .list {
   display: flex;
+  align-items: stretch;
   overflow-x: auto;
   margin: 0.8125rem -0.1875rem -0.1875rem;
   padding: 0.1875rem;
@@ -23,12 +24,13 @@
   margin: 0;
   padding: 0 0 0.5rem;
   width: 10rem;
+  height: 100%;
   text-align: center;
   cursor: default;
-  color: var(--text-color);
+  color: var(--primary-text-color);
   border-radius: 0.625rem;
-  border: 0.0625rem solid var(--divide-gray-400);
-  box-shadow: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.05);
+  border: 0.0625rem solid var(--tertiary-divide-color);
+  box-shadow: var(--shadow-sm);
 }
 
 .user:focus {
@@ -50,6 +52,7 @@
 .userImage {
   width: 100%;
   object-fit: cover;
+  border-bottom: 0.0625rem solid var(--tertiary-divide-color);
 }
 
 .userRemoveBtn {
@@ -82,7 +85,7 @@
   top: 8px;
   right: 8px;
   font-size: 1.25rem;
-  color: var(--green-500);
+  color: var(--success-color);
 }
 
 .userName,
@@ -97,6 +100,6 @@
 }
 
 .userId {
-  color: var(--text-secondary-color);
+  color: var(--secondary-text-color);
   font-size: var(--text-xs);
 }

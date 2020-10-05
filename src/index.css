@@ -1,6 +1,8 @@
 body {
   margin: 0;
   letter-spacing: -0.022em;
+  color: var(--primary-text-color);
+  background: var(--primary-bg-color);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -33,7 +35,7 @@ kbd {
 
 a {
   text-decoration: none;
-  color: var(--blue-500);
+  color: var(--primary-color);
   border-radius: 0.125rem;
 }
 

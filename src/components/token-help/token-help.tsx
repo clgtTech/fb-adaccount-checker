@@ -40,7 +40,7 @@ export function TokenHelp({
             }}
           >
             <code>
-              <span style={{ color: '#6b46c1' }}>window</span>.__accessToken
+              <span>window</span>.__accessToken
             </code>
           </pre>
         </li>

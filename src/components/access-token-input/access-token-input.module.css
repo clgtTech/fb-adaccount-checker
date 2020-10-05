@@ -1,15 +1,13 @@
 :root {
-  --input-bg-color: var(--gray-200);
-  --input-focus-bg-color: white;
-  --input-disabled-bg-color: var(--gray-100);
-  --input-border-color: transparent;
-  --input-focus-border-color: var(--gray-400);
+  --input-bg-color: var(--tertiary-bg-color);
+  --input-focus-bg-color: var(--primary-bg-color);
+  --input-disabled-bg-color: var(--secondary-bg-color);
 }
 
 .label {
   display: inline-block;
   margin-bottom: 0.25rem;
-  color: var(--text-color);
+  color: var(--primary-text-color);
   font-weight: 700;
 }
 
@@ -28,24 +26,28 @@
     border-bottom-color, border-left-color;
   transition-duration: 150ms;
   transition-timing-function: ease;
-  color: var(--text-color);
+  color: var(--primary-text-color);
   border: 0.0625rem solid var(--divide-transparent);
   border-radius: 0.5rem;
-  background: var(--input-bg-color);
+  background: var(--tertiary-bg-color);
   font-size: 1rem;
   appearance: none;
+}
+
+.input::placeholder {
+  color: inherit;
 }
 
 .input:focus {
   outline: none;
   border-color: var(--primary-color);
-  background: var(--input-focus-bg-color);
+  background: var(--primary-bg-color);
   box-shadow: var(--focus-ring);
 }
 
 .input:disabled {
   cursor: not-allowed;
-  background: var(--input-disabled-bg-color);
+  background: var(--secondary-bg-color);
 }
 
 .spinnerIcon {

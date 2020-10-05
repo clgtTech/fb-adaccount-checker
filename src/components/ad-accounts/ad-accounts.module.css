@@ -1,6 +1,7 @@
 .container {
   display: flex;
-  border-top: 0.0625rem solid var(--gray-300);
+  color: var(--primary-text-color);
+  border-top: 0.0625rem solid var(--tertiary-divide-color);
 }
 
 .container > * {
@@ -12,7 +13,7 @@
   flex: 0 0 32%;
   padding-right: 1rem;
   padding-left: 0;
-  border-right: 0.0625rem solid var(--gray-300);
+  border-right: 0.0625rem solid var(--tertiary-divide-color);
 }
 
 .container > *:last-child {

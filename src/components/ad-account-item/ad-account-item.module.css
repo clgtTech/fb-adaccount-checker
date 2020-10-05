@@ -1,6 +1,7 @@
 .container {
   position: relative;
   padding: 1rem 0;
+  color: var(--primary-text-color);
   cursor: pointer;
   border-radius: 0.625rem;
   font-size: var(--text-base);
@@ -8,7 +9,7 @@
 }
 
 .container:hover {
-  background: var(--gray-100);
+  background: var(--secondary-bg-color);
 }
 
 .container:focus {
@@ -18,7 +19,7 @@
 }
 
 .container_isSelected {
-  background: var(--gray-200) !important;
+  background: var(--tertiary-bg-color) !important;
 }
 
 .container > * {
@@ -36,24 +37,24 @@
 
 .icon {
   margin-right: 0.5rem;
-  color: var(--gray-500);
+  color: var(--tertiary-text-color);
   font-size: 1rem;
 }
 
 .container_ACTIVE .icon,
 .container_ANY_ACTIVE .icon {
-  color: var(--green-500);
+  color: var(--success-color);
 }
 
 .container_ANY_CLOSED .icon,
 .container_CLOSED .icon,
 .container_DISABLED .icon {
-  color: var(--red-500);
+  color: var(--danger-color);
 }
 
 .id,
 .status {
-  color: var(--text-secondary-color);
+  color: var(--secondary-text-color);
   font-size: var(--text-sm);
 }
 
@@ -66,5 +67,5 @@
 }
 
 .status code {
-  color: var(--text-color);
+  color: var(--primary-text-color);
 }
