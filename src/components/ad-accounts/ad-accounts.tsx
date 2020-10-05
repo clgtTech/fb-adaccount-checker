@@ -44,15 +44,17 @@ export function AdAccounts({ className, user }: AdAccountsProps) {
       </div>
       <div>
         <SectionTitle className={styles.adsTitle}>Объявления</SectionTitle>
-        {selectedAccountId ? (
-          <Ads accessToken={user.accessToken} accountId={selectedAccountId} />
-        ) : (
-          <NonIdealState
-            className={styles.noAds}
-            icon={faLayerGroup}
-            title="Выберите рекламный аккаунт, чтобы посмотреть его объявления."
-          />
-        )}
+        <div className={styles.adsContents}>
+          {selectedAccountId ? (
+            <Ads accessToken={user.accessToken} accountId={selectedAccountId} />
+          ) : (
+            <NonIdealState
+              className={styles.noAds}
+              icon={faLayerGroup}
+              title="Выберите рекламный аккаунт, чтобы посмотреть его объявления."
+            />
+          )}
+        </div>
       </div>
     </div>
   );

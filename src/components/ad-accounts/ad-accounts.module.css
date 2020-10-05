@@ -26,6 +26,11 @@
   margin-bottom: 1.5rem;
 }
 
+.adsContents {
+  position: sticky;
+  top: 1rem;
+}
+
 .noAds {
   padding-top: 6rem;
 }
