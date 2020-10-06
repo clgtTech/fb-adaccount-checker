@@ -14,3 +14,8 @@ export function formatMonetaryValue(
   });
   return intl.format(value);
 }
+
+export function toISODate(date: Date): string {
+  const [dateISO] = date.toISOString().split(/[ T]/);
+  return dateISO;
+}

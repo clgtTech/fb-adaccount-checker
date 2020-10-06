@@ -1,6 +1,7 @@
-import type { User } from 'common-types';
+import type { AdAccount, User } from 'common-types';
 import React, { useState } from 'react';
 import classNames from 'classnames';
+import { toISODate } from 'shared/formatters';
 import { useAdAccounts } from 'context/ad-account-context';
 import { Loader } from 'components/loader';
 import { FacebookError } from 'components/facebook-error';
@@ -8,6 +9,8 @@ import { NonIdealState } from 'components/non-ideal-state';
 import { SectionTitle } from 'components/section-title';
 import { AdAccountsList } from 'components/ad-accounts-list';
 import { Ads } from 'components/ads';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileDownload } from '@fortawesome/free-solid-svg-icons/faFileDownload';
 import { faLayerGroup } from '@fortawesome/free-solid-svg-icons/faLayerGroup';
 import styles from './ad-accounts.module.css';
 
@@ -35,6 +38,14 @@ export function AdAccounts({ className, user }: AdAccountsProps) {
       <div>
         <SectionTitle className={styles.adAccountsTitle}>
           Рекламные аккаунты
+          <a
+            className={styles.downloadLink}
+            title="Экспортировать аккаунты"
+            href={generateCsvObjectUrl(adAccounts)}
+            download={`ad-accounts-${toISODate(new Date())}.csv`}
+          >
+            <FontAwesomeIcon icon={faFileDownload} />
+          </a>
         </SectionTitle>
         <AdAccountsList
           adAccounts={adAccounts}
@@ -58,4 +69,12 @@ export function AdAccounts({ className, user }: AdAccountsProps) {
       </div>
     </div>
   );
+}
+
+function generateCsvObjectUrl(adAccounts: AdAccount[]): string {
+  let contents = '"Account Name","Account ID","Currency","Amount Spent"\n';
+  adAccounts.forEach((adAccount) => {
+    contents += `\n"${adAccount.name}","${adAccount.accountId}","${adAccount.currency}","${adAccount.spend}"`;
+  });
+  return URL.createObjectURL(new Blob([contents], { type: 'text/plain' }));
 }
