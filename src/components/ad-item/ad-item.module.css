@@ -38,6 +38,36 @@
   font-size: var(--text-sm);
 }
 
+.stats {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  font-size: var(--text-sm);
+}
+
+.statsGroup {
+  display: inline-flex;
+}
+
+.statsGroup + .statsGroup::before {
+  display: inline-block;
+  margin: 0 0.75rem;
+  content: '\2022';
+}
+
+.statsLabel {
+  margin-right: 0.25rem;
+}
+
+.statsLabel::after {
+  content: ':';
+}
+
+.stateValue {
+  margin: 0;
+  font-weight: 600;
+}
+
 .reviewFeedback {
   margin-top: 1rem;
 }

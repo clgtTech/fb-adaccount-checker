@@ -1,3 +1,4 @@
+import type { AdAccount } from 'common-types';
 import React from 'react';
 import classNames from 'classnames';
 import { useAds } from 'context/ads-context';
@@ -11,13 +12,13 @@ import styles from './ads.module.css';
 export type AdsProps = {
   className?: string;
   accessToken: string;
-  accountId: string;
+  adAccount: AdAccount;
 };
 
-export function Ads({ className, accessToken, accountId }: AdsProps) {
+export function Ads({ className, accessToken, adAccount }: AdsProps) {
   const { isLoading, isError, ads, adsLoadError } = useAds(
     accessToken,
-    accountId
+    adAccount.id
   );
 
   if (isLoading) {
@@ -42,7 +43,7 @@ export function Ads({ className, accessToken, accountId }: AdsProps) {
       <ul className={styles.adsList}>
         {ads.map((ad) => (
           <li key={ad.id}>
-            <AdItem ad={ad} />
+            <AdItem adAccount={adAccount} ad={ad} />
           </li>
         ))}
       </ul>

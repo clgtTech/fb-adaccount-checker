@@ -4,7 +4,9 @@ import {
   AccountStatus,
   AccountDisableReason,
   AdEffectiveStatus,
+  ActionType,
 } from 'enums';
+import startCase from 'lodash/startCase';
 import axios, { AxiosError } from 'axios';
 
 const API_URL = 'https://graph.facebook.com/v8.0';
@@ -67,12 +69,12 @@ type FbAdAccountNode = {
   disable_reason: AccountDisableReason;
   name: string;
   currency: string;
-  insights: {
-    data: [
+  insights?: {
+    data?: [
       {
-        spend: string;
         date_start: string;
         date_stop: string;
+        spend: string;
       }
     ];
     paging: {
@@ -138,10 +140,47 @@ type FbAdNode = {
       [definition: string]: string;
     };
   };
-  creative: {
+  creative?: {
     id: string;
     body?: string;
     thumbnail_url?: string;
+  };
+  insights?: {
+    data?: [
+      {
+        date_start: string;
+        date_stop: string;
+        spend: string;
+        results?: [
+          {
+            indicator: string;
+            values?: [
+              {
+                value: string;
+                attribution_windows: string[];
+              }
+            ];
+          }
+        ];
+        cost_per_result?: [
+          {
+            indicator: string;
+            values?: [
+              {
+                value: string;
+                attribution_windows: string[];
+              }
+            ];
+          }
+        ];
+      }
+    ];
+    paging: {
+      cursors: {
+        before: string;
+        after: string;
+      };
+    };
   };
 };
 
@@ -165,17 +204,44 @@ export async function getAds(params: GetAdsParams): Promise<Ad[]> {
           'delivery_info',
           'ad_review_feedback{global}',
           'creative.thumbnail_width(200).thumbnail_height(200){body,thumbnail_url}',
+          'insights.date_preset(lifetime){spend,results,cost_per_result}',
+          'recommendations',
+          'issues_info',
         ].join(','),
       },
     }
   );
-  return response.data.data.map((rawAd) => ({
-    id: rawAd.id,
-    name: rawAd.name,
-    effectiveStatus: rawAd.effective_status,
-    deliveryStatus: rawAd.delivery_info?.status || '',
-    reviewFeedback: rawAd.ad_review_feedback?.global || {},
-    creativeBody: rawAd.creative?.body || '',
-    creativeThumbnailUrl: rawAd.creative?.thumbnail_url || '',
-  }));
+  return response.data.data.map((rawAd) => {
+    const ad: Ad = {
+      id: rawAd.id,
+      name: rawAd.name,
+      effectiveStatus: rawAd.effective_status,
+      deliveryStatus: rawAd.delivery_info?.status || '',
+      reviewFeedback: rawAd.ad_review_feedback?.global || {},
+      creativeBody: rawAd.creative?.body || '',
+      creativeThumbnailUrl: rawAd.creative?.thumbnail_url || '',
+      spend: Number(rawAd.insights?.data?.[0].spend) || 0,
+    };
+
+    const results = rawAd.insights?.data?.[0]?.results?.[0];
+    const costPerResult = rawAd.insights?.data?.[0]?.cost_per_result?.[0];
+    if (
+      results?.indicator &&
+      costPerResult?.indicator &&
+      results.indicator === costPerResult.indicator
+    ) {
+      const actionType = results.indicator.replace(/^actions:/, '');
+      ad.stats = {
+        action:
+          actionType in ActionType
+            ? // @ts-ignore-next-line
+              ActionType[actionType]
+            : startCase(actionType),
+        results: Number(results.values?.[0].value) || 0,
+        costPerResult: Number(costPerResult.values?.[0].value) || 0,
+      };
+    }
+
+    return ad;
+  });
 }

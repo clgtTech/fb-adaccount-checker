@@ -1,16 +1,18 @@
-import type { Ad } from 'common-types';
+import type { Ad, AdAccount } from 'common-types';
 import React from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import imagePlaceholder from './image-placeholder.png';
+import { formatNumber, formatMonetaryValue } from 'shared/formatters';
 import styles from './ad-item.module.css';
+import imagePlaceholder from './image-placeholder.png';
 
 export type AdItemProps = {
   className?: string;
+  adAccount: AdAccount;
   ad: Ad;
 };
 
-export function AdItem({ className, ad }: AdItemProps) {
+export function AdItem({ className, ad, adAccount }: AdItemProps) {
   return (
     <article className={classNames(className, styles.container)}>
       <div className={styles.layout}>
@@ -30,6 +32,34 @@ export function AdItem({ className, ad }: AdItemProps) {
             {ad.effectiveStatus}{' '}
             {ad.deliveryStatus ? `(${ad.deliveryStatus})` : null}
           </code>
+
+          {ad.stats ? (
+            <dl className={styles.stats}>
+              <div className={styles.statsGroup}>
+                <dt className={styles.statsLabel}>{ad.stats.action}</dt>
+                <dd className={styles.stateValue}>
+                  {formatNumber(ad.stats.results)}
+                </dd>
+              </div>
+
+              <div className={styles.statsGroup}>
+                <dt className={styles.statsLabel}>Цена за результат</dt>
+                <dd className={styles.stateValue}>
+                  {formatMonetaryValue(
+                    ad.stats.costPerResult,
+                    adAccount.currency
+                  )}
+                </dd>
+              </div>
+
+              <div className={styles.statsGroup}>
+                <dt className={styles.statsLabel}>Спенд</dt>
+                <dd className={styles.stateValue}>
+                  {formatMonetaryValue(ad.spend, adAccount.currency)}
+                </dd>
+              </div>
+            </dl>
+          ) : null}
         </div>
       </div>
 

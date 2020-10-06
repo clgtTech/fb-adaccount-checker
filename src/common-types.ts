@@ -2,6 +2,7 @@ import {
   AccountStatus,
   AccountDisableReason,
   AdEffectiveStatus,
+  ActionType,
 } from './enums';
 
 export type User = {
@@ -31,4 +32,10 @@ export type Ad = {
   };
   creativeBody: string;
   creativeThumbnailUrl: string;
+  spend: number;
+  stats?: {
+    action: string;
+    results: number;
+    costPerResult: number;
+  };
 };

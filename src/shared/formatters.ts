@@ -15,7 +15,18 @@ export function formatMonetaryValue(
   return intl.format(value);
 }
 
-export function toISODate(date: Date): string {
+export function formatNumber(
+  value: number,
+  locale: Locale = Locale.Ru
+): string {
+  const intl = new window.Intl.NumberFormat(locale, {
+    useGrouping: true,
+    maximumFractionDigits: 4,
+  });
+  return intl.format(value);
+}
+
+export function formatISODate(date: Date): string {
   const [dateISO] = date.toISOString().split(/[ T]/);
   return dateISO;
 }

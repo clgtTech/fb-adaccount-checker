@@ -1,7 +1,7 @@
 import type { AdAccount, User } from 'common-types';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { toISODate } from 'shared/formatters';
+import { formatISODate } from 'shared/formatters';
 import { useAdAccounts } from 'context/ad-account-context';
 import { Loader } from 'components/loader';
 import { FacebookError } from 'components/facebook-error';
@@ -24,6 +24,9 @@ export function AdAccounts({ className, user }: AdAccountsProps) {
     user
   );
   const [selectedAccountId, setSelectedAccountId] = useState('');
+  const selectedAdAccount = useMemo(() => {
+    return adAccounts.find((adAccount) => adAccount.id === selectedAccountId);
+  }, [adAccounts, selectedAccountId]);
 
   if (isLoading) {
     return <Loader>Загрузка рекламных аккаунтов...</Loader>;
@@ -42,7 +45,7 @@ export function AdAccounts({ className, user }: AdAccountsProps) {
             className={styles.downloadLink}
             title="Экспортировать аккаунты"
             href={generateCsvObjectUrl(adAccounts)}
-            download={`ad-accounts-${toISODate(new Date())}.csv`}
+            download={`ad-accounts-${formatISODate(new Date())}.csv`}
           >
             <FontAwesomeIcon icon={faFileDownload} />
           </a>
@@ -56,8 +59,8 @@ export function AdAccounts({ className, user }: AdAccountsProps) {
       <div>
         <SectionTitle className={styles.adsTitle}>Объявления</SectionTitle>
         <div className={styles.adsContents}>
-          {selectedAccountId ? (
-            <Ads accessToken={user.accessToken} accountId={selectedAccountId} />
+          {selectedAdAccount ? (
+            <Ads accessToken={user.accessToken} adAccount={selectedAdAccount} />
           ) : (
             <NonIdealState
               className={styles.noAds}
