@@ -33,6 +33,19 @@
   box-shadow: var(--shadow-sm);
 }
 
+.user_active::before {
+  position: absolute;
+  top: -0.0625rem;
+  right: -0.0625rem;
+  bottom: -0.0625rem;
+  left: -0.0625rem;
+  display: block;
+  box-sizing: border-box;
+  content: '';
+  border-radius: inherit;
+  border: 0.1875rem solid var(--primary-color);
+}
+
 .user:focus {
   outline: none;
   border-color: var(--primary-color);
@@ -78,14 +91,6 @@
   outline: none;
   border-color: var(--primary-color);
   box-shadow: var(--focus-ring);
-}
-
-.iconCheck {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  font-size: 1.25rem;
-  color: var(--success-color);
 }
 
 .userName,

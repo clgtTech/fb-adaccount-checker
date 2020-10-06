@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { SectionTitle } from 'components/section-title';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
-import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import styles from './saved-users.module.css';
 
 export type SavedUsersProps = {
@@ -29,7 +28,9 @@ export function SavedUsers({
         {users.map((user) => (
           <li key={user.id}>
             <article
-              className={styles.user}
+              className={classNames(styles.user, {
+                [styles.user_active]: activeUser?.id === user.id,
+              })}
               tabIndex={0}
               onClick={() => onUserSelect(user)}
               onKeyDown={(event) => {
@@ -57,12 +58,6 @@ export function SavedUsers({
               >
                 <FontAwesomeIcon icon={faTrash} />
               </button>
-              {activeUser?.id === user.id ? (
-                <FontAwesomeIcon
-                  className={styles.iconCheck}
-                  icon={faCheckCircle}
-                />
-              ) : null}
               <h2 className={styles.userName}>{user.name}</h2>
               <p className={styles.userId}>{user.id}</p>
             </article>
