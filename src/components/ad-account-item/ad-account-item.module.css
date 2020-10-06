@@ -52,20 +52,56 @@
   color: var(--danger-color);
 }
 
-.id,
-.status {
-  color: var(--secondary-text-color);
+.metadata {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
   font-size: var(--text-sm);
 }
 
-.id {
+.metadataGroup {
+  display: flex;
+}
+
+.metadataGroup + .metadataGroup {
   margin-top: 0.25rem;
 }
 
-.status {
-  margin-top: 0.125rem;
+.metadataTerm {
+  margin: 0 0.5rem 0 0;
+  padding: 0;
+  color: var(--secondary-text-color);
 }
 
-.status code {
-  color: var(--primary-text-color);
+.metadataTerm::after {
+  content: ':';
+}
+
+.metadataDefinition {
+  margin: 0;
+  padding: 0;
+}
+
+.metadataGroup_important .metadataDefinition {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.metadataDefinition_canCopy {
+  cursor: copy;
+}
+
+.metadataDefinition_canCopy:focus {
+  border-radius: 0.25rem;
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.metadataDefinition_canCopy:hover {
+  color: var(--secondary-text-color);
+}
+
+.metadataDefinition_canCopy > :global(.svg-inline--fa) {
+  margin-left: 0.25rem;
+  line-height: 1;
+  color: var(--secondary-text-color);
 }

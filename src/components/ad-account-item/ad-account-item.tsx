@@ -2,10 +2,13 @@ import type { AdAccount } from 'common-types';
 import React from 'react';
 import classNames from 'classnames';
 import { AccountDisableReason, AccountStatus } from 'enums';
+import { copyToClipboard } from 'shared/util';
+import { formatMonetaryValue } from 'shared/formatters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-solid-svg-icons/faClock';
 import { faBan } from '@fortawesome/free-solid-svg-icons/faBan';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCopy } from '@fortawesome/free-regular-svg-icons/faCopy';
 import styles from './ad-account-item.module.css';
 
 export type AdAccountItemProps = {
@@ -62,15 +65,56 @@ export function AdAccountItem({
         <FontAwesomeIcon className={styles.icon} icon={icon} />
         {adAccount.name}
       </h3>
-      <div className={styles.id}>Аккаунт №: {adAccount.accountId}</div>
-      <div className={styles.status}>
-        Статус:&nbsp;
-        <code>
-          {adAccount.status === AccountStatus.DISABLED
-            ? `${status} (${AccountDisableReason[adAccount.disableReason]})`
-            : status}
-        </code>
-      </div>
+
+      <dl className={styles.metadata}>
+        <div className={styles.metadataGroup}>
+          <dt className={styles.metadataTerm}>Аккаунт №</dt>
+          <dd
+            className={classNames(
+              styles.metadataDefinition,
+              styles.metadataDefinition_canCopy
+            )}
+            tabIndex={0}
+            onClick={(event) => {
+              event.stopPropagation();
+              copyToClipboard(adAccount.accountId);
+            }}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.stopPropagation();
+                event.preventDefault();
+                copyToClipboard(adAccount.accountId);
+              }
+            }}
+          >
+            {adAccount.accountId}
+            <FontAwesomeIcon icon={faCopy} />
+          </dd>
+        </div>
+
+        <div className={styles.metadataGroup}>
+          <dt className={styles.metadataTerm}>Статус</dt>
+          <dd className={styles.metadataDefinition}>
+            <code>
+              {adAccount.status === AccountStatus.DISABLED
+                ? `${status} (${AccountDisableReason[adAccount.disableReason]})`
+                : status}
+            </code>
+          </dd>
+        </div>
+
+        <div
+          className={classNames(
+            styles.metadataGroup,
+            styles.metadataGroup_important
+          )}
+        >
+          <dt className={styles.metadataTerm}>Спенд</dt>
+          <dd className={styles.metadataDefinition}>
+            {formatMonetaryValue(adAccount.spend, adAccount.currency)}
+          </dd>
+        </div>
+      </dl>
     </article>
   );
 }

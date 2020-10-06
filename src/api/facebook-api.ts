@@ -66,6 +66,22 @@ type FbAdAccountNode = {
   account_status: AccountStatus;
   disable_reason: AccountDisableReason;
   name: string;
+  currency: string;
+  insights: {
+    data: [
+      {
+        spend: string;
+        date_start: string;
+        date_stop: string;
+      }
+    ];
+    paging: {
+      cursors: {
+        before: string;
+        after: string;
+      };
+    };
+  };
 };
 
 type GetAdAccountsParams = {
@@ -83,12 +99,15 @@ export async function getAdAccounts(
       params: {
         access_token: params.accessToken,
         locale: params.locale || Locale.Ru,
+        limit: 100,
         fields: [
           'id',
           'account_id',
           'account_status',
           'disable_reason',
           'name',
+          'currency',
+          'insights.date_preset(lifetime){spend}',
         ].join(','),
       },
     }
@@ -99,6 +118,8 @@ export async function getAdAccounts(
     name: rawAdAccount.name,
     status: rawAdAccount.account_status,
     disableReason: rawAdAccount.disable_reason,
+    currency: rawAdAccount.currency,
+    spend: Number(rawAdAccount.insights?.data?.[0].spend) || 0,
   }));
 }
 

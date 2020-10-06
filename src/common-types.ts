@@ -17,6 +17,8 @@ export type AdAccount = {
   name: string;
   status: AccountStatus;
   disableReason: AccountDisableReason;
+  currency: string;
+  spend: number;
 };
 
 export type Ad = {
