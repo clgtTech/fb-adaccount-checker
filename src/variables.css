@@ -9,10 +9,10 @@
   --gray-800: #2d3748;
   --gray-900: #1a202c;
 
-  --blue-500: #4299e1;
-  --green-500: #48bb78;
-  --red-500: #f56565;
-  --orange-500: #ed8936;
+  --blue-500: #4aa4e3;
+  --green-500: #5ec169;
+  --red-500: #eb4d3d;
+  --orange-500: #e87935;
 
   --primary-color: var(--blue-500);
   --success-color: var(--green-500);
@@ -22,12 +22,14 @@
   --primary-bg-color: white;
   --secondary-bg-color: var(--gray-100);
   --tertiary-bg-color: var(--gray-200);
+  --quaternary-bg-color: var(--gray-300);
 
   --primary-text-color: var(--gray-900);
   --secondary-text-color: var(--gray-700);
   --tertiary-text-color: var(--gray-500);
 
-  --focus-ring: 0 0 0 3px rgba(0, 103, 244, 0.25);
+  --focus-ring-color: rgba(0, 125, 250, 0.3);
+  --focus-ring: 0 0 0 3px var(--focus-ring-color);
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -53,21 +55,17 @@
   --divide-transparent: transparent;
   --divide-current: currentColor;
   --primary-divide-color: var(--gray-100);
-  --secondart-divide-color: var(--gray-200);
+  --secondary-divide-color: var(--gray-200);
   --tertiary-divide-color: var(--gray-300);
   --quaternary-divide-color: var(--gray-400);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --blue-500: #65ace7;
-    --green-500: #6ac891;
-    --red-500: #f78787;
-    --orange-500: #f19e5b;
-
     --primary-bg-color: var(--gray-900);
     --secondary-bg-color: var(--gray-800);
     --tertiary-bg-color: var(--gray-700);
+    --quaternary-bg-color: var(--gray-600);
 
     --primary-text-color: var(--gray-100);
     --secondary-text-color: var(--gray-300);
@@ -86,7 +84,7 @@
       0 10px 10px -5px rgba(255, 255, 255, 0.04);
 
     --primary-divide-color: var(--gray-800);
-    --secondart-divide-color: var(--gray-700);
+    --secondary-divide-color: var(--gray-700);
     --tertiary-divide-color: var(--gray-600);
     --quaternary-divide-color: var(--gray-500);
   }

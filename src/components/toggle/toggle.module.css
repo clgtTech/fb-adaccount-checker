@@ -1,0 +1,75 @@
+:root {
+  --toggle-width: 2rem;
+  --toggle-height: 1.25rem;
+  --toggle-border-size: 0.125rem;
+  --toggle-check-size: calc(
+    var(--toggle-height) - 2 * var(--toggle-border-size)
+  );
+  --toggle-default-color: var(--quaternary-bg-color);
+  --toggle-active-color: var(--success-color);
+}
+
+.container {
+  display: inline-flex;
+  color: var(--primary-text-color);
+  user-select: none;
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.check {
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+  transition: 200ms ease;
+  cursor: pointer;
+  border: var(--toggle-border-size) solid transparent;
+  border-radius: calc(var(--toggle-height) / 2 + var(--toggle-border-size));
+  background: var(--toggle-default-color);
+}
+
+.check::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--toggle-check-size);
+  height: var(--toggle-check-size);
+  content: '';
+  transition: inherit;
+  background: white;
+  box-shadow: var(--shadow-md), var(--shadow-sm);
+  border-radius: 50%;
+}
+
+.label {
+  margin-left: 0.5rem;
+  line-height: var(--toggle-height);
+  font-weight: 500;
+}
+
+.input:checked + .check {
+  background: var(--toggle-active-color);
+  border-color: var(--toggle-active-color);
+}
+
+.input:checked + .check::after {
+  transform: translateX(calc(var(--toggle-width) - var(--toggle-height)));
+  border-color: var(--toggle-active-color);
+}
+
+.input:disabled + * {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
