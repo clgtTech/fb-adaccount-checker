@@ -18,6 +18,10 @@ export type AdItemProps = {
 };
 
 export function AdItem({ className, ad, adAccount, onAdUpdate }: AdItemProps) {
+  const isAdAccountActive =
+    adAccount.status === AccountStatus.ACTIVE ||
+    adAccount.status === AccountStatus.ANY_ACTIVE;
+  const renderedAdName = <h3 className={styles.name}>{ad.name}</h3>;
   return (
     <article className={classNames(className, styles.container)}>
       <div className={styles.layout}>
@@ -35,8 +39,7 @@ export function AdItem({ className, ad, adAccount, onAdUpdate }: AdItemProps) {
             <Toggle
               className={styles.toggle}
               isDisabled={
-                (adAccount.status !== AccountStatus.ACTIVE &&
-                  adAccount.status !== AccountStatus.ANY_ACTIVE) ||
+                !isAdAccountActive ||
                 ad.status === AdStatus.DELETED ||
                 ad.status === AdStatus.ARCHIVED
               }
@@ -48,12 +51,16 @@ export function AdItem({ className, ad, adAccount, onAdUpdate }: AdItemProps) {
               }}
             />
 
-            <InlineEdit
-              initialValue={ad.name}
-              onValueChange={(name) => onAdUpdate({ name })}
-            >
-              <h3 className={styles.name}>{ad.name}</h3>
-            </InlineEdit>
+            {isAdAccountActive ? (
+              <InlineEdit
+                initialValue={ad.name}
+                onValueChange={(name) => onAdUpdate({ name })}
+              >
+                {renderedAdName}
+              </InlineEdit>
+            ) : (
+              renderedAdName
+            )}
           </div>
 
           {ad.creativeBody && <p className={styles.body}>{ad.creativeBody}</p>}
