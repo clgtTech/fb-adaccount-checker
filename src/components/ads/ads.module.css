@@ -10,5 +10,5 @@
 .adsList > * + * {
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 0.0625rem solid var(--secondart-divide-color);
+  border-top: 0.0625rem solid var(--secondary-divide-color);
 }
