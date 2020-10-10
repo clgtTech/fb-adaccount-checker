@@ -1,10 +1,11 @@
-import type { User, AdAccount, Ad } from 'common-types';
+import type { Ad, AdAccount, User } from 'common-types';
 import {
-  Locale,
-  AccountStatus,
   AccountDisableReason,
-  AdEffectiveStatus,
+  AccountStatus,
   ActionType,
+  AdEffectiveStatus,
+  AdStatus,
+  Locale,
 } from 'enums';
 import startCase from 'lodash/startCase';
 import axios, { AxiosError } from 'axios';
@@ -31,7 +32,7 @@ export type FbApiError = AxiosError<FbApiErrorResponse>;
  * @see https://developers.facebook.com/docs/graph-api/using-graph-api#me
  * @see https://developers.facebook.com/docs/graph-api/reference/user
  */
-type FbMeNodeResponse = {
+export type FbMeNodeResponse = {
   id: string;
   name: string;
   picture: {
@@ -39,7 +40,7 @@ type FbMeNodeResponse = {
   };
 };
 
-type GetUserParams = {
+export type GetUserParams = {
   accessToken: string;
   locale?: Locale;
 };
@@ -62,7 +63,7 @@ export async function getUser(params: GetUserParams): Promise<User> {
 /**
  * @see https://developers.facebook.com/docs/marketing-api/reference/ad-account
  */
-type FbAdAccountNode = {
+export type FbAdAccountNode = {
   id: string;
   account_id: string;
   account_status: AccountStatus;
@@ -86,7 +87,7 @@ type FbAdAccountNode = {
   };
 };
 
-type GetAdAccountsParams = {
+export type GetAdAccountsParams = {
   accessToken: string;
   userId: string;
   locale?: Locale;
@@ -128,9 +129,10 @@ export async function getAdAccounts(
 /**
  * @see https://developers.facebook.com/docs/marketing-api/reference/adgroup
  */
-type FbAdNode = {
+export type FbAdNode = {
   id: string;
   name: string;
+  status: AdStatus;
   effective_status: AdEffectiveStatus;
   delivery_info: {
     status: string;
@@ -184,7 +186,7 @@ type FbAdNode = {
   };
 };
 
-type GetAdsParams = {
+export type GetAdsParams = {
   accessToken: string;
   accountId: string;
   locale?: Locale;
@@ -200,6 +202,7 @@ export async function getAds(params: GetAdsParams): Promise<Ad[]> {
         fields: [
           'id',
           'name',
+          'status',
           'effective_status',
           'delivery_info',
           'ad_review_feedback{global}',
@@ -215,6 +218,7 @@ export async function getAds(params: GetAdsParams): Promise<Ad[]> {
     const ad: Ad = {
       id: rawAd.id,
       name: rawAd.name,
+      status: rawAd.status,
       effectiveStatus: rawAd.effective_status,
       deliveryStatus: rawAd.delivery_info?.status || '',
       reviewFeedback: rawAd.ad_review_feedback?.global || {},
@@ -244,4 +248,34 @@ export async function getAds(params: GetAdsParams): Promise<Ad[]> {
 
     return ad;
   });
+}
+
+export type UpdateAdParams = {
+  adId: string;
+  accessToken: string;
+  update: {
+    name?: string;
+    status?: AdStatus;
+  };
+  locale?: Locale;
+};
+
+export type UpdateAdResult = {
+  success: boolean;
+};
+
+export async function updateAd(
+  params: UpdateAdParams
+): Promise<UpdateAdResult> {
+  const response = await axios.post<UpdateAdResult>(
+    `${API_URL}/${params.adId}`,
+    params.update,
+    {
+      params: {
+        access_token: params.accessToken,
+        locale: params.locale || Locale.Ru,
+      },
+    }
+  );
+  return response.data;
 }

@@ -1,8 +1,12 @@
 import type { Ad, AdAccount } from 'common-types';
+import type { UpdateAdParams } from 'api/facebook-api';
 import React from 'react';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import { formatNumber, formatMonetaryValue } from 'shared/formatters';
+import { AccountStatus, AdStatus } from 'enums';
+import { formatMonetaryValue, formatNumber } from 'shared/formatters';
+import { Toggle } from 'components/toggle';
+import { InlineEdit } from 'components/inline-edit';
 import styles from './ad-item.module.css';
 import imagePlaceholder from './image-placeholder.png';
 
@@ -10,9 +14,10 @@ export type AdItemProps = {
   className?: string;
   adAccount: AdAccount;
   ad: Ad;
+  onAdUpdate: (update: UpdateAdParams['update']) => void;
 };
 
-export function AdItem({ className, ad, adAccount }: AdItemProps) {
+export function AdItem({ className, ad, adAccount, onAdUpdate }: AdItemProps) {
   return (
     <article className={classNames(className, styles.container)}>
       <div className={styles.layout}>
@@ -26,10 +31,37 @@ export function AdItem({ className, ad, adAccount }: AdItemProps) {
           height={64}
         />
         <div className={styles.contents}>
-          <h3 className={styles.name}>{ad.name}</h3>
+          <div className={styles.contentsHeader}>
+            <Toggle
+              className={styles.toggle}
+              isDisabled={
+                (adAccount.status !== AccountStatus.ACTIVE &&
+                  adAccount.status !== AccountStatus.ANY_ACTIVE) ||
+                ad.status === AdStatus.DELETED ||
+                ad.status === AdStatus.ARCHIVED
+              }
+              isEnabled={ad.status === AdStatus.ACTIVE}
+              onToggle={(isEnabled) => {
+                onAdUpdate({
+                  status: isEnabled ? AdStatus.ACTIVE : AdStatus.PAUSED,
+                });
+              }}
+            />
+
+            <InlineEdit
+              initialValue={ad.name}
+              onValueChange={(name) => onAdUpdate({ name })}
+            >
+              <h3 className={styles.name}>{ad.name}</h3>
+            </InlineEdit>
+          </div>
+
           {ad.creativeBody && <p className={styles.body}>{ad.creativeBody}</p>}
+
+          <p className={styles.id}>ID: {ad.id}</p>
+
           <code className={styles.effectiveStatus}>
-            {ad.effectiveStatus}{' '}
+            {ad.effectiveStatus}&nbsp;
             {ad.deliveryStatus ? `(${ad.deliveryStatus})` : null}
           </code>
 

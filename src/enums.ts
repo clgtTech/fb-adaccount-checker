@@ -29,6 +29,13 @@ export enum AccountDisableReason {
   UNUSED_ACCOUNT = 9,
 }
 
+export enum AdStatus {
+  ACTIVE = 'ACTIVE',
+  PAUSED = 'PAUSED',
+  DELETED = 'DELETED',
+  ARCHIVED = 'ARCHIVED',
+}
+
 export enum AdEffectiveStatus {
   ACTIVE = 'ACTIVE',
   PAUSED = 'PAUSED',

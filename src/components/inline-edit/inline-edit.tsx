@@ -75,7 +75,9 @@ export function InlineEdit({
 
     window.addEventListener('keydown', onWindowKeydown);
     window.document.body.addEventListener('click', onBodyClick);
-    focusManager.capture(popperElement);
+    setTimeout(() => {
+      focusManager.capture(popperElement);
+    });
 
     return () => {
       window.removeEventListener('keydown', onWindowKeydown);

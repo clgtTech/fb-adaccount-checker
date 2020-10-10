@@ -1,7 +1,7 @@
 import type { AdAccount } from 'common-types';
 import React from 'react';
 import classNames from 'classnames';
-import { useAds } from 'context/ads-context';
+import { useAds, useUpdateAd } from 'context/ads-context';
 import { Loader } from 'components/loader';
 import { FacebookError } from 'components/facebook-error';
 import { NonIdealState } from 'components/non-ideal-state';
@@ -20,6 +20,11 @@ export function Ads({ className, accessToken, adAccount }: AdsProps) {
     accessToken,
     adAccount.id
   );
+  const [updateAd] = useUpdateAd({
+    onError: (error) => {
+      alert(error.response?.data.error.error_user_msg);
+    },
+  });
 
   if (isLoading) {
     return <Loader>Загрузка объявлений...</Loader>;
@@ -43,7 +48,13 @@ export function Ads({ className, accessToken, adAccount }: AdsProps) {
       <ul className={styles.adsList}>
         {ads.map((ad) => (
           <li key={ad.id}>
-            <AdItem adAccount={adAccount} ad={ad} />
+            <AdItem
+              adAccount={adAccount}
+              ad={ad}
+              onAdUpdate={async (update) => {
+                await updateAd({ adId: ad.id, accessToken, update });
+              }}
+            />
           </li>
         ))}
       </ul>

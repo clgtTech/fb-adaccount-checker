@@ -2,7 +2,7 @@ import {
   AccountStatus,
   AccountDisableReason,
   AdEffectiveStatus,
-  ActionType,
+  AdStatus,
 } from './enums';
 
 export type User = {
@@ -29,6 +29,7 @@ export type AdAccount = {
 export type Ad = {
   id: string;
   name: string;
+  status: AdStatus;
   effectiveStatus: AdEffectiveStatus;
   deliveryStatus: string;
   reviewFeedback: {
