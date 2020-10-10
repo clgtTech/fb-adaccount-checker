@@ -1,7 +1,8 @@
-import type { User } from 'common-types';
+import type { User, UserCustomNames } from 'common-types';
 import type { ServiceOptions } from './contetx-types';
 import type { FbApiError } from 'api/facebook-api';
 import pick from 'lodash/pick';
+import omit from 'lodash/omit';
 import { getUser } from 'api/facebook-api';
 import { useQuery } from 'react-query';
 import { useCallback, useEffect, useState } from 'react';
@@ -84,18 +85,66 @@ export function useSavedUsers() {
   };
 }
 
-const storageKey = 'FbAdAccountChecker:Users';
+export function useUserCustomNames() {
+  const [userCustomNames, setUserCustomNames] = useState(
+    getUserCustomNamesFromLocalStorage()
+  );
+  const saveUserCustomName = useCallback(
+    (userId: string, customName: string) => {
+      setUserCustomNames((userCustomNames) => {
+        userCustomNames = { ...userCustomNames, [userId]: customName };
+        saveUserCustomNamesToLocalStorage(userCustomNames);
+        return userCustomNames;
+      });
+    },
+    []
+  );
+  const removeUserCustomName = useCallback((userId: string) => {
+    setUserCustomNames((userCustomNames) => {
+      userCustomNames = omit(userCustomNames, [userId]);
+      saveUserCustomNamesToLocalStorage(userCustomNames);
+      return userCustomNames;
+    });
+  }, []);
+
+  return {
+    userCustomNames,
+    saveUserCustomName,
+    removeUserCustomName,
+  };
+}
+
+const usersStorageKey = 'FbAdAccountChecker:Users';
 
 function getUsersFromLocalStorage(): User[] {
   try {
-    const savedUsersJson = localStorage.getItem(storageKey);
+    const savedUsersJson = localStorage.getItem(usersStorageKey);
     return savedUsersJson ? JSON.parse(savedUsersJson) : [];
   } catch (e) {
-    localStorage.removeItem(storageKey);
+    localStorage.removeItem(usersStorageKey);
     return [];
   }
 }
 
 function saveUsersToLocalStorage(users: User[]) {
-  localStorage.setItem(storageKey, JSON.stringify(users));
+  localStorage.setItem(usersStorageKey, JSON.stringify(users));
+}
+
+const userCustomNamesStorageKey = 'FbAdAccountChecker:UserCustomNames';
+
+function getUserCustomNamesFromLocalStorage(): UserCustomNames {
+  try {
+    const userCustomNamesJson = localStorage.getItem(userCustomNamesStorageKey);
+    return userCustomNamesJson ? JSON.parse(userCustomNamesJson) : {};
+  } catch (e) {
+    localStorage.removeItem(userCustomNamesStorageKey);
+    return {};
+  }
+}
+
+function saveUserCustomNamesToLocalStorage(userCustomNames: UserCustomNames) {
+  localStorage.setItem(
+    userCustomNamesStorageKey,
+    JSON.stringify(userCustomNames)
+  );
 }

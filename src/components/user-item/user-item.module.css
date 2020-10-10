@@ -1,0 +1,98 @@
+.container {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0.5rem;
+  width: 10rem;
+  height: 100%;
+  text-align: center;
+  cursor: default;
+  color: var(--primary-text-color);
+  border-radius: 0.625rem;
+  border: 0.0625rem solid var(--tertiary-divide-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.container_active::before {
+  position: absolute;
+  top: -0.0625rem;
+  right: -0.0625rem;
+  bottom: -0.0625rem;
+  left: -0.0625rem;
+  display: block;
+  box-sizing: border-box;
+  content: '';
+  border-radius: inherit;
+  border: 0.1875rem solid var(--primary-color);
+  box-shadow: none;
+}
+
+.container:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm), var(--focus-ring);
+}
+
+.container > *:first-child {
+  border-top-right-radius: inherit;
+  border-top-left-radius: inherit;
+}
+
+.container > *:last-child {
+  border-bottom-right-radius: inherit;
+  border-bottom-left-radius: inherit;
+}
+
+.picture {
+  width: 100%;
+  object-fit: cover;
+  border-bottom: 0.0625rem solid var(--tertiary-divide-color);
+}
+
+.removeBtn {
+  position: absolute;
+  top: 0.375rem;
+  left: 0.375rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  cursor: pointer;
+  color: white;
+  border: 0.0625rem solid rgba(255, 255, 255, 0.75);
+  border-radius: 0.375rem;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 0.75rem;
+  appearance: none;
+}
+
+.removeBtn:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: var(--focus-ring);
+}
+
+.nameContainer,
+.subName,
+.id {
+  display: block;
+  margin: 0.25rem 0 0;
+}
+
+.nameContainer {
+  padding: 0 0.5rem;
+}
+
+.name {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.subName,
+.id {
+  opacity: 0.6;
+  font-size: var(--text-xs);
+  font-weight: 500;
+}

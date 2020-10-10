@@ -12,6 +12,10 @@ export type User = {
   accessToken: string;
 };
 
+export type UserCustomNames = {
+  [userId: string]: string;
+};
+
 export type AdAccount = {
   id: string;
   accountId: string;

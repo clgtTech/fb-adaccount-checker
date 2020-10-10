@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSavedUsers, useUser } from 'context/users-context';
 import { AccessTokenInput } from 'components/access-token-input';
 import { TokenHelp } from 'components/token-help';
@@ -12,20 +12,22 @@ export function App() {
   const [accessToken, setAccessToken] = useState(
     window.location.pathname.replace('/', '')
   );
+  useEffect(() => {
+    window.history.replaceState(
+      null,
+      window.document.title,
+      `/${accessToken || ''}`
+    );
+  }, [accessToken]);
+
   const { users, saveUser, removeUser } = useSavedUsers();
-  const { isLoading, isError, isSuccess, user, userLoadError } = useUser(
-    accessToken,
-    {
-      onSuccess: (user) => {
-        saveUser(user);
-        window.history.pushState(
-          null,
-          window.document.title,
-          `/${user.accessToken}`
-        );
-      },
-    }
-  );
+  const {
+    isLoading,
+    isError,
+    isSuccess,
+    user,
+    userLoadError,
+  } = useUser(accessToken, { onSuccess: saveUser });
 
   let content = null;
 
