@@ -36,7 +36,11 @@
   line-height: var(--leading-tight);
 }
 
-.id,
+
+.id {
+  margin: 0.75rem 0 0;
+}
+
 .body {
   margin: 0.75rem 0 0;
   color: var(--secondary-text-color);

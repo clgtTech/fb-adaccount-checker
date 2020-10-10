@@ -22,7 +22,10 @@ export function Ads({ className, accessToken, adAccount }: AdsProps) {
   );
   const [updateAd] = useUpdateAd({
     onError: (error) => {
-      alert(error.response?.data.error.error_user_msg);
+      alert(
+        error.response?.data.error.error_user_msg ||
+          'Не удалось обновить рекламное объявление.'
+      );
     },
   });
 
