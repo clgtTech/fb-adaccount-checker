@@ -1,0 +1,21 @@
+.skeleton,
+.fallback,
+.image {
+  display: inline-flex;
+}
+
+.skeleton,
+.fallback {
+  align-items: center;
+  justify-content: center;
+}
+
+.fallbackIcon {
+  font-size: 4.5rem;
+  opacity: 0.4;
+}
+
+.image {
+  max-width: 100%;
+  object-fit: cover;
+}
