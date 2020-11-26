@@ -1,7 +1,8 @@
 import type { User } from 'common-types';
-import React from 'react';
+import * as React from 'react';
 import classNames from 'classnames';
 import { InlineEdit } from 'components/inline-edit';
+import { UserPicture } from 'components/user-picture';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import styles from './user-item.module.css';
@@ -38,10 +39,10 @@ export function UserItem({
         }
       }}
     >
-      <img
+      <UserPicture
         className={styles.picture}
-        src={user.pictureUrl}
-        alt={user.name}
+        url={user.pictureUrl}
+        altText={user.name}
         width={160}
         height={160}
       />

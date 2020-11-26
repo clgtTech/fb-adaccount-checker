@@ -44,7 +44,7 @@
 
 .picture {
   width: 100%;
-  object-fit: cover;
+  min-height: 10rem;
   border-bottom: 0.0625rem solid var(--tertiary-divide-color);
 }
 
