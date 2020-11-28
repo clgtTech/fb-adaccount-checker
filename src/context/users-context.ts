@@ -1,9 +1,9 @@
-import type { User, UserCustomNames } from 'common-types';
+import type { User, Page, UserCustomNames } from 'common-types';
 import type { ServiceOptions } from './contetx-types';
 import type { FbApiError } from 'api/facebook-api';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
-import { getUser } from 'api/facebook-api';
+import { getUser, getUserPages } from 'api/facebook-api';
 import { useQuery } from 'react-query';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -40,6 +40,47 @@ export function useUser(
     userLoadStatus: query.status,
     userLoadError: query.error,
     user: query.data,
+  };
+}
+
+export function useUserPages(
+  user: User | null | undefined,
+  options?: ServiceOptions<Page[], FbApiError>
+) {
+  const queryFn = useCallback(
+    (key: string, params: { accessToken: string; userId: string }) => {
+      return getUserPages(params);
+    },
+    []
+  );
+  const queryKey: Parameters<typeof queryFn> = [
+    'userPages',
+    user
+      ? { accessToken: user.accessToken, userId: user.id }
+      : { accessToken: '', userId: '' },
+  ];
+  const query = useQuery<Page[], FbApiError>(queryKey, queryFn, {
+    refetchOnWindowFocus: false,
+    enabled: Boolean(user),
+    onError: options?.onError,
+    onSuccess: options?.onSuccess,
+  });
+
+  return {
+    ...pick(query, [
+      'isIdle',
+      'isLoading',
+      'isError',
+      'isSuccess',
+      'clear',
+      'refetch',
+    ]),
+    userPagesLoadStatus: query.status,
+    userPagesLoadError: query.error,
+    userPages: (query.data || []).reduce(
+      (pages, page) => pages.set(page.id, page),
+      new Map<string, Page>()
+    ),
   };
 }
 

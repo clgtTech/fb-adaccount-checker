@@ -3,6 +3,7 @@ import {
   AccountDisableReason,
   AdEffectiveStatus,
   AdStatus,
+  PageTask,
 } from './enums';
 
 export type User = {
@@ -10,6 +11,13 @@ export type User = {
   name: string;
   pictureUrl: string;
   accessToken: string;
+};
+
+export type Page = {
+  id: string;
+  name: string;
+  accessToken: string;
+  tasks: PageTask[];
 };
 
 export type UserCustomNames = {

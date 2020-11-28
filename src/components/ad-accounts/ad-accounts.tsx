@@ -1,4 +1,4 @@
-import type { AdAccount, User } from 'common-types';
+import type { AdAccount, User, Page } from 'common-types';
 import React, { useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { formatISODate } from 'shared/formatters';
@@ -17,6 +17,7 @@ import styles from './ad-accounts.module.css';
 export type AdAccountsProps = {
   className?: string;
   user: User;
+  userPages: Map<string, Page>;
 };
 
 export function AdAccounts({ className, user }: AdAccountsProps) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSavedUsers, useUser } from 'context/users-context';
+import { useSavedUsers, useUser, useUserPages } from 'context/users-context';
 import { AccessTokenInput } from 'components/access-token-input';
 import { TokenHelp } from 'components/token-help';
 import { SavedUsers } from 'components/saved-users';
@@ -21,26 +21,33 @@ export function App() {
   }, [accessToken]);
 
   const { users, saveUser, removeUser } = useSavedUsers();
-  const {
-    isLoading,
-    isError,
-    isSuccess,
-    user,
-    userLoadError,
-  } = useUser(accessToken, { onSuccess: saveUser });
+  const { user, userLoadError, ...userState } = useUser(accessToken, {
+    onSuccess: saveUser,
+  });
+  const { userPages, userPagesLoadError, ...userPagesState } = useUserPages(
+    user
+  );
 
+  const isLoading = userState.isLoading || userPagesState.isLoading;
+  const isSuccess = userState.isSuccess || userPagesState.isSuccess;
+  const loadError = userLoadError || userPagesLoadError;
   let content = null;
 
-  if (isLoading) {
+  if (userState.isLoading || userPagesState.isLoading) {
     content = (
       <Loader className={styles.loader}>Загрузка пользователя...</Loader>
     );
-  } else if (isError && userLoadError) {
-    content = <FacebookError className={styles.error} error={userLoadError} />;
   } else if (isSuccess && user) {
     content = (
-      <AdAccounts key={user.id} className={styles.adAccounts} user={user} />
+      <AdAccounts
+        key={user.id}
+        className={styles.adAccounts}
+        user={user}
+        userPages={userPages}
+      />
     );
+  } else if (loadError) {
+    content = <FacebookError className={styles.error} error={loadError} />;
   }
 
   return (

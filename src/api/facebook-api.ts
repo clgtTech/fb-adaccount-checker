@@ -1,4 +1,4 @@
-import type { Ad, AdAccount, User } from 'common-types';
+import type { Ad, AdAccount, User, Page } from 'common-types';
 import {
   AccountDisableReason,
   AccountStatus,
@@ -6,6 +6,7 @@ import {
   AdEffectiveStatus,
   AdStatus,
   Locale,
+  PageTask,
 } from 'enums';
 import startCase from 'lodash/startCase';
 import axios, { AxiosError } from 'axios';
@@ -58,6 +59,43 @@ export async function getUser(params: GetUserParams): Promise<User> {
     pictureUrl: response.data.picture?.data.url || '',
     accessToken: params.accessToken,
   };
+}
+
+/**
+ * @see https://developers.facebook.com/docs/graph-api/reference/page/#fields
+ * @see https://developers.facebook.com/docs/graph-api/reference/user/accounts
+ */
+export type FbPageNodeResponse = {
+  id: string;
+  access_token: string;
+  name: string;
+  tasks: PageTask[];
+};
+export type GetUserPagesParams = {
+  accessToken: string;
+  userId: string;
+  locale?: Locale;
+};
+export async function getUserPages(
+  params: GetUserPagesParams
+): Promise<Page[]> {
+  const response = await axios.get<{ data: FbPageNodeResponse[] }>(
+    `${API_URL}/${params.userId}/accounts`,
+    {
+      params: {
+        access_token: params.accessToken,
+        locale: params.locale,
+        limit: 100,
+        fields: ['id', 'access_token', 'name', 'tasks'].join(','),
+      },
+    }
+  );
+  return response.data.data.map((rawPage) => ({
+    id: rawPage.id,
+    name: rawPage.name,
+    accessToken: rawPage.access_token,
+    tasks: rawPage.tasks,
+  }));
 }
 
 /**
