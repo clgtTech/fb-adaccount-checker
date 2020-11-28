@@ -20,7 +20,7 @@ export const Comment = React.memo<CommentProps>(function Comment({
   const isEditable = Boolean(
     page && page.accessToken && page.tasks.includes(PageTask.MODERATE)
   );
-  const [updateComment, { isLoading }] = useUpdateComment({
+  const [updateComment] = useUpdateComment({
     onError: (error) => {
       alert(
         error.response?.data.error.error_user_msg ||
@@ -63,7 +63,6 @@ export const Comment = React.memo<CommentProps>(function Comment({
           <button
             className={styles.actionBtn}
             type="button"
-            disabled={isLoading}
             onClick={() => {
               return updateComment({
                 commentId: comment.id,
