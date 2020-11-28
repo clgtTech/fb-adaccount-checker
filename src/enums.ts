@@ -123,3 +123,8 @@ export enum PageTask {
   PROFILE_PLUS_MESSAGING = 'PROFILE_PLUS_MESSAGING',
   CASHIER_ROLE = 'CASHIER_ROLE',
 }
+
+export enum CommentsOrder {
+  chronological = 'chronological',
+  reverse_chronological = 'reverse_chronological',
+}

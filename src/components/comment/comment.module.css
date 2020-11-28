@@ -1,0 +1,61 @@
+.container {
+  position: relative;
+  display: flex;
+  margin: 0;
+  padding: 0 0 0 0.5rem;
+}
+
+.profileImage {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  transform: translateY(0.25rem);
+  object-fit: cover;
+  border: 0.0625rem solid var(--tertiary-divide-color);
+  border-radius: 50%;
+}
+
+.innerWrapper {
+}
+
+.contents {
+  width: 100%;
+  margin: 0 0 0 0.75rem;
+  padding: 0.5rem 1rem;
+  color: var(--primary-text-color);
+  border-radius: 0.75rem;
+  background: var(--tertiary-bg-color);
+  font-size: var(--text-base);
+}
+
+.author {
+  display: inline-block;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.createdTime {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: var(--text-sm);
+  color: var(--secondary-text-color);
+}
+
+.message {
+  display: block;
+  margin: 0.5rem 0 0;
+  color: inherit;
+  line-height: 1.375;
+}
+
+.message:hover {
+  cursor: alias;
+}
+
+.actions {
+}
+
+.container_isHidden .profileImage,
+.container_isHidden .contents {
+  opacity: 0.6;
+}

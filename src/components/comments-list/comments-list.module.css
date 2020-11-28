@@ -1,0 +1,13 @@
+.container {
+  display: block;
+}
+
+.fallbackText {
+}
+
+.fallbackText_error {
+}
+
+.comments > * + * {
+  margin-top: 2rem;
+}

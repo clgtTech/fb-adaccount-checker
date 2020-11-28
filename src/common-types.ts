@@ -45,10 +45,24 @@ export type Ad = {
   };
   creativeBody: string;
   creativeThumbnailUrl: string;
+  creativePagePostId: string;
   spend: number;
   stats?: {
     action: string;
     results: number;
     costPerResult: number;
+  };
+};
+
+export type Comment = {
+  id: string;
+  message: string;
+  permalinkUrl: string;
+  isHidden: boolean;
+  createdAt: string;
+  from: {
+    id: string;
+    name: string;
+    pictureUrl: string;
   };
 };

@@ -1,10 +1,11 @@
-import type { Ad, AdAccount, User, Page } from 'common-types';
+import type { Ad, AdAccount, User, Page, Comment } from 'common-types';
 import {
   AccountDisableReason,
   AccountStatus,
   ActionType,
   AdEffectiveStatus,
   AdStatus,
+  CommentsOrder,
   Locale,
   PageTask,
 } from 'enums';
@@ -33,7 +34,7 @@ export type FbApiError = AxiosError<FbApiErrorResponse>;
  * @see https://developers.facebook.com/docs/graph-api/using-graph-api#me
  * @see https://developers.facebook.com/docs/graph-api/reference/user
  */
-export type FbMeNodeResponse = {
+export type FbMeNode = {
   id: string;
   name: string;
   picture: {
@@ -46,7 +47,7 @@ export type GetUserParams = {
   locale?: Locale;
 };
 export async function getUser(params: GetUserParams): Promise<User> {
-  const response = await axios.get<FbMeNodeResponse>(`${API_URL}/me`, {
+  const response = await axios.get<FbMeNode>(`${API_URL}/me`, {
     params: {
       access_token: params.accessToken,
       locale: params.locale || Locale.Ru,
@@ -65,7 +66,7 @@ export async function getUser(params: GetUserParams): Promise<User> {
  * @see https://developers.facebook.com/docs/graph-api/reference/page/#fields
  * @see https://developers.facebook.com/docs/graph-api/reference/user/accounts
  */
-export type FbPageNodeResponse = {
+export type FbPageNode = {
   id: string;
   access_token: string;
   name: string;
@@ -79,12 +80,12 @@ export type GetUserPagesParams = {
 export async function getUserPages(
   params: GetUserPagesParams
 ): Promise<Page[]> {
-  const response = await axios.get<{ data: FbPageNodeResponse[] }>(
+  const response = await axios.get<{ data: FbPageNode[] }>(
     `${API_URL}/${params.userId}/accounts`,
     {
       params: {
         access_token: params.accessToken,
-        locale: params.locale,
+        locale: params.locale || Locale.Ru,
         limit: 100,
         fields: ['id', 'access_token', 'name', 'tasks'].join(','),
       },
@@ -166,6 +167,7 @@ export async function getAdAccounts(
 
 /**
  * @see https://developers.facebook.com/docs/marketing-api/reference/adgroup
+ * @see https://developers.facebook.com/docs/marketing-api/reference/ad-creative
  */
 export type FbAdNode = {
   id: string;
@@ -184,6 +186,7 @@ export type FbAdNode = {
     id: string;
     body?: string;
     thumbnail_url?: string;
+    effective_object_story_id?: string;
   };
   insights?: {
     data?: [
@@ -244,7 +247,7 @@ export async function getAds(params: GetAdsParams): Promise<Ad[]> {
           'effective_status',
           'delivery_info',
           'ad_review_feedback{global}',
-          'creative.thumbnail_width(200).thumbnail_height(200){body,thumbnail_url}',
+          'creative.thumbnail_width(200).thumbnail_height(200){body,thumbnail_url,effective_object_story_id}',
           'insights.date_preset(lifetime){spend,results,cost_per_result}',
           'recommendations',
           'issues_info',
@@ -262,6 +265,7 @@ export async function getAds(params: GetAdsParams): Promise<Ad[]> {
       reviewFeedback: rawAd.ad_review_feedback?.global || {},
       creativeBody: rawAd.creative?.body || '',
       creativeThumbnailUrl: rawAd.creative?.thumbnail_url || '',
+      creativePagePostId: rawAd.creative?.effective_object_story_id || '',
       spend: Number(rawAd.insights?.data?.[0].spend) || 0,
     };
 
@@ -316,4 +320,70 @@ export async function updateAd(
     }
   );
   return response.data;
+}
+
+/**
+ * @see https://developers.facebook.com/docs/graph-api/reference/comment/
+ * @see https://developers.facebook.com/docs/graph-api/reference/post/comments/
+ */
+export type FbCommentNode = {
+  id: string;
+  message: string;
+  permalink_url: string;
+  is_hidden: boolean;
+  created_time: string;
+  from: {
+    id: string;
+    name: string;
+    picture?: {
+      data?: {
+        width: number;
+        height: number;
+        url: string;
+      };
+    };
+  };
+};
+
+export type GetCommentsParams = {
+  accessToken: string;
+  pagePostId: string;
+  order?: CommentsOrder;
+  locale?: string;
+};
+
+export async function getPostComments(
+  params: GetCommentsParams
+): Promise<Comment[]> {
+  const response = await axios.get<{ data: FbCommentNode[] }>(
+    `${API_URL}/${params.pagePostId}/comments`,
+    {
+      params: {
+        access_token: params.accessToken,
+        locale: params.locale || Locale.Ru,
+        order: params.order || CommentsOrder.reverse_chronological,
+        limit: 100,
+        fields: [
+          'id',
+          'message',
+          'permalink_url',
+          'is_hidden',
+          'created_time',
+          'from{id,name,picture.width(64).height(64)}',
+        ].join(','),
+      },
+    }
+  );
+  return response.data.data.map((rawComment) => ({
+    id: rawComment.id,
+    message: rawComment.message,
+    permalinkUrl: rawComment.permalink_url,
+    isHidden: rawComment.is_hidden,
+    createdAt: rawComment.created_time,
+    from: {
+      id: rawComment.from.id,
+      name: rawComment.from.name,
+      pictureUrl: rawComment.from.picture?.data?.url || '',
+    },
+  }));
 }

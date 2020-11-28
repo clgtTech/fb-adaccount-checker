@@ -1,11 +1,12 @@
 import type { AdAccount } from 'common-types';
-import React from 'react';
+import * as React from 'react';
 import classNames from 'classnames';
 import { useAds, useUpdateAd } from 'context/ads-context';
 import { Loader } from 'components/loader';
 import { FacebookError } from 'components/facebook-error';
 import { NonIdealState } from 'components/non-ideal-state';
 import { AdItem } from 'components/ad-item';
+import { Comments } from 'components/comments';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
 import styles from './ads.module.css';
 
@@ -52,11 +53,16 @@ export function Ads({ className, accessToken, adAccount }: AdsProps) {
         {ads.map((ad) => (
           <li key={ad.id}>
             <AdItem
-              adAccount={adAccount}
               ad={ad}
+              adAccount={adAccount}
               onAdUpdate={async (update) => {
                 await updateAd({ adId: ad.id, accessToken, update });
               }}
+            />
+            <Comments
+              className={styles.comments}
+              accessToken={accessToken}
+              pagePostId={ad.creativePagePostId}
             />
           </li>
         ))}

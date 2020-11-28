@@ -12,3 +12,7 @@
   padding-top: 2rem;
   border-top: 0.0625rem solid var(--secondary-divide-color);
 }
+
+.comments {
+  margin-top: 2rem;
+}
