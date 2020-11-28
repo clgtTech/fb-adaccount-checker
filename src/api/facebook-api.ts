@@ -387,3 +387,36 @@ export async function getPostComments(
     },
   }));
 }
+
+export type UpdateCommentParams = {
+  commentId: string;
+  pageAccessToken: string;
+  update: {
+    message?: string;
+    isHidden?: boolean;
+  };
+  locale?: Locale;
+};
+
+export type UpdateCommentResult = {
+  success: boolean;
+};
+
+export async function updateComment(
+  params: UpdateCommentParams
+): Promise<UpdateCommentResult> {
+  const response = await axios.post<UpdateCommentResult>(
+    `${API_URL}/${params.commentId}`,
+    {
+      message: params.update.message,
+      is_hidden: params.update.isHidden,
+    },
+    {
+      params: {
+        access_token: params.pageAccessToken,
+        locale: params.locale || Locale.Ru,
+      },
+    }
+  );
+  return response.data;
+}

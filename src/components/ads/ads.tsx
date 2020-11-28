@@ -1,4 +1,4 @@
-import type { AdAccount } from 'common-types';
+import type { AdAccount, Page } from 'common-types';
 import * as React from 'react';
 import classNames from 'classnames';
 import { useAds, useUpdateAd } from 'context/ads-context';
@@ -14,9 +14,15 @@ export type AdsProps = {
   className?: string;
   accessToken: string;
   adAccount: AdAccount;
+  userPages: Map<string, Page>;
 };
 
-export function Ads({ className, accessToken, adAccount }: AdsProps) {
+export function Ads({
+  className,
+  accessToken,
+  adAccount,
+  userPages,
+}: AdsProps) {
   const { isLoading, isError, ads, adsLoadError } = useAds(
     accessToken,
     adAccount.id
@@ -63,6 +69,7 @@ export function Ads({ className, accessToken, adAccount }: AdsProps) {
               className={styles.comments}
               accessToken={accessToken}
               pagePostId={ad.creativePagePostId}
+              page={userPages.get(ad.creativePagePostId.split('_')[0])}
             />
           </li>
         ))}

@@ -20,7 +20,7 @@ export type AdAccountsProps = {
   userPages: Map<string, Page>;
 };
 
-export function AdAccounts({ className, user }: AdAccountsProps) {
+export function AdAccounts({ className, user, userPages }: AdAccountsProps) {
   const { isLoading, isError, adAccounts, adAccountsLoadError } = useAdAccounts(
     user
   );
@@ -61,7 +61,11 @@ export function AdAccounts({ className, user }: AdAccountsProps) {
         <SectionTitle className={styles.adsTitle}>Объявления</SectionTitle>
         <div className={styles.adsContents}>
           {selectedAdAccount ? (
-            <Ads accessToken={user.accessToken} adAccount={selectedAdAccount} />
+            <Ads
+              accessToken={user.accessToken}
+              adAccount={selectedAdAccount}
+              userPages={userPages}
+            />
           ) : (
             <NonIdealState
               className={styles.noAds}

@@ -1,3 +1,4 @@
+import { Page } from 'common-types';
 import * as React from 'react';
 import classNames from 'classnames';
 import { CommentsList } from 'components/comments-list';
@@ -10,12 +11,14 @@ export type CommentsProps = {
   className?: string;
   accessToken: string;
   pagePostId: string;
+  page?: Page;
 };
 
 export function Comments({
   className,
   accessToken,
   pagePostId,
+  page,
 }: CommentsProps) {
   const [isExpanded, setIsExpanded] = React.useState(false);
   return (
@@ -37,6 +40,7 @@ export function Comments({
           className={styles.commentsList}
           accessToken={accessToken}
           pagePostId={pagePostId}
+          page={page}
         />
       ) : null}
     </div>

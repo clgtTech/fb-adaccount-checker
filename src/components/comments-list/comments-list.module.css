@@ -2,12 +2,6 @@
   display: block;
 }
 
-.fallbackText {
-}
-
-.fallbackText_error {
-}
-
 .comments > * + * {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }

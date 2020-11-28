@@ -16,11 +16,12 @@
 }
 
 .innerWrapper {
+  margin: 0 0 0 0.75rem;
 }
 
 .contents {
   width: 100%;
-  margin: 0 0 0 0.75rem;
+  margin: 0;
   padding: 0.5rem 1rem;
   color: var(--primary-text-color);
   border-radius: 0.75rem;
@@ -52,7 +53,34 @@
   cursor: alias;
 }
 
-.actions {
+.actionBtn {
+  margin: 0.125rem 0 0;
+  padding: 0.25rem 0.5rem;
+  transition: var(--transition);
+  transition-property: color;
+  cursor: pointer;
+  color: var(--primary-text-color);
+  border: none;
+  border-radius: 0.25rem;
+  background: none;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  line-height: 1;
+  appearance: none;
+}
+
+.actionBtn:focus {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.actionBtn:hover {
+  color: var(--primary-color);
+}
+
+.actionBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .container_isHidden .profileImage,

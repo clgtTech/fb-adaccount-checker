@@ -1,3 +1,4 @@
+import type { Page } from 'common-types';
 import * as React from 'react';
 import classNames from 'classnames';
 import { usePostComments } from 'context/comments-context';
@@ -10,12 +11,14 @@ export type CommentsListProps = {
   className?: string;
   accessToken: string;
   pagePostId: string;
+  page?: Page;
 };
 
 export function CommentsList({
   className,
   accessToken,
   pagePostId,
+  page,
 }: CommentsListProps) {
   const {
     isLoading,
@@ -38,7 +41,8 @@ export function CommentsList({
     content = postComments.length ? (
       <div className={styles.comments}>
         {postComments.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
+          // TODO: find how to pass page object without prop drilling
+          <Comment key={comment.id} comment={comment} page={page} />
         ))}
       </div>
     ) : (

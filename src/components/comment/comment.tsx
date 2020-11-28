@@ -1,15 +1,34 @@
-import type { Comment as CommentType } from 'common-types';
+import type { Comment as CommentType, Page } from 'common-types';
+import { PageTask } from 'enums';
 import * as React from 'react';
 import classNames from 'classnames';
 import { formatDateTime } from 'shared/formatters';
+import { useUpdateComment } from 'context/comments-context';
 import styles from './comment.module.css';
 
 export type CommentProps = {
   className?: string;
   comment: CommentType;
+  page?: Page;
 };
 
-export function Comment({ className, comment }: CommentProps) {
+export const Comment = React.memo<CommentProps>(function Comment({
+  className,
+  comment,
+  page,
+}) {
+  const isEditable = Boolean(
+    page && page.accessToken && page.tasks.includes(PageTask.MODERATE)
+  );
+  const [updateComment, { isLoading }] = useUpdateComment({
+    onError: (error) => {
+      alert(
+        error.response?.data.error.error_user_msg ||
+          'Не удалось обновить комментарий.'
+      );
+    },
+  });
+
   return (
     <div
       className={classNames(
@@ -40,7 +59,23 @@ export function Comment({ className, comment }: CommentProps) {
             {comment.message}
           </a>
         </div>
+        {isEditable ? (
+          <button
+            className={styles.actionBtn}
+            type="button"
+            disabled={isLoading}
+            onClick={() => {
+              return updateComment({
+                commentId: comment.id,
+                pageAccessToken: (page as Page).accessToken,
+                update: { isHidden: !comment.isHidden },
+              });
+            }}
+          >
+            {comment.isHidden ? 'Показать комментарий' : 'Скрыть комментарий'}
+          </button>
+        ) : null}
       </div>
     </div>
   );
-}
+});
