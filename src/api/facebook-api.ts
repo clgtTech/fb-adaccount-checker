@@ -362,7 +362,7 @@ export async function getPostComments(
         access_token: params.accessToken,
         locale: params.locale || Locale.Ru,
         order: params.order || CommentsOrder.reverse_chronological,
-        limit: 100,
+        limit: 1000,
         fields: [
           'id',
           'message',
