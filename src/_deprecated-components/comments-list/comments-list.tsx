@@ -2,9 +2,9 @@ import type { Page } from 'common-types';
 import * as React from 'react';
 import classNames from 'classnames';
 import { usePostComments } from 'context/comments-context';
-import { Loader } from 'components/loader';
-import { NonIdealState } from 'components/non-ideal-state';
-import { Comment } from 'components/comment';
+import { Loader } from '_deprecated-components/loader';
+import { NonIdealState } from '_deprecated-components/non-ideal-state';
+import { Comment } from '_deprecated-components/comment';
 import styles from './comments-list.module.css';
 import { useState } from 'react';
 

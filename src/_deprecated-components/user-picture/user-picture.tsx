@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { QueryStatus } from 'react-query';
-import { Loader } from 'components/loader';
+import { Loader } from '_deprecated-components/loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons/faUserSecret';
 import styles from './user-picture.module.css';

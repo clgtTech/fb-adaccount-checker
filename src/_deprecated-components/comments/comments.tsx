@@ -1,7 +1,7 @@
 import { Page } from 'common-types';
 import * as React from 'react';
 import classNames from 'classnames';
-import { CommentsList } from 'components/comments-list';
+import { CommentsList } from '_deprecated-components/comments-list';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';

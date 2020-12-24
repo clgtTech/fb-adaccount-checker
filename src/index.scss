@@ -1,0 +1,18 @@
+@import '~draft-components/dist/scss/draft-components';
+
+body {
+  text-align: left;
+  letter-spacing: $tracking-normal;
+  font-family: $font-sans-serif;
+  font-weight: normal;
+  direction: ltr;
+}
+
+a {
+  text-decoration: none;
+  color: $blue-500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

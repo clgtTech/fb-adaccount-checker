@@ -2,11 +2,11 @@ import type { AdAccount, Page } from 'common-types';
 import * as React from 'react';
 import classNames from 'classnames';
 import { useAds, useUpdateAd } from 'context/ads-context';
-import { Loader } from 'components/loader';
-import { FacebookError } from 'components/facebook-error';
-import { NonIdealState } from 'components/non-ideal-state';
-import { AdItem } from 'components/ad-item';
-import { Comments } from 'components/comments';
+import { Loader } from '_deprecated-components/loader';
+import { FacebookError } from '_deprecated-components/facebook-error';
+import { NonIdealState } from '_deprecated-components/non-ideal-state';
+import { AdItem } from '_deprecated-components/ad-item';
+import { Comments } from '_deprecated-components/comments';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
 import styles from './ads.module.css';
 

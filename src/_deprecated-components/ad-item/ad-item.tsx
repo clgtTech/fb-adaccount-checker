@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { AccountStatus, AdStatus } from 'enums';
 import { formatMonetaryValue, formatNumber } from 'shared/formatters';
-import { Toggle } from 'components/toggle';
-import { InlineEdit } from 'components/inline-edit';
+import { Toggle } from '_deprecated-components/toggle';
+import { InlineEdit } from '_deprecated-components/inline-edit';
 import styles from './ad-item.module.css';
 import imagePlaceholder from './image-placeholder.png';
 

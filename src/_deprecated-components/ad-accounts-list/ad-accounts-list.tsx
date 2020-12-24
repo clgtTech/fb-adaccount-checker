@@ -1,8 +1,8 @@
 import type { AdAccount } from 'common-types';
-import type { AdAccountItemProps } from 'components/ad-account-item';
+import type { AdAccountItemProps } from '_deprecated-components/ad-account-item';
 import React from 'react';
 import classNames from 'classnames';
-import { AdAccountItem } from 'components/ad-account-item';
+import { AdAccountItem } from '_deprecated-components/ad-account-item';
 import styles from './ad-accounts-list.module.css';
 
 export type AdAccountsListProps = {

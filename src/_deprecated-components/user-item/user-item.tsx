@@ -1,8 +1,8 @@
 import type { User } from 'common-types';
 import * as React from 'react';
 import classNames from 'classnames';
-import { InlineEdit } from 'components/inline-edit';
-import { UserPicture } from 'components/user-picture';
+import { InlineEdit } from '_deprecated-components/inline-edit';
+import { UserPicture } from '_deprecated-components/user-picture';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import styles from './user-item.module.css';

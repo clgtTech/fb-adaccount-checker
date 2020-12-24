@@ -2,8 +2,8 @@ import type { User } from 'common-types';
 import React from 'react';
 import classNames from 'classnames';
 import { useUserCustomNames } from 'context/users-context';
-import { SectionTitle } from 'components/section-title';
-import { UserItem } from 'components/user-item';
+import { SectionTitle } from '_deprecated-components/section-title';
+import { UserItem } from '_deprecated-components/user-item';
 import styles from './saved-users.module.css';
 
 export type SavedUsersProps = {

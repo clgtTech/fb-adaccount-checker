@@ -1,7 +1,7 @@
-import type { NonIdealStateProps } from 'components/non-ideal-state';
+import type { NonIdealStateProps } from '_deprecated-components/non-ideal-state';
 import React from 'react';
 import { FbApiError } from 'api/facebook-api';
-import { NonIdealState } from 'components/non-ideal-state';
+import { NonIdealState } from '_deprecated-components/non-ideal-state';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons/faExclamationCircle';
 
 export type FacebookErrorProps = {
