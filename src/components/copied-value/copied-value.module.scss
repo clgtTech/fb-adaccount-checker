@@ -1,0 +1,12 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: copy;
+  font: inherit;
+}
+
+.icon {
+  margin-left: $gap-1x;
+}

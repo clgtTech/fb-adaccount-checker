@@ -1,0 +1,18 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.wrapper {
+  border-radius: $border-radius-md;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.labelText {
+  margin-left: $gap-2x;
+}
+
+.fbIcon {
+  font-size: 1.25rem;
+}
