@@ -27,6 +27,8 @@
     "draft-components": "^0.18.0",
     "focus-manager": "^0.4.1",
     "lodash": "^4.17.20",
+    "mobx": "^6.0.4",
+    "mobx-react-lite": "^3.1.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-popper": "^2.2.4",
