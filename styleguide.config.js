@@ -6,6 +6,9 @@ module.exports = {
   require: [path.join(__dirname, 'src/index.scss')],
   serverPort: 3040,
   skipComponentsWithoutExample: true,
+  styleguideComponents: {
+    Wrapper: path.join(__dirname, 'src/styleguide/wrapper'),
+  },
   theme: {
     fontFamily: {
       base: 'var(--dc-font-base)',
