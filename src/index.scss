@@ -1,5 +1,10 @@
 @import '~draft-components/dist/scss/draft-components';
 
+:root {
+  --sidebar-width: 20rem;
+  --header-height: 4rem;
+}
+
 body {
   text-align: left;
   letter-spacing: $tracking-normal;

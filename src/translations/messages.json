@@ -1,0 +1,41 @@
+{
+  "components.AccessTokenField.label": {
+    "defaultMessage": "Access Token:"
+  },
+  "components.AccessTokenField.placeholder": {
+    "defaultMessage": "paste access token"
+  },
+  "components.AccessTokenHelp.step1.content": {
+    "defaultMessage": "Open Dev Tools on <link>Facebook Ads Manager</link> page: right-click on the page and select <strong>Inspect</strong>. Or press <kbd>Command ⌘</kbd> + <kbd>Option ⌥</kbd> + <kbd>C</kbd> (Mac) or <kbd>Control</kbd> + <kbd>Shift ⇧</kbd> + <kbd>C</kbd> (Windows, Linux)."
+  },
+  "components.AccessTokenHelp.step1.imgAltText": {
+    "defaultMessage": "Context menu in a browser with selected \"Inspect\" item"
+  },
+  "components.AccessTokenHelp.step2.content": {
+    "defaultMessage": "Jump into the <strong>Console</strong> panel and execute the following {snippet} code to displaying the Access Token."
+  },
+  "components.AccessTokenHelp.step2.imgAltText": {
+    "defaultMessage": "Browser Console panel"
+  },
+  "components.AccessTokenHelp.title": {
+    "defaultMessage": "How to get the Access Token?"
+  },
+  "components.Sidebar.searchFieldPlaceholder": {
+    "defaultMessage": "Search users by name"
+  },
+  "components.Sidebar.title": {
+    "defaultMessage": "History"
+  },
+  "components.SidebarSwitch.children": {
+    "defaultMessage": "Users"
+  },
+  "components.UserNavLink.changeNameAction": {
+    "defaultMessage": "Change name"
+  },
+  "components.UserNavLink.deleteAction": {
+    "defaultMessage": "Delete"
+  },
+  "components.UserNavLink.userIdTerm": {
+    "defaultMessage": "User ID:"
+  }
+}

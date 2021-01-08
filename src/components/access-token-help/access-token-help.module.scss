@@ -75,15 +75,17 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
     width: 1.75rem;
     height: 1.75rem;
     margin-right: $gap-4x;
     content: counters(step, '');
-    color: $white;
+    color: $blue-500;
     border-radius: 50%;
-    background: $green-500;
+    border: 0.125rem solid currentColor;
+    background: none;
     font-size: $font-size-sm;
-    font-weight: $font-weight-semi-bold;
+    font-weight: $font-weight-bold;
   }
 }
 

@@ -1,12 +1,13 @@
 import * as React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import {
   classNames,
   uniqueId,
   Spinner,
   TextField,
   TextFieldHtmlAttrs,
+  SvgIcon,
 } from 'draft-components';
-import { BoxIcon } from 'components/box-icon';
 import styles from './access-token-field.module.scss';
 
 export interface TokenFieldProps extends TextFieldHtmlAttrs {
@@ -21,8 +22,8 @@ export function AccessTokenField({
   id,
   className,
   readOnly,
-  label = 'Токен доступа:',
-  placeholder = 'введите токен доступа',
+  label,
+  placeholder,
   isLoading,
   delay = 500,
   value,
@@ -30,11 +31,11 @@ export function AccessTokenField({
   onValueChange,
   ...props
 }: TokenFieldProps) {
+  const intl = useIntl();
   const [inputValue, setInputValue] = React.useState(value || '');
   const inputId = React.useRef(id || uniqueId('access-token-'));
   const debouncedOnValueChange = React.useMemo(() => {
     let timeout: number;
-
     return (value: string): void => {
       window.clearTimeout(timeout);
       timeout = window.setTimeout(() => {
@@ -55,15 +56,28 @@ export function AccessTokenField({
       size="lg"
       id={inputId.current}
       readOnly={readOnly || isLoading}
-      placeholder={placeholder}
+      placeholder={
+        placeholder ??
+        intl.formatMessage({
+          id: 'components.AccessTokenField.placeholder',
+          defaultMessage: 'paste access token',
+        })
+      }
       leadingAddOn={
         <label className={styles.label} htmlFor={inputId.current}>
-          <BoxIcon
-            className={styles.fbIcon}
+          <SvgIcon
             icon="facebook-circle"
             linearGradient={['to bottom', '#19afff', '#0062e0']}
+            size="lg"
           />
-          <span className={styles.labelText}>{label}</span>
+          <span className={styles.labelText}>
+            {label ?? (
+              <FormattedMessage
+                id="components.AccessTokenField.label"
+                defaultMessage="Access Token:"
+              />
+            )}
+          </span>
         </label>
       }
       trailingAddOn={isLoading ? <Spinner size={18} /> : null}

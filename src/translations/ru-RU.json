@@ -1,0 +1,15 @@
+{
+	"components.AccessTokenField.label": "Маркер доступа:",
+	"components.AccessTokenField.placeholder": "вставьте маркер доступа",
+	"components.AccessTokenHelp.step1.content": "На странице <link>Facebook Ads Manager</link> откройте инструменты разработчика: щелкните правой кнопкой мыши на странице и выберите <strong>Посмотреть код</strong> (Inspect). Или нажмите <kbd>Command ⌘</kbd> + <kbd>Option ⌥</kbd> + <kbd>C</kbd> (Mac) или <kbd>Control</kbd> + <kbd>Shift ⇧</kbd> + <kbd>C</kbd> (Windows, Linux).",
+	"components.AccessTokenHelp.step1.imgAltText": "Контекстное меню в браузере с выбранным пунктом \"Посмотреть код\"",
+	"components.AccessTokenHelp.step2.content": "Перейдите во вкладку <strong>Консоль</strong> (Console) и выполните следующий {snippet} код для отображения маркера доступа.",
+	"components.AccessTokenHelp.step2.imgAltText": "Панель Консоль в браузере",
+	"components.AccessTokenHelp.title": "Как получить маркер доступа?",
+	"components.Sidebar.searchFieldPlaceholder": "Поиск пользователей по имени",
+	"components.Sidebar.title": "История",
+	"components.SidebarSwitch.children": "Пользователи",
+	"components.UserNavLink.changeNameAction": "Изменить имя",
+	"components.UserNavLink.deleteAction": "Удалить",
+	"components.UserNavLink.userIdTerm": "ID Пользователя:"
+}

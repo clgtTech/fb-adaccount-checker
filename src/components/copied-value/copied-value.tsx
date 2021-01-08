@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { classNames } from 'draft-components';
-import { copyToClipboard } from 'shared/util';
-import { BoxIcon } from 'components/box-icon';
+import { classNames, SvgIcon } from 'draft-components';
+import { copyToClipboard } from '../../shared/util';
 import styles from './copied-value.module.scss';
 
 // prettier-ignore
@@ -19,13 +18,14 @@ export function CopiedValue({
   return (
     <span
       {...props}
-      className={classNames(className, styles.wrapper)}
+      className={classNames(className, styles.container)}
       onClick={(event) => {
         copyToClipboard(value);
         onClick?.(event);
       }}
     >
-      {children || value} <BoxIcon className={styles.icon} icon="copy" />
+      {children || value}
+      <SvgIcon className={styles.icon} icon="copy" />
     </span>
   );
 }
