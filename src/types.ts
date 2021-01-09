@@ -9,3 +9,9 @@ export enum AsyncActionStatus {
   error = 'error',
   success = 'success',
 }
+
+export interface ErrorPresenter {
+  message: string;
+  userTitle: string;
+  userMessage: string;
+}

@@ -1,5 +1,4 @@
 import * as mobx from 'mobx';
-import { AxiosError } from 'axios';
 import { AsyncActionStatus, Locale } from '../types';
 import { DEFAULT_LOCALE } from '../constants';
 import { UserApi, UserStore } from './user-store';
@@ -13,7 +12,7 @@ export class SessionStore {
   accessToken: string = '';
   authenticatedUserId: string = '';
   authStatus: AsyncActionStatus = AsyncActionStatus.idle;
-  authError: AxiosError | null = null;
+  authError: Error | null = null;
   locale: Locale = DEFAULT_LOCALE;
 
   constructor(

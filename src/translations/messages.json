@@ -1,4 +1,22 @@
 {
+  "apiErrors.oauthError.message": {
+    "defaultMessage": "Try to get a new access token."
+  },
+  "apiErrors.oauthError.title": {
+    "defaultMessage": "Access Token has expired, been revoked, or is invalid"
+  },
+  "apiErrors.serverError.message": {
+    "defaultMessage": "Something went wrong on Facebook's end. Wait a bit and retry the latest action again."
+  },
+  "apiErrors.serverError.title": {
+    "defaultMessage": "Facebook API is unavailable or can not handle the request"
+  },
+  "apiErrors.unknownError.message": {
+    "defaultMessage": "Possibly a temporary issue. Wait a bit and retry the latest action again."
+  },
+  "apiErrors.unknownError.title": {
+    "defaultMessage": "An unknown error occurred during the request"
+  },
   "components.AccessTokenField.label": {
     "defaultMessage": "Access Token:"
   },
@@ -37,5 +55,11 @@
   },
   "components.UserNavLink.userIdTerm": {
     "defaultMessage": "User ID:"
+  },
+  "errors.unknownError.message": {
+    "defaultMessage": "Possibly a temporary issue. Try to refresh the page, sometimes it helps 😉"
+  },
+  "errors.unknownError.title": {
+    "defaultMessage": "An unknown error occurred"
   }
 }

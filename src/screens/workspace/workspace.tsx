@@ -4,6 +4,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Spinner } from 'draft-components';
 import { AsyncActionStatus } from '../../types';
 import { stores } from '../../stores';
+import { createErrorPresenter } from '../../presenters/error-presenter';
 import styles from './workspace.module.scss';
 
 export const Workspace = mobxReact.observer(function Workspace() {
@@ -29,10 +30,19 @@ export const Workspace = mobxReact.observer(function Workspace() {
     return <Spinner />;
   }
 
-  if (sessionStore.authStatus === AsyncActionStatus.error) {
+  if (
+    sessionStore.authStatus === AsyncActionStatus.error &&
+    sessionStore.authError
+  ) {
     return (
       <div style={{ color: 'tomato' }}>
-        <pre>{JSON.stringify(sessionStore.authError, null, 4)}</pre>
+        <pre>
+          {JSON.stringify(
+            createErrorPresenter(sessionStore.authError),
+            null,
+            4
+          )}
+        </pre>
       </div>
     );
   }

@@ -1,4 +1,10 @@
 {
+	"apiErrors.oauthError.message": "Try to get a new access token.",
+	"apiErrors.oauthError.title": "Access Token has expired, been revoked, or is invalid",
+	"apiErrors.serverError.message": "Something went wrong on Facebook's end. Wait a bit and retry the latest action again.",
+	"apiErrors.serverError.title": "Facebook API is unavailable or can not handle the request",
+	"apiErrors.unknownError.message": "Possibly a temporary issue. Wait a bit and retry the latest action again.",
+	"apiErrors.unknownError.title": "An unknown error occurred during the request",
 	"components.AccessTokenField.label": "Access Token:",
 	"components.AccessTokenField.placeholder": "paste access token",
 	"components.AccessTokenHelp.step1.content": "Open Dev Tools on <link>Facebook Ads Manager</link> page: right-click on the page and select <strong>Inspect</strong>. Or press <kbd>Command ⌘</kbd> + <kbd>Option ⌥</kbd> + <kbd>C</kbd> (Mac) or <kbd>Control</kbd> + <kbd>Shift ⇧</kbd> + <kbd>C</kbd> (Windows, Linux).",
@@ -11,5 +17,7 @@
 	"components.SidebarSwitch.children": "Users",
 	"components.UserNavLink.changeNameAction": "Change name",
 	"components.UserNavLink.deleteAction": "Delete",
-	"components.UserNavLink.userIdTerm": "User ID:"
+	"components.UserNavLink.userIdTerm": "User ID:",
+	"errors.unknownError.message": "Possibly a temporary issue. Try to refresh the page, sometimes it helps 😉",
+	"errors.unknownError.title": "An unknown error occurred"
 }
