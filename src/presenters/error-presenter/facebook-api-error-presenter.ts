@@ -4,9 +4,9 @@ import { IntlFactory } from '../../services/intl';
 import { FacebookApiError } from '../../services/facebook-api';
 
 export class FacebookApiErrorPresenter implements ErrorPresenter {
-  public message: string;
-  public userTitle: string;
-  public userMessage: string;
+  message: string;
+  userTitle: string;
+  userMessage: string;
 
   constructor(facebookApiError: FacebookApiError) {
     const intl = IntlFactory.getIntl();

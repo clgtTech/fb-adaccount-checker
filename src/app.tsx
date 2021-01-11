@@ -6,6 +6,7 @@ import { stores } from './stores';
 import { IntlFactory } from './services/intl';
 import { facebookApiConfig } from './services/facebook-api';
 import { Dashboard } from './screens/dashboard';
+import { FlashMessageView } from './components/flash-message-view';
 
 export function App() {
   const [intl, setIntl] = React.useState(IntlFactory.getIntl());
@@ -26,6 +27,7 @@ export function App() {
       <BrowserRouter>
         <Dashboard />
       </BrowserRouter>
+      <FlashMessageView />
     </RawIntlProvider>
   );
 }

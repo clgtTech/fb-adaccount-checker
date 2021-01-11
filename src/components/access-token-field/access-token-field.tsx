@@ -4,9 +4,9 @@ import {
   classNames,
   uniqueId,
   Spinner,
+  SvgIcon,
   TextField,
   TextFieldHtmlAttrs,
-  SvgIcon,
 } from 'draft-components';
 import styles from './access-token-field.module.scss';
 
@@ -19,7 +19,7 @@ export interface TokenFieldProps extends TextFieldHtmlAttrs {
 }
 
 export function AccessTokenField({
-  id,
+  id = '',
   className,
   readOnly,
   label,
@@ -32,8 +32,8 @@ export function AccessTokenField({
   ...props
 }: TokenFieldProps) {
   const intl = useIntl();
+  const inputId = React.useRef(id);
   const [inputValue, setInputValue] = React.useState(value || '');
-  const inputId = React.useRef(id || uniqueId('access-token-'));
   const debouncedOnValueChange = React.useMemo(() => {
     let timeout: number;
     return (value: string): void => {
@@ -54,7 +54,7 @@ export function AccessTokenField({
       className={classNames(className, styles.wrapper)}
       hasFullWidth={true}
       size="lg"
-      id={inputId.current}
+      id={inputId.current || (inputId.current = uniqueId('access-token-'))}
       readOnly={readOnly || isLoading}
       placeholder={
         placeholder ??

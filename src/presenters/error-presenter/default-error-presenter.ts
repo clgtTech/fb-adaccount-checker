@@ -3,9 +3,9 @@ import { ErrorPresenter } from '../../types';
 import { IntlFactory } from '../../services/intl';
 
 export class DefaultErrorPresenter implements ErrorPresenter {
-  public message: string;
-  public userTitle: string;
-  public userMessage: string;
+  message: string;
+  userTitle: string;
+  userMessage: string;
 
   constructor(error: Error) {
     const intl = IntlFactory.getIntl();

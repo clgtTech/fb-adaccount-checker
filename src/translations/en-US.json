@@ -12,6 +12,7 @@
 	"components.AccessTokenHelp.step2.content": "Jump into the <strong>Console</strong> panel and execute the following {snippet} code to displaying the Access Token.",
 	"components.AccessTokenHelp.step2.imgAltText": "Browser Console panel",
 	"components.AccessTokenHelp.title": "How to get the Access Token?",
+	"components.FlashMessageView.closeAction": "Close",
 	"components.Sidebar.searchFieldPlaceholder": "Search users by name",
 	"components.Sidebar.title": "History",
 	"components.SidebarSwitch.children": "Users",

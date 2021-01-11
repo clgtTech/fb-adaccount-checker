@@ -38,6 +38,9 @@
   "components.AccessTokenHelp.title": {
     "defaultMessage": "How to get the Access Token?"
   },
+  "components.FlashMessageView.closeAction": {
+    "defaultMessage": "Close"
+  },
   "components.Sidebar.searchFieldPlaceholder": {
     "defaultMessage": "Search users by name"
   },

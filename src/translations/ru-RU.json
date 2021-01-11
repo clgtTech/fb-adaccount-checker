@@ -12,6 +12,7 @@
 	"components.AccessTokenHelp.step2.content": "Перейдите во вкладку <strong>Консоль</strong> (Console) и выполните следующий {snippet} код для отображения маркера доступа.",
 	"components.AccessTokenHelp.step2.imgAltText": "Панель Консоль в браузере",
 	"components.AccessTokenHelp.title": "Как получить маркер доступа?",
+	"components.FlashMessageView.closeAction": "Закрыть",
 	"components.Sidebar.searchFieldPlaceholder": "Поиск пользователей по имени",
 	"components.Sidebar.title": "История",
 	"components.SidebarSwitch.children": "Пользователи",
