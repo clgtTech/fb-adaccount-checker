@@ -1,33 +1,50 @@
 import * as React from 'react';
-import * as mobx from 'mobx';
-import { RawIntlProvider } from 'react-intl';
-import { BrowserRouter } from 'react-router-dom';
-import { stores } from './stores';
-import { IntlFactory } from './services/intl';
-import { facebookApiConfig } from './services/facebook-api';
-import { Dashboard } from './screens/dashboard';
+import * as mobxReact from 'mobx-react-lite';
+import { Route, Switch } from 'react-router-dom';
+import { classNames } from 'draft-components';
+import { uiStore } from './stores';
+import { Intro } from './screens/intro';
+import { Dash } from './screens/dash';
+import { Header } from './components/header';
+import { Sidebar } from './components/sidebar';
 import { FlashMessageView } from './components/flash-message-view';
+import styles from './app.module.scss';
 
-export function App() {
-  const [intl, setIntl] = React.useState(IntlFactory.getIntl());
-  const { sessionStore } = stores;
-
-  React.useEffect(() => {
-    mobx.autorun(() => {
-      facebookApiConfig.setAccessToken(sessionStore.locale);
-      setIntl(IntlFactory.configureIntl(sessionStore.locale));
-    });
-    mobx.autorun(() => {
-      facebookApiConfig.setAccessToken(sessionStore.accessToken);
-    });
-  }, [sessionStore]);
+export const App = mobxReact.observer(function App() {
+  const [isHeaderHaveShadow, setIsHeaderHaveShadow] = React.useState(false);
 
   return (
-    <RawIntlProvider value={intl}>
-      <BrowserRouter>
-        <Dashboard />
-      </BrowserRouter>
+    <div
+      className={classNames(styles.wrapper, {
+        [styles.isSidebarOpen]: uiStore.state.isSidebarShown,
+      })}
+    >
+      <Sidebar className={styles.sidebar} />
+      <div className={styles.mainContent}>
+        <Header className={styles.header} hasShadow={isHeaderHaveShadow} />
+        <Switch>
+          <Route
+            path="/"
+            exact={true}
+            render={() => {
+              defer(() => setIsHeaderHaveShadow(false));
+              return <Intro />;
+            }}
+          />
+          <Route
+            path="/:userId"
+            render={() => {
+              defer(() => setIsHeaderHaveShadow(true));
+              return <Dash />;
+            }}
+          />
+        </Switch>
+      </div>
       <FlashMessageView />
-    </RawIntlProvider>
+    </div>
   );
+});
+
+function defer(cb: Function): void {
+  window.setTimeout(cb, 0);
 }

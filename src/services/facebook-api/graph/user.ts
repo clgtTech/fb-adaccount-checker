@@ -1,4 +1,4 @@
-import { UserApi, User } from 'stores/user-store';
+import { User, UserApi } from '../../../stores/user-store';
 import { makeRequest } from '../make-request';
 
 /**

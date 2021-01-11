@@ -8,6 +8,11 @@ export interface SessionCache {
   getLocale(): Locale;
 }
 
+export interface ApiConfig {
+  setAccessToken(accessToken: string): void;
+  setLocale(locale: Locale): void;
+}
+
 export class SessionStore {
   accessToken: string = '';
   authenticatedUserId: string = '';
@@ -17,20 +22,21 @@ export class SessionStore {
 
   constructor(
     private _cache: SessionCache,
-    private _userStore: UserStore,
-    private _userApi: UserApi
+    private _apiConfig: ApiConfig,
+    private _userApi: UserApi,
+    private _userStore: UserStore
   ) {
     mobx.makeAutoObservable(this);
     mobx.runInAction(() => {
       this.locale = this._cache.getLocale();
     });
     mobx.autorun(() => {
-      this._cache.saveLocale(this.locale);
+      this._apiConfig.setAccessToken(this.accessToken);
     });
-  }
-
-  get authenticatedUser() {
-    return this._userStore.getUserById(this.authenticatedUserId);
+    mobx.autorun(() => {
+      this._cache.saveLocale(this.locale);
+      this._apiConfig.setLocale(this.locale);
+    });
   }
 
   get isAuthValid() {
@@ -62,6 +68,7 @@ export class SessionStore {
           this._userStore.addUser(user);
           this.authenticatedUserId = user.id;
           this.authStatus = AsyncActionStatus.success;
+          this.authError = null;
         });
       })
       .catch((e) => {

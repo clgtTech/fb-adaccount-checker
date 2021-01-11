@@ -8,10 +8,7 @@ export interface UiCache {
 }
 
 export class UiState {
-  constructor(
-    public isSidebarShown = false,
-    public isHeaderHaveShadow = false
-  ) {
+  constructor(public isSidebarShown = false) {
     mobx.makeAutoObservable(this);
   }
 }
@@ -45,14 +42,6 @@ export class UiStore {
 
   toggleSidebarVisibility() {
     this.state.isSidebarShown = !this.state.isSidebarShown;
-  }
-
-  showHeaderShadow() {
-    this.state.isHeaderHaveShadow = true;
-  }
-
-  hideHeaderShadow() {
-    this.state.isHeaderHaveShadow = false;
   }
 
   showFlashMessage(

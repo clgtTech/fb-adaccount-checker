@@ -1,6 +1,7 @@
-import { Locale } from 'types';
+import { Locale } from '../../types';
+import { ApiConfig } from '../../stores/session-store';
 
-class FacebookApiConfig {
+class FacebookApiConfig implements ApiConfig {
   private _accessToken: string = '';
   private _locale: string = '';
 

@@ -9,19 +9,21 @@ import styles from './header.module.scss';
 
 export type HeaderHtmlAttrs = React.ComponentPropsWithoutRef<'header'>;
 
-export interface HeaderProps extends HeaderHtmlAttrs {}
+export interface HeaderProps extends HeaderHtmlAttrs {
+  hasShadow?: boolean;
+}
 
 export const Header = mobxReact.observer(function Header({
+  hasShadow,
   className,
   ...props
 }: HeaderProps) {
   const { uiStore, sessionStore } = stores;
-
   return (
     <header
       {...props}
       className={classNames(className, styles.container, {
-        [styles.hasShadow]: uiStore.state.isHeaderHaveShadow,
+        [styles.hasShadow]: hasShadow,
       })}
     >
       <SidebarSwitch
