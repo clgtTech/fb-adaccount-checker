@@ -13,12 +13,14 @@
 	"components.AccessTokenHelp.step2.imgAltText": "Панель Консоль в браузере",
 	"components.AccessTokenHelp.title": "Как получить маркер доступа?",
 	"components.FlashMessageView.closeAction": "Закрыть",
-	"components.Sidebar.searchFieldPlaceholder": "Поиск пользователей по имени",
-	"components.Sidebar.title": "История",
 	"components.SidebarSwitch.children": "Пользователи",
 	"components.UserNavLink.changeNameAction": "Изменить имя",
 	"components.UserNavLink.deleteAction": "Удалить",
+	"components.UserNavLink.deleteConfirm": "Вы действительно хотите удалить сохранённого пользователя?",
+	"components.UserNavLink.namePrompt": "Введите новое имя для сохранённого пользователя:",
 	"components.UserNavLink.userIdTerm": "ID Пользователя:",
+	"components.UsersNav.searchFieldPlaceholder": "Поиск пользователей по имени",
+	"components.UsersNav.title": "История",
 	"errors.unknownError.message": "Возможно, это временная ошибка. Попробуйте обновить страницу, иногда это помогает 😉",
 	"errors.unknownError.title": "Произошла неизвестная ошибка"
 }

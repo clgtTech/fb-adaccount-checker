@@ -13,12 +13,14 @@
 	"components.AccessTokenHelp.step2.imgAltText": "Browser Console panel",
 	"components.AccessTokenHelp.title": "How to get the Access Token?",
 	"components.FlashMessageView.closeAction": "Close",
-	"components.Sidebar.searchFieldPlaceholder": "Search users by name",
-	"components.Sidebar.title": "History",
 	"components.SidebarSwitch.children": "Users",
 	"components.UserNavLink.changeNameAction": "Change name",
 	"components.UserNavLink.deleteAction": "Delete",
+	"components.UserNavLink.deleteConfirm": "Are you sure you want to delete the saved user?",
+	"components.UserNavLink.namePrompt": "Enter new name for the saved user:",
 	"components.UserNavLink.userIdTerm": "User ID:",
+	"components.UsersNav.searchFieldPlaceholder": "Search users by name",
+	"components.UsersNav.title": "History",
 	"errors.unknownError.message": "Possibly a temporary issue. Try to refresh the page, sometimes it helps 😉",
 	"errors.unknownError.title": "An unknown error occurred"
 }

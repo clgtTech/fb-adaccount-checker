@@ -1,9 +1,11 @@
 @import '~draft-components/dist/scss/abstracts/variables';
 
 .container {
-  overflow-y: auto;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 24rem;
-  padding-top: $gap-2x;
+}
+
+.header {
+  padding-bottom: $gap-3x;
+}
+
+.content {
 }

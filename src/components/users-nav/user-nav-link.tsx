@@ -1,66 +1,63 @@
 import * as React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import { classNames, Avatar, ActionsGroup, SvgIcon } from 'draft-components';
 import { CopiedValue } from '../copied-value';
+import { User } from '../../stores/user-store';
+import { UserPresenter } from '../../presenters/user-presenter';
 import styles from './user-nav-link.module.scss';
 
 export const messages = {
-  nameChange: 'Введите новое имя для сохранённого пользователя:',
-  deleteConfirm: 'Вы действительно хотите удалить сохранённого пользователя?',
+  namePrompt: defineMessage({
+    id: 'components.UserNavLink.namePrompt',
+    defaultMessage: `Enter new name for the saved user:`,
+  }),
+  deleteConfirm: defineMessage({
+    id: 'components.UserNavLink.deleteConfirm',
+    defaultMessage: `Are you sure you want to delete the saved user?`,
+  }),
 };
 
-export type UserNavLinkBaseProps = Pick<
-  NavLinkProps,
-  'to' | 'className' | 'activeClassName'
->;
-
-export interface UserNavLinkProps extends UserNavLinkBaseProps {
-  id: string;
-  name: string;
-  pictureUrl?: string;
-  addedAt: Date;
-  onDelete(): void;
-  onNameChange(name: string): void;
+export interface UserNavLinkProps extends NavLinkProps {
+  user: User;
+  onDelete(userId: User['id']): void;
+  onNameChange(userId: User['id'], name: string): void;
 }
 
 export function UserNavLink({
-  to,
-  id,
-  name,
-  pictureUrl,
-  addedAt,
-  className,
-  activeClassName,
+  user,
   onDelete,
   onNameChange,
+  className,
+  activeClassName,
+  ...props
 }: UserNavLinkProps) {
   const intl = useIntl();
+  const userPresenter = new UserPresenter(user);
   const [isActionsVisible, setIsActionsVisible] = React.useState(false);
 
   return (
     <div className={classNames(className, styles.wrapper)}>
       <NavLink
-        to={to}
+        {...props}
         className={styles.navLink}
-        activeClassName={classNames(activeClassName, styles.isNavLinkActive)}
+        activeClassName={classNames(activeClassName, styles.isSelected)}
       >
         <Avatar
           className={styles.picture}
           size="lg"
-          src={pictureUrl}
-          altText={name}
-          initials={nameToInitials(name)}
+          src={userPresenter.pictureUrl}
+          altText={userPresenter.name}
+          initials={userPresenter.initials}
         />
         <div className={styles.content}>
           <div className={styles.headline}>
-            <p className={styles.name}>{name}</p>
-            <time className={styles.addedAt} dateTime={addedAt.toISOString()}>
-              {intl.formatDate(addedAt, {
-                year: '2-digit',
-                month: 'short',
-                day: 'numeric',
-              })}
+            <p className={styles.name}>{userPresenter.name}</p>
+            <time
+              className={styles.addedAt}
+              dateTime={user.addedAt.toISOString()}
+            >
+              {userPresenter.addedAt}
             </time>
           </div>
           <dl className={styles.id}>
@@ -72,11 +69,13 @@ export function UserNavLink({
             </dt>
             <dd>
               <CopiedValue
-                value={id}
+                value={user.id}
                 onClick={(event) => {
                   event.preventDefault();
                 }}
-              />
+              >
+                {userPresenter.id}
+              </CopiedValue>
             </dd>
           </dl>
         </div>
@@ -95,9 +94,12 @@ export function UserNavLink({
           })}
           icon={<SvgIcon icon="pencil" />}
           onClick={() => {
-            const newName = window.prompt(messages.nameChange, name);
-            if (newName && newName !== name) {
-              onNameChange(newName);
+            const name = window.prompt(
+              intl.formatMessage(messages.namePrompt),
+              userPresenter.name
+            );
+            if (name && name !== userPresenter.name) {
+              onNameChange(user.id, name);
             }
           }}
         />
@@ -108,20 +110,12 @@ export function UserNavLink({
           })}
           icon={<SvgIcon icon="trash" />}
           onClick={() => {
-            if (window.confirm(messages.deleteConfirm)) {
-              onDelete();
+            if (window.confirm(intl.formatMessage(messages.deleteConfirm))) {
+              onDelete(user.id);
             }
           }}
         />
       </ActionsGroup>
     </div>
   );
-}
-
-function nameToInitials(name: string): string {
-  return name
-    .split(/ +/)
-    .slice(0, 2)
-    .map((word) => word[0].toUpperCase())
-    .join('');
 }

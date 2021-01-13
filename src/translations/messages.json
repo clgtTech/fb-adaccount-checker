@@ -41,11 +41,7 @@
   "components.FlashMessageView.closeAction": {
     "defaultMessage": "Close"
   },
-  "components.Sidebar.searchFieldPlaceholder": {
-    "defaultMessage": "Search users by name"
   },
-  "components.Sidebar.title": {
-    "defaultMessage": "History"
   },
   "components.SidebarSwitch.children": {
     "defaultMessage": "Users"
@@ -56,8 +52,20 @@
   "components.UserNavLink.deleteAction": {
     "defaultMessage": "Delete"
   },
+  "components.UserNavLink.deleteConfirm": {
+    "defaultMessage": "Are you sure you want to delete the saved user?"
+  },
+  "components.UserNavLink.namePrompt": {
+    "defaultMessage": "Enter new name for the saved user:"
+  },
   "components.UserNavLink.userIdTerm": {
     "defaultMessage": "User ID:"
+  },
+  "components.UsersNav.searchFieldPlaceholder": {
+    "defaultMessage": "Search users by name"
+  },
+  "components.UsersNav.title": {
+    "defaultMessage": "History"
   },
   "errors.unknownError.message": {
     "defaultMessage": "Possibly a temporary issue. Try to refresh the page, sometimes it helps 😉"

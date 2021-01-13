@@ -1,41 +1,6 @@
 @import '~draft-components/dist/scss/abstracts/variables';
 
 .container {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  width: var(--sidebar-width);
-  height: 100vh;
-  padding: $gap-6x 0 $gap-3x;
-  color: $gray-800;
-  border-right: 0.0625rem solid $gray-300;
-  background: $gray-100;
-}
-
-.header {
-  margin-bottom: $gap-4x;
-  padding-right: $gap-3x;
-  padding-left: $gap-3x;
-}
-
-.userNav {
-  flex-grow: 1;
-  padding-right: $gap-1x;
-  padding-left: $gap-1x;
-}
-
-.title {
-  margin: 0;
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-}
-
-.searchField {
-  margin-top: $gap-4x;
-}
-
-.description {
-  margin: $gap-2x 0 0;
-  color: $gray-600;
-  font-size: $font-size-sm;
+  border-right: 0.0625rem solid var(--border-color);
+  background: var(--secondary-bg-color);
 }
