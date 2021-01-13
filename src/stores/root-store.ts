@@ -3,11 +3,13 @@ import { facebookApiConfig, facebookApi } from 'services/facebook-api';
 import { UiStore } from './ui-store';
 import { SessionStore } from './session-store';
 import { UserStore } from './user-store';
+import { AdAccountStore } from './ad-account-store';
 
 export class RootStore {
   uiStore: UiStore;
   sessionStore: SessionStore;
   userStore: UserStore;
+  adAccountStore: AdAccountStore;
 
   constructor() {
     this.uiStore = new UiStore(cache);
@@ -18,5 +20,6 @@ export class RootStore {
       facebookApi.user,
       this.userStore
     );
+    this.adAccountStore = new AdAccountStore(facebookApi.adAccount);
   }
 }

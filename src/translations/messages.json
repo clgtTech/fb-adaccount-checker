@@ -38,10 +38,26 @@
   "components.AccessTokenHelp.title": {
     "defaultMessage": "How to get the Access Token?"
   },
+  "components.AdAccountNavLink.accountId": {
+    "defaultMessage": "Account ID: {accountId}"
+  },
+  "components.AdAccountNavLink.ctr": {
+    "defaultMessage": "CTR:"
+  },
+  "components.AdAccountNavLink.status": {
+    "defaultMessage": "Status:"
+  },
+  "components.AdAccountsNav.exportLink": {
+    "defaultMessage": "Download .csv report"
+  },
+  "components.AdAccountsNav.searchFieldPlaceholder": {
+    "defaultMessage": "Search ad accounts by name"
+  },
+  "components.AdAccountsNav.title": {
+    "defaultMessage": "Ad Accounts"
+  },
   "components.FlashMessageView.closeAction": {
     "defaultMessage": "Close"
-  },
-  },
   },
   "components.SidebarSwitch.children": {
     "defaultMessage": "Users"
@@ -72,5 +88,11 @@
   },
   "errors.unknownError.title": {
     "defaultMessage": "An unknown error occurred"
+  },
+  "screens.AdAccountsView.adAccountsLoading": {
+    "defaultMessage": "Ad Accounts loading..."
+  },
+  "screens.Dash.authenticating": {
+    "defaultMessage": "Access Token checking..."
   }
 }

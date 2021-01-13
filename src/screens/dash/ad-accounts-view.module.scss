@@ -1,0 +1,16 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.layout {
+  display: grid;
+  grid-template-columns: 23.75rem auto;
+  grid-template-rows: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  border-right: 0.0625rem solid $gray-300;
+}
+
+.content {
+  overflow-y: auto;
+}

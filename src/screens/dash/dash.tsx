@@ -5,8 +5,10 @@ import { useRouteMatch } from 'react-router-dom';
 import { LoadingView } from 'draft-components';
 import { AsyncActionStatus } from '../../types';
 import { sessionStore } from '../../stores';
+import { useBorderedHeader } from '../../components/header';
 import { useRequireAuth } from './use-require-auth';
 import { ErrorView } from '../../components/error-view';
+import { AdAccountsView } from './ad-accounts-view';
 
 interface DashRouteParams {
   userId: string;
@@ -14,6 +16,8 @@ interface DashRouteParams {
 
 export const Dash = mobxReact.observer(function Dash() {
   const { params } = useRouteMatch<DashRouteParams>();
+
+  useBorderedHeader(true);
   useRequireAuth(params.userId);
 
   if (
@@ -23,7 +27,7 @@ export const Dash = mobxReact.observer(function Dash() {
     return (
       <LoadingView>
         <FormattedMessage
-          id="screens.Workspace.authenticating"
+          id="screens.Dash.authenticating"
           defaultMessage="Access Token checking..."
         />
       </LoadingView>
@@ -37,9 +41,5 @@ export const Dash = mobxReact.observer(function Dash() {
     return <ErrorView error={sessionStore.authError} />;
   }
 
-  return (
-    <div>
-      <pre>{JSON.stringify(sessionStore.authenticatedUserId, null, 4)}</pre>
-    </div>
-  );
+  return <AdAccountsView />;
 });

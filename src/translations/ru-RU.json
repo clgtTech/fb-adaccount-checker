@@ -12,6 +12,12 @@
 	"components.AccessTokenHelp.step2.content": "Перейдите во вкладку <strong>Консоль</strong> (Console) и выполните следующий {snippet} код для отображения маркера доступа.",
 	"components.AccessTokenHelp.step2.imgAltText": "Панель Консоль в браузере",
 	"components.AccessTokenHelp.title": "Как получить маркер доступа?",
+	"components.AdAccountNavLink.accountId": "ID Аккаунта: {accountId}",
+	"components.AdAccountNavLink.ctr": "CTR:",
+	"components.AdAccountNavLink.status": "Статус:",
+	"components.AdAccountsNav.exportLink": "Скачать .csv отчёт",
+	"components.AdAccountsNav.searchFieldPlaceholder": "Поиск аккаунтов по названию",
+	"components.AdAccountsNav.title": "Рекламные аккаунты",
 	"components.FlashMessageView.closeAction": "Закрыть",
 	"components.SidebarSwitch.children": "Пользователи",
 	"components.UserNavLink.changeNameAction": "Изменить имя",
@@ -22,5 +28,7 @@
 	"components.UsersNav.searchFieldPlaceholder": "Поиск пользователей по имени",
 	"components.UsersNav.title": "История",
 	"errors.unknownError.message": "Возможно, это временная ошибка. Попробуйте обновить страницу, иногда это помогает 😉",
-	"errors.unknownError.title": "Произошла неизвестная ошибка"
+	"errors.unknownError.title": "Произошла неизвестная ошибка",
+	"screens.AdAccountsView.adAccountsLoading": "Загрузка рекламных аккаунтов...",
+	"screens.Dash.authenticating": "Проверка маркера доступа..."
 }
