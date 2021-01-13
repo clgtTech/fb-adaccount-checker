@@ -25,8 +25,8 @@ export class LocalCache implements UiCache, UserCache, SessionCache {
 
       const savedUiState: Partial<UiState> = JSON.parse(uiStateJson);
 
-      if (typeof savedUiState.isSidebarShown === 'boolean') {
-        uiState.isSidebarShown = savedUiState.isSidebarShown;
+      if (typeof savedUiState.isSidebarOpen === 'boolean') {
+        uiState.isSidebarOpen = savedUiState.isSidebarOpen;
       }
 
       return uiState;

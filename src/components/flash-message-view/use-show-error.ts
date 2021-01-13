@@ -4,7 +4,7 @@ import { stores } from '../../stores';
 
 const { uiStore } = stores;
 
-export function useErrorFlashMessage(error?: Error | null) {
+export function useShowError(error?: Error | null) {
   React.useEffect(() => {
     if (error) {
       const errorPresenter = createErrorPresenter(error);

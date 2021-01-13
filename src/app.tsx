@@ -11,40 +11,30 @@ import { FlashMessageView } from './components/flash-message-view';
 import styles from './app.module.scss';
 
 export const App = mobxReact.observer(function App() {
-  const [isHeaderHaveShadow, setIsHeaderHaveShadow] = React.useState(false);
+  const { isSidebarOpen, isHeaderBordered } = uiStore.state;
 
   return (
     <div
-      className={classNames(styles.wrapper, {
-        [styles.isSidebarOpen]: uiStore.state.isSidebarShown,
-      })}
+      className={classNames(
+        styles.layout,
+        isSidebarOpen && styles.isSidebarOpen
+      )}
     >
-      <Sidebar className={styles.sidebar} />
-      <div className={styles.mainContent}>
-        <Header className={styles.header} hasShadow={isHeaderHaveShadow} />
-        <Switch>
-          <Route
-            path="/"
-            exact={true}
-            render={() => {
-              defer(() => setIsHeaderHaveShadow(false));
-              return <Intro />;
-            }}
-          />
-          <Route
-            path="/:userId"
-            render={() => {
-              defer(() => setIsHeaderHaveShadow(true));
-              return <Dash />;
-            }}
-          />
-        </Switch>
-      </div>
+      {isSidebarOpen ? <Sidebar className={styles.sidebar} /> : null}
+      <main className={styles.main}>
+        <Header className={styles.header} isBordered={isHeaderBordered} />
+        <div className={styles.content}>
+          <Switch>
+            <Route path="/" exact={true}>
+              <Intro />
+            </Route>
+            <Route path="/:userId">
+              <Dash />
+            </Route>
+          </Switch>
+        </div>
+      </main>
       <FlashMessageView />
     </div>
   );
 });
-
-function defer(cb: Function): void {
-  window.setTimeout(cb, 0);
-}

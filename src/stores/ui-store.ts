@@ -8,7 +8,7 @@ export interface UiCache {
 }
 
 export class UiState {
-  constructor(public isSidebarShown = false) {
+  constructor(public isSidebarOpen = false, public isHeaderBordered = false) {
     mobx.makeAutoObservable(this);
   }
 }
@@ -41,7 +41,15 @@ export class UiStore {
   }
 
   toggleSidebarVisibility() {
-    this.state.isSidebarShown = !this.state.isSidebarShown;
+    this.state.isSidebarOpen = !this.state.isSidebarOpen;
+  }
+
+  addBorderToHeader() {
+    this.state.isHeaderBordered = true;
+  }
+
+  removeHeaderBorder() {
+    this.state.isHeaderBordered = false;
   }
 
   showFlashMessage(

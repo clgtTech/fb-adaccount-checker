@@ -8,6 +8,7 @@ interface RequestParams {
 }
 
 interface RequestOptions {
+  needAuthorization?: boolean;
   headers?: { [header: string]: string | number };
 }
 
@@ -32,6 +33,9 @@ export async function makeRequest<T = any>({
       url: `https://graph.facebook.com/v9.0/${url.replace(/^\/*/, '')}`,
       method: method || 'get',
       params: {
+        access_token: options?.needAuthorization
+          ? facebookApiConfig.accessToken
+          : undefined,
         locale: facebookApiConfig.locale,
         fields: Array.isArray(fields) ? fields.join(',') : 0,
         ...otherParams,

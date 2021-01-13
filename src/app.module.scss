@@ -1,42 +1,37 @@
 @import '~draft-components/dist/scss/abstracts/variables';
 
-.wrapper {
+.layout {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-areas: 'main';
+  width: 100vw;
+  height: 100vh;
   min-width: 64rem;
 }
 
-.sidebar {
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  transform: translateX(-100%);
+.layout.isSidebarOpen {
+  grid-template-columns: var(--sidebar-width) auto;
+  grid-template-areas: 'sidebar main';
 }
 
-.mainContent {
-  position: relative;
-  padding-top: var(--header-height);
-  padding-left: 0;
-  will-change: padding-left;
+.sidebar {
+  grid-area: sidebar;
+}
+
+.main {
+  display: flex;
+  grid-area: main;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
 }
 
 .header {
-  position: fixed;
-  z-index: 99;
-  top: 0;
-  right: 0;
-  width: 100%;
-  max-width: 100%;
-  will-change: max-width;
+  z-index: 9;
+  flex: 0 0 var(--header-height);
 }
 
-.isSidebarOpen .sidebar {
-  transform: translateX(0);
-}
-
-.isSidebarOpen .header {
-  max-width: calc(100% - var(--sidebar-width));
-}
-
-.isSidebarOpen .mainContent {
-  padding-left: var(--sidebar-width);
+.content {
+  overflow-y: scroll;
+  flex: 1 1 auto;
 }

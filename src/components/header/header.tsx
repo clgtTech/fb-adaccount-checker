@@ -10,11 +10,11 @@ import styles from './header.module.scss';
 export type HeaderHtmlAttrs = React.ComponentPropsWithoutRef<'header'>;
 
 export interface HeaderProps extends HeaderHtmlAttrs {
-  hasShadow?: boolean;
+  isBordered?: boolean;
 }
 
 export const Header = mobxReact.observer(function Header({
-  hasShadow,
+  isBordered,
   className,
   ...props
 }: HeaderProps) {
@@ -23,12 +23,12 @@ export const Header = mobxReact.observer(function Header({
     <header
       {...props}
       className={classNames(className, styles.container, {
-        [styles.hasShadow]: hasShadow,
+        [styles.isBordered]: isBordered,
       })}
     >
       <SidebarSwitch
         className={styles.sidebarSwitch}
-        isActive={uiStore.state.isSidebarShown}
+        isActive={uiStore.state.isSidebarOpen}
         onClick={() => uiStore.toggleSidebarVisibility()}
       />
       <AccessTokenField

@@ -1,2 +1,2 @@
 export * from './flash-message-view';
-export * from './use-error-flash-message';
+export * from './use-show-error';

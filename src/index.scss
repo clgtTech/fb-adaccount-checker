@@ -3,21 +3,29 @@
 :root {
   --sidebar-width: 20rem;
   --header-height: 4rem;
+
+  --border-color: #{$gray-300};
+
+  --primary-text-color: var(--dc-primary-text-color);
+  --secondary-text-color: var(--dc-secondary-text-color);
+  --tertiary-text-color: var(--dc-tertiary-text-color);
+  --link-color: #{$blue-500};
+
+  --primary-bg-color: #{$white};
+  --secondary-bg-color: #{$gray-100};
+  --tertiary-bg-color: #{$gray-200};
 }
 
 body {
   text-align: left;
   letter-spacing: $tracking-normal;
+  color: var(--primary-text-color);
+  background: var(--primary-bg-color);
   font-family: $font-sans-serif;
   font-weight: normal;
   direction: ltr;
 }
 
 a {
-  text-decoration: none;
-  color: $blue-500;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  color: var(--link-color);
 }
