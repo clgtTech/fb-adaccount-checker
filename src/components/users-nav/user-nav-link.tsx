@@ -21,13 +21,13 @@ export const messages = {
 export interface UserNavLinkProps extends NavLinkProps {
   user: User;
   onDelete(userId: User['id']): void;
-  onNameChange(userId: User['id'], name: string): void;
+  onUpdate(userId: User['id'], update: Pick<User, 'customName'>): void;
 }
 
 export function UserNavLink({
   user,
   onDelete,
-  onNameChange,
+  onUpdate,
   className,
   activeClassName,
   ...props
@@ -94,12 +94,12 @@ export function UserNavLink({
           })}
           icon={<SvgIcon icon="pencil" />}
           onClick={() => {
-            const name = window.prompt(
+            const customName = window.prompt(
               intl.formatMessage(messages.namePrompt),
               userPresenter.name
             );
-            if (name && name !== userPresenter.name) {
-              onNameChange(user.id, name);
+            if (customName && customName !== userPresenter.name) {
+              onUpdate(user.id, { customName });
             }
           }}
         />

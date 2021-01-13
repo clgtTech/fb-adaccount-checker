@@ -1,6 +1,7 @@
 @import '~draft-components/dist/scss/abstracts/variables';
 
 .wrapper {
+  max-width: 52rem;
   border-radius: $border-radius-md;
 }
 

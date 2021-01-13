@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { NavLink, NavLinkProps } from 'react-router-dom';
-import { classNames, Badge, SvgIcon } from 'draft-components';
+import { classNames } from 'draft-components';
 import { AdAccount } from '../../stores/ad-account-store';
 import { AdAccountPresenter } from '../../presenters/ad-account-presenter';
 import { CopiedValue } from '../copied-value';

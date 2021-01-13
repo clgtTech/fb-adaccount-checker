@@ -9,14 +9,14 @@ import styles from './users-nav.module.scss';
 export interface UsersNavProps extends SideNavProps {
   users: User[];
   onUserDelete: UserNavLinkProps['onDelete'];
-  onUserNameChange: UserNavLinkProps['onNameChange'];
+  onUserUpdate: UserNavLinkProps['onUpdate'];
   getUserPath(user: User): string;
 }
 
 export function UsersNav({
   users,
   onUserDelete,
-  onUserNameChange,
+  onUserUpdate,
   getUserPath,
   className,
   ...props
@@ -57,7 +57,7 @@ export function UsersNav({
                 user={user}
                 to={getUserPath(user)}
                 onDelete={onUserDelete}
-                onNameChange={onUserNameChange}
+                onUpdate={onUserUpdate}
               />
             ))}
         </nav>

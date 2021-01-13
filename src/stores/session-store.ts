@@ -1,7 +1,8 @@
 import * as mobx from 'mobx';
 import { AsyncActionStatus, Locale } from '../types';
 import { DEFAULT_LOCALE } from '../constants';
-import { UserApi, UserStore } from './user-store';
+import { RootStore } from './root-store';
+import { User, UserApi } from './user-store';
 
 export interface SessionCache {
   saveLocale(locale: Locale): void;
@@ -13,7 +14,16 @@ export interface ApiConfig {
   setLocale(locale: Locale): void;
 }
 
+export interface SessionEventListeners {
+  authenticate(user: User): void;
+  authReset(userId: User['id']): void;
+}
+
 export class SessionStore {
+  private _eventListeners: {
+    [K in keyof SessionEventListeners]: SessionEventListeners[K][];
+  } = { authenticate: [], authReset: [] };
+
   accessToken: string = '';
   authenticatedUserId: string = '';
   authStatus: AsyncActionStatus = AsyncActionStatus.idle;
@@ -24,9 +34,12 @@ export class SessionStore {
     private _cache: SessionCache,
     private _apiConfig: ApiConfig,
     private _userApi: UserApi,
-    private _userStore: UserStore
+    private _stores: RootStore
   ) {
-    mobx.makeAutoObservable(this);
+    mobx.makeAutoObservable(this, {
+      addEventListener: false,
+      removeEventListener: false,
+    });
     mobx.runInAction(() => {
       this.locale = this._cache.getLocale();
     });
@@ -43,19 +56,35 @@ export class SessionStore {
     return Boolean(this.accessToken && this.authenticatedUserId);
   }
 
-  setAccessToken(accessToken: string) {
-    if (!accessToken) {
-      this.resetAuth();
-    } else {
-      this.authenticate(accessToken);
+  addEventListener<T extends keyof SessionEventListeners>(
+    event: T,
+    listener: SessionEventListeners[T]
+  ): void {
+    this._eventListeners[event].push(listener as any);
+  }
+
+  removeEventListener<T extends keyof SessionEventListeners>(
+    event: T,
+    listener: SessionEventListeners[T]
+  ): void {
+    const index = this._eventListeners[event].findIndex(
+      (cb: any) => cb === listener
+    );
+    if (~index) {
+      this._eventListeners[event].splice(index, 1);
     }
   }
 
   resetAuth() {
+    debugger;
+    const authUserId = this.authenticatedUserId;
+
     this.accessToken = '';
     this.authenticatedUserId = '';
     this.authStatus = AsyncActionStatus.idle;
     this.authError = null;
+
+    this._eventListeners.authReset.forEach((listener) => listener(authUserId));
   }
 
   authenticate(accessToken: string) {
@@ -65,11 +94,13 @@ export class SessionStore {
       .getUserRelatedToAccessToken(accessToken)
       .then((user) => {
         mobx.runInAction(() => {
-          this._userStore.addUser(user);
+          this._stores.userStore.addUser(user);
           this.authenticatedUserId = user.id;
           this.authStatus = AsyncActionStatus.success;
           this.authError = null;
         });
+
+        this._eventListeners.authenticate.forEach((listener) => listener(user));
       })
       .catch((e) => {
         mobx.runInAction(() => {
@@ -79,6 +110,28 @@ export class SessionStore {
         });
       });
   }
+
+  // async authenticate(accessToken: string): Promise<User | null> {
+  //   this.accessToken = accessToken;
+  //   this.authStatus = AsyncActionStatus.pending;
+  //   try {
+  //     const user = await this._userApi.getUserRelatedToAccessToken(accessToken);
+  //     mobx.runInAction(() => {
+  //       this._stores.userStore.addUser(user);
+  //       this.authenticatedUserId = user.id;
+  //       this.authStatus = AsyncActionStatus.success;
+  //       this.authError = null;
+  //     });
+  //     return user;
+  //   } catch (e) {
+  //     mobx.runInAction(() => {
+  //       this.authenticatedUserId = '';
+  //       this.authStatus = AsyncActionStatus.error;
+  //       this.authError = e;
+  //     });
+  //     return null;
+  //   }
+  // }
 
   setLocale(locale: Locale) {
     this.locale = locale;

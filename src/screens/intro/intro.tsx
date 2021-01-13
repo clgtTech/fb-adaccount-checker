@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as mobxReact from 'mobx-react-lite';
-import { Redirect } from 'react-router-dom';
 import { sessionStore } from '../../stores';
 import { useBorderedHeader } from '../../components/header';
 import { useShowError } from '../../components/flash-message-view';
@@ -12,12 +11,6 @@ export const Intro = mobxReact.observer(function Intro() {
 
   useBorderedHeader(isHeaderBordered);
   useShowError(sessionStore.authError);
-
-  if (sessionStore.authenticatedUserId) {
-    return (
-      <Redirect to={`/${sessionStore.authenticatedUserId}`} push={false} />
-    );
-  }
 
   return (
     <div

@@ -1,9 +1,9 @@
 @import '~draft-components/dist/scss/abstracts/variables';
 
-.container {
+.layout {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   box-sizing: border-box;
   width: 100%;
   height: var(--header-height);
@@ -11,15 +11,21 @@
   background: var(--primary-bg-color);
 }
 
-.isBordered {
+.layout.isBordered {
   box-shadow: 0 0 0 0.0625rem var(--border-color);
 }
 
-.sidebarSwitch {
-  margin-right: $gap-4x;
+.left {
+  padding-left: $gap-4x;
 }
 
-.tokenField {
-  max-width: 52rem;
-  margin: 0 auto;
+.right {
+  padding-right: $gap-4x;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 0 $gap-4x;
 }

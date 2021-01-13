@@ -1,4 +1,5 @@
 import * as mobx from 'mobx';
+import { RootStore } from './root-store';
 
 export interface UserApi {
   getUserRelatedToAccessToken(accessToken: string): Promise<User>;
@@ -45,24 +46,13 @@ export class UserStore {
   users: User[] = [];
   searchQuery: string = '';
 
-  constructor(private _cache: UserCache) {
+  constructor(private _cache: UserCache, private _stores: RootStore) {
     mobx.makeAutoObservable(this);
     mobx.runInAction(() => {
       this.users = this._cache.getUsers();
     });
     mobx.autorun(() => {
       this._cache.saveUsers(this.users);
-    });
-  }
-
-  get numberOfUsers() {
-    return this.users.length;
-  }
-
-  get filteredUsers() {
-    const query = this.searchQuery.toLowerCase();
-    return this.users.filter((user) => {
-      return user.displayedName.toLowerCase().includes(query);
     });
   }
 
@@ -80,11 +70,11 @@ export class UserStore {
       const { customName, addedAt, ...userData } = newUser;
       Object.assign(this.users[index], userData);
     } else {
-      this.users.unshift(newUser);
+      this.users = [newUser, ...this.users];
     }
   }
 
-  updateUser(userId: User['id'], update: { customName: string }) {
+  updateUser(userId: User['id'], update: Partial<User>) {
     this.users.forEach((user) => {
       if (user.id === userId) {
         Object.assign(user, update);
@@ -94,5 +84,8 @@ export class UserStore {
 
   deleteUser(id: User['id']) {
     this.users = this.users.filter((oldUser) => oldUser.id !== id);
+    if (id === this._stores.sessionStore.authenticatedUserId) {
+      this._stores.sessionStore.resetAuth();
+    }
   }
 }

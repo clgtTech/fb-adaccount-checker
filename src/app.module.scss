@@ -16,6 +16,8 @@
 
 .sidebar {
   grid-area: sidebar;
+  border-right: 0.0625rem solid var(--border-color);
+  background: var(--secondary-bg-color);
 }
 
 .main {

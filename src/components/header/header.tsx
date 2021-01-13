@@ -1,44 +1,33 @@
 import * as React from 'react';
-import * as mobxReact from 'mobx-react-lite';
 import { classNames } from 'draft-components';
-import { AsyncActionStatus } from '../../types';
-import { stores } from '../../stores';
-import { SidebarSwitch } from '../sidebar-switch';
-import { AccessTokenField } from '../access-token-field';
 import styles from './header.module.scss';
 
 export type HeaderHtmlAttrs = React.ComponentPropsWithoutRef<'header'>;
 
 export interface HeaderProps extends HeaderHtmlAttrs {
   isBordered?: boolean;
+  left?: React.ReactNode;
+  right?: React.ReactNode;
 }
 
-export const Header = mobxReact.observer(function Header({
+export const Header = function Header({
   isBordered,
+  left,
+  right,
+  children,
   className,
   ...props
 }: HeaderProps) {
-  const { uiStore, sessionStore } = stores;
   return (
     <header
       {...props}
-      className={classNames(className, styles.container, {
+      className={classNames(className, styles.layout, {
         [styles.isBordered]: isBordered,
       })}
     >
-      <SidebarSwitch
-        className={styles.sidebarSwitch}
-        isActive={uiStore.state.isSidebarOpen}
-        onClick={() => uiStore.toggleSidebarVisibility()}
-      />
-      <AccessTokenField
-        className={styles.tokenField}
-        isLoading={sessionStore.authStatus === AsyncActionStatus.pending}
-        value={sessionStore.accessToken}
-        onValueChange={(accessToken) =>
-          sessionStore.setAccessToken(accessToken)
-        }
-      />
+      {left ? <div className={styles.leftColumn}>{left}</div> : null}
+      <div className={styles.content}>{children}</div>
+      {right ? <div className={styles.rightColumn}>{right}</div> : null}
     </header>
   );
-});
+};

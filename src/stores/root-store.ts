@@ -13,12 +13,12 @@ export class RootStore {
 
   constructor() {
     this.uiStore = new UiStore(cache);
-    this.userStore = new UserStore(cache);
+    this.userStore = new UserStore(cache, this);
     this.sessionStore = new SessionStore(
       cache,
       facebookApiConfig,
       facebookApi.user,
-      this.userStore
+      this
     );
     this.adAccountStore = new AdAccountStore(facebookApi.adAccount);
   }

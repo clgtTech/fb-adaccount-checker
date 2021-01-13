@@ -2,15 +2,19 @@
 
 .layout {
   display: grid;
+  grid-template-areas: 'navigation content';
   grid-template-columns: 23.75rem auto;
   grid-template-rows: 100%;
   height: 100%;
 }
 
-.sidebar {
-  border-right: 0.0625rem solid $gray-300;
+.navigation {
+  grid-area: navigation;
+  border-right: 0.0625rem solid var(--border-color);
 }
 
 .content {
+  grid-area: content;
   overflow-y: auto;
+  background: var(--tertiary-bg-color);
 }

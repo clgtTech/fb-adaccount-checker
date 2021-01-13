@@ -29,6 +29,10 @@
 	"components.UsersNav.title": "History",
 	"errors.unknownError.message": "Possibly a temporary issue. Try to refresh the page, sometimes it helps 😉",
 	"errors.unknownError.title": "An unknown error occurred",
-	"screens.AdAccountsView.adAccountsLoading": "Ad Accounts loading...",
+	"screens.AdAccounts.adAccountsLoading": "Ad Accounts loading...",
+	"screens.AdAccounts.noAdAccountState.description": "← Select the ad account to see his ad campaigns.",
+	"screens.AdAccounts.noAdAccountState.title": "No ad account select",
+	"screens.AdAccounts.noAdAccountsState.description": "This user does not have any ad accounts. Try to select another user.",
+	"screens.AdAccounts.noAdAccountsState.title": "No ad accounts found",
 	"screens.Dash.authenticating": "Access Token checking..."
 }
