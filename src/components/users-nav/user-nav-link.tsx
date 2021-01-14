@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import { NavLink, NavLinkProps } from 'react-router-dom';
-import { classNames, Avatar, ActionsGroup, SvgIcon } from 'draft-components';
+import {
+  classNames,
+  Avatar,
+  ActionsGroup,
+  SvgIcon,
+  Icons,
+} from 'draft-components';
 import { CopiedValue } from '../copied-value';
 import { User } from '../../stores/user-store';
 import { UserPresenter } from '../../presenters/user-presenter';
@@ -92,7 +98,7 @@ export function UserNavLink({
             id: 'components.UserNavLink.changeNameAction',
             defaultMessage: 'Change name',
           })}
-          icon={<SvgIcon icon="pencil" />}
+          icon={<SvgIcon icon={Icons.pencilIcon} />}
           onClick={() => {
             const customName = window.prompt(
               intl.formatMessage(messages.namePrompt),
@@ -108,7 +114,7 @@ export function UserNavLink({
             id: 'components.UserNavLink.deleteAction',
             defaultMessage: 'Delete',
           })}
-          icon={<SvgIcon icon="trash" />}
+          icon={<SvgIcon icon={Icons.trashIcon} />}
           onClick={() => {
             if (window.confirm(intl.formatMessage(messages.deleteConfirm))) {
               onDelete(user.id);

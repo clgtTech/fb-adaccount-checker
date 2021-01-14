@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { classNames, SvgIcon } from 'draft-components';
+import { classNames, SvgIcon, Icons } from 'draft-components';
 import { copyToClipboard } from '../../shared/util';
 import styles from './copied-value.module.scss';
 
@@ -25,7 +25,7 @@ export function CopiedValue({
       }}
     >
       {children || value}
-      <SvgIcon className={styles.icon} icon="copy" />
+      <SvgIcon className={styles.icon} icon={Icons.copyIcon} />
     </span>
   );
 }

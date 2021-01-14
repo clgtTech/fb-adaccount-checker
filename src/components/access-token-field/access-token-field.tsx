@@ -5,6 +5,7 @@ import {
   uniqueId,
   Spinner,
   SvgIcon,
+  Icons,
   TextField,
   TextFieldHtmlAttrs,
 } from 'draft-components';
@@ -66,7 +67,7 @@ export function AccessTokenField({
       leadingAddOn={
         <label className={styles.label} htmlFor={inputId.current}>
           <SvgIcon
-            icon="facebook-circle"
+            icon={Icons.facebookCircleIcon}
             linearGradient={['to bottom', '#19afff', '#0062e0']}
             size="lg"
           />

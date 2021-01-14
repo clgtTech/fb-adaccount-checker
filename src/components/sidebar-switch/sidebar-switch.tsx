@@ -5,6 +5,7 @@ import {
   Button,
   ButtonProps,
   SvgIcon,
+  Icons,
   SvgIconProps,
 } from 'draft-components';
 import styles from './sidebar-switch.module.scss';
@@ -17,7 +18,7 @@ export interface SidebarSwitchProps extends ButtonProps {
 export function SidebarSwitch({
   className,
   isActive,
-  icon = 'ul-list',
+  icon = Icons.ulListIcon,
   children,
   ...props
 }: SidebarSwitchProps) {
