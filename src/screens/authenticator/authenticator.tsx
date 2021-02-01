@@ -1,29 +1,25 @@
 import * as React from 'react';
-import * as mobxReact from 'mobx-react-lite';
-import { FormattedMessage } from 'react-intl';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import { LoadingView } from 'draft-components';
 import { AsyncActionStatus } from '../../types';
+import { ROUTES } from '../../constants';
 import { sessionStore, userStore } from '../../stores';
-import { useBorderedHeader } from '../../components/header';
 import { ErrorView } from '../../components/error-view';
-import { AdAccounts } from '../ad-accounts';
 
-interface DashRouteParams {
-  userId: string;
+export interface AuthenticatorProps {
+  children: JSX.Element;
 }
 
-export const Dash = mobxReact.observer(function Dash() {
+export function Authenticator({ children }: AuthenticatorProps) {
   const history = useHistory();
-  const { params } = useRouteMatch<DashRouteParams>();
-
-  useBorderedHeader(true);
+  const { params } = useRouteMatch<{ userId: string }>();
 
   React.useEffect(() => {
     const savedUser = userStore.getUserById(params.userId);
     const authUser = userStore.getUserById(sessionStore.authenticatedUserId);
     if (!savedUser) {
-      history.replace('/');
+      history.replace(ROUTES.home);
     } else if (savedUser !== authUser) {
       sessionStore.authenticate(savedUser.accessToken);
     }
@@ -36,7 +32,7 @@ export const Dash = mobxReact.observer(function Dash() {
     return (
       <LoadingView>
         <FormattedMessage
-          id="screens.Dash.authenticating"
+          id="screens.Authenticator.authenticating"
           defaultMessage="Access Token checking..."
         />
       </LoadingView>
@@ -50,5 +46,5 @@ export const Dash = mobxReact.observer(function Dash() {
     return <ErrorView error={sessionStore.authError} />;
   }
 
-  return <AdAccounts />;
-});
+  return children;
+}

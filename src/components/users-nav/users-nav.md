@@ -21,7 +21,7 @@ import { User } from '../../stores/user-store';
         addedAt: new Date(),
       }),
     ]}
-    getUserPath={(user) => `/users/${user.id}`}
+    getLinkToUser={(user) => `/users/${user.id}`}
     onUserDelete={console.log}
     onUserNameChange={console.log}
   />

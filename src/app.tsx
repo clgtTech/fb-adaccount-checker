@@ -1,17 +1,25 @@
 import * as React from 'react';
 import * as mobxReact from 'mobx-react-lite';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import {
+  Route,
+  Redirect,
+  Switch,
+  useHistory,
+  generatePath,
+} from 'react-router-dom';
 import { classNames } from 'draft-components';
 import { AsyncActionStatus } from './types';
+import { ROUTES } from './constants';
 import { SessionEventListeners } from './stores/session-store';
 import { sessionStore, uiStore, userStore } from './stores';
-import { Intro } from './screens/intro';
-import { Dash } from './screens/dash';
 import { UsersNav } from './components/users-nav';
 import { Header } from './components/header';
 import { SidebarSwitch } from './components/sidebar-switch';
 import { AccessTokenField } from './components/access-token-field';
 import { FlashMessageView } from './components/flash-message-view';
+import { Home } from './screens/home';
+import { Authenticator } from './screens/authenticator';
+import { AdAccounts } from './screens/ad-accounts';
 import styles from './app.module.scss';
 
 export const App = mobxReact.observer(function App() {
@@ -20,10 +28,17 @@ export const App = mobxReact.observer(function App() {
 
   React.useEffect(() => {
     const onAuthenticate: SessionEventListeners['authenticate'] = (user) => {
-      history.replace(`/${user.id}`);
+      const location = history.location;
+      const nextUrl = getLinkToUserReview(user.id);
+      history.replace({
+        pathname: location.pathname.startsWith(nextUrl)
+          ? location.pathname
+          : nextUrl,
+        search: location.search,
+      });
     };
     const onAuthReset: SessionEventListeners['authReset'] = () => {
-      history.replace('/');
+      history.replace(ROUTES.home);
     };
 
     sessionStore.addEventListener('authenticate', onAuthenticate);
@@ -52,7 +67,7 @@ export const App = mobxReact.observer(function App() {
           onUserUpdate={(userId, update) => {
             userStore.updateUser(userId, update);
           }}
-          getUserPath={(user) => `/${user.id}`}
+          getLinkToUser={getLinkToUserReview}
         />
       ) : null}
       <main className={styles.main}>
@@ -82,12 +97,16 @@ export const App = mobxReact.observer(function App() {
         </Header>
         <div className={styles.content}>
           <Switch>
-            <Route path="/" exact={true}>
-              <Intro />
-            </Route>
-            <Route path="/:userId/:adAccountId?">
-              <Dash />
-            </Route>
+            <Route path={ROUTES.home} exact={true} render={() => <Home />} />
+            <Route
+              path={ROUTES.adAccounts}
+              render={() => (
+                <Authenticator>
+                  <AdAccounts />
+                </Authenticator>
+              )}
+            />
+            <Redirect to={ROUTES.home} />
           </Switch>
         </div>
       </main>
@@ -95,3 +114,7 @@ export const App = mobxReact.observer(function App() {
     </div>
   );
 });
+
+function getLinkToUserReview(userId: string): string {
+  return generatePath(ROUTES.adAccounts, { userId });
+}

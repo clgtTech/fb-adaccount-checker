@@ -10,8 +10,7 @@ export class AdAccountsPresenter {
   ) {}
 
   static defaultFieldsSchema: FieldsSchema = [
-    ['id', 'ID'],
-    ['accountId', 'Account ID'],
+    ['id', 'Account ID'],
     ['status', 'Account Status'],
     ['name', 'Account Name'],
     ['currency', 'Currency'],

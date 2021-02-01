@@ -111,28 +111,6 @@ export class SessionStore {
       });
   }
 
-  // async authenticate(accessToken: string): Promise<User | null> {
-  //   this.accessToken = accessToken;
-  //   this.authStatus = AsyncActionStatus.pending;
-  //   try {
-  //     const user = await this._userApi.getUserRelatedToAccessToken(accessToken);
-  //     mobx.runInAction(() => {
-  //       this._stores.userStore.addUser(user);
-  //       this.authenticatedUserId = user.id;
-  //       this.authStatus = AsyncActionStatus.success;
-  //       this.authError = null;
-  //     });
-  //     return user;
-  //   } catch (e) {
-  //     mobx.runInAction(() => {
-  //       this.authenticatedUserId = '';
-  //       this.authStatus = AsyncActionStatus.error;
-  //       this.authError = e;
-  //     });
-  //     return null;
-  //   }
-  // }
-
   setLocale(locale: Locale) {
     this.locale = locale;
   }

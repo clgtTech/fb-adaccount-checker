@@ -9,12 +9,12 @@ import styles from './ad-accounts-nav.module.scss';
 
 export interface AdAccountsNavProps extends SideNavProps {
   adAccounts: AdAccount[];
-  getAdAccountPath(adAccount: AdAccount): string;
+  getLinkToAdAccount(adAccountId: AdAccount['id']): string;
 }
 
 export function AdAccountsNav({
   adAccounts,
-  getAdAccountPath,
+  getLinkToAdAccount,
   className,
   ...props
 }: AdAccountsNavProps) {
@@ -63,7 +63,7 @@ export function AdAccountsNav({
             .map((adAccount) => (
               <li key={adAccount.id}>
                 <AdAccountNavLink
-                  to={getAdAccountPath(adAccount)}
+                  to={getLinkToAdAccount(adAccount.id)}
                   adAccount={adAccount}
                 />
               </li>

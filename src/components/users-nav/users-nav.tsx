@@ -10,14 +10,14 @@ export interface UsersNavProps extends SideNavProps {
   users: User[];
   onUserDelete: UserNavLinkProps['onDelete'];
   onUserUpdate: UserNavLinkProps['onUpdate'];
-  getUserPath(user: User): string;
+  getLinkToUser(userId: User['id']): string;
 }
 
 export function UsersNav({
   users,
   onUserDelete,
   onUserUpdate,
-  getUserPath,
+  getLinkToUser,
   className,
   ...props
 }: UsersNavProps) {
@@ -55,7 +55,7 @@ export function UsersNav({
               <UserNavLink
                 key={user.id}
                 user={user}
-                to={getUserPath(user)}
+                to={getLinkToUser(user.id)}
                 onDelete={onUserDelete}
                 onUpdate={onUserUpdate}
               />

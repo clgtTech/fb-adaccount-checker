@@ -3,7 +3,6 @@ import { Formatters } from '../services/intl';
 
 export class AdAccountPresenter {
   id: string;
-  accountId: string;
   name: string;
   spend: string;
   ctr: string;
@@ -14,7 +13,6 @@ export class AdAccountPresenter {
 
   constructor(adAccount: AdAccount) {
     this.id = adAccount.id;
-    this.accountId = adAccount.accountId;
     this.name = adAccount.name;
     this.spend = Formatters.formatMonetaryValue(
       adAccount.spend,

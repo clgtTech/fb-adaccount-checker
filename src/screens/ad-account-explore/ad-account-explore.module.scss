@@ -1,0 +1,15 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.breadcrumbs {
+  box-sizing: border-box;
+  width: 100%;
+  padding: $gap-4x;
+  background: var(--primary-bg-color);
+  border-bottom: 0.0625rem solid var(--border-color);
+}
+
+.content {
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: $gap-4x $gap-6x;
+}

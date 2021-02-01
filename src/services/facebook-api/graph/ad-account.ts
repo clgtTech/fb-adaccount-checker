@@ -1,5 +1,7 @@
+import { Currency } from '../../../types';
 import { AdAccount, AdAccountApi } from '../../../stores/ad-account-store';
 import { makeRequest } from '../make-request';
+import { toNumber } from '../type-conversions';
 
 /**
  * @see https://developers.facebook.com/docs/marketing-api/reference/ad-account
@@ -10,7 +12,7 @@ export type FacebookAdAccount = {
   account_status: number;
   disable_reason: number;
   name: string;
-  currency: string;
+  currency: Currency;
   insights?: {
     data?: [
       {
@@ -36,7 +38,6 @@ export class AdAccountGraphApi implements AdAccountApi {
       params: {
         limit: 100,
         fields: [
-          'id',
           'account_id',
           'account_status',
           'disable_reason',
@@ -47,18 +48,17 @@ export class AdAccountGraphApi implements AdAccountApi {
       },
       options: { needAuthorization: true },
     });
-    return response.data.map((facebookAdAccount) => {
-      const insights = facebookAdAccount.insights?.data?.[0];
-      return new AdAccount({
-        id: facebookAdAccount.id,
-        accountId: facebookAdAccount.account_id,
-        name: facebookAdAccount.name,
-        status: facebookAdAccount.account_status,
-        disableReason: facebookAdAccount.disable_reason,
-        currency: facebookAdAccount.currency,
-        spend: insights?.spend,
-        ctr: insights?.ctr,
-      });
+    return response.data.map((adAccount) => {
+      const insights = adAccount.insights?.data?.[0];
+      return new AdAccount(
+        adAccount.account_id,
+        adAccount.name,
+        adAccount.account_status,
+        adAccount.disable_reason,
+        adAccount.currency,
+        toNumber(insights?.spend),
+        toNumber(insights?.ctr)
+      );
     });
   }
 }

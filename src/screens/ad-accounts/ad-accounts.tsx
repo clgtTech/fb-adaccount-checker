@@ -1,29 +1,28 @@
 import * as React from 'react';
 import * as mobxReact from 'mobx-react-lite';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { generatePath, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import { LoadingView, NonIdealStateView } from 'draft-components';
 import { AsyncActionStatus } from '../../types';
+import { ROUTES } from '../../constants';
 import { adAccountStore, sessionStore } from '../../stores';
+import { useBorderedHeader } from '../../components/header';
 import { ErrorView } from '../../components/error-view';
 import { AdAccountsNav } from '../../components/ad-accounts-nav';
-import { AdAccountReview } from '../ad-account-review';
+import { AdAccountExplore } from '../ad-account-explore';
 import styles from './ad-accounts.module.scss';
-
-export interface AdAccountsRouteParams {
-  userId: string;
-  adAccountId?: string;
-}
 
 export const AdAccounts = mobxReact.observer(function AdAccounts() {
   const intl = useIntl();
-  const userId = sessionStore.authenticatedUserId;
-  const { params } = useRouteMatch<AdAccountsRouteParams>();
+  const authenticatedUserId = sessionStore.authenticatedUserId;
+  const { path, url } = useRouteMatch();
+
+  useBorderedHeader(true);
 
   React.useEffect(() => {
-    adAccountStore.loadAdAccounts(userId);
+    adAccountStore.loadAdAccounts(authenticatedUserId);
     return () => adAccountStore.resetLoadStatus();
-  }, [userId]);
+  }, [authenticatedUserId]);
 
   if (
     adAccountStore.loadStatus === AsyncActionStatus.idle ||
@@ -48,7 +47,7 @@ export const AdAccounts = mobxReact.observer(function AdAccounts() {
 
   if (
     adAccountStore.loadStatus === AsyncActionStatus.success &&
-    !adAccountStore.adAccounts.length
+    adAccountStore.isEmpty
   ) {
     return (
       <NonIdealStateView
@@ -68,28 +67,43 @@ export const AdAccounts = mobxReact.observer(function AdAccounts() {
     <div className={styles.layout}>
       <AdAccountsNav
         className={styles.navigation}
-        adAccounts={adAccountStore.adAccounts}
-        getAdAccountPath={(adAccount) => {
-          return generatePath(`/${userId}/:adAccountId`, {
-            adAccountId: adAccount.id,
-          });
-        }}
+        adAccounts={adAccountStore.toArray()}
+        getLinkToAdAccount={(adAccountId) => `${url}/${adAccountId}/campaigns`}
       />
       <div className={styles.content}>
-        {params.adAccountId ? (
-          <AdAccountReview adAccountId={params.adAccountId} />
-        ) : (
-          <NonIdealStateView
-            title={intl.formatMessage({
-              id: 'screens.AdAccounts.noAdAccountState.title',
-              defaultMessage: `No ad account select`,
-            })}
-            description={intl.formatMessage({
-              id: 'screens.AdAccounts.noAdAccountState.description',
-              defaultMessage: `← Select the ad account to see his ad campaigns.`,
-            })}
+        <Switch>
+          <Route
+            path={path}
+            exact={true}
+            render={() => {
+              return (
+                <NonIdealStateView
+                  title={intl.formatMessage({
+                    id: 'screens.AdAccounts.noAdAccountState.title',
+                    defaultMessage: `No ad account select`,
+                  })}
+                  description={intl.formatMessage({
+                    id: 'screens.AdAccounts.noAdAccountState.description',
+                    defaultMessage: `← Select the ad account to see his ad campaigns.`,
+                  })}
+                />
+              );
+            }}
           />
-        )}
+          <Route
+            path={[ROUTES.campaigns, ROUTES.adsets, ROUTES.ads]}
+            exact={true}
+            render={({ match }) => {
+              const adAccount = adAccountStore.get(match.params.adAccountId);
+              return adAccount ? (
+                <AdAccountExplore adAccount={adAccount} />
+              ) : (
+                <Redirect to={url} />
+              );
+            }}
+          />
+          <Redirect to={url} />
+        </Switch>
       </div>
     </div>
   );

@@ -51,7 +51,7 @@ export function AdAccountNavLink({
           <FormattedMessage
             id="components.AdAccountNavLink.accountId"
             defaultMessage="Account ID: {accountId}"
-            values={adAccountPresenter}
+            values={{ accountId: adAccountPresenter.id }}
           />
         </CopiedValue>
 

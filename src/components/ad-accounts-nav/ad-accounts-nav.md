@@ -45,7 +45,7 @@ const adAccounts = [
 <MemoryRouter>
   <AdAccountsNav
     adAccounts={adAccounts}
-    getAdAccountPath={(adAccount) => `/adaccounts/${adAccount.id}`}
+    getLinkToAdAccount={(adAccountId) => `/adaccounts/${adAccountId}`}
   />
 </MemoryRouter>;
 ```
