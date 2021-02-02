@@ -1,0 +1,10 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+}
+
+.caption {
+  margin: 0 0 $gap-2x;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+}

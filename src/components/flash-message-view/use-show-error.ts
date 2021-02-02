@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { createErrorPresenter } from '../../presenters/error-presenter';
-import { stores } from '../../stores';
-
-const { uiStore } = stores;
+import { uiStore } from '../../stores';
 
 export function useShowError(error?: Error | null) {
   React.useEffect(() => {

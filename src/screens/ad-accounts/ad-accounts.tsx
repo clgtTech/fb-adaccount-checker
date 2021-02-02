@@ -6,7 +6,6 @@ import { LoadingView, NonIdealStateView } from 'draft-components';
 import { AsyncActionStatus } from '../../types';
 import { ROUTES } from '../../constants';
 import { adAccountStore, sessionStore } from '../../stores';
-import { useBorderedHeader } from '../../components/header';
 import { ErrorView } from '../../components/error-view';
 import { AdAccountsNav } from '../../components/ad-accounts-nav';
 import { AdAccountExplore } from '../ad-account-explore';
@@ -16,8 +15,6 @@ export const AdAccounts = mobxReact.observer(function AdAccounts() {
   const intl = useIntl();
   const authenticatedUserId = sessionStore.authenticatedUserId;
   const { path, url } = useRouteMatch();
-
-  useBorderedHeader(true);
 
   React.useEffect(() => {
     adAccountStore.loadAdAccounts(authenticatedUserId);

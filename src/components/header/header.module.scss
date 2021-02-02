@@ -8,11 +8,12 @@
   width: 100%;
   height: var(--header-height);
   padding: 0 $gap-4x;
+  border-bottom: 0.0625rem solid transparent;
   background: var(--primary-bg-color);
 }
 
 .layout.isBordered {
-  box-shadow: 0 0 0 0.0625rem var(--border-color);
+  border-bottom-color: var(--border-color);
 }
 
 .left {

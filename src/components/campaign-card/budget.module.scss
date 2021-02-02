@@ -1,0 +1,29 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  color: var(--primary-text-color);
+}
+
+.budget {
+}
+
+.amount {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+}
+
+.type {
+  display: inline-block;
+  margin-left: $gap-2x;
+  font-size: $font-size-xs;
+}
+
+.bidStrategy,
+.fallbackMessage {
+  display: inline-block;
+  font-size: $font-size-sm;
+}
+
+.bidStrategy {
+  margin: 0 0 $gap-1x;
+}

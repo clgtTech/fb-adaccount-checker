@@ -1,4 +1,14 @@
 import * as mobx from 'mobx';
+import {
+  ActionType,
+  AsyncActionStatus,
+  BidStrategy,
+  BuyingType,
+  Objective,
+  Status,
+} from '../types';
+import { CurrencyAmount } from './entities';
+import { AdAccount } from './ad-account-store';
 
 export interface CampaignApi {
   getAdAccountCampaigns(
@@ -6,11 +16,33 @@ export interface CampaignApi {
     limit?: number
   ): Promise<Campaign[]>;
 }
+
+export class CampaignInsights {
+  constructor(
+    public readonly actionType: ActionType,
+    public readonly actionTypeResult: number,
+    public readonly costPerActionType: number,
+    public readonly spend: number,
+    public readonly cpc: number,
+    public readonly cpm: number,
+    public readonly ctr: number
+  ) {}
+}
+
 export class Campaign {
   constructor(
     public readonly id: string,
     public readonly adAccountId: string,
+    public status: Status,
     public name: string,
+    public readonly adsetCount: number,
+    public readonly objective: Objective,
+    public readonly buyingType: BuyingType,
+    public readonly bidStrategy?: BidStrategy,
+    public dailyBudget?: CurrencyAmount,
+    public lifetimeBudget?: CurrencyAmount,
+    public readonly budgetRemaining?: CurrencyAmount,
+    public readonly insights?: CampaignInsights
   ) {
     mobx.makeAutoObservable(this);
   }
@@ -23,6 +55,10 @@ export class CampaignStore {
 
   constructor(private _campaignApi: CampaignApi) {
     mobx.makeAutoObservable(this);
+  }
+
+  get isEmpty() {
+    return this.campaignsMap.size === 0;
   }
 
   resetLoadStatus() {

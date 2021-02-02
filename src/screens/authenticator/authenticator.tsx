@@ -5,6 +5,7 @@ import { LoadingView } from 'draft-components';
 import { AsyncActionStatus } from '../../types';
 import { ROUTES } from '../../constants';
 import { sessionStore, userStore } from '../../stores';
+import { useBorderedHeader } from '../../components/header';
 import { ErrorView } from '../../components/error-view';
 
 export interface AuthenticatorProps {
@@ -14,6 +15,8 @@ export interface AuthenticatorProps {
 export function Authenticator({ children }: AuthenticatorProps) {
   const history = useHistory();
   const { params } = useRouteMatch<{ userId: string }>();
+
+  useBorderedHeader(true);
 
   React.useEffect(() => {
     const savedUser = userStore.getUserById(params.userId);

@@ -1,0 +1,17 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 960px;
+  padding: $gap-4x;
+  text-align: left;
+  border: 0.0625rem solid var(--border-color);
+  border-radius: $border-radius-xl;
+  background: var(--primary-bg-color);
+}
+
+.container > * + * {
+  margin-top: $gap-4x;
+}

@@ -1,0 +1,19 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  margin: 0;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  line-height: $leading-tight;
+}
+
+.text {
+  display: inline-block;
+  margin-right: $gap-2x;
+}
+
+.objectId {
+  color: var(--secondary-text-color);
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}

@@ -1,30 +1,53 @@
 import * as React from 'react';
 import * as mobxReact from 'mobx-react-lite';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { useRouteMatch } from 'react-router-dom';
+import { NonIdealStateView, SvgIcon, Icons } from 'draft-components';
 import { AdAccount } from '../../stores/ad-account-store';
 import { Campaign } from '../../stores/campaign-store';
 import { campaignStore } from '../../stores';
+import { CampaignCard } from '../../components/campaign-card';
 import styles from './campaigns.module.scss';
 
 export interface CampaignsProps {
   adAccount: AdAccount;
 }
 
-export const Campaigns = mobxReact.observer(function Campaigns(
-  props: CampaignsProps
-) {
+export const Campaigns = mobxReact.observer(function Campaigns({
+  adAccount,
+}: CampaignsProps) {
+  const intl = useIntl();
   const { url } = useRouteMatch();
-  const linkToAdsets = React.useMemo(() => {
+  const getLinkToAdsets = React.useMemo(() => {
     const baseUrl = url.replace(/\/*$/, '');
     return (campaignId: Campaign['id']) => `${baseUrl}/${campaignId}/adsets`;
   }, [url]);
+
+  if (campaignStore.isEmpty) {
+    return (
+      <NonIdealStateView
+        icon={<SvgIcon size="4x" icon={Icons.folderIcon} />}
+        title={intl.formatMessage({
+          id: 'screens.Campaigns.noCampaigns.title',
+          defaultMessage: `No campaigns found`,
+        })}
+        description={intl.formatMessage({
+          id: 'screens.Campaigns.noCampaigns.description',
+          defaultMessage: `This ad account does not have any campaigns. Try to select another account.`,
+        })}
+      />
+    );
+  }
+
   return (
-    <ol className={styles.list}>
+    <ol className={styles.campaignList}>
       {campaignStore.map((campaign) => (
         <li key={campaign.id}>
-          <Link to={linkToAdsets(campaign.id)}>
-            Campaign: {campaign.name} #{campaign.id}
-          </Link>
+          <CampaignCard
+            adAccount={adAccount}
+            campaign={campaign}
+            getLinkToAdsets={getLinkToAdsets}
+          />
         </li>
       ))}
     </ol>

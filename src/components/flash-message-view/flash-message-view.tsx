@@ -3,7 +3,7 @@ import * as mobx from 'mobx';
 import { useIntl } from 'react-intl';
 import { CSSTransition } from 'react-transition-group';
 import { Banner } from 'draft-components';
-import { stores } from '../../stores';
+import { uiStore } from '../../stores';
 import { FlashMessage } from '../../stores/ui-store';
 import styles from './flash-message-view.module.scss';
 
@@ -11,7 +11,6 @@ const transitionTimeouts = {
   enter: 280,
   exit: 200,
 };
-const { uiStore } = stores;
 
 export const FlashMessageView = function FlashMessageView() {
   const intl = useIntl();

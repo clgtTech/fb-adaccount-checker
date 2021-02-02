@@ -29,3 +29,8 @@ body {
 a {
   color: var(--link-color);
 }
+
+a:focus {
+  outline: none;
+  @include focus-ring;
+}

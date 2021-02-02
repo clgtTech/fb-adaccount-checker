@@ -1,0 +1,21 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container,
+.description {
+  display: block;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.content > * + * {
+  margin-left: $gap-4x;
+}
+
+.description {
+  margin-top: $gap-2x;
+}

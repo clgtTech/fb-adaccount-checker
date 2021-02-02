@@ -9,29 +9,25 @@ import {
 } from 'react-router-dom';
 import { LoadingView } from 'draft-components';
 import { AsyncActionStatus } from '../../types';
+import { AdAccountExploreParams } from './route-params';
 import { AdAccount } from '../../stores/ad-account-store';
 import { ROUTES } from '../../constants';
 import { adsetStore, adStore, campaignStore } from '../../stores';
 import { ErrorView } from '../../components/error-view';
+import { AdObjectsNav } from './ad-objects-nav';
 import { Campaigns } from '../campaigns';
 import { Adsets } from '../adsets';
 import { Ads } from '../ads';
+import styles from './ad-account-explore.module.scss';
 
 export interface AdAccountExploreProps {
   adAccount: AdAccount;
 }
 
-export interface AdAccountExploreRouteParams {
-  userId: string;
-  adAccountId: string;
-  campaignId: string;
-  adsetId: string;
-}
-
 export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
   adAccount,
 }: AdAccountExploreProps) {
-  const params = useParams<AdAccountExploreRouteParams>();
+  const params = useParams<AdAccountExploreParams>();
   const history = useHistory();
   const redirectToCampaigns = () => {
     history.replace(
@@ -84,46 +80,54 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
   const selectedAdset = adsetStore.get(params.adsetId);
 
   return (
-    <div>
-      <Switch>
-        <Route
-          path={ROUTES.campaigns}
-          exact={true}
-          render={() => <Campaigns adAccount={adAccount} />}
-        />
-        <Route
-          path={ROUTES.adsets}
-          exact={true}
-          render={() => {
-            if (selectedCampaign == null) {
-              redirectToCampaigns();
-            } else {
-              return (
-                <Adsets adAccount={adAccount} campaign={selectedCampaign} />
-              );
-            }
-          }}
-        />
-        <Route
-          path={ROUTES.ads}
-          exact={true}
-          render={() => {
-            if (selectedCampaign == null) {
-              redirectToCampaigns();
-            } else if (selectedAdset == null) {
-              redirectToAdsets();
-            } else {
-              return (
-                <Ads
-                  adAccount={adAccount}
-                  campaign={selectedCampaign}
-                  adset={selectedAdset}
-                />
-              );
-            }
-          }}
-        />
-      </Switch>
+    <div className={styles.container}>
+      <AdObjectsNav
+        className={styles.navigation}
+        params={params}
+        campaign={selectedCampaign}
+        adset={selectedAdset}
+      />
+      <div className={styles.content}>
+        <Switch>
+          <Route
+            path={ROUTES.campaigns}
+            exact={true}
+            render={() => <Campaigns adAccount={adAccount} />}
+          />
+          <Route
+            path={ROUTES.adsets}
+            exact={true}
+            render={() => {
+              if (selectedCampaign == null) {
+                redirectToCampaigns();
+              } else {
+                return (
+                  <Adsets adAccount={adAccount} campaign={selectedCampaign} />
+                );
+              }
+            }}
+          />
+          <Route
+            path={ROUTES.ads}
+            exact={true}
+            render={() => {
+              if (selectedCampaign == null) {
+                redirectToCampaigns();
+              } else if (selectedAdset == null) {
+                redirectToAdsets();
+              } else {
+                return (
+                  <Ads
+                    adAccount={adAccount}
+                    campaign={selectedCampaign}
+                    adset={selectedAdset}
+                  />
+                );
+              }
+            }}
+          />
+        </Switch>
+      </div>
     </div>
   );
 });

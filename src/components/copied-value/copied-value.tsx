@@ -3,8 +3,8 @@ import { classNames, SvgIcon, Icons } from 'draft-components';
 import { copyToClipboard } from '../../shared/util';
 import styles from './copied-value.module.scss';
 
-// prettier-ignore
-export interface CopiedValueProps extends React.ComponentPropsWithoutRef<'span'> {
+export interface CopiedValueProps
+  extends React.ComponentPropsWithoutRef<'span'> {
   value: string;
 }
 
