@@ -56,6 +56,9 @@
   "components.AdAccountsNav.title": {
     "defaultMessage": "Ad Accounts"
   },
+  "components.AdsetCard.linkToAds": {
+    "defaultMessage": "View Ads"
+  },
   "components.CampaignCard.linkToAdsets": {
     "defaultMessage": "View Ad sets"
   },
@@ -395,6 +398,24 @@
   "errors.unknownError.title": {
     "defaultMessage": "An unknown error occurred"
   },
+  "fields.Adset.bidStrategy": {
+    "defaultMessage": "Bid strategy"
+  },
+  "fields.Adset.budget": {
+    "defaultMessage": "Budget"
+  },
+  "fields.Adset.campaignBudget": {
+    "defaultMessage": "Using campaign budget"
+  },
+  "fields.Adset.dailyBudget": {
+    "defaultMessage": "Daily"
+  },
+  "fields.Adset.insights": {
+    "defaultMessage": "Insights"
+  },
+  "fields.Adset.lifetimeBudget": {
+    "defaultMessage": "Lifetime"
+  },
   "fields.Campaign.adsetBudget": {
     "defaultMessage": "Using ad set budget"
   },
@@ -448,6 +469,12 @@
   },
   "screens.AdAccounts.noAdAccountsState.title": {
     "defaultMessage": "No ad accounts found"
+  },
+  "screens.Adsets.noAdsets.description": {
+    "defaultMessage": "This campaign does not have any ad sets. Try to select another campaign."
+  },
+  "screens.Adsets.noAdsets.title": {
+    "defaultMessage": "No ad sets found"
   },
   "screens.Authenticator.authenticating": {
     "defaultMessage": "Access Token checking..."

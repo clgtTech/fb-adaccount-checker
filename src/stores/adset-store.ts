@@ -1,19 +1,43 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus } from '../types';
+import {
+  ActionType,
+  AdsetEffectiveStatus,
+  AsyncActionStatus,
+  BidStrategy,
+  Status,
+} from '../types';
 import { AdAccount } from './ad-account-store';
+import { CurrencyAmount } from './entities';
 
 export interface AdsetApi {
   getAdAccountAdsets(adAccount: AdAccount, limit?: number): Promise<Adset[]>;
 }
 
-export class AdsetInsights {}
+export class AdsetInsights {
+  constructor(
+    public readonly actionType: ActionType,
+    public readonly actionTypeResult: number,
+    public readonly costPerActionType: number,
+    public readonly spend: number,
+    public readonly cpc: number,
+    public readonly cpm: number,
+    public readonly ctr: number
+  ) {}
+}
 
 export class Adset {
   constructor(
     public readonly id: string,
     public readonly adAccountId: string,
     public readonly campaignId: string,
-    public name: string
+    public readonly effectiveStatus: AdsetEffectiveStatus,
+    public status: Status,
+    public name: string,
+    public readonly adCount: number,
+    public readonly bidStrategy?: BidStrategy,
+    public dailyBudget?: CurrencyAmount,
+    public lifetimeBudget?: CurrencyAmount,
+    public readonly insights?: AdsetInsights
   ) {
     mobx.makeAutoObservable(this);
   }

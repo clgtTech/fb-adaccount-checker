@@ -1,19 +1,19 @@
 @import '~draft-components/dist/scss/abstracts/variables';
 
-.campaignList {
+.list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.campaignList > * {
+.list > * {
   text-align: center;
 }
 
-.campaignList > * > * {
+.list > * > * {
   display: inline-block;
 }
 
-.campaignList > * + * {
+.list > * + * {
   margin-top: $gap-4x;
 }

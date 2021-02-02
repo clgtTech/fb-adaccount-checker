@@ -96,6 +96,7 @@ export class CampaignGraphApi implements CampaignApi {
 
     return response.data.map((campaign) => {
       const insights = campaign.insights?.data?.[0];
+      const targetActionIndicator = insights?.results?.[0]?.indicator;
       return new Campaign(
         campaign.id,
         adAccount.id,
@@ -111,12 +112,9 @@ export class CampaignGraphApi implements CampaignApi {
         campaign.lifetime_budget
           ? new CurrencyAmount(campaign.lifetime_budget, adAccount.currency)
           : undefined,
-        campaign.budget_remaining
-          ? new CurrencyAmount(campaign.budget_remaining, adAccount.currency)
-          : undefined,
-        insights && insights.results
+        insights && targetActionIndicator
           ? new CampaignInsights(
-              toActionType(insights.results[0].indicator),
+              toActionType(targetActionIndicator),
               toNumber(insights.results[0].values?.[0]?.value),
               toNumber(insights.cost_per_result?.[0]?.values?.[0]?.value),
               toNumber(insights.spend),

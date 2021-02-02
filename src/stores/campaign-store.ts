@@ -41,7 +41,6 @@ export class Campaign {
     public readonly bidStrategy?: BidStrategy,
     public dailyBudget?: CurrencyAmount,
     public lifetimeBudget?: CurrencyAmount,
-    public readonly budgetRemaining?: CurrencyAmount,
     public readonly insights?: CampaignInsights
   ) {
     mobx.makeAutoObservable(this);

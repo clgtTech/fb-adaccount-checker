@@ -40,7 +40,7 @@ export const Campaigns = mobxReact.observer(function Campaigns({
   }
 
   return (
-    <ol className={styles.campaignList}>
+    <ol className={styles.list}>
       {campaignStore.map((campaign) => (
         <li key={campaign.id}>
           <CampaignCard

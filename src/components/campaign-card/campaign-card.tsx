@@ -11,7 +11,6 @@ import { Meta } from './meta';
 import { Budget } from './budget';
 import { Insights } from './insights';
 import { ObjectLink } from './object-link';
-import styles from './campaign-card.module.scss';
 
 export interface CampaignCardProps extends EntityCardProps {
   adAccount: AdAccount;
@@ -33,7 +32,6 @@ export function CampaignCard({
       <EntityCard.Header
         description={
           <Meta
-            className={styles.meta}
             items={[
               {
                 name: intl.formatMessage(Messages.Campaign.objective),
@@ -57,7 +55,6 @@ export function CampaignCard({
         caption={intl.formatMessage(Messages.Campaign.budget)}
       >
         <Budget
-          className={styles.budget}
           bidStrategy={campaignPresenter.bidStrategy}
           lifetimeBudget={campaignPresenter.lifetimeBudget}
           dailyBudget={campaignPresenter.dailyBudget}

@@ -81,10 +81,20 @@ export enum Status {
   ARCHIVED = 'ARCHIVED',
 }
 
-export enum EffectiveStatus {
+export enum CampaignEffectiveStatus {
   ACTIVE = 'ACTIVE',
   PAUSED = 'PAUSED',
   DELETED = 'DELETED',
+  ARCHIVED = 'ARCHIVED',
+  IN_PROCESS = 'IN_PROCESS',
+  WITH_ISSUES = 'WITH_ISSUES',
+}
+
+export enum AdsetEffectiveStatus {
+  ACTIVE = 'ACTIVE',
+  PAUSED = 'PAUSED',
+  DELETED = 'DELETED',
+  CAMPAIGN_PAUSED = 'CAMPAIGN_PAUSED',
   ARCHIVED = 'ARCHIVED',
   IN_PROCESS = 'IN_PROCESS',
   WITH_ISSUES = 'WITH_ISSUES',
