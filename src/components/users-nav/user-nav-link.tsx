@@ -1,16 +1,11 @@
 import * as React from 'react';
 import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import { NavLink, NavLinkProps } from 'react-router-dom';
-import {
-  classNames,
-  Avatar,
-  ActionsGroup,
-  SvgIcon,
-  Icons,
-} from 'draft-components';
+import { classNames, ActionsGroup, SvgIcon, Icons } from 'draft-components';
 import { CopiedValue } from '../copied-value';
 import { User } from '../../stores/user-store';
 import { UserPresenter } from '../../presenters/user-presenter';
+import { UserAvatar } from './user-avatar';
 import styles from './user-nav-link.module.scss';
 
 export const messages = {
@@ -49,13 +44,7 @@ export function UserNavLink({
         className={styles.navLink}
         activeClassName={classNames(activeClassName, styles.isSelected)}
       >
-        <Avatar
-          className={styles.picture}
-          size="lg"
-          src={userPresenter.pictureUrl}
-          altText={userPresenter.name}
-          initials={userPresenter.initials}
-        />
+        <UserAvatar className={styles.picture} userPresenter={userPresenter} />
         <div className={styles.content}>
           <div className={styles.headline}>
             <p className={styles.name}>{userPresenter.name}</p>
