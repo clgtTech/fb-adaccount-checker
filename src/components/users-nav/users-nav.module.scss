@@ -9,3 +9,17 @@
 
 .content {
 }
+
+.linkList {
+  margin: 0;
+  padding: 0;
+}
+
+.linkList > * {
+  padding-bottom: $gap-1x;
+  border-bottom: 0.0625rem solid var(--border-color);
+}
+
+.linkList > * + * {
+  margin-top: $gap-1x;
+}

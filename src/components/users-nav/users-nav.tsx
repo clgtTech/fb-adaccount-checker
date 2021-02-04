@@ -47,19 +47,22 @@ export function UsersNav({
       </SideNav.Header>
       <SideNav.Content className={styles.content}>
         <nav>
-          {users
-            .filter((user) => {
-              return user.displayedName.toLowerCase().includes(searchQuery);
-            })
-            .map((user) => (
-              <UserNavLink
-                key={user.id}
-                user={user}
-                to={getLinkToUser(user.id)}
-                onDelete={onUserDelete}
-                onUpdate={onUserUpdate}
-              />
-            ))}
+          <ul className={styles.linkList}>
+            {users
+              .filter((user) => {
+                return user.displayedName.toLowerCase().includes(searchQuery);
+              })
+              .map((user) => (
+                <li key={user.id}>
+                  <UserNavLink
+                    user={user}
+                    to={getLinkToUser(user.id)}
+                    onDelete={onUserDelete}
+                    onUpdate={onUserUpdate}
+                  />
+                </li>
+              ))}
+          </ul>
         </nav>
       </SideNav.Content>
     </SideNav>
