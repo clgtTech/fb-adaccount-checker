@@ -1,91 +1,90 @@
 import * as mobx from 'mobx';
+import { User, UserCache, UserDTO } from './entities';
 import { RootStore } from './root-store';
 
-export interface UserApi {
-  getUserRelatedToAccessToken(accessToken: string): Promise<User>;
-}
-
-export interface UserCache {
-  saveUsers(users: User[]): void;
-  getUsers(): User[];
-}
-
-export class User {
-  accessToken: string;
-  id: string;
-  name: string;
-  pictureUrl?: string;
-  customName?: string;
-  addedAt: Date;
-
-  constructor(data: {
-    accessToken: string;
-    id: string | number;
-    name: string;
-    pictureUrl?: string;
-    customName?: string;
-    addedAt: Date | string;
-  }) {
-    mobx.makeAutoObservable(this, {
-      id: false,
-    });
-    this.accessToken = data.accessToken;
-    this.id = String(data.id);
-    this.name = data.name;
-    this.pictureUrl = data.pictureUrl || '';
-    this.customName = data.customName || '';
-    this.addedAt = new Date(data.addedAt);
-  }
-
-  get displayedName() {
-    return this.customName || this.name;
-  }
-}
-
 export class UserStore {
-  users: User[] = [];
-  searchQuery: string = '';
+  usersMap: Map<User['id'], User> = new Map();
 
   constructor(private _cache: UserCache, private _stores: RootStore) {
     mobx.makeAutoObservable(this);
     mobx.runInAction(() => {
-      this.users = this._cache.getUsers();
+      this.restoreFromCache();
     });
     mobx.autorun(() => {
-      this._cache.saveUsers(this.users);
+      this.saveToCache();
     });
   }
 
-  setSearchQuery(searchQuery: string): void {
-    this.searchQuery = searchQuery;
+  restoreFromCache() {
+    this.usersMap = new Map(
+      this._cache.getUsers().map((user) => [user.id, user])
+    );
   }
 
-  getUserById(userId: User['id']): User | undefined {
-    return this.users.find((user) => user.id === userId);
+  saveToCache() {
+    this._cache.saveUsers(this.toArray());
   }
 
-  addUser(newUser: User) {
-    const index = this.users.findIndex((user) => user.id === newUser.id);
-    if (~index) {
-      const { customName, addedAt, ...userData } = newUser;
-      Object.assign(this.users[index], userData);
-    } else {
-      this.users = [newUser, ...this.users];
+  get(userId: string | number | undefined | null): User | undefined {
+    return userId == null ? undefined : this.usersMap.get('' + userId);
+  }
+
+  map<T>(mapper: (user: User, userId: User['id']) => T): T[] {
+    const users: T[] = [];
+    for (const user of this.usersMap.values()) {
+      users.push(mapper(user, user.id));
     }
+    return users;
+  }
+
+  filter(filter: (user: User, userId: User['id']) => boolean): User[] {
+    const users: User[] = [];
+    for (const user of this.usersMap.values()) {
+      if (filter(user, user.id)) {
+        users.push(user);
+      }
+    }
+    return users;
+  }
+
+  toArray(): User[] {
+    return this.map((user) => user);
+  }
+
+  addUser(userDTO: UserDTO): User {
+    let user: User;
+    const userId = '' + userDTO.id;
+    const oldUser = this.usersMap.get(userId);
+
+    if (oldUser) {
+      user = new User({
+        ...userDTO,
+        addedAt: oldUser.addedAt,
+        customName: oldUser.customName,
+      });
+      this.usersMap.set(user.id, user);
+    } else {
+      user = new User(userDTO);
+      this.usersMap = new Map([
+        [user.id, user],
+        ...this.map<[User['id'], User]>((user) => [user.id, user]),
+      ]);
+    }
+
+    return user;
   }
 
   updateUser(userId: User['id'], update: Partial<User>) {
-    this.users.forEach((user) => {
-      if (user.id === userId) {
-        Object.assign(user, update);
-      }
-    });
+    if (this.usersMap.has(userId)) {
+      Object.assign(this.usersMap.get(userId), update);
+    }
   }
 
-  deleteUser(id: User['id']) {
-    this.users = this.users.filter((oldUser) => oldUser.id !== id);
-    if (id === this._stores.sessionStore.authenticatedUserId) {
+  deleteUser(userId: User['id']): boolean {
+    const isDeleted = this.usersMap.delete(userId);
+    if (isDeleted && userId === this._stores.sessionStore.authenticatedUserId) {
       this._stores.sessionStore.resetAuth();
     }
+    return isDeleted;
   }
 }

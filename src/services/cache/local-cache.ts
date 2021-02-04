@@ -1,7 +1,7 @@
 import { Locale } from '../../types';
 import { LOCAL_STORAGE_KEYS, DEFAULT_LOCALE } from '../../constants';
+import { User, UserCache } from '../../stores/entities';
 import { UiCache, UiState } from '../../stores/ui-store';
-import { User, UserCache } from '../../stores/user-store';
 import { SessionCache } from '../../stores/session-store';
 
 export class LocalCache implements UiCache, UserCache, SessionCache {
@@ -38,7 +38,7 @@ export class LocalCache implements UiCache, UserCache, SessionCache {
   saveUsers(users: User[]) {
     window.localStorage.setItem(
       LOCAL_STORAGE_KEYS.users,
-      JSON.stringify(users)
+      JSON.stringify(users.map((user) => user.serialize()))
     );
   }
 

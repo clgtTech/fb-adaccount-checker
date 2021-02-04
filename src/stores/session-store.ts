@@ -1,8 +1,8 @@
 import * as mobx from 'mobx';
 import { AsyncActionStatus, Locale } from '../types';
 import { DEFAULT_LOCALE } from '../constants';
+import { User, UserApi } from './entities';
 import { RootStore } from './root-store';
-import { User, UserApi } from './user-store';
 
 export interface SessionCache {
   saveLocale(locale: Locale): void;
@@ -76,14 +76,11 @@ export class SessionStore {
   }
 
   resetAuth() {
-    debugger;
     const authUserId = this.authenticatedUserId;
-
     this.accessToken = '';
     this.authenticatedUserId = '';
     this.authStatus = AsyncActionStatus.idle;
     this.authError = null;
-
     this._eventListeners.authReset.forEach((listener) => listener(authUserId));
   }
 
@@ -92,15 +89,16 @@ export class SessionStore {
     this.authStatus = AsyncActionStatus.pending;
     this._userApi
       .getUserRelatedToAccessToken(accessToken)
-      .then((user) => {
+      .then((userDTO) => {
         mobx.runInAction(() => {
-          this._stores.userStore.addUser(user);
+          const user = this._stores.userStore.addUser(userDTO);
           this.authenticatedUserId = user.id;
           this.authStatus = AsyncActionStatus.success;
           this.authError = null;
+          this._eventListeners.authenticate.forEach((onAuthenticate) =>
+            onAuthenticate(user)
+          );
         });
-
-        this._eventListeners.authenticate.forEach((listener) => listener(user));
       })
       .catch((e) => {
         mobx.runInAction(() => {

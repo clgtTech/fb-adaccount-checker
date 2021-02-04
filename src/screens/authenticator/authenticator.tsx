@@ -19,8 +19,8 @@ export function Authenticator({ children }: AuthenticatorProps) {
   useBorderedHeader(true);
 
   React.useEffect(() => {
-    const savedUser = userStore.getUserById(params.userId);
-    const authUser = userStore.getUserById(sessionStore.authenticatedUserId);
+    const savedUser = userStore.get(params.userId);
+    const authUser = userStore.get(sessionStore.authenticatedUserId);
     if (!savedUser) {
       history.replace(ROUTES.home);
     } else if (savedUser !== authUser) {

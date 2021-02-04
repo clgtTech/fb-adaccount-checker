@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useIntl } from 'react-intl';
 import { classNames, SearchField } from 'draft-components';
-import { User } from '../../stores/user-store';
+import { User } from '../../stores/entities';
 import { SideNav, SideNavProps } from '../side-nav';
 import { UserNavLink, UserNavLinkProps } from './user-nav-link';
 import styles from './users-nav.module.scss';

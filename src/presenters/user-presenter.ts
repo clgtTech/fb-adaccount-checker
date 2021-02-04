@@ -1,4 +1,4 @@
-import { User } from '../stores/user-store';
+import { User } from '../stores/entities';
 import { Formatters } from '../services/intl';
 
 export class UserPresenter {

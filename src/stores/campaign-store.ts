@@ -44,8 +44,10 @@ export class CampaignStore {
       });
   }
 
-  get(id: string | number | undefined | null): Campaign | undefined {
-    return id != null ? this.campaignsMap.get('' + id) : undefined;
+  get(campaignId: string | number | undefined | null): Campaign | undefined {
+    return campaignId != null
+      ? this.campaignsMap.get('' + campaignId)
+      : undefined;
   }
 
   map<T>(mapper: (campaign: Campaign, campaignId: Campaign['id']) => T): T[] {

@@ -60,7 +60,7 @@ export const App = mobxReact.observer(function App() {
       {isSidebarOpen ? (
         <UsersNav
           className={styles.sidebar}
-          users={userStore.users}
+          users={userStore.toArray()}
           onUserDelete={(userId) => {
             userStore.deleteUser(userId);
           }}

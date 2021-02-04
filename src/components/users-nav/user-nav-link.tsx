@@ -2,9 +2,9 @@ import * as React from 'react';
 import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import { classNames, ActionsGroup, SvgIcon, Icons } from 'draft-components';
-import { CopiedValue } from '../copied-value';
-import { User } from '../../stores/user-store';
+import { User } from '../../stores/entities';
 import { UserPresenter } from '../../presenters/user-presenter';
+import { CopiedValue } from '../copied-value';
 import { UserAvatar } from './user-avatar';
 import styles from './user-nav-link.module.scss';
 
