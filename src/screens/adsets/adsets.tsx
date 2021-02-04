@@ -3,9 +3,7 @@ import * as mobxReact from 'mobx-react-lite';
 import { useIntl } from 'react-intl';
 import { useRouteMatch } from 'react-router-dom';
 import { NonIdealStateView, SvgIcon, Icons } from 'draft-components';
-import { AdAccount } from '../../stores/ad-account-store';
-import { Campaign } from '../../stores/campaign-store';
-import { Adset } from '../../stores/adset-store';
+import { AdAccount, Campaign, Adset } from '../../stores/entities';
 import { adsetStore } from '../../stores';
 import { AdsetCard } from '../../components/adset-card';
 import styles from '../campaigns/campaigns.module.scss';
@@ -29,7 +27,7 @@ export const Adsets = mobxReact.observer(function Adsets({
     (adset) => adset.campaignId === campaign.id
   );
 
-  if (!campaignAdsets.length) {
+  if (campaignAdsets.length < 1) {
     return (
       <NonIdealStateView
         icon={<SvgIcon size="4x" icon={Icons.stackIcon} />}

@@ -1,17 +1,15 @@
 import * as React from 'react';
+import { useHistory } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { AdAccount } from '../../stores/ad-account-store';
-import { Adset } from '../../stores/adset-store';
+import { AdAccount, Adset } from '../../stores/entities';
 import { AdsetPresenter } from '../../presenters/adset-presenter';
 import { Messages } from '../../services/intl';
 import { EntityCard, EntityCardProps } from '../entity-card';
-import {
-  Budget,
-  Insights,
-  ObjectLink,
-  ObjectName,
-  StatusSwitch,
-} from '../campaign-card';
+import { ObjectName } from '../object-name';
+import { ObjectLink } from '../object-link';
+import { AdObjectStatusSwitch } from '../ad-object-status-switch';
+import { AdBudget } from '../ad-budget';
+import { Insights } from '../campaign-card';
 
 export interface AdsetCardProps extends EntityCardProps {
   adAccount: AdAccount;
@@ -28,17 +26,28 @@ export function AdsetCard({
   const intl = useIntl();
   const adsetPresenter = new AdsetPresenter(adset, adAccount);
 
+  const history = useHistory();
+  const onAdsLinkClick: React.MouseEventHandler<HTMLAnchorElement> = (
+    event
+  ) => {
+    event.preventDefault();
+    history.push(event.currentTarget.getAttribute('href') || '');
+  };
+
   return (
     <EntityCard {...props}>
       <EntityCard.Header>
         <ObjectName objectId={adsetPresenter.id}>
           {adsetPresenter.name}
         </ObjectName>
-        <StatusSwitch status={adset.status} onStatusChange={console.log} />
+        <AdObjectStatusSwitch
+          status={adset.status}
+          onStatusChange={console.log}
+        />
       </EntityCard.Header>
 
       <EntityCard.Section caption={intl.formatMessage(Messages.Adset.budget)}>
-        <Budget
+        <AdBudget
           bidStrategy={adsetPresenter.bidStrategy}
           lifetimeBudget={adsetPresenter.lifetimeBudget}
           dailyBudget={adsetPresenter.dailyBudget}
@@ -50,38 +59,11 @@ export function AdsetCard({
         <EntityCard.Section
           caption={intl.formatMessage(Messages.Adset.insights)}
         >
-          <Insights
-            items={[
-              {
-                name: adsetPresenter.insights.actionType,
-                value: adsetPresenter.insights.actionTypeResult,
-              },
-              {
-                name: intl.formatMessage(Messages.Insights.costPerActionType),
-                value: adsetPresenter.insights.costPerActionType,
-              },
-              {
-                name: intl.formatMessage(Messages.Insights.spend),
-                value: adsetPresenter.insights.spend,
-              },
-              {
-                name: intl.formatMessage(Messages.Insights.ctr),
-                value: adsetPresenter.insights.ctr,
-              },
-              {
-                name: intl.formatMessage(Messages.Insights.cpc),
-                value: adsetPresenter.insights.cpc,
-              },
-              {
-                name: intl.formatMessage(Messages.Insights.cpm),
-                value: adsetPresenter.insights.cpm,
-              },
-            ]}
-          />
+          <Insights insights={adsetPresenter.insights} />
         </EntityCard.Section>
       ) : null}
 
-      <ObjectLink to={getLinkToAds(adset.id)}>
+      <ObjectLink href={getLinkToAds(adset.id)} onClick={onAdsLinkClick}>
         <FormattedMessage
           tagName="span"
           id="components.AdsetCard.linkToAds"

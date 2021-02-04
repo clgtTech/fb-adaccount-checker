@@ -1,5 +1,10 @@
-import { Currency } from '../../../types';
-import { AdAccount, AdAccountApi } from '../../../stores/ad-account-store';
+import { API_OBJECTS_LIMIT } from '../../../constants';
+import { AccountDisableReason, AccountStatus, Currency } from '../../../types';
+import {
+  AdAccount,
+  AdAccountApi,
+  AdAccountDTO,
+} from '../../../stores/entities';
 import { makeRequest } from '../make-request';
 import { toNumber } from '../type-conversions';
 
@@ -7,10 +12,9 @@ import { toNumber } from '../type-conversions';
  * @see https://developers.facebook.com/docs/marketing-api/reference/ad-account
  */
 export type FacebookAdAccount = {
-  id: string;
   account_id: string;
-  account_status: number;
-  disable_reason: number;
+  account_status: AccountStatus;
+  disable_reason: AccountDisableReason;
   name: string;
   currency: Currency;
   insights?: {
@@ -32,11 +36,18 @@ export type FacebookAdAccount = {
 };
 
 export class AdAccountGraphApi implements AdAccountApi {
-  async getAdAccounts(userId: string): Promise<AdAccount[]> {
+  static getActId(accountId: AdAccount['id']): string {
+    return `act_${accountId}`;
+  }
+
+  async getAdAccounts(
+    userId: string,
+    limit: number = API_OBJECTS_LIMIT
+  ): Promise<AdAccountDTO[]> {
     const response = await makeRequest<{ data: FacebookAdAccount[] }>({
       url: `/${userId}/adaccounts`,
       params: {
-        limit: 100,
+        limit,
         fields: [
           'account_id',
           'account_status',
@@ -50,15 +61,15 @@ export class AdAccountGraphApi implements AdAccountApi {
     });
     return response.data.map((adAccount) => {
       const insights = adAccount.insights?.data?.[0];
-      return new AdAccount(
-        adAccount.account_id,
-        adAccount.name,
-        adAccount.account_status,
-        adAccount.disable_reason,
-        adAccount.currency,
-        toNumber(insights?.spend),
-        toNumber(insights?.ctr)
-      );
+      return {
+        id: adAccount.account_id,
+        name: adAccount.name,
+        status: adAccount.account_status,
+        disableReason: adAccount.disable_reason,
+        currency: adAccount.currency,
+        spend: toNumber(insights?.spend),
+        ctr: toNumber(insights?.ctr),
+      };
     });
   }
 }

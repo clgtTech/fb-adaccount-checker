@@ -2,23 +2,23 @@ import * as React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { classNames } from 'draft-components';
 import { Messages } from '../../services/intl';
-import styles from './budget.module.scss';
+import styles from './ad-budget.module.scss';
 
-export interface BudgetProps extends React.ComponentPropsWithoutRef<'div'> {
+export interface AdBudgetProps extends React.ComponentPropsWithoutRef<'div'> {
   bidStrategy?: string;
   dailyBudget?: string;
   lifetimeBudget?: string;
   fallbackMessage: string;
 }
 
-export function Budget({
+export function AdBudget({
   className,
   dailyBudget,
   lifetimeBudget,
   bidStrategy,
   fallbackMessage,
   ...props
-}: BudgetProps) {
+}: AdBudgetProps) {
   const intl = useIntl();
 
   let budget = '';

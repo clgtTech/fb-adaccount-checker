@@ -1,7 +1,7 @@
-import { ActionType, BidStrategy, BuyingType, Objective } from '../types';
-import { Campaign } from '../stores/campaign-store';
-import { AdAccount } from '../stores/ad-account-store';
+import { BidStrategy, BuyingType, Objective } from '../types';
+import { AdAccount, Campaign } from '../stores/entities';
 import { Formatters, Messages } from '../services/intl';
+import { InsightsPresenter } from './insights-presenter';
 
 export class CampaignPresenter {
   id: string;
@@ -9,18 +9,10 @@ export class CampaignPresenter {
   status: string;
   buyingType: string;
   objective: string;
-  bidStrategy: string;
-  lifetimeBudget: string;
-  dailyBudget: string;
-  insights?: {
-    spend: string;
-    actionType: string;
-    actionTypeResult: string;
-    costPerActionType: string;
-    cpc: string;
-    cpm: string;
-    ctr: string;
-  };
+  bidStrategy?: string;
+  lifetimeBudget?: string;
+  dailyBudget?: string;
+  insights?: InsightsPresenter;
 
   constructor(campaign: Campaign, adAccount: AdAccount) {
     this.id = campaign.id;
@@ -30,41 +22,16 @@ export class CampaignPresenter {
     this.objective = CampaignPresenter.formatObjective(campaign.objective);
     this.bidStrategy = campaign.bidStrategy
       ? CampaignPresenter.formatBidStrategy(campaign.bidStrategy)
-      : '';
+      : undefined;
     this.lifetimeBudget = campaign.lifetimeBudget
       ? Formatters.formatCurrencyAmount(campaign.lifetimeBudget)
-      : '';
+      : undefined;
     this.dailyBudget = campaign.dailyBudget
       ? Formatters.formatCurrencyAmount(campaign.dailyBudget)
-      : '';
-
-    if (campaign.insights) {
-      this.insights = {
-        spend: Formatters.formatMonetaryValue(
-          campaign.insights.spend,
-          adAccount.currency
-        ),
-        actionType: CampaignPresenter.formatActionType(
-          campaign.insights.actionType
-        ),
-        actionTypeResult: Formatters.formatNumericValue(
-          campaign.insights.actionTypeResult
-        ),
-        costPerActionType: Formatters.formatMonetaryValue(
-          campaign.insights.costPerActionType,
-          adAccount.currency
-        ),
-        cpc: Formatters.formatMonetaryValue(
-          campaign.insights.cpc,
-          adAccount.currency
-        ),
-        cpm: Formatters.formatMonetaryValue(
-          campaign.insights.cpm,
-          adAccount.currency
-        ),
-        ctr: Formatters.formatNumericValue(campaign.insights.ctr),
-      };
-    }
+      : undefined;
+    this.insights = campaign.insights
+      ? new InsightsPresenter(campaign.insights, adAccount)
+      : undefined;
   }
 
   static formatBuyingType(buyingType: BuyingType): string {
@@ -80,9 +47,5 @@ export class CampaignPresenter {
       bidStrategy,
       Messages.Enums.BidStrategies
     );
-  }
-
-  static formatActionType(actionType: ActionType): string {
-    return Formatters.formatEnumValue(actionType, Messages.Enums.ActionTypes);
   }
 }

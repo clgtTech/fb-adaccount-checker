@@ -1,8 +1,8 @@
-import { UserGraphApi } from './user';
-import { AdAccountGraphApi } from './ad-account';
-import { CampaignGraphApi } from './campaign';
-import { AdsetGraphApi } from './adset';
-import { AdGraphApi } from './ad';
+import { UserGraphApi } from './user-grap-api';
+import { AdAccountGraphApi } from './ad-account-graph-api';
+import { CampaignGraphApi } from './campaign-graph-api';
+import { AdsetGraphApi } from './adset-graph-api';
+import { AdGraphApi } from './ad-graph-api';
 
 export const user = new UserGraphApi();
 export const adAccount = new AdAccountGraphApi();

@@ -1,51 +1,6 @@
 import * as mobx from 'mobx';
-import {
-  ActionType,
-  AsyncActionStatus,
-  BidStrategy,
-  BuyingType,
-  Objective,
-  Status,
-} from '../types';
-import { CurrencyAmount } from './entities';
-import { AdAccount } from './ad-account-store';
-
-export interface CampaignApi {
-  getAdAccountCampaigns(
-    adAccount: AdAccount,
-    limit?: number
-  ): Promise<Campaign[]>;
-}
-
-export class CampaignInsights {
-  constructor(
-    public readonly actionType: ActionType,
-    public readonly actionTypeResult: number,
-    public readonly costPerActionType: number,
-    public readonly spend: number,
-    public readonly cpc: number,
-    public readonly cpm: number,
-    public readonly ctr: number
-  ) {}
-}
-
-export class Campaign {
-  constructor(
-    public readonly id: string,
-    public readonly adAccountId: string,
-    public status: Status,
-    public name: string,
-    public readonly adsetCount: number,
-    public readonly objective: Objective,
-    public readonly buyingType: BuyingType,
-    public readonly bidStrategy?: BidStrategy,
-    public dailyBudget?: CurrencyAmount,
-    public lifetimeBudget?: CurrencyAmount,
-    public readonly insights?: CampaignInsights
-  ) {
-    mobx.makeAutoObservable(this);
-  }
-}
+import { AsyncActionStatus } from '../types';
+import { AdAccount, Campaign, CampaignApi } from './entities';
 
 export class CampaignStore {
   campaignsMap: Map<Campaign['id'], Campaign> = new Map();
@@ -67,11 +22,12 @@ export class CampaignStore {
   loadCampaigns(adAccount: AdAccount) {
     this.loadStatus = AsyncActionStatus.pending;
     this._campaignApi
-      .getAdAccountCampaigns(adAccount)
-      .then((campaigns) => {
+      .getAdAccountCampaigns(adAccount.id)
+      .then((fetchedCampaigns) => {
         mobx.runInAction(() => {
-          const campaignsMap = new Map();
-          campaigns.forEach((campaign) => {
+          const campaignsMap: CampaignStore['campaignsMap'] = new Map();
+          fetchedCampaigns.forEach((fetchedCampaign) => {
+            const campaign = new Campaign(fetchedCampaign, adAccount);
             campaignsMap.set(campaign.id, campaign);
           });
           this.campaignsMap = campaignsMap;

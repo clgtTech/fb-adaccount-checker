@@ -1,25 +1,6 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus, Currency } from '../types';
-
-export interface AdAccountApi {
-  getAdAccounts(userId: string): Promise<AdAccount[]>;
-}
-
-export class AdAccount {
-  constructor(
-    public readonly id: string,
-    public readonly name: string,
-    public readonly status: number,
-    public readonly disableReason: number,
-    public readonly currency: Currency,
-    public readonly spend: number,
-    public readonly ctr: number
-  ) {}
-
-  isAdRunningOrInReview() {
-    return this.status === 1 || this.status === 8 || this.status === 9;
-  }
-}
+import { AsyncActionStatus } from '../types';
+import { AdAccount, AdAccountApi } from './entities';
 
 export class AdAccountStore {
   adAccountsMap: Map<AdAccount['id'], AdAccount> = new Map();
@@ -42,10 +23,11 @@ export class AdAccountStore {
     this.loadStatus = AsyncActionStatus.pending;
     this._adAccountApi
       .getAdAccounts(userId)
-      .then((adAccounts) => {
+      .then((fetchedAccounts) => {
         mobx.runInAction(() => {
-          const adAccountsMap = new Map();
-          adAccounts.forEach((adAccount) => {
+          const adAccountsMap: AdAccountStore['adAccountsMap'] = new Map();
+          fetchedAccounts.forEach((fetchedAccount) => {
+            const adAccount = new AdAccount(fetchedAccount);
             adAccountsMap.set(adAccount.id, adAccount);
           });
           this.adAccountsMap = adAccountsMap;

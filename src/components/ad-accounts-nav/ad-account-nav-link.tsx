@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import { classNames } from 'draft-components';
-import { AdAccount } from '../../stores/ad-account-store';
+import { AdAccount } from '../../stores/entities';
 import { AdAccountPresenter } from '../../presenters/ad-account-presenter';
 import { CopiedValue } from '../copied-value';
 import styles from './ad-account-nav-link.module.scss';

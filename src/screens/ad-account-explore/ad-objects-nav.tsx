@@ -4,8 +4,7 @@ import { Link, generatePath } from 'react-router-dom';
 import { classNames, Breadcrumbs, SvgIcon, Icons } from 'draft-components';
 import { AdAccountExploreParams } from './route-params';
 import { ROUTES } from '../../constants';
-import { Campaign } from '../../stores/campaign-store';
-import { Adset } from '../../stores/adset-store';
+import { Campaign, Adset } from '../../stores/entities';
 import { Messages } from '../../services/intl';
 import styles from './ad-objects-nav.module.scss';
 

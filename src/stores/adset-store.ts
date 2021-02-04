@@ -1,47 +1,6 @@
 import * as mobx from 'mobx';
-import {
-  ActionType,
-  AdsetEffectiveStatus,
-  AsyncActionStatus,
-  BidStrategy,
-  Status,
-} from '../types';
-import { AdAccount } from './ad-account-store';
-import { CurrencyAmount } from './entities';
-
-export interface AdsetApi {
-  getAdAccountAdsets(adAccount: AdAccount, limit?: number): Promise<Adset[]>;
-}
-
-export class AdsetInsights {
-  constructor(
-    public readonly actionType: ActionType,
-    public readonly actionTypeResult: number,
-    public readonly costPerActionType: number,
-    public readonly spend: number,
-    public readonly cpc: number,
-    public readonly cpm: number,
-    public readonly ctr: number
-  ) {}
-}
-
-export class Adset {
-  constructor(
-    public readonly id: string,
-    public readonly adAccountId: string,
-    public readonly campaignId: string,
-    public readonly effectiveStatus: AdsetEffectiveStatus,
-    public status: Status,
-    public name: string,
-    public readonly adCount: number,
-    public readonly bidStrategy?: BidStrategy,
-    public dailyBudget?: CurrencyAmount,
-    public lifetimeBudget?: CurrencyAmount,
-    public readonly insights?: AdsetInsights
-  ) {
-    mobx.makeAutoObservable(this);
-  }
-}
+import { AsyncActionStatus } from '../types';
+import { AdAccount, Adset, AdsetApi } from './entities';
 
 export class AdsetStore {
   adsetsMap: Map<Adset['id'], Adset> = new Map();
@@ -59,11 +18,12 @@ export class AdsetStore {
   loadAdsets(adAccount: AdAccount) {
     this.loadStatus = AsyncActionStatus.pending;
     this._adsetApi
-      .getAdAccountAdsets(adAccount)
-      .then((adsets) => {
+      .getAdAccountAdsets(adAccount.id)
+      .then((fetchedAdsets) => {
         mobx.runInAction(() => {
-          const adsetsMap = new Map();
-          adsets.forEach((adset) => {
+          const adsetsMap: AdsetStore['adsetsMap'] = new Map();
+          fetchedAdsets.forEach((fetchedAdset) => {
+            const adset = new Adset(fetchedAdset, adAccount);
             adsetsMap.set(adset.id, adset);
           });
           this.adsetsMap = adsetsMap;

@@ -2,22 +2,22 @@ import * as React from 'react';
 import { classNames, Switch } from 'draft-components';
 import { Status } from '../../types';
 import { Formatters } from '../../services/intl';
-import styles from './status-switch.module.scss';
+import styles from './ad-object-status-switch.module.scss';
 
-export interface StatusSwitchProps
+export interface AdObjectStatusSwitchProps
   extends React.ComponentPropsWithoutRef<'div'> {
   isDisabled?: boolean;
   status: Status;
   onStatusChange: (status: Status) => void;
 }
 
-export function StatusSwitch({
+export function AdObjectStatusSwitch({
   isDisabled,
   status,
   onStatusChange,
   className,
   ...props
-}: StatusSwitchProps) {
+}: AdObjectStatusSwitchProps) {
   return (
     <div {...props} className={classNames(className, styles.container)}>
       <i

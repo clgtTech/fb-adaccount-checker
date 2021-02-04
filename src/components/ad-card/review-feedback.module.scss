@@ -1,0 +1,59 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+$bullet-size: 0.75rem;
+
+.items {
+  position: relative;
+  margin: 0;
+  padding: $gap-1x 0 0;
+  list-style: none;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: ($bullet-size - 0.125rem) / 2;
+    display: block;
+    height: 100%;
+    width: 0.125rem;
+    content: '';
+    background: var(--border-color);
+  }
+}
+
+.items > * + * {
+  margin-top: $gap-2x;
+}
+
+.item {
+  position: relative;
+  padding-left: $bullet-size + $gap-4x;
+
+  &::before {
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
+    display: inline-block;
+    box-sizing: border-box;
+    width: $bullet-size;
+    height: $bullet-size;
+    content: '';
+    border-radius: 50%;
+    background: var(--border-color);
+    box-shadow: 0 0 0 0.1875rem var(--primary-bg-color);
+  }
+}
+
+.itemTitle {
+  margin: 0;
+  color: var(--danger-text-color);
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semi-bold;
+  line-height: $leading-tight;
+}
+
+.itemDescription {
+  margin-top: $gap-1x;
+  color: var(--primary-text-color);
+  font-size: $font-size-sm;
+  line-height: $leading-normal;
+}

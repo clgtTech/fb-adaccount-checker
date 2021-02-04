@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { classNames } from 'draft-components';
-import styles from './meta.module.scss';
+import styles from './object-meta.module.scss';
 
-export interface MetaItem {
+export interface ObjectMetaItem {
   name: React.ReactNode;
   value: React.ReactNode;
 }
 
-export interface MetaProps extends React.ComponentPropsWithoutRef<'div'> {
-  items: MetaItem[];
+export interface ObjectMetaProps extends React.ComponentPropsWithoutRef<'div'> {
+  items: ObjectMetaItem[];
 }
 
-export function Meta({ items, className, ...props }: MetaProps) {
+export function ObjectMeta({ items, className, ...props }: ObjectMetaProps) {
   return (
     <div {...props} className={classNames(className, styles.container)}>
       <dl className={styles.items}>

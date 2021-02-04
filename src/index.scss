@@ -9,6 +9,7 @@
   --primary-text-color: var(--dc-primary-text-color);
   --secondary-text-color: var(--dc-secondary-text-color);
   --tertiary-text-color: var(--dc-tertiary-text-color);
+  --danger-text-color: #{$red-600};
   --link-color: #{$blue-500};
 
   --primary-bg-color: #{$white};
@@ -30,7 +31,12 @@ a {
   color: var(--link-color);
 }
 
-a:focus {
+a:focus,
+summary:focus {
   outline: none;
   @include focus-ring;
+}
+
+code {
+  font-family: $font-mono;
 }

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as mobxReact from 'mobx-react-lite';
-import { AdAccount } from '../../stores/ad-account-store';
-import { Campaign } from '../../stores/campaign-store';
-import { Adset } from '../../stores/adset-store';
+import { useIntl } from 'react-intl';
+import { NonIdealStateView, SvgIcon, Icons } from 'draft-components';
+import { AdAccount, Campaign, Adset } from '../../stores/entities';
 import { adStore } from '../../stores';
-import styles from './ads.module.scss';
+import { AdCard } from '../../components/ad-card';
+import styles from '../campaigns/campaigns.module.scss';
 
 export interface AdsProps {
   adAccount: AdAccount;
@@ -12,16 +13,36 @@ export interface AdsProps {
   adset: Adset;
 }
 
-export const Ads = mobxReact.observer(function Ads({ adset }: AdsProps) {
+export const Ads = mobxReact.observer(function Ads({
+  adAccount,
+  adset,
+}: AdsProps) {
+  const intl = useIntl();
+  const adsetAds = adStore.filter((ad) => ad.adsetId === adset.id);
+
+  if (adsetAds.length < 1) {
+    return (
+      <NonIdealStateView
+        icon={<SvgIcon size="4x" icon={Icons.documentIcon} />}
+        title={intl.formatMessage({
+          id: 'screens.Ads.noAds.title',
+          defaultMessage: `No ads found`,
+        })}
+        description={intl.formatMessage({
+          id: 'screens.Ads.noAds.description',
+          defaultMessage: `This ad set does not have any ads. Try to select another ad set.`,
+        })}
+      />
+    );
+  }
+
   return (
     <ol className={styles.list}>
-      {adStore
-        .filter((ad) => ad.adsetId === adset.id)
-        .map((ad) => (
-          <li key={ad.id}>
-            Ad: {ad.name} #{ad.id}
-          </li>
-        ))}
+      {adsetAds.map((ad) => (
+        <li key={ad.id}>
+          <AdCard adAccount={adAccount} ad={ad} />
+        </li>
+      ))}
     </ol>
   );
 });

@@ -1,7 +1,7 @@
 ```jsx
-import { UsersNav } from './users-nav';
 import { MemoryRouter } from 'react-router-dom';
 import { User } from '../../stores/user-store';
+import { UsersNav } from './users-nav';
 
 <MemoryRouter>
   <UsersNav
@@ -23,7 +23,7 @@ import { User } from '../../stores/user-store';
     ]}
     getLinkToUser={(user) => `/users/${user.id}`}
     onUserDelete={console.log}
-    onUserNameChange={console.log}
+    onUserUpdate={console.log}
   />
 </MemoryRouter>;
 ```

@@ -1,0 +1,53 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+@import '~draft-components/dist/scss/abstracts/mixins';
+
+.container {
+  display: inline-flex;
+  box-sizing: border-box;
+  padding: $gap-1x;
+  text-decoration: none;
+  color: var(--primary-text-color);
+  border: 0.0625rem solid var(--border-color);
+  border-radius: $border-radius-xl;
+  background: var(--tertiary-bg-color);
+  font-size: $font-size-sm;
+}
+
+.link {
+  display: inline-flex;
+  width: 5rem;
+  height: 5rem;
+  border-radius: $border-radius-lg;
+
+  & > img {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+}
+
+.content {
+  padding: 0 $gap-4x;
+}
+
+.title {
+  font-weight: $font-weight-bold;
+  line-height: $leading-tight;
+}
+
+.details {
+  margin-top: $gap-2x;
+
+  & summary {
+    display: inline-block;
+    cursor: pointer;
+  }
+}
+
+.description {
+  margin-top: $gap-1x;
+  word-break: break-all;
+  line-height: $leading-normal;
+}

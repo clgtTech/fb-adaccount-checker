@@ -1,5 +1,6 @@
-import { AdAccount } from '../stores/ad-account-store';
+import { AdAccount } from '../stores/entities';
 import { Formatters } from '../services/intl';
+import { AccountDisableReason, AccountStatus } from '../types';
 
 export class AdAccountPresenter {
   id: string;
@@ -19,36 +20,67 @@ export class AdAccountPresenter {
       adAccount.currency
     );
     this.ctr = Formatters.formatNumericValue(adAccount.ctr, 3);
-    this.status = AdAccountPresenter.Status[adAccount.status];
-    this.isActive = adAccount.isAdRunningOrInReview();
-    this.disableReason =
-      AdAccountPresenter.DisableReason[adAccount.disableReason];
+    this.status = AdAccountPresenter.getDisplayedStatus(adAccount.status);
+    this.disableReason = AdAccountPresenter.getDisplayedDisableReason(
+      adAccount.disableReason
+    );
     this.shouldShowDisableReason = adAccount.disableReason !== 0;
+    this.isActive = adAccount.isAdRunningOrInReview();
   }
 
-  static Status: Record<AdAccount['status'], string> = {
-    1: 'Active',
-    2: 'Disabled',
-    3: 'Unsettled',
-    7: 'Pending Risk Review',
-    8: 'Pending Settlement',
-    9: 'In Grace Period',
-    100: 'Pending Closure',
-    101: 'Closed',
-    201: 'Any Active',
-    202: 'Any Closed',
-  };
+  static getDisplayedStatus(status: AccountStatus): string {
+    switch (status) {
+      case AccountStatus.ACTIVE:
+        return 'Active';
+      case AccountStatus.DISABLED:
+        return 'Disabled';
+      case AccountStatus.UNSETTLED:
+        return 'Unsettled';
+      case AccountStatus.PENDING_RISK_REVIEW:
+        return 'Pending Risk Review';
+      case AccountStatus.PENDING_SETTLEMENT:
+        return 'Pending Settlement';
+      case AccountStatus.IN_GRACE_PERIOD:
+        return 'In Grace Period';
+      case AccountStatus.PENDING_CLOSURE:
+        return 'Pending Closure';
+      case AccountStatus.CLOSED:
+        return 'Closed';
+      case AccountStatus.ANY_ACTIVE:
+        return 'Any Active';
+      case AccountStatus.ANY_CLOSED:
+        return 'Any Closed';
+      default:
+        return '';
+    }
+  }
 
-  static DisableReason: Record<AdAccount['disableReason'], string> = {
-    0: 'None',
-    1: 'Ads Integrity Policy',
-    2: 'Ads Ip Review',
-    3: 'Risk Payment',
-    4: 'Gray Account Shut Down',
-    5: 'Ads Afc Review',
-    6: 'Business Integrity Rar',
-    7: 'Permanent Close',
-    8: 'Unused Reseller Account',
-    9: 'Unused Account',
-  };
+  static getDisplayedDisableReason(
+    disableReason: AccountDisableReason
+  ): string {
+    switch (disableReason) {
+      case AccountDisableReason.NONE:
+        return 'None';
+      case AccountDisableReason.ADS_INTEGRITY_POLICY:
+        return 'Ads Integrity Policy';
+      case AccountDisableReason.ADS_IP_REVIEW:
+        return 'Ads Ip Review';
+      case AccountDisableReason.RISK_PAYMENT:
+        return 'Risk Payment';
+      case AccountDisableReason.GRAY_ACCOUNT_SHUT_DOWN:
+        return 'Gray Account Shut Down';
+      case AccountDisableReason.ADS_AFC_REVIEW:
+        return 'Ads Afc Review';
+      case AccountDisableReason.BUSINESS_INTEGRITY_RAR:
+        return 'Business Integrity Rar';
+      case AccountDisableReason.PERMANENT_CLOSE:
+        return 'Permanent Close';
+      case AccountDisableReason.UNUSED_RESELLER_ACCOUNT:
+        return 'Unused Reseller Account';
+      case AccountDisableReason.UNUSED_ACCOUNT:
+        return 'Unused Account';
+      default:
+        return '';
+    }
+  }
 }

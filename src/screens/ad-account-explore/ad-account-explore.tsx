@@ -10,7 +10,7 @@ import {
 import { LoadingView } from 'draft-components';
 import { AsyncActionStatus } from '../../types';
 import { AdAccountExploreParams } from './route-params';
-import { AdAccount } from '../../stores/ad-account-store';
+import { AdAccount } from '../../stores/entities';
 import { ROUTES } from '../../constants';
 import { adsetStore, adStore, campaignStore } from '../../stores';
 import { ErrorView } from '../../components/error-view';

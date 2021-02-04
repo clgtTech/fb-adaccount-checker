@@ -1,24 +1,6 @@
 import * as mobx from 'mobx';
 import { AsyncActionStatus } from '../types';
-import { AdAccount } from './ad-account-store';
-
-export interface AdApi {
-  getAdAccountAds(adAccount: AdAccount, limit?: number): Promise<Ad[]>;
-}
-
-export class AdInsights {}
-
-export class Ad {
-  constructor(
-    public readonly id: string,
-    public readonly adAccountId: string,
-    public readonly campaignId: string,
-    public readonly adsetId: string,
-    public name: string
-  ) {
-    mobx.makeAutoObservable(this);
-  }
-}
+import { AdAccount, Ad, AdApi } from './entities';
 
 export class AdStore {
   adsMap: Map<Ad['id'], Ad> = new Map();
@@ -36,11 +18,12 @@ export class AdStore {
   loadAdsets(adAccount: AdAccount) {
     this.loadStatus = AsyncActionStatus.pending;
     this._adApi
-      .getAdAccountAds(adAccount)
-      .then((ads) => {
+      .getAdAccountAds(adAccount.id)
+      .then((fetchedAds) => {
         mobx.runInAction(() => {
-          const adsMap = new Map();
-          ads.forEach((ad) => {
+          const adsMap: AdStore['adsMap'] = new Map();
+          fetchedAds.forEach((fetchedAd) => {
+            const ad = new Ad(fetchedAd);
             adsMap.set(ad.id, ad);
           });
           this.adsMap = adsMap;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { classNames, SearchField } from 'draft-components';
-import { AdAccount } from '../../stores/ad-account-store';
+import { AdAccount } from '../../stores/entities';
 import { AdAccountsPresenter } from '../../presenters/ad-accounts-csv-presenter';
 import { SideNav, SideNavProps } from '../side-nav';
 import { AdAccountNavLink } from './ad-account-nav-link';

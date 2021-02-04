@@ -1,4 +1,4 @@
-import { AdAccount } from '../stores/ad-account-store';
+import { AdAccount } from '../stores/entities';
 
 type FieldDescriptor = [keyof AdAccount, string];
 type FieldsSchema = FieldDescriptor[];
