@@ -7,8 +7,8 @@ import {
   useHistory,
   generatePath,
 } from 'react-router-dom';
-import { classNames } from 'draft-components';
-import { AsyncActionStatus } from './types';
+import { classNames, Select } from 'draft-components';
+import { AsyncActionStatus, Locale } from './types';
 import { ROUTES } from './constants';
 import { SessionEventListeners } from './stores/session-store';
 import { sessionStore, uiStore, userStore } from './stores';
@@ -81,6 +81,17 @@ export const App = mobxReact.observer(function App() {
                 uiStore.toggleSidebarVisibility();
               }}
             />
+          }
+          right={
+            <Select
+              value={sessionStore.locale}
+              onChange={(event) => {
+                sessionStore.setLocale(event.currentTarget.value as Locale);
+              }}
+            >
+              <option value={Locale.enUS}>🇺🇸 English</option>
+              <option value={Locale.ruRU}>🇷🇺 Русский</option>
+            </Select>
           }
         >
           <AccessTokenField
