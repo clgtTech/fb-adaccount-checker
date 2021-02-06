@@ -35,7 +35,7 @@ const ad = new Ad(
     },
     creative: {
       id: '467478398473',
-      effectiveObjectStoryId: '564783434673_465783431233',
+      pagePostId: '564783434673_465783431233',
       thumbnailUrl: `https://images.unsplash.com/photo-1531929796702-8dcf9c4e49d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80`,
       title: `Do not waste your time!`,
       body: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.`,

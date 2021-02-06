@@ -6,42 +6,46 @@ import styles from './ad-creative-preview.module.scss';
 
 export interface AdCreativePreviewProps
   extends React.ComponentPropsWithoutRef<'div'> {
-  item: CreativePreview;
+  creative: CreativePreview;
 }
 
 export function AdCreativePreview({
   className,
-  item,
+  creative,
   ...props
 }: AdCreativePreviewProps) {
-  function renderDescription(description: string): React.ReactNode {
-    return description.split('\n').map((line, key) => (
-      <React.Fragment key={key}>
-        {line}
-        <br />
-      </React.Fragment>
-    ));
-  }
-
   return (
     <div {...props} className={classNames(className, styles.container)}>
-      <a
-        className={styles.link}
-        href={item.postLink}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <img
-          className={styles.thumbnail}
-          src={item.thumbnailUrl}
-          width={80}
-          height={80}
-          alt={item.title}
-        />
-      </a>
+      {(function renderThumbnail() {
+        const image = (
+          <img
+            src={creative.thumbnailUrl}
+            width={64}
+            height={64}
+            alt={creative.title}
+          />
+        );
+
+        return creative.pagePostLink ? (
+          <a
+            className={styles.thumbnail}
+            href={creative.pagePostLink}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {image}
+          </a>
+        ) : (
+          <div className={styles.thumbnail}>{image}</div>
+        );
+      })()}
+
       <div className={styles.content}>
-        {styles.title ? <div className={styles.title}>{item.title}</div> : null}
-        {item.description ? (
+        {creative.title ? (
+          <div className={styles.title}>{creative.title}</div>
+        ) : null}
+
+        {creative.description ? (
           <details className={styles.details}>
             <summary>
               <FormattedMessage
@@ -50,7 +54,12 @@ export function AdCreativePreview({
               />
             </summary>
             <div className={styles.description}>
-              {renderDescription(item.description)}
+              {creative.description.split('\n').map((line, key) => (
+                <React.Fragment key={key}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
             </div>
           </details>
         ) : null}

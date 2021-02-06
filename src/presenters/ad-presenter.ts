@@ -8,10 +8,10 @@ export interface DisapprovalReason {
 }
 
 export interface CreativePreview {
-  postLink: string;
   thumbnailUrl: string;
   title?: string;
   description?: string;
+  pagePostLink?: string;
 }
 
 export class AdPresenter {
@@ -43,10 +43,13 @@ export class AdPresenter {
 
   static creativeToCreativePreview(adCreative: AdCreative): CreativePreview {
     return {
-      postLink: `https://www.facebook.com/${adCreative.pageId}/posts/${adCreative.postId}`,
       thumbnailUrl: adCreative.thumbnailUrl,
       title: adCreative.title,
       description: adCreative.body,
+      pagePostLink:
+        adCreative.pageId && adCreative.postId
+          ? `https://www.facebook.com/${adCreative.pageId}/posts/${adCreative.postId}`
+          : undefined,
     };
   }
 

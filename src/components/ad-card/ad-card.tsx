@@ -48,7 +48,7 @@ export function AdCard({ adAccount, ad, ...props }: AdsetCardProps) {
 
       {adPresenter.creativePreview ? (
         <EntityCard.Section caption={intl.formatMessage(Messages.Ad.creative)}>
-          <AdCreativePreview item={adPresenter.creativePreview} />
+          <AdCreativePreview creative={adPresenter.creativePreview} />
         </EntityCard.Section>
       ) : null}
 

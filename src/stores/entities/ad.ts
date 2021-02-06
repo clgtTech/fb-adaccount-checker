@@ -5,25 +5,25 @@ import { Insights, InsightsDTO } from './insights';
 
 export class AdCreative {
   readonly id: string;
-  readonly effectiveObjectStoryId: string;
+  readonly pagePostId?: string;
   readonly thumbnailUrl: string;
   readonly title?: string;
   readonly body?: string;
 
   constructor(adCreative: AdCreativeDTO) {
     this.id = '' + adCreative.id;
-    this.effectiveObjectStoryId = adCreative.effectiveObjectStoryId;
+    this.pagePostId = adCreative.pagePostId ?? undefined;
     this.thumbnailUrl = adCreative.thumbnailUrl;
     this.title = adCreative.title;
     this.body = adCreative.body;
   }
 
-  get pageId(): string {
-    return this.effectiveObjectStoryId.split('_')[0] || '';
+  get pageId(): string | undefined {
+    return this.pagePostId ? this.pagePostId.split('_')[0] : undefined;
   }
 
-  get postId(): string {
-    return this.effectiveObjectStoryId.split('_')[1] || '';
+  get postId(): string | undefined {
+    return this.pagePostId ? this.pagePostId.split('_')[1] : undefined;
   }
 }
 
@@ -79,7 +79,7 @@ export interface AdDTO {
 
 export interface AdCreativeDTO {
   id: number | string;
-  effectiveObjectStoryId: string;
+  pagePostId?: string | null;
   thumbnailUrl: string;
   title?: string;
   body?: string;

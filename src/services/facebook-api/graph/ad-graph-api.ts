@@ -24,7 +24,7 @@ export type FacebookAd = {
   };
   creative?: {
     id: string;
-    effective_object_story_id: `${string}_${string}`;
+    effective_object_story_id?: `${string}_${string}`;
     thumbnail_url: string;
     title?: string;
     body?: string;
@@ -78,7 +78,7 @@ export class AdGraphApi implements AdApi {
         reviewFeedback: ad.ad_review_feedback?.global,
         creative: creative && {
           id: creative.id,
-          effectiveObjectStoryId: creative.effective_object_story_id,
+          pagePostId: creative.effective_object_story_id,
           thumbnailUrl: creative.thumbnail_url,
           title: creative.title,
           body: creative.body,
