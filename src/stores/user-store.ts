@@ -5,7 +5,7 @@ import { RootStore } from './root-store';
 export class UserStore {
   usersMap: Map<User['id'], User> = new Map();
 
-  constructor(private _cache: UserCache, private _stores: RootStore) {
+  constructor(private userCache: UserCache, private stores: RootStore) {
     mobx.makeAutoObservable(this);
     mobx.runInAction(() => {
       this.restoreFromCache();
@@ -17,12 +17,12 @@ export class UserStore {
 
   restoreFromCache() {
     this.usersMap = new Map(
-      this._cache.getUsers().map((user) => [user.id, user])
+      this.userCache.getUsers().map((user) => [user.id, user])
     );
   }
 
   saveToCache() {
-    this._cache.saveUsers(this.toArray());
+    this.userCache.saveUsers(this.toArray());
   }
 
   get(userId: string | number | undefined | null): User | undefined {
@@ -82,8 +82,8 @@ export class UserStore {
 
   deleteUser(userId: User['id']): boolean {
     const isDeleted = this.usersMap.delete(userId);
-    if (isDeleted && userId === this._stores.sessionStore.authenticatedUserId) {
-      this._stores.sessionStore.resetAuth();
+    if (isDeleted && userId === this.stores.sessionStore.authenticatedUserId) {
+      this.stores.sessionStore.resetAuth();
     }
     return isDeleted;
   }

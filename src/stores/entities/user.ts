@@ -47,6 +47,14 @@ export class User {
     return this.customName || this.name;
   }
 
+  get pageAccessTokens(): Map<string, string> {
+    const pageTokens = new Map();
+    for (const page of this.pages.values()) {
+      pageTokens.set(page.id, page.accessToken);
+    }
+    return pageTokens;
+  }
+
   serialize() {
     return {
       id: this.id,
@@ -58,18 +66,19 @@ export class User {
     };
   }
 
+  canViewAdComments(ad: Ad): boolean {
+    if (ad.creative && ad.creative.pageId && ad.creative.postId) {
+      return !!this.pages.get(ad.creative.pageId)?.accessToken;
+    }
+    return false;
+  }
+
   canModerateAdComments(ad: Ad): boolean {
-    const pageId = ad.creative?.pageId;
-    if (!pageId) {
-      return false;
+    const creative = ad.creative;
+    if (creative && creative.pageId && creative.postId) {
+      return !!this.pages.get(creative.pageId)?.tasks?.includes(Task.MODERATE);
     }
-
-    const page = this.pages.get(pageId);
-    if (!page) {
-      return false;
-    }
-
-    return page.tasks.includes(Task.MODERATE);
+    return false;
   }
 }
 

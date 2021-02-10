@@ -10,4 +10,5 @@ export const {
   campaignStore,
   adsetStore,
   adStore,
+  commentStore,
 } = rootStore;

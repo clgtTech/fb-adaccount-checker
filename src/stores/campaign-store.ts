@@ -7,7 +7,7 @@ export class CampaignStore {
   loadStatus: AsyncActionStatus = AsyncActionStatus.idle;
   loadError: Error | null = null;
 
-  constructor(private _campaignApi: CampaignApi) {
+  constructor(private campaignApi: CampaignApi) {
     mobx.makeAutoObservable(this);
   }
 
@@ -21,7 +21,7 @@ export class CampaignStore {
 
   loadCampaigns(adAccount: AdAccount) {
     this.loadStatus = AsyncActionStatus.pending;
-    this._campaignApi
+    this.campaignApi
       .getAdAccountCampaigns(adAccount.id)
       .then((fetchedCampaigns) => {
         mobx.runInAction(() => {

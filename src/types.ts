@@ -286,3 +286,9 @@ export enum ActionType {
 }
 
 export type ActionIndicator = `actions:${ActionType}`;
+
+export enum CommentFilter {
+  ALL = 'all',
+  HIDDEN = 'hidden',
+  VISIBLE = 'visible',
+}

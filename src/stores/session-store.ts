@@ -4,21 +4,6 @@ import { DEFAULT_LOCALE } from '../constants';
 import { User, UserApi } from './entities';
 import { RootStore } from './root-store';
 
-export interface SessionCache {
-  saveLocale(locale: Locale): void;
-  getLocale(): Locale;
-}
-
-export interface ApiConfig {
-  setAccessToken(accessToken: string): void;
-  setLocale(locale: Locale): void;
-}
-
-export interface SessionEventListeners {
-  authenticate(user: User): void;
-  authReset(userId: User['id']): void;
-}
-
 export class SessionStore {
   private _eventListeners: {
     [K in keyof SessionEventListeners]: SessionEventListeners[K][];
@@ -31,29 +16,40 @@ export class SessionStore {
   locale: Locale = DEFAULT_LOCALE;
 
   constructor(
-    private _cache: SessionCache,
-    private _apiConfig: ApiConfig,
-    private _userApi: UserApi,
-    private _stores: RootStore
+    private sessionCache: SessionCache,
+    private apiConfig: ApiConfig,
+    private userApi: UserApi,
+    private stores: RootStore
   ) {
     mobx.makeAutoObservable(this, {
       addEventListener: false,
       removeEventListener: false,
     });
     mobx.runInAction(() => {
-      this.locale = this._cache.getLocale();
+      this.locale = this.sessionCache.getLocale();
     });
     mobx.autorun(() => {
-      this._apiConfig.setAccessToken(this.accessToken);
+      const authUser = this.stores.userStore.get(this.authenticatedUserId);
+      if (authUser) {
+        this.apiConfig.setAccessToken(authUser.accessToken);
+        this.apiConfig.setPageAccessTokens(authUser.pageAccessTokens);
+      } else {
+        this.apiConfig.setAccessToken('');
+        this.apiConfig.setPageAccessTokens(new Map());
+      }
     });
     mobx.autorun(() => {
-      this._cache.saveLocale(this.locale);
-      this._apiConfig.setLocale(this.locale);
+      this.sessionCache.saveLocale(this.locale);
+      this.apiConfig.setLocale(this.locale);
     });
   }
 
   get isAuthValid() {
     return Boolean(this.accessToken && this.authenticatedUserId);
+  }
+
+  get authUser(): User | undefined {
+    return this.stores.userStore.get(this.authenticatedUserId);
   }
 
   addEventListener<T extends keyof SessionEventListeners>(
@@ -87,11 +83,11 @@ export class SessionStore {
   authenticate(accessToken: string) {
     this.accessToken = accessToken;
     this.authStatus = AsyncActionStatus.pending;
-    this._userApi
+    this.userApi
       .getUserRelatedToAccessToken(accessToken)
       .then((userDTO) => {
         mobx.runInAction(() => {
-          const user = this._stores.userStore.addUser(userDTO);
+          const user = this.stores.userStore.addUser(userDTO);
           this.authenticatedUserId = user.id;
           this.authStatus = AsyncActionStatus.success;
           this.authError = null;
@@ -112,4 +108,20 @@ export class SessionStore {
   setLocale(locale: Locale) {
     this.locale = locale;
   }
+}
+
+export interface SessionCache {
+  saveLocale(locale: Locale): void;
+  getLocale(): Locale;
+}
+
+export interface ApiConfig {
+  setAccessToken(accessToken: string): void;
+  setPageAccessTokens(pageAccessTokens: Map<string, string>): void;
+  setLocale(locale: Locale): void;
+}
+
+export interface SessionEventListeners {
+  authenticate(user: User): void;
+  authReset(userId: string): void;
 }

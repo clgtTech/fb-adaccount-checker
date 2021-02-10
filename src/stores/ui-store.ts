@@ -30,13 +30,13 @@ export class UiStore {
   flashMessage: FlashMessage | null = null;
   flashMessageTimeoutId: number = -1;
 
-  constructor(private _cache: UiCache) {
+  constructor(private uiCache: UiCache) {
     mobx.makeAutoObservable(this);
     mobx.runInAction(() => {
-      this.state = this._cache.getUiState();
+      this.state = this.uiCache.getUiState();
     });
     mobx.autorun(() => {
-      this._cache.saveUiState(this.state);
+      this.uiCache.saveUiState(this.state);
     });
   }
 

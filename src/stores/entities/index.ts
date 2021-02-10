@@ -5,3 +5,4 @@ export * from './insights';
 export * from './campaign';
 export * from './adset';
 export * from './ad';
+export * from './comment';

@@ -1,6 +1,6 @@
 ```jsx
 import { MemoryRouter } from 'react-router-dom';
-import { User } from '../../stores/user-store';
+import { User } from '../../stores/entities';
 import { UsersNav } from './users-nav';
 
 <MemoryRouter>

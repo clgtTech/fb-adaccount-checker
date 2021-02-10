@@ -7,6 +7,7 @@ import { AdAccountStore } from './ad-account-store';
 import { CampaignStore } from './campaign-store';
 import { AdsetStore } from './adset-store';
 import { AdStore } from './ad-store';
+import { CommentStore } from './comment-store';
 
 export class RootStore {
   uiStore: UiStore;
@@ -16,6 +17,7 @@ export class RootStore {
   campaignStore: CampaignStore;
   adsetStore: AdsetStore;
   adStore: AdStore;
+  commentStore: CommentStore;
 
   constructor() {
     this.uiStore = new UiStore(cache);
@@ -30,5 +32,6 @@ export class RootStore {
     this.campaignStore = new CampaignStore(facebookApi.campaign);
     this.adsetStore = new AdsetStore(facebookApi.adset);
     this.adStore = new AdStore(facebookApi.ad);
+    this.commentStore = new CommentStore(facebookApi.comment);
   }
 }

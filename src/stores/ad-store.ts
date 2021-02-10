@@ -7,7 +7,7 @@ export class AdStore {
   loadStatus: AsyncActionStatus = AsyncActionStatus.idle;
   loadError: Error | null = null;
 
-  constructor(private _adApi: AdApi) {
+  constructor(private adApi: AdApi) {
     mobx.makeAutoObservable(this);
   }
 
@@ -17,7 +17,7 @@ export class AdStore {
 
   loadAdsets(adAccount: AdAccount) {
     this.loadStatus = AsyncActionStatus.pending;
-    this._adApi
+    this.adApi
       .getAdAccountAds(adAccount.id)
       .then((fetchedAds) => {
         mobx.runInAction(() => {
