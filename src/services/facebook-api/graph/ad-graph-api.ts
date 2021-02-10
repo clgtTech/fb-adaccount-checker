@@ -61,7 +61,7 @@ export class AdGraphApi implements AdApi {
           InsightsGraphApi.insightsQueryField,
         ],
       },
-      options: { needAuthorization: true },
+      options: { shouldUseUserAccessToken: true },
     });
 
     return response.data.map((ad) => {

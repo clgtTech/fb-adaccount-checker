@@ -3,12 +3,13 @@ import { FacebookApiError } from './facebook-api-error';
 import { facebookApiConfig } from './facebook-api-config';
 
 interface RequestParams {
-  [param: string]: string | number | (string | number)[] | undefined;
+  [param: string]: boolean | string | number | (string | number)[] | undefined;
   fields?: string[];
 }
 
 interface RequestOptions {
-  needAuthorization?: boolean;
+  shouldUseUserAccessToken?: boolean;
+  usePageAccessToken?: string;
   headers?: { [header: string]: string | number };
 }
 
@@ -27,17 +28,24 @@ export async function makeRequest<T = any>({
   options,
   data,
 }: RequestConfig): Promise<T> {
-  const { fields, ...otherParams } = params;
+  let accessToken: string | undefined;
+  if (typeof options?.usePageAccessToken === 'string') {
+    accessToken = facebookApiConfig.pageAccessTokens.get(
+      options.usePageAccessToken
+    );
+  } else if (options?.shouldUseUserAccessToken === true) {
+    accessToken = facebookApiConfig.accessToken;
+  }
+
   try {
+    const { fields, ...otherParams } = params;
     const response: AxiosResponse<T> = await axios({
       url: `https://graph.facebook.com/v9.0/${url.replace(/^\/*/, '')}`,
       method: method || 'get',
       params: {
-        access_token: options?.needAuthorization
-          ? facebookApiConfig.accessToken
-          : undefined,
+        access_token: accessToken,
         locale: facebookApiConfig.locale,
-        fields: Array.isArray(fields) ? fields.join(',') : 0,
+        fields: Array.isArray(fields) ? fields.join(',') : undefined,
         ...otherParams,
       },
       headers: options?.headers,

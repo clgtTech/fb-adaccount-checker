@@ -4,7 +4,7 @@ import {
   ActionType,
 } from '../../../types';
 import { InsightsDTO } from '../../../stores/entities';
-import { toNumber } from '../type-conversions';
+import { toNumber } from '../helpers';
 
 /**
  * @see https://developers.facebook.com/docs/marketing-api/insights

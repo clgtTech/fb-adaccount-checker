@@ -28,7 +28,7 @@ export interface FacebookUser {
       url: string;
     };
   };
-  accounts: {
+  accounts?: {
     data: FacebookPage[];
   };
 }
@@ -43,17 +43,25 @@ export class UserGraphApi implements UserApi {
           'id',
           'name',
           'picture.width(200).height(200)',
-          `accounts.limit(${API_OBJECTS_LIMIT}){}`,
+          `accounts.limit(${API_OBJECTS_LIMIT}){id,name,access_token,tasks}`,
         ],
       },
     });
+    const pages = user.accounts?.data;
     return {
       accessToken,
       id: user.id,
       name: user.name,
       addedAt: new Date(),
       pictureUrl: user.picture?.data?.url,
-      pages: [],
+      pages: Array.isArray(pages)
+        ? pages.map((page) => ({
+            id: page.id,
+            name: page.name,
+            accessToken: page.access_token,
+            tasks: page.tasks,
+          }))
+        : [],
     };
   }
 }

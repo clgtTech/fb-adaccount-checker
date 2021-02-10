@@ -287,6 +287,11 @@ export enum ActionType {
 
 export type ActionIndicator = `actions:${ActionType}`;
 
+export enum CommentsOrder {
+  CHRONOLOGICAL = 'chronological',
+  REVERSE_CHRONOLOGICAL = 'reverse_chronological',
+}
+
 export enum CommentFilter {
   ALL = 'all',
   HIDDEN = 'hidden',

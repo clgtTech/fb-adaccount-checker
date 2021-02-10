@@ -6,7 +6,7 @@ import {
   AdAccountDTO,
 } from '../../../stores/entities';
 import { makeRequest } from '../make-request';
-import { toNumber } from '../type-conversions';
+import { toNumber } from '../helpers';
 
 /**
  * @see https://developers.facebook.com/docs/marketing-api/reference/ad-account
@@ -57,7 +57,7 @@ export class AdAccountGraphApi implements AdAccountApi {
           'insights.date_preset(lifetime){spend,ctr}',
         ],
       },
-      options: { needAuthorization: true },
+      options: { shouldUseUserAccessToken: true },
     });
     return response.data.map((adAccount) => {
       const insights = adAccount.insights?.data?.[0];

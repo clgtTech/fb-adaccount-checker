@@ -53,7 +53,7 @@ export class CampaignGraphApi implements CampaignApi {
           InsightsGraphApi.insightsQueryField,
         ],
       },
-      options: { needAuthorization: true },
+      options: { shouldUseUserAccessToken: true },
     });
 
     return response.data.map((campaign) => {

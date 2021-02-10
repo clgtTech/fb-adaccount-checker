@@ -4,7 +4,7 @@ import { AdAccount, AdsetDTO, AdsetApi } from '../../../stores/entities';
 import { AdAccountGraphApi } from './ad-account-graph-api';
 import { InsightsGraphApi, FacebookInsights } from './insights-graph-api';
 import { makeRequest } from '../make-request';
-import { toNumber } from '../type-conversions';
+import { toNumber } from '../helpers';
 
 /**
  * @see https://developers.facebook.com/docs/marketing-api/reference/ad-campaign
@@ -46,7 +46,7 @@ export class AdsetGraphApi implements AdsetApi {
           InsightsGraphApi.insightsQueryField,
         ],
       },
-      options: { needAuthorization: true },
+      options: { shouldUseUserAccessToken: true },
     });
 
     return response.data.map((adset) => {
