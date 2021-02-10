@@ -1,0 +1,44 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: $gap-1x $gap-4x;
+  border: 0.0625rem solid var(--secondary-border-color);
+  border-right: none;
+  border-left: none;
+}
+
+.toolbar > * {
+  padding-top: $gap-1x;
+  padding-bottom: $gap-1x;
+}
+
+.toolbarItems {
+  display: inline-flex;
+  align-items: center;
+}
+
+.toolbarItems > * + * {
+  margin-left: $gap-4x;
+}
+
+.comments {
+  margin: 0;
+  padding: $gap-4x $gap-4x;
+  list-style: none;
+}
+
+.comments > * + * {
+  margin-top: $gap-4x;
+}
+
+.noCommentsMessage {
+  padding: $gap-4x 0;
+  text-align: center;
+}

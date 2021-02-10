@@ -65,6 +65,54 @@
   "components.CampaignCard.linkToAdsets": {
     "defaultMessage": "View Ad sets"
   },
+  "components.CommentControls.hideCommentsButton": {
+    "defaultMessage": "Hide"
+  },
+  "components.CommentControls.showCommentsButton": {
+    "defaultMessage": "Show"
+  },
+  "components.CommentList.batchUpdateError": {
+    "defaultMessage": "An unknown error occurred during comments updating. Try to refresh the page and retry the operation."
+  },
+  "components.CommentList.filters.ALL": {
+    "defaultMessage": "All"
+  },
+  "components.CommentList.filters.HIDDEN": {
+    "defaultMessage": "Hidden"
+  },
+  "components.CommentList.filters.VISIBLE": {
+    "defaultMessage": "Visible"
+  },
+  "components.CommentList.loadAdComments": {
+    "defaultMessage": "Loading comments..."
+  },
+  "components.CommentList.noComments": {
+    "defaultMessage": "No comments found."
+  },
+  "components.CommentRow.hideCommentButton": {
+    "defaultMessage": "Hide"
+  },
+  "components.CommentRow.showCommentButton": {
+    "defaultMessage": "Show"
+  },
+  "components.CommentRow.updateError": {
+    "defaultMessage": "Failed to update comment"
+  },
+  "components.CommentsPlugin.closeCommentsButton": {
+    "defaultMessage": "Close comments"
+  },
+  "components.CommentsPlugin.noAuth": {
+    "defaultMessage": "An authenticated user is required to edit comments."
+  },
+  "components.CommentsPlugin.noModeratePermissions": {
+    "defaultMessage": "The selected user can not moderate comments."
+  },
+  "components.CommentsPlugin.noReadPermissions": {
+    "defaultMessage": "The selected user can not view comments."
+  },
+  "components.CommentsPlugin.viewCommentsButton": {
+    "defaultMessage": "View comments"
+  },
   "components.FlashMessageView.closeAction": {
     "defaultMessage": "Close"
   },

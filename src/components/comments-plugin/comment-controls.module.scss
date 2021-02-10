@@ -1,0 +1,11 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.container > * {
+  margin-left: $gap-1x;
+}

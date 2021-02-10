@@ -10,6 +10,7 @@ import { AdObjectStatusSwitch } from '../ad-object-status-switch';
 import { AdCreativePreview } from '../ad-creative-preview';
 import { Insights } from '../campaign-card';
 import { ReviewFeedback } from './review-feedback';
+import { CommentsPlugin } from '../comments-plugin';
 import styles from './ad-card.module.scss';
 
 export interface AdsetCardProps extends EntityCardProps {
@@ -22,7 +23,7 @@ export function AdCard({ adAccount, ad, ...props }: AdsetCardProps) {
   const adPresenter = new AdPresenter(ad, adAccount);
 
   return (
-    <EntityCard {...props}>
+    <EntityCard {...props} bottomBar={<CommentsPlugin ad={ad} />}>
       <EntityCard.Header
         description={
           <ObjectMeta
@@ -62,7 +63,7 @@ export function AdCard({ adAccount, ad, ...props }: AdsetCardProps) {
         <EntityCard.Section
           caption={
             <a
-              className={styles.externalLink}
+              className={styles.textLink}
               href="https://developers.facebook.com/docs/marketing-api/adgroup/feedback"
               rel="noopener noreferrer"
               target="_blank"

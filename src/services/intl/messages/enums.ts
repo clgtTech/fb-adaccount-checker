@@ -1,4 +1,10 @@
-import { BidStrategy, BuyingType, Objective, ActionType } from '../../../types';
+import {
+  BidStrategy,
+  BuyingType,
+  Objective,
+  ActionType,
+  CommentFilter,
+} from '../../../types';
 import { defineMessage } from 'react-intl';
 
 export const BidStrategies = {
@@ -406,5 +412,20 @@ export const ActionTypes = {
   [ActionType.SUBSCRIBE]: defineMessage({
     id: `enums.ActionType.SUBSCRIBE`,
     defaultMessage: `Subscriptions`,
+  }),
+};
+
+export const CommentFilters = {
+  [CommentFilter.ALL]: defineMessage({
+    id: 'components.CommentList.filters.ALL',
+    defaultMessage: `All`,
+  }),
+  [CommentFilter.VISIBLE]: defineMessage({
+    id: 'components.CommentList.filters.VISIBLE',
+    defaultMessage: `Visible`,
+  }),
+  [CommentFilter.HIDDEN]: defineMessage({
+    id: 'components.CommentList.filters.HIDDEN',
+    defaultMessage: `Hidden`,
   }),
 };
