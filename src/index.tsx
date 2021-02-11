@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
+import './migrate-saved-users';
 import './index.scss';
 import { AppRoot } from './app-root';
 
