@@ -1,6 +1,12 @@
 import { API_OBJECTS_LIMIT } from '../../../constants';
-import { AdEffectiveStatus, Status } from '../../../types';
-import { AdAccount, AdApi, AdDTO } from '../../../stores/entities';
+import { AdEffectiveStatus, OperationResult, Status } from '../../../types';
+import {
+  Ad,
+  AdAccount,
+  AdApi,
+  AdDTO,
+  AdUpdate,
+} from '../../../stores/entities';
 import { AdAccountGraphApi } from './ad-account-graph-api';
 import { InsightsGraphApi, FacebookInsights } from './insights-graph-api';
 import { makeRequest } from '../make-request';
@@ -85,6 +91,15 @@ export class AdGraphApi implements AdApi {
         },
         insights: InsightsGraphApi.formatFetchedInsights(ad.insights),
       };
+    });
+  }
+
+  updateAd(id: Ad['id'], update: AdUpdate['data']): Promise<OperationResult> {
+    return makeRequest({
+      url: `/${id}`,
+      method: 'post',
+      data: update,
+      options: { shouldUseUserAccessToken: true },
     });
   }
 }

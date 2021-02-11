@@ -20,12 +20,13 @@ export class AdStore {
     this.adApi
       .getAdAccountAds(adAccount.id)
       .then((fetchedAds) => {
+        const adsMap = new Map(
+          fetchedAds.map((fetchedAd) => {
+            const ad = new Ad(fetchedAd, this.adApi);
+            return [ad.id, ad];
+          })
+        );
         mobx.runInAction(() => {
-          const adsMap: AdStore['adsMap'] = new Map();
-          fetchedAds.forEach((fetchedAd) => {
-            const ad = new Ad(fetchedAd);
-            adsMap.set(ad.id, ad);
-          });
           this.adsMap = adsMap;
           this.loadStatus = AsyncActionStatus.success;
           this.loadError = null;

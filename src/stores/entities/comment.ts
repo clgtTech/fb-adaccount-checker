@@ -1,5 +1,5 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus } from '../../types';
+import { AsyncActionStatus, OperationResult } from '../../types';
 
 export class CommentActor {
   id: string;
@@ -73,10 +73,6 @@ export interface CommentDTO {
 export interface CommentUpdate {
   commentId: Comment['id'];
   data: Partial<Pick<Comment, 'isHidden'>>;
-}
-
-export interface OperationResult {
-  success: boolean;
 }
 
 export interface CommentUpdateResult extends CommentUpdate, OperationResult {

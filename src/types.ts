@@ -16,6 +16,10 @@ export enum AsyncActionStatus {
   success = 'success',
 }
 
+export interface OperationResult {
+  success: boolean;
+}
+
 export enum Task {
   MANAGE = 'MANAGE',
   CREATE_CONTENT = 'CREATE_CONTENT',
@@ -125,8 +129,8 @@ export enum AccountDisableReason {
 
 export enum Status {
   ACTIVE = 'ACTIVE',
-  PAUSE = 'PAUSE',
-  DELETE = 'DELETE',
+  PAUSED = 'PAUSED',
+  DELETED = 'DELETED',
   ARCHIVED = 'ARCHIVED',
 }
 

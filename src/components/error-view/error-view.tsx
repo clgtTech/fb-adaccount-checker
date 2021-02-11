@@ -19,6 +19,7 @@ export function ErrorView({
   className,
   ...props
 }: ErrorViewProps) {
+  console.error(error);
   const errorPresenter = createErrorPresenter(error);
   return (
     <NonIdealStateView

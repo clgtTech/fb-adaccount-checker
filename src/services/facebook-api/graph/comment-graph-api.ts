@@ -1,10 +1,9 @@
-import { CommentsOrder } from '../../../types';
+import { OperationResult, CommentsOrder } from '../../../types';
 import {
   CommentApi,
   CommentDTO,
   CommentUpdate,
   CommentUpdateResult,
-  OperationResult,
 } from '../../../stores/entities';
 import { makeRequest } from '../make-request';
 import { toRequestBody } from '../helpers';

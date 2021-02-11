@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as mobxReact from 'mobx-react-lite';
 import { useHistory } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { AdAccount, Campaign } from '../../stores/entities';
@@ -18,7 +19,7 @@ export interface CampaignCardProps extends EntityCardProps {
   getLinkToAdsets(campaignId: Campaign['id']): string;
 }
 
-export function CampaignCard({
+export const CampaignCard = mobxReact.observer(function CampaignCard({
   adAccount,
   campaign,
   getLinkToAdsets,
@@ -57,8 +58,11 @@ export function CampaignCard({
           {campaignPresenter.name}
         </ObjectName>
         <AdObjectStatusSwitch
+          canUpdate={campaign.canUpdate(adAccount)}
           status={campaign.status}
-          onStatusChange={console.log}
+          updateStatus={campaign.updateStatusOfStatus}
+          updateError={campaign.updateErrorOfStatus}
+          onUpdate={(status) => campaign.updateStatus(status)}
         />
       </EntityCard.Header>
 
@@ -94,4 +98,4 @@ export function CampaignCard({
       </ObjectLink>
     </EntityCard>
   );
-}
+});

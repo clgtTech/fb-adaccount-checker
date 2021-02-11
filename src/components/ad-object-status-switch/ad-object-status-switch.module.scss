@@ -2,37 +2,28 @@
 
 .container {
   display: inline-flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.wrapper {
+  display: inline-flex;
   align-items: center;
 }
 
-.indicator {
-  display: inline-block;
-  flex-shrink: 0;
-  width: 0.5rem;
-  height: 0.5rem;
+.spinner {
   margin-right: $gap-2x;
-  border-radius: 50%;
-  background: lightgray;
-}
-
-.indicator_active {
-  background-color: $green-500;
-}
-
-.indicator_delete {
-  background-color: $red-500;
-}
-
-.indicator_archived {
-  background-color: $orange-500;
 }
 
 .status {
   margin-right: $gap-2x;
+  letter-spacing: $tracking-tight;
   color: var(--secondary-text-color);
-  font-family: $font-sans-serif;
-  font-size: $font-size-base;
+  font-family: $font-mono;
+  font-size: $font-size-sm;
 }
 
-.switch {
+.error {
+  margin-top: $gap-1x;
+  text-align: right;
 }

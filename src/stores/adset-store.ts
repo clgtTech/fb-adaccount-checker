@@ -20,12 +20,13 @@ export class AdsetStore {
     this.adsetApi
       .getAdAccountAdsets(adAccount.id)
       .then((fetchedAdsets) => {
+        const adsetsMap = new Map(
+          fetchedAdsets.map((fetchedAdset) => {
+            const adset = new Adset(fetchedAdset, adAccount, this.adsetApi);
+            return [adset.id, adset];
+          })
+        );
         mobx.runInAction(() => {
-          const adsetsMap: AdsetStore['adsetsMap'] = new Map();
-          fetchedAdsets.forEach((fetchedAdset) => {
-            const adset = new Adset(fetchedAdset, adAccount);
-            adsetsMap.set(adset.id, adset);
-          });
           this.adsetsMap = adsetsMap;
           this.loadStatus = AsyncActionStatus.success;
           this.loadError = null;

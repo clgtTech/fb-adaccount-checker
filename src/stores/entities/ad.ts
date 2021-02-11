@@ -1,5 +1,10 @@
 import * as mobx from 'mobx';
-import { AdEffectiveStatus, Status } from '../../types';
+import {
+  AdEffectiveStatus,
+  AsyncActionStatus,
+  OperationResult,
+  Status,
+} from '../../types';
 import { AdAccount } from './ad-account';
 import { Insights, InsightsDTO } from './insights';
 
@@ -28,20 +33,38 @@ export class AdCreative {
 }
 
 export class Ad {
+  private adApi: AdApi;
+
   readonly id: string;
   readonly adAccountId: string;
   readonly campaignId: string;
   readonly adsetId: string;
   readonly effectiveStatus: AdEffectiveStatus;
-  status: Status;
-  name: string;
+  readonly name: string;
   readonly deliveryStatus?: string;
   readonly reviewFeedback?: Record<string, string>;
   readonly creative?: AdCreative;
   readonly insights?: Insights;
 
-  constructor(ad: AdDTO) {
-    mobx.makeAutoObservable(this);
+  status: Status;
+  updateStatusOfStatus: AsyncActionStatus = AsyncActionStatus.idle;
+  updateErrorOfStatus: Error | null = null;
+
+  constructor(ad: AdDTO, adApi: AdApi) {
+    mobx.makeAutoObservable(this, {
+      id: false,
+      adAccountId: false,
+      campaignId: false,
+      adsetId: false,
+      effectiveStatus: false,
+      name: false,
+      deliveryStatus: false,
+      reviewFeedback: false,
+      insights: false,
+    });
+
+    this.adApi = adApi;
+
     this.id = '' + ad.id;
     this.adAccountId = '' + ad.adAccountId;
     this.campaignId = '' + ad.campaignId;
@@ -54,13 +77,33 @@ export class Ad {
     this.creative = ad.creative && new AdCreative(ad.creative);
     this.insights = ad.insights && new Insights(ad.insights);
   }
-}
 
-export interface AdApi {
-  getAdAccountAds(
-    adAccountId: AdAccount['id'],
-    limit?: number
-  ): Promise<AdDTO[]>;
+  canUpdate(adAccount: AdAccount): boolean {
+    return (
+      adAccount.isAdRunningOrInReview() &&
+      this.effectiveStatus !== AdEffectiveStatus.ARCHIVED &&
+      this.effectiveStatus !== AdEffectiveStatus.DELETED
+    );
+  }
+
+  async updateStatus(status: Status) {
+    const oldStatus = this.status;
+    this.updateStatusOfStatus = AsyncActionStatus.pending;
+    this.status = status;
+    try {
+      await this.adApi.updateAd(this.id, { status });
+      mobx.runInAction(() => {
+        this.updateErrorOfStatus = null;
+        this.updateStatusOfStatus = AsyncActionStatus.success;
+      });
+    } catch (e) {
+      mobx.runInAction(() => {
+        this.status = oldStatus;
+        this.updateErrorOfStatus = e;
+        this.updateStatusOfStatus = AsyncActionStatus.error;
+      });
+    }
+  }
 }
 
 export interface AdDTO {
@@ -83,4 +126,19 @@ export interface AdCreativeDTO {
   thumbnailUrl: string;
   title?: string;
   body?: string;
+}
+
+export interface AdUpdate {
+  adId: Ad['id'];
+  data: {
+    status?: Status;
+  };
+}
+
+export interface AdApi {
+  getAdAccountAds(
+    adAccountId: AdAccount['id'],
+    limit?: number
+  ): Promise<AdDTO[]>;
+  updateAd(id: Ad['id'], update: AdUpdate['data']): Promise<OperationResult>;
 }

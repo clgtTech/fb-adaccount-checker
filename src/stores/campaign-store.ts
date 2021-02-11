@@ -24,12 +24,17 @@ export class CampaignStore {
     this.campaignApi
       .getAdAccountCampaigns(adAccount.id)
       .then((fetchedCampaigns) => {
+        const campaignsMap = new Map(
+          fetchedCampaigns.map((fetchedCampaign) => {
+            const campaign = new Campaign(
+              fetchedCampaign,
+              adAccount,
+              this.campaignApi
+            );
+            return [campaign.id, campaign];
+          })
+        );
         mobx.runInAction(() => {
-          const campaignsMap: CampaignStore['campaignsMap'] = new Map();
-          fetchedCampaigns.forEach((fetchedCampaign) => {
-            const campaign = new Campaign(fetchedCampaign, adAccount);
-            campaignsMap.set(campaign.id, campaign);
-          });
           this.campaignsMap = campaignsMap;
           this.loadStatus = AsyncActionStatus.success;
           this.loadError = null;

@@ -1,45 +1,61 @@
 import * as React from 'react';
-import { classNames, Switch } from 'draft-components';
-import { Status } from '../../types';
+import { useIntl } from 'react-intl';
+import { classNames, Spinner, Switch } from 'draft-components';
+import { AsyncActionStatus, Status } from '../../types';
 import { Formatters } from '../../services/intl';
+import { ErrorDetails } from '../error-details';
 import styles from './ad-object-status-switch.module.scss';
 
 export interface AdObjectStatusSwitchProps
   extends React.ComponentPropsWithoutRef<'div'> {
-  isDisabled?: boolean;
+  canUpdate?: boolean;
+  shouldShowStatus?: boolean;
   status: Status;
-  onStatusChange: (status: Status) => void;
+  updateStatus: AsyncActionStatus;
+  updateError?: Error | null;
+  onUpdate(status: Status): void;
 }
 
 export function AdObjectStatusSwitch({
-  isDisabled,
+  canUpdate,
+  shouldShowStatus,
   status,
-  onStatusChange,
+  updateStatus,
+  updateError,
+  onUpdate,
   className,
   ...props
 }: AdObjectStatusSwitchProps) {
+  const intl = useIntl();
+  const isUpdating = updateStatus === AsyncActionStatus.pending;
   return (
     <div {...props} className={classNames(className, styles.container)}>
-      <i
-        aria-hidden={true}
-        className={classNames(styles.indicator, {
-          [styles.indicator_active]: status === Status.ACTIVE,
-          [styles.indicator_pause]: status === Status.PAUSE,
-          [styles.indicator_delete]: status === Status.DELETE,
-          [styles.indicator_archived]: status === Status.ARCHIVED,
-        })}
-      />
-      <code className={styles.status}>
-        {Formatters.formatEnumValue(status)}
-      </code>
-      <Switch
-        className={styles.switch}
-        disabled={isDisabled}
-        checked={status === Status.ACTIVE}
-        onChange={(event) => {
-          onStatusChange(event.target.checked ? Status.ACTIVE : Status.PAUSE);
-        }}
-      />
+      <div className={styles.wrapper}>
+        {isUpdating ? <Spinner className={styles.spinner} size={14} /> : null}
+        {shouldShowStatus ? (
+          <code className={styles.status}>
+            {Formatters.formatEnumValue(status)}
+          </code>
+        ) : null}
+        <Switch
+          disabled={isUpdating || !canUpdate}
+          checked={status === Status.ACTIVE}
+          onChange={(event) => {
+            onUpdate(event.target.checked ? Status.ACTIVE : Status.PAUSED);
+          }}
+        />
+      </div>
+      {updateError ? (
+        <ErrorDetails
+          className={styles.error}
+          summary={intl.formatMessage({
+            id: 'components.AdObjectStatusSwitch.updateError',
+            defaultMessage: 'Update error',
+          })}
+        >
+          {updateError.message}
+        </ErrorDetails>
+      ) : null}
     </div>
   );
 }

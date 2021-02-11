@@ -1,6 +1,7 @@
 import * as React from 'react';
+import * as mobxReact from 'mobx-react-lite';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { AdAccount, Ad } from '../../stores/entities';
+import { Ad, AdAccount } from '../../stores/entities';
 import { AdPresenter } from '../../presenters/ad-presenter';
 import { Messages } from '../../services/intl';
 import { EntityCard, EntityCardProps } from '../entity-card';
@@ -18,7 +19,11 @@ export interface AdsetCardProps extends EntityCardProps {
   ad: Ad;
 }
 
-export function AdCard({ adAccount, ad, ...props }: AdsetCardProps) {
+export const AdCard = mobxReact.observer(function AdCard({
+  adAccount,
+  ad,
+  ...props
+}: AdsetCardProps) {
   const intl = useIntl();
   const adPresenter = new AdPresenter(ad, adAccount);
 
@@ -44,7 +49,13 @@ export function AdCard({ adAccount, ad, ...props }: AdsetCardProps) {
         }
       >
         <ObjectName objectId={adPresenter.id}>{adPresenter.name}</ObjectName>
-        <AdObjectStatusSwitch status={ad.status} onStatusChange={console.log} />
+        <AdObjectStatusSwitch
+          canUpdate={ad.canUpdate(adAccount)}
+          status={ad.status}
+          updateStatus={ad.updateStatusOfStatus}
+          updateError={ad.updateErrorOfStatus}
+          onUpdate={(status) => ad.updateStatus(status)}
+        />
       </EntityCard.Header>
 
       {adPresenter.creativePreview ? (
@@ -77,4 +88,4 @@ export function AdCard({ adAccount, ad, ...props }: AdsetCardProps) {
       ) : null}
     </EntityCard>
   );
-}
+});

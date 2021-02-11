@@ -1,31 +1,50 @@
 import * as mobx from 'mobx';
-import { AdsetEffectiveStatus, BidStrategy, Status } from '../../types';
+import {
+  AdsetEffectiveStatus,
+  AsyncActionStatus,
+  BidStrategy,
+  OperationResult,
+  Status,
+} from '../../types';
 import { CurrencyAmount } from './currency-amount';
 import { AdAccount } from './ad-account';
 import { Insights, InsightsDTO } from './insights';
 
-export interface AdsetApi {
-  getAdAccountAdsets(
-    adAccountId: AdAccount['id'],
-    limit?: number
-  ): Promise<AdsetDTO[]>;
-}
-
 export class Adset {
+  private adsetApi: AdsetApi;
+
   readonly id: string;
   readonly adAccountId: string;
   readonly campaignId: string;
   readonly effectiveStatus: AdsetEffectiveStatus;
-  status: Status;
-  name: string;
+  readonly name: string;
   readonly adCount: number;
   readonly bidStrategy?: BidStrategy;
-  dailyBudget?: CurrencyAmount;
-  lifetimeBudget?: CurrencyAmount;
   readonly insights?: Insights;
 
-  constructor(adset: AdsetDTO, adAccount: AdAccount) {
-    mobx.makeAutoObservable(this);
+  status: Status;
+  updateStatusOfStatus: AsyncActionStatus = AsyncActionStatus.idle;
+  updateErrorOfStatus: Error | null = null;
+
+  dailyBudget?: CurrencyAmount;
+  lifetimeBudget?: CurrencyAmount;
+  updateStatusOfBudget: AsyncActionStatus = AsyncActionStatus.idle;
+  updateErrorOfBudget: Error | null = null;
+
+  constructor(adset: AdsetDTO, adAccount: AdAccount, adsetApi: AdsetApi) {
+    mobx.makeAutoObservable(this, {
+      id: false,
+      adAccountId: false,
+      campaignId: false,
+      effectiveStatus: false,
+      name: false,
+      adCount: false,
+      bidStrategy: false,
+      insights: false,
+    });
+
+    this.adsetApi = adsetApi;
+
     this.id = '' + adset.id;
     this.adAccountId = '' + adset.adAccountId;
     this.campaignId = '' + adset.campaignId;
@@ -42,6 +61,33 @@ export class Adset {
       : undefined;
     this.insights = adset.insights ? new Insights(adset.insights) : undefined;
   }
+
+  canUpdate(adAccount: AdAccount): boolean {
+    return (
+      adAccount.isAdRunningOrInReview() &&
+      this.effectiveStatus !== AdsetEffectiveStatus.DELETED &&
+      this.effectiveStatus !== AdsetEffectiveStatus.ARCHIVED
+    );
+  }
+
+  async updateStatus(status: Status) {
+    const oldStatus = this.status;
+    this.updateStatusOfStatus = AsyncActionStatus.pending;
+    this.status = status;
+    try {
+      await this.adsetApi.updateAdset(this.id, { status });
+      mobx.runInAction(() => {
+        this.updateErrorOfStatus = null;
+        this.updateStatusOfStatus = AsyncActionStatus.success;
+      });
+    } catch (e) {
+      mobx.runInAction(() => {
+        this.status = oldStatus;
+        this.updateErrorOfStatus = e;
+        this.updateStatusOfStatus = AsyncActionStatus.error;
+      });
+    }
+  }
 }
 
 export interface AdsetDTO {
@@ -56,4 +102,24 @@ export interface AdsetDTO {
   dailyBudget?: string | number | null;
   lifetimeBudget?: string | number | null;
   insights?: InsightsDTO | null;
+}
+
+export interface AdsetUpdate {
+  adsetId: Adset['id'];
+  data: {
+    status?: Status;
+    dailyBudget?: number | string;
+    lifetimeBudget?: number | string;
+  };
+}
+
+export interface AdsetApi {
+  getAdAccountAdsets(
+    adAccountId: AdAccount['id'],
+    limit?: number
+  ): Promise<AdsetDTO[]>;
+  updateAdset(
+    id: Adset['id'],
+    update: AdsetUpdate['data']
+  ): Promise<OperationResult>;
 }

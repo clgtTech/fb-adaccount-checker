@@ -1,0 +1,31 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  display: block;
+  color: var(--danger-text-color);
+  font-size: $font-size-sm;
+}
+
+.summary {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  list-style-type: none;
+  user-select: none;
+  cursor: pointer;
+  font-weight: $font-weight-medium;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.summaryIcon {
+  flex-shrink: 0;
+  margin-right: $gap-1x;
+}
+
+.content {
+  font-family: $font-mono;
+  line-height: $leading-tight;
+}

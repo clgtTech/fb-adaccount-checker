@@ -1,6 +1,17 @@
 import { API_OBJECTS_LIMIT } from '../../../constants';
-import { AdsetEffectiveStatus, BidStrategy, Status } from '../../../types';
-import { AdAccount, AdsetDTO, AdsetApi } from '../../../stores/entities';
+import {
+  AdsetEffectiveStatus,
+  BidStrategy,
+  OperationResult,
+  Status,
+} from '../../../types';
+import {
+  AdAccount,
+  AdsetDTO,
+  AdsetApi,
+  Adset,
+  AdsetUpdate,
+} from '../../../stores/entities';
 import { AdAccountGraphApi } from './ad-account-graph-api';
 import { InsightsGraphApi, FacebookInsights } from './insights-graph-api';
 import { makeRequest } from '../make-request';
@@ -63,6 +74,18 @@ export class AdsetGraphApi implements AdsetApi {
         lifetimeBudget: adset.lifetime_budget,
         insights: InsightsGraphApi.formatFetchedInsights(adset.insights),
       };
+    });
+  }
+
+  updateAdset(
+    id: Adset['id'],
+    update: AdsetUpdate['data']
+  ): Promise<OperationResult> {
+    return makeRequest({
+      url: `/${id}`,
+      method: 'post',
+      data: update,
+      options: { shouldUseUserAccessToken: true },
     });
   }
 }

@@ -1,38 +1,57 @@
 import * as mobx from 'mobx';
 import {
+  AsyncActionStatus,
   BidStrategy,
   BuyingType,
   CampaignEffectiveStatus,
   Objective,
+  OperationResult,
   Status,
 } from '../../types';
 import { CurrencyAmount } from './currency-amount';
 import { AdAccount } from './ad-account';
 import { Insights, InsightsDTO } from './insights';
 
-export interface CampaignApi {
-  getAdAccountCampaigns(
-    adAccountId: AdAccount['id'],
-    limit?: number
-  ): Promise<CampaignDTO[]>;
-}
-
 export class Campaign {
+  private campaignApi: CampaignApi;
   readonly id: string;
   readonly adAccountId: string;
   readonly effectiveStatus: CampaignEffectiveStatus;
-  status: Status;
-  name: string;
+  readonly name: string;
   readonly adsetCount: number;
   readonly objective: Objective;
   readonly buyingType: BuyingType;
   readonly bidStrategy?: BidStrategy;
-  dailyBudget?: CurrencyAmount;
-  lifetimeBudget?: CurrencyAmount;
   readonly insights?: Insights;
 
-  constructor(campaign: CampaignDTO, adAccount: AdAccount) {
-    mobx.makeAutoObservable(this);
+  status: Status;
+  updateStatusOfStatus: AsyncActionStatus = AsyncActionStatus.idle;
+  updateErrorOfStatus: Error | null = null;
+
+  dailyBudget?: CurrencyAmount;
+  lifetimeBudget?: CurrencyAmount;
+  updateStatusOfBudget: AsyncActionStatus = AsyncActionStatus.idle;
+  updateErrorOfBudget: Error | null = null;
+
+  constructor(
+    campaign: CampaignDTO,
+    adAccount: AdAccount,
+    campaignApi: CampaignApi
+  ) {
+    mobx.makeAutoObservable(this, {
+      id: false,
+      adAccountId: false,
+      effectiveStatus: false,
+      name: false,
+      adsetCount: false,
+      objective: false,
+      buyingType: false,
+      bidStrategy: false,
+      insights: false,
+    });
+
+    this.campaignApi = campaignApi;
+
     this.id = '' + campaign.id;
     this.adAccountId = '' + campaign.adAccountId;
     this.effectiveStatus = campaign.effectiveStatus;
@@ -52,6 +71,33 @@ export class Campaign {
       ? new Insights(campaign.insights)
       : undefined;
   }
+
+  canUpdate(adAccount: AdAccount): boolean {
+    return (
+      adAccount.isAdRunningOrInReview() &&
+      this.effectiveStatus !== CampaignEffectiveStatus.ARCHIVED &&
+      this.effectiveStatus !== CampaignEffectiveStatus.DELETED
+    );
+  }
+
+  async updateStatus(status: Status) {
+    const oldStatus = this.status;
+    this.updateStatusOfStatus = AsyncActionStatus.pending;
+    this.status = status;
+    try {
+      await this.campaignApi.updateCampaign(this.id, { status });
+      mobx.runInAction(() => {
+        this.updateErrorOfStatus = null;
+        this.updateStatusOfStatus = AsyncActionStatus.success;
+      });
+    } catch (e) {
+      mobx.runInAction(() => {
+        this.status = oldStatus;
+        this.updateErrorOfStatus = e;
+        this.updateStatusOfStatus = AsyncActionStatus.error;
+      });
+    }
+  }
 }
 
 export interface CampaignDTO {
@@ -67,4 +113,24 @@ export interface CampaignDTO {
   dailyBudget?: string | number | null;
   lifetimeBudget?: string | number | null;
   insights?: InsightsDTO | null;
+}
+
+export interface CampaignUpdate {
+  campaignId: Campaign['id'];
+  data: {
+    status?: Status;
+    dailyBudget?: number | string;
+    lifetimeBudget?: number | string;
+  };
+}
+
+export interface CampaignApi {
+  getAdAccountCampaigns(
+    adAccountId: AdAccount['id'],
+    limit?: number
+  ): Promise<CampaignDTO[]>;
+  updateCampaign(
+    id: Campaign['id'],
+    update: CampaignUpdate['data']
+  ): Promise<OperationResult>;
 }

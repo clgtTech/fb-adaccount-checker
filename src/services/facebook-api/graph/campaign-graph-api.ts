@@ -4,9 +4,16 @@ import {
   BuyingType,
   CampaignEffectiveStatus,
   Objective,
+  OperationResult,
   Status,
 } from '../../../types';
-import { AdAccount, CampaignApi, CampaignDTO } from '../../../stores/entities';
+import {
+  AdAccount,
+  Campaign,
+  CampaignApi,
+  CampaignDTO,
+  CampaignUpdate,
+} from '../../../stores/entities';
 import { AdAccountGraphApi } from './ad-account-graph-api';
 import { InsightsGraphApi, FacebookInsights } from './insights-graph-api';
 import { makeRequest } from '../make-request';
@@ -71,6 +78,18 @@ export class CampaignGraphApi implements CampaignApi {
         lifetimeBudget: campaign.lifetime_budget,
         insights: InsightsGraphApi.formatFetchedInsights(campaign.insights),
       };
+    });
+  }
+
+  async updateCampaign(
+    id: Campaign['id'],
+    update: CampaignUpdate['data']
+  ): Promise<OperationResult> {
+    return makeRequest({
+      url: `/${id}`,
+      method: 'post',
+      data: update,
+      options: { shouldUseUserAccessToken: true },
     });
   }
 }

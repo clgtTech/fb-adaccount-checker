@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as mobxReact from 'mobx-react-lite';
 import { useHistory } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { AdAccount, Adset } from '../../stores/entities';
@@ -17,7 +18,7 @@ export interface AdsetCardProps extends EntityCardProps {
   getLinkToAds(adsetId: Adset['id']): string;
 }
 
-export function AdsetCard({
+export const AdsetCard = mobxReact.observer(function AdsetCard({
   adAccount,
   adset,
   getLinkToAds,
@@ -41,8 +42,11 @@ export function AdsetCard({
           {adsetPresenter.name}
         </ObjectName>
         <AdObjectStatusSwitch
+          canUpdate={adset.canUpdate(adAccount)}
           status={adset.status}
-          onStatusChange={console.log}
+          updateStatus={adset.updateStatusOfStatus}
+          updateError={adset.updateErrorOfStatus}
+          onUpdate={(status) => adset.updateStatus(status)}
         />
       </EntityCard.Header>
 
@@ -73,4 +77,4 @@ export function AdsetCard({
       </ObjectLink>
     </EntityCard>
   );
-}
+});
