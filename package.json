@@ -1,5 +1,5 @@
 {
-  "name": "fbtools",
+  "name": "fbdash",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -7,28 +7,28 @@
     "npm": "6.14.9"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.6.0",
-    "@types/jest": "^26.0.19",
-    "@types/node": "^14.14.16",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/react-router-dom": "^5.1.6",
-    "@types/react-transition-group": "^4.4.0",
-    "axios": "^0.21.1",
+    "@testing-library/jest-dom": "5.11.9",
+    "@testing-library/react": "11.2.5",
+    "@testing-library/user-event": "12.7.0",
+    "@types/jest": "26.0.20",
+    "@types/node": "14.14.25",
+    "@types/react": "17.0.1",
+    "@types/react-dom": "17.0.0",
+    "@types/react-router-dom": "5.1.7",
+    "@types/react-transition-group": "4.4.0",
+    "axios": "0.21.1",
     "draft-components": "0.26.0",
-    "mobx": "^6.0.4",
-    "mobx-react-lite": "^3.1.6",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-intl": "^5.10.13",
+    "mobx": "6.1.5",
+    "mobx-react-lite": "3.2.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-intl": "5.12.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.1",
-    "react-styleguidist": "^11.1.5",
-    "react-transition-group": "^4.4.1",
-    "sass": "^1.30.0",
-    "typescript": "^4.1.3"
+    "react-scripts": "4.0.2",
+    "react-styleguidist": "11.1.5",
+    "react-transition-group": "4.4.1",
+    "sass": "1.32.7",
+    "typescript": "4.1.5"
   },
   "scripts": {
     "styleguide": "styleguidist server",
@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@formatjs/cli": "3.0.5",
-    "eslint-plugin-formatjs": "^2.10.3",
-    "prettier": "^2.2.1"
+    "eslint-plugin-formatjs": "2.12.0",
+    "prettier": "2.2.1"
   }
 }
