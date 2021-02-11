@@ -7,8 +7,8 @@ const [status, setStatus] = React.useState(Status.ACTIVE);
 <AdObjectStatusSwitch
   canUpdate={true}
   status={status}
-  updateStatus={AsyncActionStatus.idle}
-  updateError={null}
+  isUpdating={AsyncActionStatus.idle}
+  error={null}
   onUpdate={setStatus}
 />;
 ```

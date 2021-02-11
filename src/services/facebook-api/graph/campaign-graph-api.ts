@@ -88,7 +88,11 @@ export class CampaignGraphApi implements CampaignApi {
     return makeRequest({
       url: `/${id}`,
       method: 'post',
-      data: update,
+      data: {
+        ...update,
+        daily_budget: update.dailyBudget,
+        lifetime_budget: update.lifetimeBudget,
+      },
       options: { shouldUseUserAccessToken: true },
     });
   }

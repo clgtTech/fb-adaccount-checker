@@ -1,10 +1,5 @@
 import * as mobx from 'mobx';
-import {
-  AdEffectiveStatus,
-  AsyncActionStatus,
-  OperationResult,
-  Status,
-} from '../../types';
+import { AdEffectiveStatus, OperationResult, Status } from '../../types';
 import { AdAccount } from './ad-account';
 import { Insights, InsightsDTO } from './insights';
 
@@ -47,8 +42,8 @@ export class Ad {
   readonly insights?: Insights;
 
   status: Status;
-  updateStatusOfStatus: AsyncActionStatus = AsyncActionStatus.idle;
-  updateErrorOfStatus: Error | null = null;
+  isStatusUpdating: boolean = false;
+  statusUpdateError: Error | null = null;
 
   constructor(ad: AdDTO, adApi: AdApi) {
     mobx.makeAutoObservable(this, {
@@ -88,19 +83,20 @@ export class Ad {
 
   async updateStatus(status: Status) {
     const oldStatus = this.status;
-    this.updateStatusOfStatus = AsyncActionStatus.pending;
+
+    this.isStatusUpdating = true;
     this.status = status;
     try {
       await this.adApi.updateAd(this.id, { status });
       mobx.runInAction(() => {
-        this.updateErrorOfStatus = null;
-        this.updateStatusOfStatus = AsyncActionStatus.success;
+        this.statusUpdateError = null;
+        this.isStatusUpdating = false;
       });
     } catch (e) {
       mobx.runInAction(() => {
         this.status = oldStatus;
-        this.updateErrorOfStatus = e;
-        this.updateStatusOfStatus = AsyncActionStatus.error;
+        this.statusUpdateError = e;
+        this.isStatusUpdating = false;
       });
     }
   }

@@ -52,8 +52,8 @@ export const AdCard = mobxReact.observer(function AdCard({
         <AdObjectStatusSwitch
           canUpdate={ad.canUpdate(adAccount)}
           status={ad.status}
-          updateStatus={ad.updateStatusOfStatus}
-          updateError={ad.updateErrorOfStatus}
+          isUpdating={ad.isStatusUpdating}
+          error={ad.statusUpdateError}
           onUpdate={(status) => ad.updateStatus(status)}
         />
       </EntityCard.Header>

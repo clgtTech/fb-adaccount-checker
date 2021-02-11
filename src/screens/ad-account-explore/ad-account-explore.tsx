@@ -12,7 +12,7 @@ import { AsyncActionStatus } from '../../types';
 import { AdAccountExploreParams } from './route-params';
 import { AdAccount } from '../../stores/entities';
 import { ROUTES } from '../../constants';
-import { adsetStore, adStore, campaignStore } from '../../stores';
+import { campaignStore, adsetStore, adStore, commentStore } from '../../stores';
 import { ErrorView } from '../../components/error-view';
 import { AdObjectsNav } from './ad-objects-nav';
 import { Campaigns } from '../campaigns';
@@ -62,6 +62,7 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
       campaignStore.resetLoadStatus();
       adsetStore.resetLoadStatus();
       adStore.resetLoadStatus();
+      commentStore.clear();
     };
   }, [adAccount]);
 

@@ -67,6 +67,10 @@ export class CurrencyAmount {
     this._currency = currency;
   }
 
+  static createFromOffsettedAmount(value: number, currency: Currency) {
+    return new CurrencyAmount(value * CurrencyOffsets[currency], currency);
+  }
+
   static toInt(value: string | number): number {
     return Number.parseInt(String(value)) || 0;
   }

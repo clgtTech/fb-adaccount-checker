@@ -1,10 +1,22 @@
 @import '~draft-components/dist/scss/abstracts/variables';
 
 .container {
+  max-width: 100%;
   color: var(--primary-text-color);
 }
 
+.content {
+  display: flex;
+  align-items: center;
+  min-height: 1.5rem;
+}
+
+.content > * + * {
+  margin-left: $gap-3x;
+}
+
 .budget {
+  display: inline-block;
 }
 
 .amount {
@@ -12,9 +24,9 @@
   font-weight: $font-weight-bold;
 }
 
-.type {
+.budgetType {
   display: inline-block;
-  margin-left: $gap-2x;
+  margin-left: $gap-1x;
   font-size: $font-size-xs;
 }
 
@@ -25,5 +37,5 @@
 }
 
 .bidStrategy {
-  margin: 0 0 $gap-1x;
+  margin-bottom: $gap-1x;
 }

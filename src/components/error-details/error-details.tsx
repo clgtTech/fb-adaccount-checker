@@ -18,8 +18,8 @@ export function ErrorDetails({
       <summary className={styles.summary}>
         <SvgIcon
           className={styles.summaryIcon}
-          size="base"
-          icon={Icons.errorIcon}
+          size={16}
+          icon={Icons.warningIcon}
         />
         <span>{summary}</span>
       </summary>

@@ -1,6 +1,5 @@
 import * as mobx from 'mobx';
 import {
-  AsyncActionStatus,
   BidStrategy,
   BuyingType,
   CampaignEffectiveStatus,
@@ -25,13 +24,13 @@ export class Campaign {
   readonly insights?: Insights;
 
   status: Status;
-  updateStatusOfStatus: AsyncActionStatus = AsyncActionStatus.idle;
-  updateErrorOfStatus: Error | null = null;
+  isStatusUpdating: boolean = false;
+  statusUpdateError: Error | null = null;
 
   dailyBudget?: CurrencyAmount;
   lifetimeBudget?: CurrencyAmount;
-  updateStatusOfBudget: AsyncActionStatus = AsyncActionStatus.idle;
-  updateErrorOfBudget: Error | null = null;
+  isBudgetUpdating: boolean = false;
+  budgetUpdateError: Error | null = null;
 
   constructor(
     campaign: CampaignDTO,
@@ -82,19 +81,50 @@ export class Campaign {
 
   async updateStatus(status: Status) {
     const oldStatus = this.status;
-    this.updateStatusOfStatus = AsyncActionStatus.pending;
+
+    this.isStatusUpdating = true;
     this.status = status;
     try {
       await this.campaignApi.updateCampaign(this.id, { status });
       mobx.runInAction(() => {
-        this.updateErrorOfStatus = null;
-        this.updateStatusOfStatus = AsyncActionStatus.success;
+        this.statusUpdateError = null;
+        this.isStatusUpdating = false;
       });
     } catch (e) {
       mobx.runInAction(() => {
         this.status = oldStatus;
-        this.updateErrorOfStatus = e;
-        this.updateStatusOfStatus = AsyncActionStatus.error;
+        this.statusUpdateError = e;
+        this.isStatusUpdating = false;
+      });
+    }
+  }
+
+  async updateBudget({ dailyBudget, lifetimeBudget }: BudgetUpdate) {
+    if (!dailyBudget && !lifetimeBudget) {
+      return;
+    }
+
+    const oldDailyBudget = this.dailyBudget;
+    const oldLifetimeBudget = this.lifetimeBudget;
+
+    this.isBudgetUpdating = true;
+    this.dailyBudget = dailyBudget;
+    this.lifetimeBudget = lifetimeBudget;
+    try {
+      await this.campaignApi.updateCampaign(this.id, {
+        lifetimeBudget: lifetimeBudget?.amount,
+        dailyBudget: dailyBudget?.amount,
+      });
+      mobx.runInAction(() => {
+        this.budgetUpdateError = null;
+        this.isBudgetUpdating = false;
+      });
+    } catch (e) {
+      mobx.runInAction(() => {
+        this.dailyBudget = oldDailyBudget;
+        this.lifetimeBudget = oldLifetimeBudget;
+        this.budgetUpdateError = e;
+        this.isBudgetUpdating = false;
       });
     }
   }
@@ -113,6 +143,11 @@ export interface CampaignDTO {
   dailyBudget?: string | number | null;
   lifetimeBudget?: string | number | null;
   insights?: InsightsDTO | null;
+}
+
+export interface BudgetUpdate {
+  dailyBudget?: CurrencyAmount;
+  lifetimeBudget?: CurrencyAmount;
 }
 
 export interface CampaignUpdate {

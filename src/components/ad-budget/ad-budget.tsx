@@ -1,35 +1,119 @@
 import * as React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { classNames } from 'draft-components';
-import { Messages } from '../../services/intl';
+import {
+  classNames,
+  Spinner,
+  IconButton,
+  Icons,
+  SvgIcon,
+} from 'draft-components';
+import { BudgetType } from '../../types';
+import { CurrencyAmount } from '../../stores/entities';
+import { Formatters, Messages } from '../../services/intl';
+import { CurrencyAmountField } from '../currency-amount-field';
+import { ErrorDetails } from '../error-details';
 import styles from './ad-budget.module.scss';
 
+export interface BudgetUpdate {
+  dailyBudget?: CurrencyAmount;
+  lifetimeBudget?: CurrencyAmount;
+}
+
 export interface AdBudgetProps extends React.ComponentPropsWithoutRef<'div'> {
-  bidStrategy?: string;
-  dailyBudget?: string;
-  lifetimeBudget?: string;
   fallbackMessage: string;
+  bidStrategy?: string;
+  dailyBudget?: CurrencyAmount;
+  lifetimeBudget?: CurrencyAmount;
+  canUpdate?: boolean;
+  isUpdating?: boolean;
+  error?: Error | null;
+  onUpdate(update: BudgetUpdate): void;
 }
 
 export function AdBudget({
-  className,
+  fallbackMessage,
+  bidStrategy,
   dailyBudget,
   lifetimeBudget,
-  bidStrategy,
-  fallbackMessage,
+  canUpdate,
+  isUpdating,
+  error,
+  onUpdate,
+  className,
   ...props
 }: AdBudgetProps) {
   const intl = useIntl();
+  const [isEditing, setIsEditing] = React.useState(false);
 
-  let budget = '';
-  let type = '';
+  let budgetType: BudgetType | undefined;
+  let budget: CurrencyAmount | undefined;
   if (lifetimeBudget) {
+    budgetType = BudgetType.LIFETIME;
     budget = lifetimeBudget;
-    type = intl.formatMessage(Messages.Campaign.lifetimeBudget);
   } else if (dailyBudget) {
+    budgetType = BudgetType.DAILY;
     budget = dailyBudget;
-    type = intl.formatMessage(Messages.Campaign.dailyBudget);
   }
+
+  const renderBudget = () => {
+    if (budget && budgetType) {
+      return (
+        <>
+          <div className={styles.budget}>
+            <span className={styles.amount}>
+              {Formatters.formatCurrencyAmount(budget)}
+            </span>
+            <span className={styles.budgetType}>
+              <FormattedMessage {...Messages.Enums.BudgetTypes[budgetType]} />
+            </span>
+          </div>
+          {(function () {
+            if (!canUpdate) {
+              return null;
+            }
+            if (isUpdating) {
+              return <Spinner size={14} />;
+            }
+            return (
+              <IconButton
+                size="sm"
+                appearance="secondary"
+                icon={<SvgIcon size="xs" icon={Icons.pencilIcon} />}
+                title={intl.formatMessage({
+                  id: 'components.AdBudget.updateButton',
+                  defaultMessage: `Edit budget`,
+                })}
+                onClick={() => setIsEditing(true)}
+              />
+            );
+          })()}
+        </>
+      );
+    }
+    return <div className={styles.fallbackMessage}>{fallbackMessage}</div>;
+  };
+
+  const renderBudgetInput = () => {
+    if (budget && budgetType) {
+      return (
+        <CurrencyAmountField
+          value={budget}
+          onCancel={() => setIsEditing(false)}
+          onSave={(currencyAmount) => {
+            const update: BudgetUpdate = {};
+            if (budgetType === BudgetType.DAILY) {
+              update.dailyBudget = currencyAmount;
+            } else if (budgetType === BudgetType.LIFETIME) {
+              update.lifetimeBudget = currencyAmount;
+            }
+            onUpdate(update);
+            setIsEditing(false);
+          }}
+        />
+      );
+    }
+    return null;
+  };
 
   return (
     <div {...props} className={classNames(className, styles.container)}>
@@ -38,14 +122,20 @@ export function AdBudget({
           <FormattedMessage {...Messages.Campaign.bidStrategy} />: {bidStrategy}
         </div>
       ) : null}
-      {budget ? (
-        <div className={styles.budget}>
-          <span className={styles.amount}>{budget}</span>
-          <span className={styles.type}>{type}</span>
-        </div>
-      ) : (
-        <div className={styles.fallbackMessage}>{fallbackMessage}</div>
-      )}
+      <div className={styles.content}>
+        {isEditing ? renderBudgetInput() : renderBudget()}
+      </div>
+
+      {error ? (
+        <ErrorDetails
+          summary={intl.formatMessage({
+            id: 'components.AdBudget.updateError',
+            defaultMessage: 'Update error',
+          })}
+        >
+          {error.message}
+        </ErrorDetails>
+      ) : null}
     </div>
   );
 }

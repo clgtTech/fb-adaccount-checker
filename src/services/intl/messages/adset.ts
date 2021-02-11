@@ -10,16 +10,6 @@ export const budget = defineMessage({
   defaultMessage: 'Budget',
 });
 
-export const dailyBudget = defineMessage({
-  id: 'fields.Adset.dailyBudget',
-  defaultMessage: 'Daily',
-});
-
-export const lifetimeBudget = defineMessage({
-  id: 'fields.Adset.lifetimeBudget',
-  defaultMessage: 'Lifetime',
-});
-
 export const campaignBudget = defineMessage({
   id: 'fields.Adset.campaignBudget',
   defaultMessage: 'Using campaign budget',

@@ -4,6 +4,7 @@ import {
   Objective,
   ActionType,
   CommentFilter,
+  BudgetType,
 } from '../../../types';
 import { defineMessage } from 'react-intl';
 
@@ -417,15 +418,26 @@ export const ActionTypes = {
 
 export const CommentFilters = {
   [CommentFilter.ALL]: defineMessage({
-    id: 'components.CommentList.filters.ALL',
+    id: 'enums.CommentFilter.ALL',
     defaultMessage: `All`,
   }),
   [CommentFilter.VISIBLE]: defineMessage({
-    id: 'components.CommentList.filters.VISIBLE',
+    id: 'enums.CommentFilter.VISIBLE',
     defaultMessage: `Visible`,
   }),
   [CommentFilter.HIDDEN]: defineMessage({
-    id: 'components.CommentList.filters.HIDDEN',
+    id: 'enums.CommentFilter.HIDDEN',
     defaultMessage: `Hidden`,
+  }),
+};
+
+export const BudgetTypes = {
+  [BudgetType.DAILY]: defineMessage({
+    id: 'enums.BudgetType.DAILY',
+    defaultMessage: 'Daily',
+  }),
+  [BudgetType.LIFETIME]: defineMessage({
+    id: 'enums.BudgetType.LIFETIME',
+    defaultMessage: 'Lifetime',
   }),
 };

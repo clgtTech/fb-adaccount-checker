@@ -1,33 +1,32 @@
 import * as React from 'react';
 import { useIntl } from 'react-intl';
 import { classNames, Spinner, Switch } from 'draft-components';
-import { AsyncActionStatus, Status } from '../../types';
+import { Status } from '../../types';
 import { Formatters } from '../../services/intl';
 import { ErrorDetails } from '../error-details';
 import styles from './ad-object-status-switch.module.scss';
 
 export interface AdObjectStatusSwitchProps
   extends React.ComponentPropsWithoutRef<'div'> {
-  canUpdate?: boolean;
-  shouldShowStatus?: boolean;
   status: Status;
-  updateStatus: AsyncActionStatus;
-  updateError?: Error | null;
   onUpdate(status: Status): void;
+  shouldShowStatus?: boolean;
+  canUpdate?: boolean;
+  isUpdating?: boolean;
+  error?: Error | null;
 }
 
 export function AdObjectStatusSwitch({
   canUpdate,
   shouldShowStatus,
   status,
-  updateStatus,
-  updateError,
+  isUpdating,
+  error,
   onUpdate,
   className,
   ...props
 }: AdObjectStatusSwitchProps) {
   const intl = useIntl();
-  const isUpdating = updateStatus === AsyncActionStatus.pending;
   return (
     <div {...props} className={classNames(className, styles.container)}>
       <div className={styles.wrapper}>
@@ -45,7 +44,7 @@ export function AdObjectStatusSwitch({
           }}
         />
       </div>
-      {updateError ? (
+      {error ? (
         <ErrorDetails
           className={styles.error}
           summary={intl.formatMessage({
@@ -53,7 +52,7 @@ export function AdObjectStatusSwitch({
             defaultMessage: 'Update error',
           })}
         >
-          {updateError.message}
+          {error.message}
         </ErrorDetails>
       ) : null}
     </div>

@@ -60,8 +60,8 @@ export const CampaignCard = mobxReact.observer(function CampaignCard({
         <AdObjectStatusSwitch
           canUpdate={campaign.canUpdate(adAccount)}
           status={campaign.status}
-          updateStatus={campaign.updateStatusOfStatus}
-          updateError={campaign.updateErrorOfStatus}
+          isUpdating={campaign.isStatusUpdating}
+          error={campaign.statusUpdateError}
           onUpdate={(status) => campaign.updateStatus(status)}
         />
       </EntityCard.Header>
@@ -70,10 +70,14 @@ export const CampaignCard = mobxReact.observer(function CampaignCard({
         caption={intl.formatMessage(Messages.Campaign.budget)}
       >
         <AdBudget
-          bidStrategy={campaignPresenter.bidStrategy}
-          lifetimeBudget={campaignPresenter.lifetimeBudget}
-          dailyBudget={campaignPresenter.dailyBudget}
           fallbackMessage={intl.formatMessage(Messages.Campaign.adsetBudget)}
+          bidStrategy={campaignPresenter.bidStrategy}
+          lifetimeBudget={campaign.lifetimeBudget}
+          dailyBudget={campaign.dailyBudget}
+          canUpdate={campaign.canUpdate(adAccount)}
+          isUpdating={campaign.isBudgetUpdating}
+          error={campaign.budgetUpdateError}
+          onUpdate={(update) => campaign.updateBudget(update)}
         />
       </EntityCard.Section>
 

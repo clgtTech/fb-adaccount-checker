@@ -2,7 +2,7 @@
 
 .container {
   display: block;
-  color: var(--danger-text-color);
+  color: var(--primary-text-color);
   font-size: $font-size-sm;
 }
 
@@ -12,20 +12,25 @@
   white-space: nowrap;
   list-style-type: none;
   user-select: none;
-  cursor: pointer;
-  font-weight: $font-weight-medium;
+  cursor: default;
 
   &::-webkit-details-marker {
     display: none;
+  }
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 
 .summaryIcon {
   flex-shrink: 0;
-  margin-right: $gap-1x;
+  margin-right: $gap-2x;
+  color: var(--danger-text-color);
 }
 
 .content {
+  color: var(--danger-text-color);
   font-family: $font-mono;
   line-height: $leading-tight;
 }

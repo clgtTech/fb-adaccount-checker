@@ -301,3 +301,8 @@ export enum CommentFilter {
   HIDDEN = 'hidden',
   VISIBLE = 'visible',
 }
+
+export enum BudgetType {
+  DAILY = 'daily',
+  LIFETIME = 'lifetime',
+}

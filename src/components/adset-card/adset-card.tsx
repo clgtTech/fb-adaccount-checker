@@ -44,18 +44,22 @@ export const AdsetCard = mobxReact.observer(function AdsetCard({
         <AdObjectStatusSwitch
           canUpdate={adset.canUpdate(adAccount)}
           status={adset.status}
-          updateStatus={adset.updateStatusOfStatus}
-          updateError={adset.updateErrorOfStatus}
+          isUpdating={adset.isStatusUpdating}
+          error={adset.statusUpdateError}
           onUpdate={(status) => adset.updateStatus(status)}
         />
       </EntityCard.Header>
 
       <EntityCard.Section caption={intl.formatMessage(Messages.Adset.budget)}>
         <AdBudget
-          bidStrategy={adsetPresenter.bidStrategy}
-          lifetimeBudget={adsetPresenter.lifetimeBudget}
-          dailyBudget={adsetPresenter.dailyBudget}
           fallbackMessage={intl.formatMessage(Messages.Adset.campaignBudget)}
+          bidStrategy={adsetPresenter.bidStrategy}
+          dailyBudget={adset.dailyBudget}
+          lifetimeBudget={adset.lifetimeBudget}
+          canUpdate={adset.canUpdate(adAccount)}
+          isUpdating={adset.isBudgetUpdating}
+          error={adset.budgetUpdateError}
+          onUpdate={(update) => adset.updateBudget(update)}
         />
       </EntityCard.Section>
 
