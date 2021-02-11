@@ -22,6 +22,7 @@ import { Authenticator } from './screens/authenticator';
 import { AdAccounts } from './screens/ad-accounts';
 import styles from './app.module.scss';
 
+
 export const App = mobxReact.observer(function App() {
   const history = useHistory();
   const { isSidebarOpen, isHeaderBordered } = uiStore.state;
