@@ -1,0 +1,27 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: $gap-6x $gap-4x;
+}
+
+.isBordered {
+  border-bottom: 0.0625rem solid var(--border-color);
+}
+
+.title {
+  margin: 0;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  line-height: $leading-tight;
+}
+
+.description {
+  margin: $gap-2x 0 0;
+  color: var(--secondary-text-color);
+}
+
+.content {
+  margin: $gap-4x 0 0;
+}

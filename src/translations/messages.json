@@ -1,0 +1,566 @@
+{
+  "apiErrors.oauthError.message": {
+    "defaultMessage": "Try to get a new access token."
+  },
+  "apiErrors.oauthError.title": {
+    "defaultMessage": "Access Token has expired, been revoked, or is invalid"
+  },
+  "apiErrors.serverError.message": {
+    "defaultMessage": "Something went wrong on Facebook's end. Wait a bit and retry the latest action again."
+  },
+  "apiErrors.serverError.title": {
+    "defaultMessage": "Facebook API is unavailable or can not handle the request"
+  },
+  "apiErrors.unknownError.message": {
+    "defaultMessage": "Possibly a temporary issue. Wait a bit and retry the latest action again."
+  },
+  "apiErrors.unknownError.title": {
+    "defaultMessage": "An unknown error occurred during the request"
+  },
+  "components.AccessTokenField.label": {
+    "defaultMessage": "Access Token:"
+  },
+  "components.AccessTokenField.placeholder": {
+    "defaultMessage": "paste access token"
+  },
+  "components.AccessTokenHelp.step1.content": {
+    "defaultMessage": "Open Dev Tools on <link>Facebook Ads Manager</link> page: right-click on the page and select <strong>Inspect</strong>. Or press <kbd>Command ⌘</kbd> + <kbd>Option ⌥</kbd> + <kbd>C</kbd> (Mac) or <kbd>Control</kbd> + <kbd>Shift ⇧</kbd> + <kbd>C</kbd> (Windows, Linux)."
+  },
+  "components.AccessTokenHelp.step1.imgAltText": {
+    "defaultMessage": "Context menu in a browser with selected \"Inspect\" item"
+  },
+  "components.AccessTokenHelp.step2.content": {
+    "defaultMessage": "Jump into the <strong>Console</strong> panel and execute the following {snippet} code to displaying the Access Token."
+  },
+  "components.AccessTokenHelp.step2.imgAltText": {
+    "defaultMessage": "Browser Console panel"
+  },
+  "components.AccessTokenHelp.title": {
+    "defaultMessage": "How to get the Access Token?"
+  },
+  "components.AdAccountNavLink.accountId": {
+    "defaultMessage": "Account ID: {accountId}"
+  },
+  "components.AdAccountNavLink.ctr": {
+    "defaultMessage": "CTR:"
+  },
+  "components.AdAccountNavLink.status": {
+    "defaultMessage": "Status:"
+  },
+  "components.AdAccountsNav.exportLink": {
+    "defaultMessage": "Download .csv report"
+  },
+  "components.AdAccountsNav.searchFieldPlaceholder": {
+    "defaultMessage": "Search ad accounts by name"
+  },
+  "components.AdAccountsNav.title": {
+    "defaultMessage": "Ad Accounts"
+  },
+  "components.AdBudget.updateButton": {
+    "defaultMessage": "Edit budget"
+  },
+  "components.AdBudget.updateError": {
+    "defaultMessage": "Update error"
+  },
+  "components.AdCreativePreview.summary": {
+    "defaultMessage": "Show Ad text"
+  },
+  "components.AdObjectStatusSwitch.updateError": {
+    "defaultMessage": "Update error"
+  },
+  "components.AdsetCard.linkToAds": {
+    "defaultMessage": "View Ads"
+  },
+  "components.CampaignCard.linkToAdsets": {
+    "defaultMessage": "View Ad sets"
+  },
+  "components.CommentControls.hideCommentsButton": {
+    "defaultMessage": "Hide"
+  },
+  "components.CommentControls.showCommentsButton": {
+    "defaultMessage": "Show"
+  },
+  "components.CommentList.batchUpdateError": {
+    "defaultMessage": "An unknown error occurred during comments updating. Try to refresh the page and retry the operation."
+  },
+  "components.CommentList.loadAdComments": {
+    "defaultMessage": "Loading comments..."
+  },
+  "components.CommentList.noComments": {
+    "defaultMessage": "No comments found."
+  },
+  "components.CommentRow.hideCommentButton": {
+    "defaultMessage": "Hide"
+  },
+  "components.CommentRow.showCommentButton": {
+    "defaultMessage": "Show"
+  },
+  "components.CommentRow.updateError": {
+    "defaultMessage": "Failed to update comment"
+  },
+  "components.CommentsPlugin.closeCommentsButton": {
+    "defaultMessage": "Close comments"
+  },
+  "components.CommentsPlugin.noAuth": {
+    "defaultMessage": "An authenticated user is required to edit comments."
+  },
+  "components.CommentsPlugin.noModeratePermissions": {
+    "defaultMessage": "The selected user can not moderate comments."
+  },
+  "components.CommentsPlugin.noReadPermissions": {
+    "defaultMessage": "The selected user can not view comments."
+  },
+  "components.CommentsPlugin.viewCommentsButton": {
+    "defaultMessage": "View comments"
+  },
+  "components.CurrencyAmountField.cancelButton": {
+    "defaultMessage": "Cancel"
+  },
+  "components.CurrencyAmountField.saveButton": {
+    "defaultMessage": "Save"
+  },
+  "components.FlashMessageView.closeAction": {
+    "defaultMessage": "Close"
+  },
+  "components.SidebarSwitch.children": {
+    "defaultMessage": "Users"
+  },
+  "components.UserNavLink.changeNameAction": {
+    "defaultMessage": "Change name"
+  },
+  "components.UserNavLink.deleteAction": {
+    "defaultMessage": "Delete"
+  },
+  "components.UserNavLink.deleteConfirm": {
+    "defaultMessage": "Are you sure you want to delete the saved user?"
+  },
+  "components.UserNavLink.namePrompt": {
+    "defaultMessage": "Enter new name for the saved user:"
+  },
+  "components.UserNavLink.userIdTerm": {
+    "defaultMessage": "User ID:"
+  },
+  "components.UsersNav.searchFieldPlaceholder": {
+    "defaultMessage": "Search users by name"
+  },
+  "components.UsersNav.title": {
+    "defaultMessage": "History"
+  },
+  "entities.ads": {
+    "defaultMessage": "Ads"
+  },
+  "entities.adsets": {
+    "defaultMessage": "Ad Sets"
+  },
+  "entities.campaigns": {
+    "defaultMessage": "Campaigns"
+  },
+  "enums.ActionType.ADD_PAYMENT_INFO": {
+    "defaultMessage": "Adds of Payment Info"
+  },
+  "enums.ActionType.ADD_TO_CART": {
+    "defaultMessage": "Adds to Cart"
+  },
+  "enums.ActionType.ADD_TO_WISHLIST": {
+    "defaultMessage": "Adds to Wishlist"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT": {
+    "defaultMessage": "Mobile App Actions"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ACHIEVEMENT_UNLOCKED": {
+    "defaultMessage": "Mobile App Achievements Unlocked"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ACTIVATE_APP": {
+    "defaultMessage": "Mobile App Sessions"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_PAYMENT_INFO": {
+    "defaultMessage": "Mobile App Adds of Payment Info"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_TO_CART": {
+    "defaultMessage": "Mobile App Adds to Cart"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_TO_WISHLIST": {
+    "defaultMessage": "Mobile App Adds to Wishlist"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_COMPLETE_REGISTRATION": {
+    "defaultMessage": "Mobile App Registrations Completed"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_CONTENT_VIEW": {
+    "defaultMessage": "Mobile App Content Views"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_INITIATED_CHECKOUT": {
+    "defaultMessage": "Mobile App Checkouts Initiated"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_LEVEL_ACHIEVED": {
+    "defaultMessage": "Mobile App Levels Completed"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_RATE": {
+    "defaultMessage": "Mobile App Ratings Submitted"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_SEARCH": {
+    "defaultMessage": "Mobile App Searches"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_SPENT_CREDITS": {
+    "defaultMessage": "Mobile App Credits Spent"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_TUTORIAL_COMPLETION": {
+    "defaultMessage": "Mobile App Tutorials Completed"
+  },
+  "enums.ActionType.APP_CUSTOM_EVENT_OTHER": {
+    "defaultMessage": "Other Mobile App Actions"
+  },
+  "enums.ActionType.APP_INSTALL": {
+    "defaultMessage": "Desktop App Installs"
+  },
+  "enums.ActionType.APP_USE": {
+    "defaultMessage": "Desktop App Uses"
+  },
+  "enums.ActionType.CHECKIN": {
+    "defaultMessage": "Check-Ins"
+  },
+  "enums.ActionType.COMPLETE_REGISTRATION": {
+    "defaultMessage": "Registrations Completed"
+  },
+  "enums.ActionType.CREDIT_SPENT": {
+    "defaultMessage": "Desktop App Credit Spends"
+  },
+  "enums.ActionType.GAME_PLAYS": {
+    "defaultMessage": "Game Plays"
+  },
+  "enums.ActionType.INITIATE_CHECKOUT": {
+    "defaultMessage": "Checkouts Initiated"
+  },
+  "enums.ActionType.LANDING_PAGE_VIEW": {
+    "defaultMessage": "Landing Page Views"
+  },
+  "enums.ActionType.LEAD": {
+    "defaultMessage": "Leads"
+  },
+  "enums.ActionType.LEADGEN_GROUPED": {
+    "defaultMessage": "Leads (Form)"
+  },
+  "enums.ActionType.LIKE": {
+    "defaultMessage": "Page likes"
+  },
+  "enums.ActionType.LINK_CLICK": {
+    "defaultMessage": "Link Clicks"
+  },
+  "enums.ActionType.MOBILE_APP_INSTALL": {
+    "defaultMessage": "Mobile App Installs"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION": {
+    "defaultMessage": "Website Conversions"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_PAYMENT_INFO": {
+    "defaultMessage": "Offline Adds of Payment Info"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_TO_CART": {
+    "defaultMessage": "Offline Adds to Cart"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_TO_WISHLIST": {
+    "defaultMessage": "Offline Adds to Wishlist"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION_FB_PIXEL_COMPLETE_REGISTRATION": {
+    "defaultMessage": "Offline Registrations Completed"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION_FB_PIXEL_CUSTOM": {
+    "defaultMessage": "Custom pixel events"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION_FB_PIXEL_INITIATE_CHECKOUT": {
+    "defaultMessage": "Website Checkouts Initiated"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION_FB_PIXEL_LEAD": {
+    "defaultMessage": "Website Leads"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION_FB_PIXEL_PURCHASE": {
+    "defaultMessage": "Website Purchases"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION_FB_PIXEL_SEARCH": {
+    "defaultMessage": "Website Searches"
+  },
+  "enums.ActionType.OFFSITE_CONVERSION_FB_PIXEL_VIEW_CONTENT": {
+    "defaultMessage": "Website Content Views"
+  },
+  "enums.ActionType.OMNI_ACHIEVEMENT_UNLOCKED": {
+    "defaultMessage": "Achievements Unlocked"
+  },
+  "enums.ActionType.OMNI_ACTIVATE_APP": {
+    "defaultMessage": "App Activations"
+  },
+  "enums.ActionType.OMNI_ADD_TO_CART": {
+    "defaultMessage": "Adds to Cart"
+  },
+  "enums.ActionType.OMNI_APP_INSTALL": {
+    "defaultMessage": "App Installs"
+  },
+  "enums.ActionType.OMNI_COMPLETE_REGISTRATION": {
+    "defaultMessage": "Registrations Completed"
+  },
+  "enums.ActionType.OMNI_CUSTOM": {
+    "defaultMessage": "Custom Events"
+  },
+  "enums.ActionType.OMNI_INITIATED_CHECKOUT": {
+    "defaultMessage": "Checkouts Initiated"
+  },
+  "enums.ActionType.OMNI_LEVEL_ACHIEVED": {
+    "defaultMessage": "Levels Achieved"
+  },
+  "enums.ActionType.OMNI_PURCHASE": {
+    "defaultMessage": "Purchases"
+  },
+  "enums.ActionType.OMNI_RATE": {
+    "defaultMessage": "Ratings Submitted"
+  },
+  "enums.ActionType.OMNI_SEARCH": {
+    "defaultMessage": "Searches"
+  },
+  "enums.ActionType.OMNI_SPEND_CREDITS": {
+    "defaultMessage": "Credit Spends"
+  },
+  "enums.ActionType.OMNI_TUTORIAL_COMPLETION": {
+    "defaultMessage": "Tutorials Completed"
+  },
+  "enums.ActionType.OMNI_VIEW_CONTENT": {
+    "defaultMessage": "Content Views"
+  },
+  "enums.ActionType.ONSITE_CONVERSION": {
+    "defaultMessage": "On-Facebook Conversions"
+  },
+  "enums.ActionType.ONSITE_CONVERSION_FLOW_COMPLETE": {
+    "defaultMessage": "On-Facebook Workflow Completions"
+  },
+  "enums.ActionType.ONSITE_CONVERSION_LEAD_GROUPED": {
+    "defaultMessage": "All On-Facebook Leads"
+  },
+  "enums.ActionType.ONSITE_CONVERSION_MESSAGING_BLOCK": {
+    "defaultMessage": "Blocked Messaging Connections"
+  },
+  "enums.ActionType.ONSITE_CONVERSION_MESSAGING_CONVERSATION_STARTED_7D": {
+    "defaultMessage": "Messaging Conversations Started"
+  },
+  "enums.ActionType.ONSITE_CONVERSION_MESSAGING_FIRST_REPLY": {
+    "defaultMessage": "New Messaging Connections"
+  },
+  "enums.ActionType.ONSITE_CONVERSION_POST_SAVE": {
+    "defaultMessage": "Post Saves"
+  },
+  "enums.ActionType.ONSITE_CONVERSION_PURCHASE": {
+    "defaultMessage": "On-Facebook Purchases"
+  },
+  "enums.ActionType.OUTBOUND_CLICK": {
+    "defaultMessage": "Outbound Clicks"
+  },
+  "enums.ActionType.PAGE_ENGAGEMENT": {
+    "defaultMessage": "Page Engagements"
+  },
+  "enums.ActionType.PHOTO_VIEW": {
+    "defaultMessage": "Photo Views"
+  },
+  "enums.ActionType.POST": {
+    "defaultMessage": "Post Shares"
+  },
+  "enums.ActionType.POST_COMMENT": {
+    "defaultMessage": "Post Comments"
+  },
+  "enums.ActionType.POST_ENGAGEMENT": {
+    "defaultMessage": "Post Engagements"
+  },
+  "enums.ActionType.POST_REACTION": {
+    "defaultMessage": "Post Reactions"
+  },
+  "enums.ActionType.PURCHASE": {
+    "defaultMessage": "Purchases"
+  },
+  "enums.ActionType.RSVP": {
+    "defaultMessage": "Event Responses"
+  },
+  "enums.ActionType.SUBSCRIBE": {
+    "defaultMessage": "Subscriptions"
+  },
+  "enums.ActionType.VIDEO_VIEW": {
+    "defaultMessage": "3-Second Video Views"
+  },
+  "enums.ActionType.VIEW_CONTENT": {
+    "defaultMessage": "Content Views"
+  },
+  "enums.BidStrategy.COST_CAP": {
+    "defaultMessage": "Cost cap"
+  },
+  "enums.BidStrategy.LOWEST_COST_WITHOUT_CAP": {
+    "defaultMessage": "Lowest cost"
+  },
+  "enums.BidStrategy.LOWEST_COST_WITH_BID_CAP": {
+    "defaultMessage": "Bid cap"
+  },
+  "enums.BidStrategy.LOWEST_COST_WITH_MIN_ROAS": {
+    "defaultMessage": "Minimal ROAS"
+  },
+  "enums.BudgetType.DAILY": {
+    "defaultMessage": "Daily"
+  },
+  "enums.BudgetType.LIFETIME": {
+    "defaultMessage": "Lifetime"
+  },
+  "enums.BuyingType.AUCTION": {
+    "defaultMessage": "Auction"
+  },
+  "enums.BuyingType.RESERVED": {
+    "defaultMessage": "Reserved"
+  },
+  "enums.CommentFilter.ALL": {
+    "defaultMessage": "All"
+  },
+  "enums.CommentFilter.HIDDEN": {
+    "defaultMessage": "Hidden"
+  },
+  "enums.CommentFilter.VISIBLE": {
+    "defaultMessage": "Visible"
+  },
+  "enums.Objective.APP_INSTALLS": {
+    "defaultMessage": "App installs"
+  },
+  "enums.Objective.BRAND_AWARENESS": {
+    "defaultMessage": "Brand awareness"
+  },
+  "enums.Objective.CONVERSIONS": {
+    "defaultMessage": "Conversions"
+  },
+  "enums.Objective.EVENT_RESPONSES": {
+    "defaultMessage": "Event Responses"
+  },
+  "enums.Objective.LEAD_GENERATION": {
+    "defaultMessage": "Lead generation"
+  },
+  "enums.Objective.LINK_CLICKS": {
+    "defaultMessage": "Traffic"
+  },
+  "enums.Objective.LOCAL_AWARENESS": {
+    "defaultMessage": "Local awareness"
+  },
+  "enums.Objective.MESSAGES": {
+    "defaultMessage": "Messages"
+  },
+  "enums.Objective.OFFER_CLAIMS": {
+    "defaultMessage": "Offer claims"
+  },
+  "enums.Objective.PAGE_LIKES": {
+    "defaultMessage": "Page likes"
+  },
+  "enums.Objective.POST_ENGAGEMENT": {
+    "defaultMessage": "Page post engagement"
+  },
+  "enums.Objective.PRODUCT_CATALOG_SALES": {
+    "defaultMessage": "Catalog Sales"
+  },
+  "enums.Objective.REACH": {
+    "defaultMessage": "Reach"
+  },
+  "enums.Objective.SOCIAL_INTERACTION": {
+    "defaultMessage": "Engagement"
+  },
+  "enums.Objective.STORE_VISITS": {
+    "defaultMessage": "Store traffic"
+  },
+  "enums.Objective.VIDEO_VIEWS": {
+    "defaultMessage": "Video views"
+  },
+  "errors.unknownError.message": {
+    "defaultMessage": "Possibly a temporary issue. Try to refresh the page, sometimes it helps 😉"
+  },
+  "errors.unknownError.title": {
+    "defaultMessage": "An unknown error occurred"
+  },
+  "fields.Ad.creative": {
+    "defaultMessage": "Creative"
+  },
+  "fields.Ad.deliveryStatus": {
+    "defaultMessage": "Delivery status"
+  },
+  "fields.Ad.insights": {
+    "defaultMessage": "Insights"
+  },
+  "fields.Ad.reviewFeedback": {
+    "defaultMessage": "Ad review feedback"
+  },
+  "fields.Adset.bidStrategy": {
+    "defaultMessage": "Bid strategy"
+  },
+  "fields.Adset.budget": {
+    "defaultMessage": "Budget"
+  },
+  "fields.Adset.campaignBudget": {
+    "defaultMessage": "Using campaign budget"
+  },
+  "fields.Adset.insights": {
+    "defaultMessage": "Insights"
+  },
+  "fields.Campaign.adsetBudget": {
+    "defaultMessage": "Using ad set budget"
+  },
+  "fields.Campaign.bidStrategy": {
+    "defaultMessage": "Bid strategy"
+  },
+  "fields.Campaign.budget": {
+    "defaultMessage": "Budget"
+  },
+  "fields.Campaign.buyingType": {
+    "defaultMessage": "Buying type"
+  },
+  "fields.Campaign.insights": {
+    "defaultMessage": "Insights"
+  },
+  "fields.Campaign.objective": {
+    "defaultMessage": "Objective"
+  },
+  "insights.costPerActionType": {
+    "defaultMessage": "Cost per action type"
+  },
+  "insights.cpc": {
+    "defaultMessage": "CPC"
+  },
+  "insights.cpm": {
+    "defaultMessage": "CPM"
+  },
+  "insights.ctr": {
+    "defaultMessage": "CTR"
+  },
+  "insights.spend": {
+    "defaultMessage": "Spend"
+  },
+  "screens.AdAccounts.adAccountsLoading": {
+    "defaultMessage": "Ad Accounts loading..."
+  },
+  "screens.AdAccounts.noAdAccountState.description": {
+    "defaultMessage": "← Select the ad account to see his ad campaigns."
+  },
+  "screens.AdAccounts.noAdAccountState.title": {
+    "defaultMessage": "No ad account select"
+  },
+  "screens.AdAccounts.noAdAccountsState.description": {
+    "defaultMessage": "This user does not have any ad accounts. Try to select another user."
+  },
+  "screens.AdAccounts.noAdAccountsState.title": {
+    "defaultMessage": "No ad accounts found"
+  },
+  "screens.Ads.noAds.description": {
+    "defaultMessage": "This ad set does not have any ads. Try to select another ad set."
+  },
+  "screens.Ads.noAds.title": {
+    "defaultMessage": "No ads found"
+  },
+  "screens.Adsets.noAdsets.description": {
+    "defaultMessage": "This campaign does not have any ad sets. Try to select another campaign."
+  },
+  "screens.Adsets.noAdsets.title": {
+    "defaultMessage": "No ad sets found"
+  },
+  "screens.Authenticator.authenticating": {
+    "defaultMessage": "Access Token checking..."
+  },
+  "screens.Campaigns.noCampaigns.description": {
+    "defaultMessage": "This ad account does not have any campaigns. Try to select another account."
+  },
+  "screens.Campaigns.noCampaigns.title": {
+    "defaultMessage": "No campaigns found"
+  }
+}

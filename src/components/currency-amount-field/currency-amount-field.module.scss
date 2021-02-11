@@ -1,0 +1,24 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.input {
+  max-width: 12rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: $gap-1x;
+}
+
+.controls > * + * {
+  margin-left: $gap-1x;
+}
+
+.primaryControl {
+  color: var(--link-color);
+}

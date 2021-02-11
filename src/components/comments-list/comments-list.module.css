@@ -1,7 +1,0 @@
-.container {
-  display: block;
-}
-
-.comments > * + * {
-  margin-top: 1.5rem;
-}

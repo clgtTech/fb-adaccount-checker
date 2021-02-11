@@ -1,0 +1,29 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  display: inline-flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+.spinner {
+  margin-right: $gap-2x;
+}
+
+.status {
+  margin-right: $gap-2x;
+  letter-spacing: $tracking-tight;
+  color: var(--secondary-text-color);
+  font-family: $font-mono;
+  font-size: $font-size-sm;
+}
+
+.error {
+  margin-top: $gap-1x;
+  text-align: right;
+}

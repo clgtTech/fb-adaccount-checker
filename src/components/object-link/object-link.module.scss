@@ -1,0 +1,18 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--link-color);
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.link > * + * {
+  margin-left: $gap-2x;
+}

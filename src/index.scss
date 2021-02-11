@@ -1,0 +1,43 @@
+@import '~draft-components/dist/scss/draft-components';
+
+:root {
+  --sidebar-width: 20rem;
+  --header-height: 4rem;
+
+  --border-color: #{$gray-300};
+  --secondary-border-color: #{$gray-200};
+
+  --primary-text-color: var(--dc-primary-text-color);
+  --secondary-text-color: var(--dc-secondary-text-color);
+  --tertiary-text-color: var(--dc-tertiary-text-color);
+  --danger-text-color: #{$red-600};
+  --link-color: #{$blue-500};
+
+  --primary-bg-color: #{$white};
+  --secondary-bg-color: #{$gray-100};
+  --tertiary-bg-color: #{$gray-50};
+}
+
+body {
+  text-align: left;
+  letter-spacing: $tracking-normal;
+  color: var(--primary-text-color);
+  background: var(--primary-bg-color);
+  font-family: $font-sans-serif;
+  font-weight: normal;
+  direction: ltr;
+}
+
+a {
+  color: var(--link-color);
+}
+
+a:focus,
+summary:focus {
+  outline: none;
+  @include focus-ring;
+}
+
+code {
+  font-family: $font-mono;
+}

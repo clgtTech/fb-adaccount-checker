@@ -1,0 +1,23 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.container::after,
+.content {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.container::after {
+  height: 100%;
+  content: '';
+}
+
+.content {
+  padding: $gap-16x $gap-4x;
+}

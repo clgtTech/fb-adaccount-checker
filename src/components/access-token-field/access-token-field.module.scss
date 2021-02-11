@@ -1,0 +1,15 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.wrapper {
+  max-width: 52rem;
+  border-radius: $border-radius-md;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.labelText {
+  margin-left: $gap-2x;
+}

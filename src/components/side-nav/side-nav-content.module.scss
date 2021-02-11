@@ -1,0 +1,8 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  overflow-y: auto;
+  flex-grow: 1;
+  box-sizing: border-box;
+  padding: $gap-2x;
+}

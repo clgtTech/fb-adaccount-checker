@@ -1,0 +1,10 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.textLink {
+  color: inherit;
+  text-decoration: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

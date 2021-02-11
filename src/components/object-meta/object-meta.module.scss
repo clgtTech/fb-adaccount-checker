@@ -1,0 +1,33 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+$meta-gap-x: $gap-5x;
+$meta-gap-y: $gap-1x;
+
+.container {
+  overflow: hidden;
+  font-size: $font-size-sm;
+}
+
+.items {
+  margin: $meta-gap-y / -2 $meta-gap-x / -2;
+}
+
+.item {
+  display: inline-block;
+  margin: $meta-gap-y / 2 $meta-gap-x / 2;
+}
+
+.itemName {
+  display: inline-block;
+  color: var(--secondary-text-color);
+
+  &::after {
+    content: ':';
+  }
+}
+
+.itemValue {
+  display: inline-block;
+  margin: 0 0 0 $gap-2x;
+  font-weight: $font-weight-semi-bold;
+}

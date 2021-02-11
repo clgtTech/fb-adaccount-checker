@@ -1,0 +1,69 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.leftSide {
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  flex-grow: 1;
+  padding-left: $gap-2x;
+}
+
+.avatar {
+  flex-shrink: 0;
+  margin-top: $gap-1x;
+}
+
+.checkbox {
+  margin-right: $gap-6x;
+}
+
+.bubble {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: $gap-1x $gap-3x;
+  border-radius: $border-radius-2xl;
+  background: var(--secondary-bg-color);
+  font-size: $font-size-sm;
+  line-height: $leading-normal;
+}
+
+.name {
+  display: inline-block;
+  font-weight: $font-weight-semi-bold;
+}
+
+.metaAndActions {
+  display: flex;
+  align-items: baseline;
+  padding: 2px 2px 0;
+  color: var(--primary-text-color);
+  font-size: $font-size-xs;
+}
+
+.metaAndActions > * + * {
+  margin-left: $gap-2x;
+}
+
+.visibilityToggle {
+  padding: 0 $gap-1x;
+  height: 1.25rem;
+  min-width: 0;
+  font-size: inherit;
+}
+
+.createdTime {
+  color: var(--secondary-text-color);
+  font-size: inherit;
+}
+
+.updateError {
+  color: var(--danger-text-color);
+  font-size: inherit;
+}

@@ -1,0 +1,30 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+}
+
+.header {
+}
+
+.exportLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.content {
+}
+
+.asAccountsList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.asAccountsList > * {
+  padding-bottom: $gap-1x;
+  border-bottom: 0.0625rem solid var(--border-color);
+}
+
+.asAccountsList > * + * {
+  margin-top: $gap-1x;
+}

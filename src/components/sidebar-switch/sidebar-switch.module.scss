@@ -1,0 +1,11 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.button {
+  min-width: initial;
+  padding: 0 $gap-2x;
+}
+
+.isActive {
+  --dc-btn-minimal-bg: #{$gray-200};
+  --dc-btn-minimal-bg-hover: #{$gray-200};
+}

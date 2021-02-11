@@ -1,0 +1,41 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  max-width: 100%;
+  color: var(--primary-text-color);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  min-height: 1.5rem;
+}
+
+.content > * + * {
+  margin-left: $gap-3x;
+}
+
+.budget {
+  display: inline-block;
+}
+
+.amount {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+}
+
+.budgetType {
+  display: inline-block;
+  margin-left: $gap-1x;
+  font-size: $font-size-xs;
+}
+
+.bidStrategy,
+.fallbackMessage {
+  display: inline-block;
+  font-size: $font-size-sm;
+}
+
+.bidStrategy {
+  margin-bottom: $gap-1x;
+}

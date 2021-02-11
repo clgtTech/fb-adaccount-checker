@@ -1,0 +1,32 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--header-height);
+  padding: 0 $gap-4x;
+  border-bottom: 0.0625rem solid transparent;
+  background: var(--primary-bg-color);
+}
+
+.layout.isBordered {
+  border-bottom-color: var(--border-color);
+}
+
+.left {
+  padding-left: $gap-4x;
+}
+
+.right {
+  padding-right: $gap-4x;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 0 $gap-4x;
+}

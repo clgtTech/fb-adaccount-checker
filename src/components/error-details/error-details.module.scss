@@ -1,0 +1,36 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  display: block;
+  color: var(--primary-text-color);
+  font-size: $font-size-sm;
+}
+
+.summary {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  list-style-type: none;
+  user-select: none;
+  cursor: default;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.summaryIcon {
+  flex-shrink: 0;
+  margin-right: $gap-2x;
+  color: var(--danger-text-color);
+}
+
+.content {
+  color: var(--danger-text-color);
+  font-family: $font-mono;
+  line-height: $leading-tight;
+}

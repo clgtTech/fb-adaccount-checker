@@ -1,0 +1,14 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  padding: $gap-2x $gap-5x;
+  border-bottom: 0.0625rem solid var(--border-color);
+  background: var(--primary-bg-color);
+}
+
+.breadcrumbs {
+}
+
+.breadcrumbs > * {
+  margin: $gap-1x;
+}
