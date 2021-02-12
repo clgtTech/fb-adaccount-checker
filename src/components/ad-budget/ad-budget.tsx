@@ -47,12 +47,12 @@ export function AdBudget({
 
   let budgetType: BudgetType | undefined;
   let budget: CurrencyAmount | undefined;
-  if (lifetimeBudget) {
-    budgetType = BudgetType.LIFETIME;
-    budget = lifetimeBudget;
-  } else if (dailyBudget) {
+  if (dailyBudget && dailyBudget.amount > 0) {
     budgetType = BudgetType.DAILY;
     budget = dailyBudget;
+  } else if (lifetimeBudget && lifetimeBudget.amount > 0) {
+    budgetType = BudgetType.LIFETIME;
+    budget = lifetimeBudget;
   }
 
   const renderBudget = () => {
