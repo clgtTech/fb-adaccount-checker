@@ -3,9 +3,12 @@ import { LOCAL_STORAGE_KEYS } from './constants';
 export function migrateSavedUsers() {
   try {
     const savedUsersJson = localStorage.getItem('FbAdAccountChecker:Users');
-    const savedUsers = JSON.parse(savedUsersJson ?? '');
+    if (!savedUsersJson) {
+      return;
+    }
 
-    if (Array.isArray(savedUsers)) {
+    const savedUsers = JSON.parse(savedUsersJson);
+    if (Array.isArray(savedUsers) && savedUsers.length) {
       const users = [];
       for (const savedUser of savedUsers) {
         if (
