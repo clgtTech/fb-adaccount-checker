@@ -34,14 +34,14 @@ export const AdCard = mobxReact.observer(function AdCard({
           <ObjectMeta
             items={[
               {
-                name: intl.formatMessage(Messages.Ad.deliveryStatus),
+                name: intl.formatMessage(Messages.Ad.effectiveStatus),
                 value: (
-                  <code>
+                  <span>
                     {adPresenter.effectiveStatus}
                     {adPresenter.deliveryStatus ? (
                       <span> ({adPresenter.deliveryStatus})</span>
                     ) : null}
-                  </code>
+                  </span>
                 ),
               },
             ]}

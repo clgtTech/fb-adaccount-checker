@@ -473,11 +473,11 @@
   "fields.Ad.creative": {
     "defaultMessage": "Creative"
   },
-  "fields.Ad.deliveryStatus": {
+  "fields.Ad.effectiveStatus": {
     "defaultMessage": "Delivery status"
   },
   "fields.Ad.insights": {
-    "defaultMessage": "Insights"
+    "defaultMessage": "Ad insights"
   },
   "fields.Ad.reviewFeedback": {
     "defaultMessage": "Ad review feedback"
@@ -486,13 +486,16 @@
     "defaultMessage": "Bid strategy"
   },
   "fields.Adset.budget": {
-    "defaultMessage": "Budget"
+    "defaultMessage": "Ad Set budget"
   },
   "fields.Adset.campaignBudget": {
     "defaultMessage": "Using campaign budget"
   },
+  "fields.Adset.effectiveStatus": {
+    "defaultMessage": "Delivery status"
+  },
   "fields.Adset.insights": {
-    "defaultMessage": "Insights"
+    "defaultMessage": "Ad Set insights"
   },
   "fields.Campaign.adsetBudget": {
     "defaultMessage": "Using ad set budget"
@@ -501,13 +504,16 @@
     "defaultMessage": "Bid strategy"
   },
   "fields.Campaign.budget": {
-    "defaultMessage": "Budget"
+    "defaultMessage": "Campaign budget"
   },
   "fields.Campaign.buyingType": {
     "defaultMessage": "Buying type"
   },
+  "fields.Campaign.effectiveStatus": {
+    "defaultMessage": "Delivery status"
+  },
   "fields.Campaign.insights": {
-    "defaultMessage": "Insights"
+    "defaultMessage": "Campaign insights"
   },
   "fields.Campaign.objective": {
     "defaultMessage": "Objective"

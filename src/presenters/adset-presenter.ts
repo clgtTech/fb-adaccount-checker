@@ -7,7 +7,6 @@ export class AdsetPresenter {
   id: string;
   name: string;
   effectiveStatus: string;
-  status: string;
   bidStrategy?: string;
   lifetimeBudget?: string;
   dailyBudget?: string;
@@ -17,7 +16,6 @@ export class AdsetPresenter {
     this.id = adset.id;
     this.name = adset.name;
     this.effectiveStatus = Formatters.formatEnumValue(adset.status);
-    this.status = Formatters.formatEnumValue(adset.status);
     this.bidStrategy = adset.bidStrategy
       ? CampaignPresenter.formatBidStrategy(adset.bidStrategy)
       : undefined;

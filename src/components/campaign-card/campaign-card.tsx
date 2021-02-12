@@ -43,6 +43,10 @@ export const CampaignCard = mobxReact.observer(function CampaignCard({
           <ObjectMeta
             items={[
               {
+                name: intl.formatMessage(Messages.Campaign.effectiveStatus),
+                value: campaignPresenter.effectiveStatus,
+              },
+              {
                 name: intl.formatMessage(Messages.Campaign.objective),
                 value: campaignPresenter.objective,
               },

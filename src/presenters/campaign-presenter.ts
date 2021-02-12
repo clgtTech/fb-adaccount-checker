@@ -6,7 +6,7 @@ import { InsightsPresenter } from './insights-presenter';
 export class CampaignPresenter {
   id: string;
   name: string;
-  status: string;
+  effectiveStatus: string;
   buyingType: string;
   objective: string;
   bidStrategy?: string;
@@ -17,7 +17,7 @@ export class CampaignPresenter {
   constructor(campaign: Campaign, adAccount: AdAccount) {
     this.id = campaign.id;
     this.name = campaign.name;
-    this.status = Formatters.formatEnumValue(campaign.status);
+    this.effectiveStatus = Formatters.formatEnumValue(campaign.effectiveStatus);
     this.buyingType = CampaignPresenter.formatBuyingType(campaign.buyingType);
     this.objective = CampaignPresenter.formatObjective(campaign.objective);
     this.bidStrategy = campaign.bidStrategy

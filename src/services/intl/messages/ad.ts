@@ -1,7 +1,7 @@
 import { defineMessage } from 'react-intl';
 
-export const deliveryStatus = defineMessage({
-  id: 'fields.Ad.deliveryStatus',
+export const effectiveStatus = defineMessage({
+  id: 'fields.Ad.effectiveStatus',
   defaultMessage: 'Delivery status',
 });
 
@@ -12,7 +12,7 @@ export const creative = defineMessage({
 
 export const insights = defineMessage({
   id: 'fields.Ad.insights',
-  defaultMessage: 'Insights',
+  defaultMessage: 'Ad insights',
 });
 
 export const reviewFeedback = defineMessage({

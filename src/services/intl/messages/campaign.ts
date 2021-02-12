@@ -1,5 +1,10 @@
 import { defineMessage } from 'react-intl';
 
+export const effectiveStatus = defineMessage({
+  id: 'fields.Campaign.effectiveStatus',
+  defaultMessage: 'Delivery status',
+});
+
 export const objective = defineMessage({
   id: 'fields.Campaign.objective',
   defaultMessage: 'Objective',
@@ -17,7 +22,7 @@ export const buyingType = defineMessage({
 
 export const budget = defineMessage({
   id: 'fields.Campaign.budget',
-  defaultMessage: 'Budget',
+  defaultMessage: 'Campaign budget',
 });
 
 export const adsetBudget = defineMessage({
@@ -27,5 +32,5 @@ export const adsetBudget = defineMessage({
 
 export const insights = defineMessage({
   id: 'fields.Campaign.insights',
-  defaultMessage: 'Insights',
+  defaultMessage: 'Campaign insights',
 });

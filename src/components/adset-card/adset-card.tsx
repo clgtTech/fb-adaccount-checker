@@ -11,6 +11,7 @@ import { ObjectLink } from '../object-link';
 import { AdObjectStatusSwitch } from '../ad-object-status-switch';
 import { AdBudget } from '../ad-budget';
 import { Insights } from '../campaign-card';
+import { ObjectMeta } from '../object-meta';
 
 export interface AdsetCardProps extends EntityCardProps {
   adAccount: AdAccount;
@@ -37,7 +38,18 @@ export const AdsetCard = mobxReact.observer(function AdsetCard({
 
   return (
     <EntityCard {...props}>
-      <EntityCard.Header>
+      <EntityCard.Header
+        description={
+          <ObjectMeta
+            items={[
+              {
+                name: intl.formatMessage(Messages.Adset.effectiveStatus),
+                value: adsetPresenter.effectiveStatus,
+              },
+            ]}
+          />
+        }
+      >
         <ObjectName objectId={adsetPresenter.id}>
           {adsetPresenter.name}
         </ObjectName>

@@ -26,7 +26,7 @@ export class AdPresenter {
   constructor(ad: Ad, adAccount: AdAccount) {
     this.id = ad.id;
     this.name = ad.name;
-    this.effectiveStatus = ad.effectiveStatus.toUpperCase();
+    this.effectiveStatus = Formatters.formatEnumValue(ad.effectiveStatus);
     this.deliveryStatus = ad.deliveryStatus
       ? Formatters.formatEnumValue(ad.deliveryStatus)
       : undefined;
