@@ -76,14 +76,14 @@ export function formatRelativeDatetime(value: Date): string {
     return IntlFactory.getIntl().formatRelativeTime(-weeks, 'weeks');
   }
 
-  const days = Math.floor(seconds / SECONDS_IN_WEEK);
+  const days = Math.floor(seconds / SECONDS_IN_DAY);
   if (days > 0) {
     return IntlFactory.getIntl().formatRelativeTime(-days, 'days');
   }
 
   const hours = Math.floor(seconds / SECONDS_IN_HOUR);
   if (hours > 0) {
-    return IntlFactory.getIntl().formatRelativeTime(-hours, 'days');
+    return IntlFactory.getIntl().formatRelativeTime(-hours, 'hours');
   }
 
   const minutes = Math.floor(seconds / SECONDS_IN_MINUTE);
