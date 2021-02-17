@@ -24,7 +24,7 @@ export function CopiedValue({
       }}
     >
       {children || value}
-      <SvgIcon className={styles.icon} icon={Icons.copyIcon} />
+      <SvgIcon className={styles.icon} icon={Icons.copy} />
     </span>
   );
 }

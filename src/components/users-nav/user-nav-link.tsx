@@ -87,7 +87,7 @@ export function UserNavLink({
             id: 'components.UserNavLink.changeNameAction',
             defaultMessage: 'Change name',
           })}
-          icon={<SvgIcon icon={Icons.pencilIcon} />}
+          icon={<SvgIcon icon={Icons.pencil} />}
           onClick={() => {
             const customName = window.prompt(
               intl.formatMessage(messages.namePrompt),
@@ -103,7 +103,7 @@ export function UserNavLink({
             id: 'components.UserNavLink.deleteAction',
             defaultMessage: 'Delete',
           })}
-          icon={<SvgIcon icon={Icons.trashIcon} />}
+          icon={<SvgIcon icon={Icons.trash} />}
           onClick={() => {
             if (window.confirm(intl.formatMessage(messages.deleteConfirm))) {
               onDelete(user.id);

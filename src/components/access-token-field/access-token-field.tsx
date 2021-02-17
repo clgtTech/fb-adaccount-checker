@@ -67,7 +67,7 @@ export function AccessTokenField({
       leadingAddOn={
         <label className={styles.label} htmlFor={inputId.current}>
           <SvgIcon
-            icon={Icons.facebookCircleIcon}
+            icon={Icons.facebookCircle}
             linearGradient={['to bottom', '#19afff', '#0062e0']}
             size="lg"
           />

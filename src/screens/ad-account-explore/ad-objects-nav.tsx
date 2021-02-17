@@ -26,7 +26,7 @@ export function AdObjectsNav({
   const items = React.useMemo(() => {
     const items = [
       {
-        icon: <SvgIcon icon={Icons.folderIcon} />,
+        icon: <SvgIcon icon={Icons.folder} />,
         label: intl.formatMessage(Messages.Entities.campaigns),
         href: generatePath(ROUTES.campaigns, {
           userId: params.userId,
@@ -37,7 +37,7 @@ export function AdObjectsNav({
 
     if (campaign) {
       items.push({
-        icon: <SvgIcon icon={Icons.stackIcon} />,
+        icon: <SvgIcon icon={Icons.stack} />,
         label: intl.formatMessage(Messages.Entities.adsets),
         href: generatePath(ROUTES.adsets, {
           userId: params.userId,
@@ -49,7 +49,7 @@ export function AdObjectsNav({
 
     if (campaign && adset) {
       items.push({
-        icon: <SvgIcon icon={Icons.documentIcon} />,
+        icon: <SvgIcon icon={Icons.document} />,
         label: intl.formatMessage(Messages.Entities.ads),
         href: generatePath(ROUTES.ads, {
           userId: params.userId,

@@ -18,7 +18,7 @@ export interface SidebarSwitchProps extends ButtonProps {
 export function SidebarSwitch({
   className,
   isActive,
-  icon = Icons.ulListIcon,
+  icon = Icons.ulList,
   children,
   ...props
 }: SidebarSwitchProps) {

@@ -78,7 +78,7 @@ export function AdBudget({
               <IconButton
                 size="sm"
                 appearance="secondary"
-                icon={<SvgIcon size="xs" icon={Icons.pencilIcon} />}
+                icon={<SvgIcon size="xs" icon={Icons.pencil} />}
                 title={intl.formatMessage({
                   id: 'components.AdBudget.updateButton',
                   defaultMessage: `Edit budget`,

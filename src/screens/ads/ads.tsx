@@ -23,7 +23,7 @@ export const Ads = mobxReact.observer(function Ads({
   if (adsetAds.length < 1) {
     return (
       <NonIdealStateView
-        icon={<SvgIcon size="4x" icon={Icons.documentIcon} />}
+        icon={<SvgIcon size="4x" icon={Icons.document} />}
         title={intl.formatMessage({
           id: 'screens.Ads.noAds.title',
           defaultMessage: `No ads found`,

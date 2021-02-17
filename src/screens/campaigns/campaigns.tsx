@@ -25,7 +25,7 @@ export const Campaigns = mobxReact.observer(function Campaigns({
   if (campaignStore.isEmpty) {
     return (
       <NonIdealStateView
-        icon={<SvgIcon size="4x" icon={Icons.folderIcon} />}
+        icon={<SvgIcon size="4x" icon={Icons.folder} />}
         title={intl.formatMessage({
           id: 'screens.Campaigns.noCampaigns.title',
           defaultMessage: `No campaigns found`,

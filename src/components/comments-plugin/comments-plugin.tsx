@@ -48,7 +48,7 @@ export const CommentsPlugin = mobxReact.observer(function CommentsPlugin({
         ) : (
           <Button
             appearance="secondary"
-            leadingIcon={<SvgIcon size="lg" icon={Icons.commentsIcon} />}
+            leadingIcon={<SvgIcon size="lg" icon={Icons.comments} />}
             onClick={() => setIsCommentsOpen(!isCommentsOpen)}
           >
             {isCommentsOpen ? (
