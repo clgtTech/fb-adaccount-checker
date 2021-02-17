@@ -2,7 +2,7 @@ import { defineMessage } from 'react-intl';
 
 export const effectiveStatus = defineMessage({
   id: 'fields.Ad.effectiveStatus',
-  defaultMessage: 'Delivery status',
+  defaultMessage: 'Effective status',
 });
 
 export const creative = defineMessage({

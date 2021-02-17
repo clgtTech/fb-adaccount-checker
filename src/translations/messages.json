@@ -474,7 +474,7 @@
     "defaultMessage": "Creative"
   },
   "fields.Ad.effectiveStatus": {
-    "defaultMessage": "Delivery status"
+    "defaultMessage": "Effective status"
   },
   "fields.Ad.insights": {
     "defaultMessage": "Ad insights"
@@ -492,7 +492,7 @@
     "defaultMessage": "Using campaign budget"
   },
   "fields.Adset.effectiveStatus": {
-    "defaultMessage": "Delivery status"
+    "defaultMessage": "Effective status"
   },
   "fields.Adset.insights": {
     "defaultMessage": "Ad Set insights"
@@ -510,7 +510,7 @@
     "defaultMessage": "Buying type"
   },
   "fields.Campaign.effectiveStatus": {
-    "defaultMessage": "Delivery status"
+    "defaultMessage": "Effective status"
   },
   "fields.Campaign.insights": {
     "defaultMessage": "Campaign insights"
