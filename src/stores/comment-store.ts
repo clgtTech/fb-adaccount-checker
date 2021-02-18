@@ -1,13 +1,13 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus, CommentFilter } from '../types';
+import { AsyncStatus, CommentFilter } from '../types';
 import { Ad, Comment, CommentApi, CommentUpdate } from './entities';
 
 export class CommentStore {
   comments = new Map<Ad['id'], Comment>();
   commentsOnAd = new Map<Ad['id'], Comment['id'][]>();
-  loadStatusOfCommentsOnAd = new Map<Ad['id'], AsyncActionStatus>();
+  loadStatusOfCommentsOnAd = new Map<Ad['id'], AsyncStatus>();
   loadErrorOfCommentsOnAd = new Map<Ad['id'], Error | null>();
-  updateStatusOfCommentsOnAd = new Map<Ad['id'], AsyncActionStatus>();
+  updateStatusOfCommentsOnAd = new Map<Ad['id'], AsyncStatus>();
   updateErrorOfCommentsOnAd = new Map<Ad['id'], Error | null>();
 
   constructor(private commentApi: CommentApi) {
@@ -48,16 +48,16 @@ export class CommentStore {
     return commentsOnAd;
   }
 
-  getLoadStatusOfCommentsOnAd(ad: Ad): AsyncActionStatus {
-    return this.loadStatusOfCommentsOnAd.get(ad.id) ?? AsyncActionStatus.idle;
+  getLoadStatusOfCommentsOnAd(ad: Ad): AsyncStatus {
+    return this.loadStatusOfCommentsOnAd.get(ad.id) ?? AsyncStatus.idle;
   }
 
   getLoadErrorOfCommentsOnAd(ad: Ad): Error | null {
     return this.loadErrorOfCommentsOnAd.get(ad.id) ?? null;
   }
 
-  getUpdateStatusOfCommentsOnAd(ad: Ad): AsyncActionStatus {
-    return this.updateStatusOfCommentsOnAd.get(ad.id) ?? AsyncActionStatus.idle;
+  getUpdateStatusOfCommentsOnAd(ad: Ad): AsyncStatus {
+    return this.updateStatusOfCommentsOnAd.get(ad.id) ?? AsyncStatus.idle;
   }
 
   getUpdateErrorOfCommentsOnAd(ad: Ad): Error | null {
@@ -69,7 +69,7 @@ export class CommentStore {
     if (!creative || !creative.pageId || !creative.pagePostId) {
       return;
     }
-    this.loadStatusOfCommentsOnAd.set(ad.id, AsyncActionStatus.pending);
+    this.loadStatusOfCommentsOnAd.set(ad.id, AsyncStatus.pending);
     this.commentApi
       .getPostComments(creative.pageId, creative.pagePostId)
       .then((fetchedComments) => {
@@ -84,13 +84,13 @@ export class CommentStore {
           this.comments = new Map([...this.comments, ...comments]);
           this.commentsOnAd.set(ad.id, commentIds);
           this.loadErrorOfCommentsOnAd.delete(ad.id);
-          this.loadStatusOfCommentsOnAd.set(ad.id, AsyncActionStatus.success);
+          this.loadStatusOfCommentsOnAd.set(ad.id, AsyncStatus.success);
         });
       })
       .catch((e) => {
         mobx.runInAction(() => {
           this.loadErrorOfCommentsOnAd.set(ad.id, e);
-          this.loadStatusOfCommentsOnAd.set(ad.id, AsyncActionStatus.error);
+          this.loadStatusOfCommentsOnAd.set(ad.id, AsyncStatus.error);
         });
       });
   }
@@ -106,10 +106,10 @@ export class CommentStore {
       const comment = this.comments.get(update.commentId);
       if (
         comment &&
-        comment.updateStatus !== AsyncActionStatus.pending &&
+        comment.updateStatus !== AsyncStatus.pending &&
         comment.isNeedUpdate(update.data)
       ) {
-        comment.setUpdateStatus(AsyncActionStatus.pending);
+        comment.setUpdateStatus(AsyncStatus.pending);
         allowedUpdates.push(update);
       }
     }
@@ -117,7 +117,7 @@ export class CommentStore {
       return;
     }
 
-    this.updateStatusOfCommentsOnAd.set(ad.id, AsyncActionStatus.pending);
+    this.updateStatusOfCommentsOnAd.set(ad.id, AsyncStatus.pending);
     this.commentApi
       .batchUpdateComments(creative.pageId, updates)
       .then((results) => {
@@ -130,26 +130,26 @@ export class CommentStore {
           if (result.success) {
             comment.update(result.data);
             comment.setUpdateError(null);
-            comment.setUpdateStatus(AsyncActionStatus.success);
+            comment.setUpdateStatus(AsyncStatus.success);
           } else {
             comment.setUpdateError(result.error);
-            comment.setUpdateStatus(AsyncActionStatus.error);
+            comment.setUpdateStatus(AsyncStatus.error);
           }
         }
 
         mobx.runInAction(() => {
           this.updateErrorOfCommentsOnAd.delete(ad.id);
-          this.updateStatusOfCommentsOnAd.set(ad.id, AsyncActionStatus.success);
+          this.updateStatusOfCommentsOnAd.set(ad.id, AsyncStatus.success);
         });
       })
       .catch((e) => {
         for (const update of allowedUpdates) {
           const comment = this.comments.get(update.commentId);
-          comment?.setUpdateStatus(AsyncActionStatus.error);
+          comment?.setUpdateStatus(AsyncStatus.error);
         }
         mobx.runInAction(() => {
           this.updateErrorOfCommentsOnAd.set(ad.id, e);
-          this.updateStatusOfCommentsOnAd.set(ad.id, AsyncActionStatus.error);
+          this.updateStatusOfCommentsOnAd.set(ad.id, AsyncStatus.error);
         });
       });
   }
@@ -161,21 +161,21 @@ export class CommentStore {
     }
 
     const comment = this.comments.get(update.commentId);
-    if (!comment || comment.updateStatus === AsyncActionStatus.pending) {
+    if (!comment || comment.updateStatus === AsyncStatus.pending) {
       return;
     }
 
-    comment.setUpdateStatus(AsyncActionStatus.pending);
+    comment.setUpdateStatus(AsyncStatus.pending);
     this.commentApi
       .updateComment(creative.pageId, update)
       .then(() => {
         comment.update(update.data);
         comment.setUpdateError(null);
-        comment.setUpdateStatus(AsyncActionStatus.success);
+        comment.setUpdateStatus(AsyncStatus.success);
       })
       .catch((e) => {
         comment.setUpdateError(e);
-        comment.setUpdateStatus(AsyncActionStatus.error);
+        comment.setUpdateStatus(AsyncStatus.error);
       });
   }
 }

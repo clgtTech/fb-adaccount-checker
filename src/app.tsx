@@ -8,7 +8,7 @@ import {
   generatePath,
 } from 'react-router-dom';
 import { classNames, Select } from 'draft-components';
-import { AsyncActionStatus, Locale } from './types';
+import { AsyncStatus, Locale } from './types';
 import { ROUTES } from './constants';
 import { SessionEventListeners } from './stores/session-store';
 import { sessionStore, uiStore, userStore } from './stores';
@@ -97,7 +97,7 @@ export const App = mobxReact.observer(function App() {
         >
           <AccessTokenField
             value={sessionStore.accessToken}
-            isLoading={sessionStore.authStatus === AsyncActionStatus.pending}
+            isLoading={sessionStore.authStatus === AsyncStatus.pending}
             onValueChange={(accessToken) => {
               if (accessToken) {
                 sessionStore.authenticate(accessToken);

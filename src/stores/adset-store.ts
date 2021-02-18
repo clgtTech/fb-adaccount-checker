@@ -1,10 +1,10 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus } from '../types';
+import { AsyncStatus } from '../types';
 import { AdAccount, Adset, AdsetApi } from './entities';
 
 export class AdsetStore {
   adsetsMap: Map<Adset['id'], Adset> = new Map();
-  loadStatus: AsyncActionStatus = AsyncActionStatus.idle;
+  loadStatus: AsyncStatus = AsyncStatus.idle;
   loadError: Error | null = null;
 
   constructor(private adsetApi: AdsetApi) {
@@ -12,11 +12,11 @@ export class AdsetStore {
   }
 
   resetLoadStatus() {
-    this.loadStatus = AsyncActionStatus.idle;
+    this.loadStatus = AsyncStatus.idle;
   }
 
   loadAdsets(adAccount: AdAccount) {
-    this.loadStatus = AsyncActionStatus.pending;
+    this.loadStatus = AsyncStatus.pending;
     this.adsetApi
       .getAdAccountAdsets(adAccount.id)
       .then((fetchedAdsets) => {
@@ -28,14 +28,14 @@ export class AdsetStore {
         );
         mobx.runInAction(() => {
           this.adsetsMap = adsetsMap;
-          this.loadStatus = AsyncActionStatus.success;
+          this.loadStatus = AsyncStatus.success;
           this.loadError = null;
         });
       })
       .catch((e) => {
         mobx.runInAction(() => {
           this.adsetsMap = new Map();
-          this.loadStatus = AsyncActionStatus.error;
+          this.loadStatus = AsyncStatus.error;
           this.loadError = e;
         });
       });

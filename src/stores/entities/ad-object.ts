@@ -1,8 +1,8 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus, OperationResult } from '../../types';
+import { AsyncStatus, OperationResult } from '../../types';
 
 export class AdObject {
-  protected fieldStatus = new Map<string, AsyncActionStatus>();
+  protected fieldStatus = new Map<string, AsyncStatus>();
   protected fieldError = new Map<string, Error | null>();
 
   constructor() {
@@ -13,11 +13,11 @@ export class AdObject {
     });
   }
 
-  getFieldStatus(field: string): AsyncActionStatus {
-    return this.fieldStatus.get(field) || AsyncActionStatus.idle;
+  getFieldStatus(field: string): AsyncStatus {
+    return this.fieldStatus.get(field) || AsyncStatus.idle;
   }
 
-  setFieldStatus(field: string, status: AsyncActionStatus): void {
+  setFieldStatus(field: string, status: AsyncStatus): void {
     this.fieldStatus.set(field, status);
   }
 
@@ -30,7 +30,7 @@ export class AdObject {
   }
 
   isFieldUpdating(field: string): boolean {
-    return this.getFieldStatus(field) === AsyncActionStatus.pending;
+    return this.getFieldStatus(field) === AsyncStatus.pending;
   }
 
   updateFieldValue(config: {
@@ -41,18 +41,18 @@ export class AdObject {
       onError?: (e: Error) => void;
     };
   }) {
-    this.setFieldStatus(config.field, AsyncActionStatus.pending);
+    this.setFieldStatus(config.field, AsyncStatus.pending);
     config
       .updater()
       .then(() => {
         config.options?.onSuccess?.();
         this.setFieldError(config.field, null);
-        this.setFieldStatus(config.field, AsyncActionStatus.success);
+        this.setFieldStatus(config.field, AsyncStatus.success);
       })
       .catch((e) => {
         config.options?.onError?.(e);
         this.setFieldError(config.field, e);
-        this.setFieldStatus(config.field, AsyncActionStatus.error);
+        this.setFieldStatus(config.field, AsyncStatus.error);
       });
   }
 }

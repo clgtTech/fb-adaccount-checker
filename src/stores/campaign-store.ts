@@ -1,10 +1,10 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus } from '../types';
+import { AsyncStatus } from '../types';
 import { AdAccount, Campaign, CampaignApi } from './entities';
 
 export class CampaignStore {
   campaignsMap: Map<Campaign['id'], Campaign> = new Map();
-  loadStatus: AsyncActionStatus = AsyncActionStatus.idle;
+  loadStatus: AsyncStatus = AsyncStatus.idle;
   loadError: Error | null = null;
 
   constructor(private campaignApi: CampaignApi) {
@@ -16,11 +16,11 @@ export class CampaignStore {
   }
 
   resetLoadStatus() {
-    this.loadStatus = AsyncActionStatus.idle;
+    this.loadStatus = AsyncStatus.idle;
   }
 
   loadCampaigns(adAccount: AdAccount) {
-    this.loadStatus = AsyncActionStatus.pending;
+    this.loadStatus = AsyncStatus.pending;
     this.campaignApi
       .getAdAccountCampaigns(adAccount.id)
       .then((fetchedCampaigns) => {
@@ -36,14 +36,14 @@ export class CampaignStore {
         );
         mobx.runInAction(() => {
           this.campaignsMap = campaignsMap;
-          this.loadStatus = AsyncActionStatus.success;
+          this.loadStatus = AsyncStatus.success;
           this.loadError = null;
         });
       })
       .catch((e) => {
         mobx.runInAction(() => {
           this.campaignsMap = new Map();
-          this.loadStatus = AsyncActionStatus.error;
+          this.loadStatus = AsyncStatus.error;
           this.loadError = e;
         });
       });

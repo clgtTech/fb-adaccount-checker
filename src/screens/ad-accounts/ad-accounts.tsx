@@ -3,7 +3,7 @@ import * as mobxReact from 'mobx-react-lite';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import { LoadingView, NonIdealStateView } from 'draft-components';
-import { AsyncActionStatus } from '../../types';
+import { AsyncStatus } from '../../types';
 import { ROUTES } from '../../constants';
 import { adAccountStore, sessionStore } from '../../stores';
 import { ErrorView } from '../../components/error-view';
@@ -22,8 +22,8 @@ export const AdAccounts = mobxReact.observer(function AdAccounts() {
   }, [authenticatedUserId]);
 
   if (
-    adAccountStore.loadStatus === AsyncActionStatus.idle ||
-    adAccountStore.loadStatus === AsyncActionStatus.pending
+    adAccountStore.loadStatus === AsyncStatus.idle ||
+    adAccountStore.loadStatus === AsyncStatus.pending
   ) {
     return (
       <LoadingView>
@@ -36,14 +36,14 @@ export const AdAccounts = mobxReact.observer(function AdAccounts() {
   }
 
   if (
-    adAccountStore.loadStatus === AsyncActionStatus.error &&
+    adAccountStore.loadStatus === AsyncStatus.error &&
     adAccountStore.loadError
   ) {
     return <ErrorView error={adAccountStore.loadError} />;
   }
 
   if (
-    adAccountStore.loadStatus === AsyncActionStatus.success &&
+    adAccountStore.loadStatus === AsyncStatus.success &&
     adAccountStore.isEmpty
   ) {
     return (

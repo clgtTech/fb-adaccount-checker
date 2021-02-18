@@ -5,7 +5,7 @@ import { Avatar, Button, Checkbox } from 'draft-components';
 import { Comment, CommentUpdate } from '../../stores/entities';
 import { CommentPresenter } from '../../presenters/comment-presenter';
 import styles from './comment-row.module.scss';
-import { AsyncActionStatus } from '../../types';
+import { AsyncStatus } from '../../types';
 
 export interface CommentRowProps {
   isSelected?: boolean;
@@ -54,7 +54,7 @@ export const CommentRow = mobxReact.observer(function CommentRow({
             className={styles.visibilityToggle}
             size="xs"
             appearance="minimal"
-            isLoading={comment.updateStatus === AsyncActionStatus.pending}
+            isLoading={comment.updateStatus === AsyncStatus.pending}
             onClick={() => {
               onUpdate(comment.id, { isHidden: !comment.isHidden });
             }}

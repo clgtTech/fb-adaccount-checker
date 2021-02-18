@@ -1,5 +1,5 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus, Locale } from '../types';
+import { AsyncStatus, Locale } from '../types';
 import { DEFAULT_LOCALE } from '../constants';
 import { User, UserApi } from './entities';
 import { RootStore } from './root-store';
@@ -11,7 +11,7 @@ export class SessionStore {
 
   accessToken: string = '';
   authenticatedUserId: string = '';
-  authStatus: AsyncActionStatus = AsyncActionStatus.idle;
+  authStatus: AsyncStatus = AsyncStatus.idle;
   authError: Error | null = null;
   locale: Locale = DEFAULT_LOCALE;
 
@@ -75,21 +75,21 @@ export class SessionStore {
     const authUserId = this.authenticatedUserId;
     this.accessToken = '';
     this.authenticatedUserId = '';
-    this.authStatus = AsyncActionStatus.idle;
+    this.authStatus = AsyncStatus.idle;
     this.authError = null;
     this._eventListeners.authReset.forEach((listener) => listener(authUserId));
   }
 
   authenticate(accessToken: string) {
     this.accessToken = accessToken;
-    this.authStatus = AsyncActionStatus.pending;
+    this.authStatus = AsyncStatus.pending;
     this.userApi
       .getUserRelatedToAccessToken(accessToken)
       .then((userDTO) => {
         mobx.runInAction(() => {
           const user = this.stores.userStore.addUser(userDTO);
           this.authenticatedUserId = user.id;
-          this.authStatus = AsyncActionStatus.success;
+          this.authStatus = AsyncStatus.success;
           this.authError = null;
           this._eventListeners.authenticate.forEach((onAuthenticate) =>
             onAuthenticate(user)
@@ -99,7 +99,7 @@ export class SessionStore {
       .catch((e) => {
         mobx.runInAction(() => {
           this.authenticatedUserId = '';
-          this.authStatus = AsyncActionStatus.error;
+          this.authStatus = AsyncStatus.error;
           this.authError = e;
         });
       });

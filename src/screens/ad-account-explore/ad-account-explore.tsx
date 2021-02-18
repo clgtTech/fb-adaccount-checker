@@ -8,7 +8,7 @@ import {
   generatePath,
 } from 'react-router-dom';
 import { LoadingView } from 'draft-components';
-import { AsyncActionStatus } from '../../types';
+import { AsyncStatus } from '../../types';
 import { AdAccountExploreParams } from './route-params';
 import { AdAccount } from '../../stores/entities';
 import { ROUTES } from '../../constants';
@@ -67,13 +67,13 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
   }, [adAccount]);
 
   if (
-    loadStatus.includes(AsyncActionStatus.idle) ||
-    loadStatus.includes(AsyncActionStatus.pending)
+    loadStatus.includes(AsyncStatus.idle) ||
+    loadStatus.includes(AsyncStatus.pending)
   ) {
     return <LoadingView />;
   }
 
-  if (loadStatus.includes(AsyncActionStatus.error) && loadError) {
+  if (loadStatus.includes(AsyncStatus.error) && loadError) {
     return <ErrorView error={loadError} />;
   }
 

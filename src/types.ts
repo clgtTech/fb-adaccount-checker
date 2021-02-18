@@ -9,7 +9,7 @@ export enum Locale {
   enUS = 'en-US',
 }
 
-export enum AsyncActionStatus {
+export enum AsyncStatus {
   idle = 'idle',
   pending = 'pending',
   error = 'error',
