@@ -18,9 +18,9 @@ export const Ads = mobxReact.observer(function Ads({
   adset,
 }: AdsProps) {
   const intl = useIntl();
-  const adsetAds = adStore.filter((ad) => ad.adsetId === adset.id);
+  const ads = adStore.getAdsetAds(adset);
 
-  if (adsetAds.length < 1) {
+  if (!ads.length) {
     return (
       <NonIdealStateView
         icon={<SvgIcon size="4x" icon={Icons.document} />}
@@ -38,7 +38,7 @@ export const Ads = mobxReact.observer(function Ads({
 
   return (
     <ol className={styles.list}>
-      {adsetAds.map((ad) => (
+      {ads.map((ad) => (
         <li key={ad.id}>
           <AdCard adAccount={adAccount} ad={ad} />
         </li>

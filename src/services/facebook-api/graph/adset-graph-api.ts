@@ -6,13 +6,12 @@ import {
   Status,
 } from '../../../types';
 import {
-  AdAccount,
+  Campaign,
   AdsetDTO,
   AdsetApi,
   Adset,
   AdsetUpdate,
 } from '../../../stores/entities';
-import { AdAccountGraphApi } from './ad-account-graph-api';
 import { InsightsGraphApi, FacebookInsights } from './insights-graph-api';
 import { makeRequest } from '../make-request';
 import { toNumber } from '../helpers';
@@ -35,12 +34,12 @@ export type FacebookAdset = {
 };
 
 export class AdsetGraphApi implements AdsetApi {
-  async getAdAccountAdsets(
-    adAccountId: AdAccount['id'],
+  async getCampaignAdsets(
+    campaignId: Campaign['id'],
     limit: number = API_OBJECTS_LIMIT
   ): Promise<AdsetDTO[]> {
     const response = await makeRequest<{ data: FacebookAdset[] }>({
-      url: `/${AdAccountGraphApi.getActId(adAccountId)}/adsets`,
+      url: `/${campaignId}/adsets`,
       params: {
         limit,
         fields: [

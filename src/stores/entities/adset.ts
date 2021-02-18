@@ -7,7 +7,7 @@ import {
 } from '../../types';
 import { CurrencyAmount } from './currency-amount';
 import { AdAccount } from './ad-account';
-import { BudgetUpdate } from './campaign';
+import { BudgetUpdate, Campaign } from './campaign';
 import { Insights, InsightsDTO } from './insights';
 
 export class Adset {
@@ -145,8 +145,8 @@ export interface AdsetUpdate {
 }
 
 export interface AdsetApi {
-  getAdAccountAdsets(
-    adAccountId: AdAccount['id'],
+  getCampaignAdsets(
+    campaignId: Campaign['id'],
     limit?: number
   ): Promise<AdsetDTO[]>;
   updateAdset(

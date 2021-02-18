@@ -83,7 +83,7 @@
   "components.CommentList.batchUpdateError": {
     "defaultMessage": "An unknown error occurred during comments updating. Try to refresh the page and retry the operation."
   },
-  "components.CommentList.loadAdComments": {
+  "components.CommentList.loadingAdComments": {
     "defaultMessage": "Loading comments..."
   },
   "components.CommentList.noComments": {
@@ -533,8 +533,17 @@
   "insights.spend": {
     "defaultMessage": "Spend"
   },
-  "screens.AdAccounts.adAccountsLoading": {
-    "defaultMessage": "Ad Accounts loading..."
+  "screens.AdAccountExplore.loadingAds": {
+    "defaultMessage": "Loading Ads..."
+  },
+  "screens.AdAccountExplore.loadingAdsets": {
+    "defaultMessage": "Loading Ad Sets..."
+  },
+  "screens.AdAccountExplore.loadingCampaigns": {
+    "defaultMessage": "Loading Campaigns..."
+  },
+  "screens.AdAccounts.loadingAdAccounts": {
+    "defaultMessage": "Loading Ad Accounts..."
   },
   "screens.AdAccounts.noAdAccountState.description": {
     "defaultMessage": "← Select the ad account to see his ad campaigns."
@@ -561,7 +570,7 @@
     "defaultMessage": "No ad sets found"
   },
   "screens.Authenticator.authenticating": {
-    "defaultMessage": "Access Token checking..."
+    "defaultMessage": "Checking Access Token..."
   },
   "screens.Campaigns.noCampaigns.description": {
     "defaultMessage": "This ad account does not have any campaigns. Try to select another account."

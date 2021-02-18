@@ -23,11 +23,9 @@ export const Adsets = mobxReact.observer(function Adsets({
     const baseUrl = url.replace(/\/*$/, '');
     return (adsetId: Adset['id']) => `${baseUrl}/${adsetId}/ads`;
   }, [url]);
-  const campaignAdsets = adsetStore.filter(
-    (adset) => adset.campaignId === campaign.id
-  );
+  const adsets = adsetStore.getCampaignAdsets(campaign);
 
-  if (campaignAdsets.length < 1) {
+  if (!adsets.length) {
     return (
       <NonIdealStateView
         icon={<SvgIcon size="4x" icon={Icons.stack} />}
@@ -45,7 +43,7 @@ export const Adsets = mobxReact.observer(function Adsets({
 
   return (
     <ol className={styles.list}>
-      {campaignAdsets.map((adset) => (
+      {adsets.map((adset) => (
         <li key={adset.id}>
           <AdsetCard
             adAccount={adAccount}

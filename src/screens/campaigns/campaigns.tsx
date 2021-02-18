@@ -21,8 +21,9 @@ export const Campaigns = mobxReact.observer(function Campaigns({
     const baseUrl = url.replace(/\/*$/, '');
     return (campaignId: Campaign['id']) => `${baseUrl}/${campaignId}/adsets`;
   }, [url]);
+  const campaigns = campaignStore.getAdAccountCampaigns(adAccount);
 
-  if (campaignStore.isEmpty) {
+  if (!campaigns.length) {
     return (
       <NonIdealStateView
         icon={<SvgIcon size="4x" icon={Icons.folder} />}
@@ -40,7 +41,7 @@ export const Campaigns = mobxReact.observer(function Campaigns({
 
   return (
     <ol className={styles.list}>
-      {campaignStore.map((campaign) => (
+      {campaigns.map((campaign) => (
         <li key={campaign.id}>
           <CampaignCard
             adAccount={adAccount}

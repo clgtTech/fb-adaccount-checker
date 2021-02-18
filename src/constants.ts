@@ -2,7 +2,6 @@ import { Locale } from 'types';
 
 export const DEFAULT_LOCALE = Locale.enUS;
 
-// TODO: Remove huge limit and implement pagination.
 export const API_OBJECTS_LIMIT = 1000;
 
 export const LOCAL_STORAGE_KEYS = {

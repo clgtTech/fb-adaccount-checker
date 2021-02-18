@@ -1,3 +1,4 @@
+import { API_OBJECTS_LIMIT } from '../../../constants';
 import { OperationResult, CommentsOrder } from '../../../types';
 import {
   CommentApi,
@@ -35,7 +36,7 @@ export class CommentGraphApi implements CommentApi {
   async getPostComments(
     pageId: string,
     pagePostId: string,
-    limit: number = 1000
+    limit: number = API_OBJECTS_LIMIT
   ): Promise<CommentDTO[]> {
     const response = await makeRequest<{ data: FacebookComment[] }>({
       url: `/${pagePostId}/comments`,

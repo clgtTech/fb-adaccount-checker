@@ -1,6 +1,7 @@
 import * as mobx from 'mobx';
 import { AdEffectiveStatus, OperationResult, Status } from '../../types';
 import { AdAccount } from './ad-account';
+import { Adset } from './adset';
 import { Insights, InsightsDTO } from './insights';
 
 export class AdCreative {
@@ -132,9 +133,6 @@ export interface AdUpdate {
 }
 
 export interface AdApi {
-  getAdAccountAds(
-    adAccountId: AdAccount['id'],
-    limit?: number
-  ): Promise<AdDTO[]>;
+  getAdsetAds(adsetId: Adset['id'], limit?: number): Promise<AdDTO[]>;
   updateAd(id: Ad['id'], update: AdUpdate['data']): Promise<OperationResult>;
 }

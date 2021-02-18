@@ -93,7 +93,7 @@ export const CommentList = mobxReact.observer(function CommentList({
     return (
       <LoadingView padY="md">
         <FormattedMessage
-          id="components.CommentList.loadAdComments"
+          id="components.CommentList.loadingAdComments"
           defaultMessage="Loading comments..."
         />
       </LoadingView>

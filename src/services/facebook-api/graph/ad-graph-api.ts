@@ -1,13 +1,6 @@
 import { API_OBJECTS_LIMIT } from '../../../constants';
 import { AdEffectiveStatus, OperationResult, Status } from '../../../types';
-import {
-  Ad,
-  AdAccount,
-  AdApi,
-  AdDTO,
-  AdUpdate,
-} from '../../../stores/entities';
-import { AdAccountGraphApi } from './ad-account-graph-api';
+import { Adset, Ad, AdApi, AdDTO, AdUpdate } from '../../../stores/entities';
 import { InsightsGraphApi, FacebookInsights } from './insights-graph-api';
 import { makeRequest } from '../make-request';
 
@@ -39,12 +32,12 @@ export type FacebookAd = {
 };
 
 export class AdGraphApi implements AdApi {
-  async getAdAccountAds(
-    adAccountId: AdAccount['id'],
+  async getAdsetAds(
+    adsetId: Adset['id'],
     limit: number = API_OBJECTS_LIMIT
   ): Promise<AdDTO[]> {
     const response = await makeRequest<{ data: FacebookAd[] }>({
-      url: `/${AdAccountGraphApi.getActId(adAccountId)}/ads`,
+      url: `/${adsetId}/ads`,
       params: {
         limit,
         fields: [

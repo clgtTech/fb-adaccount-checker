@@ -1,18 +1,19 @@
 import * as React from 'react';
 import * as mobxReact from 'mobx-react-lite';
+import { FormattedMessage } from 'react-intl';
 import {
-  Switch,
+  generatePath,
   Route,
+  Switch,
   useHistory,
   useParams,
-  generatePath,
 } from 'react-router-dom';
 import { LoadingView } from 'draft-components';
 import { AsyncStatus } from '../../types';
 import { AdAccountExploreParams } from './route-params';
 import { AdAccount } from '../../stores/entities';
 import { ROUTES } from '../../constants';
-import { campaignStore, adsetStore, adStore, commentStore } from '../../stores';
+import { adsetStore, adStore, campaignStore, commentStore } from '../../stores';
 import { ErrorView } from '../../components/error-view';
 import { AdObjectsNav } from './ad-objects-nav';
 import { Campaigns } from '../campaigns';
@@ -29,15 +30,21 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
 }: AdAccountExploreProps) {
   const params = useParams<AdAccountExploreParams>();
   const history = useHistory();
-  const redirectToCampaigns = () => {
+
+  function shouldShowLoadingView(status: AsyncStatus): boolean {
+    return status === AsyncStatus.idle || status === AsyncStatus.pending;
+  }
+
+  function redirectToCampaigns() {
     history.replace(
       generatePath(ROUTES.campaigns, {
         userId: params.userId,
         adAccountId: params.adAccountId,
       })
     );
-  };
-  const redirectToAdsets = () => {
+  }
+
+  function redirectToAdsets() {
     history.replace(
       generatePath(ROUTES.adsets, {
         userId: params.userId,
@@ -45,48 +52,87 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
         campaignId: params.campaignId,
       })
     );
-  };
+  }
 
-  const loadStatus = [
-    campaignStore.loadStatus,
-    adsetStore.loadStatus,
-    adStore.loadStatus,
-  ];
-  const loadError =
-    campaignStore.loadError || adsetStore.loadError || adStore.loadError;
+  const activeCampaign = campaignStore.getCampaign(params.campaignId);
+  const activeAdset = adsetStore.getAdset(params.adsetId);
   React.useEffect(() => {
-    campaignStore.loadCampaigns(adAccount);
-    adsetStore.loadAdsets(adAccount);
-    adStore.loadAdsets(adAccount);
+    if (campaignStore.shouldLoadAdAccountCampaigns(adAccount)) {
+      campaignStore.loadAdAccountCampaigns(adAccount);
+    }
+    if (activeCampaign && adsetStore.shouldLoadCampaignAdsets(activeCampaign)) {
+      adsetStore.loadCampaignAdsets(adAccount, activeCampaign);
+    }
+    if (activeAdset && adStore.shouldLoadAdsetAds(activeAdset)) {
+      adStore.loadAdsetAds(activeAdset);
+    }
+  }, [adAccount, activeCampaign, activeAdset]);
+  React.useEffect(() => {
     return () => {
-      campaignStore.resetLoadStatus();
-      adsetStore.resetLoadStatus();
-      adStore.resetLoadStatus();
+      campaignStore.clear();
+      adsetStore.clear();
+      adStore.clear();
       commentStore.clear();
     };
   }, [adAccount]);
 
   if (
-    loadStatus.includes(AsyncStatus.idle) ||
-    loadStatus.includes(AsyncStatus.pending)
+    shouldShowLoadingView(
+      campaignStore.getLoadStatusOfAdAccountCampaigns(adAccount)
+    )
   ) {
-    return <LoadingView />;
+    return (
+      <LoadingView>
+        <FormattedMessage
+          id="screens.AdAccountExplore.loadingCampaigns"
+          defaultMessage="Loading Campaigns..."
+        />
+      </LoadingView>
+    );
+  } else if (
+    activeCampaign &&
+    shouldShowLoadingView(
+      adsetStore.getLoadStatusOfCampaignAdsets(activeCampaign)
+    )
+  ) {
+    return (
+      <LoadingView>
+        <FormattedMessage
+          id="screens.AdAccountExplore.loadingAdsets"
+          defaultMessage="Loading Ad Sets..."
+        />
+      </LoadingView>
+    );
+  } else if (
+    activeAdset &&
+    shouldShowLoadingView(adStore.getLoadStatusOfAdsetAds(activeAdset))
+  ) {
+    return (
+      <LoadingView>
+        <FormattedMessage
+          id="screens.AdAccountExplore.loadingAds"
+          defaultMessage="Loading Ads..."
+        />
+      </LoadingView>
+    );
   }
 
-  if (loadStatus.includes(AsyncStatus.error) && loadError) {
+  const loadError =
+    campaignStore.getLoadErrorOfAdAccountCampaigns(adAccount) ||
+    (activeCampaign &&
+      adsetStore.getLoadErrorOfCampaignAdsets(activeCampaign)) ||
+    (activeAdset && adStore.getLoadErrorOfAdsetAds(activeAdset));
+  if (loadError) {
     return <ErrorView error={loadError} />;
   }
-
-  const selectedCampaign = campaignStore.get(params.campaignId);
-  const selectedAdset = adsetStore.get(params.adsetId);
 
   return (
     <div className={styles.container}>
       <AdObjectsNav
         className={styles.navigation}
         params={params}
-        campaign={selectedCampaign}
-        adset={selectedAdset}
+        campaign={activeCampaign}
+        adset={activeAdset}
       />
       <div className={styles.content}>
         <Switch>
@@ -99,11 +145,11 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
             path={ROUTES.adsets}
             exact={true}
             render={() => {
-              if (selectedCampaign == null) {
+              if (activeCampaign == null) {
                 redirectToCampaigns();
               } else {
                 return (
-                  <Adsets adAccount={adAccount} campaign={selectedCampaign} />
+                  <Adsets adAccount={adAccount} campaign={activeCampaign} />
                 );
               }
             }}
@@ -112,16 +158,16 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
             path={ROUTES.ads}
             exact={true}
             render={() => {
-              if (selectedCampaign == null) {
+              if (activeCampaign == null) {
                 redirectToCampaigns();
-              } else if (selectedAdset == null) {
+              } else if (activeAdset == null) {
                 redirectToAdsets();
               } else {
                 return (
                   <Ads
                     adAccount={adAccount}
-                    campaign={selectedCampaign}
-                    adset={selectedAdset}
+                    campaign={activeCampaign}
+                    adset={activeAdset}
                   />
                 );
               }

@@ -36,16 +36,13 @@ export function Authenticator({ children }: AuthenticatorProps) {
       <LoadingView>
         <FormattedMessage
           id="screens.Authenticator.authenticating"
-          defaultMessage="Access Token checking..."
+          defaultMessage="Checking Access Token..."
         />
       </LoadingView>
     );
   }
 
-  if (
-    sessionStore.authStatus === AsyncStatus.error &&
-    sessionStore.authError
-  ) {
+  if (sessionStore.authStatus === AsyncStatus.error && sessionStore.authError) {
     return <ErrorView error={sessionStore.authError} />;
   }
 

@@ -28,8 +28,8 @@ export const AdAccounts = mobxReact.observer(function AdAccounts() {
     return (
       <LoadingView>
         <FormattedMessage
-          id="screens.AdAccounts.adAccountsLoading"
-          defaultMessage="Ad Accounts loading..."
+          id="screens.AdAccounts.loadingAdAccounts"
+          defaultMessage="Loading Ad Accounts..."
         />
       </LoadingView>
     );
