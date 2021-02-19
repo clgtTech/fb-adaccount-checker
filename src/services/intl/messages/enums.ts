@@ -5,6 +5,7 @@ import {
   ActionType,
   CommentFilter,
   BudgetType,
+  DatePreset,
 } from '../../../types';
 import { defineMessage } from 'react-intl';
 
@@ -434,10 +435,89 @@ export const CommentFilters = {
 export const BudgetTypes = {
   [BudgetType.DAILY]: defineMessage({
     id: 'enums.BudgetType.DAILY',
-    defaultMessage: 'Daily',
+    defaultMessage: `Daily`,
   }),
   [BudgetType.LIFETIME]: defineMessage({
     id: 'enums.BudgetType.LIFETIME',
-    defaultMessage: 'Lifetime',
+    defaultMessage: `Lifetime`,
+  }),
+};
+
+export const DatePresets = {
+  [DatePreset.LIFETIME]: defineMessage({
+    id: 'enums.DatePreset.LIFETIME',
+    defaultMessage: `Lifetime`,
+  }),
+  [DatePreset.TODAY]: defineMessage({
+    id: 'enums.DatePreset.TODAY',
+    defaultMessage: `Today`,
+  }),
+  [DatePreset.YESTERDAY]: defineMessage({
+    id: 'enums.DatePreset.YESTERDAY',
+    defaultMessage: `Yesterday`,
+  }),
+  [DatePreset.LAST_3D]: defineMessage({
+    id: 'enums.DatePreset.LAST_3D',
+    defaultMessage: `Last 3 days`,
+  }),
+  [DatePreset.LAST_7D]: defineMessage({
+    id: 'enums.DatePreset.LAST_7D',
+    defaultMessage: `Last 7 days`,
+  }),
+  [DatePreset.LAST_14D]: defineMessage({
+    id: 'enums.DatePreset.LAST_14D',
+    defaultMessage: `Last 14 days`,
+  }),
+  [DatePreset.LAST_28D]: defineMessage({
+    id: 'enums.DatePreset.LAST_28D',
+    defaultMessage: `Last 28 days`,
+  }),
+  [DatePreset.LAST_30D]: defineMessage({
+    id: 'enums.DatePreset.LAST_30D',
+    defaultMessage: `Last 30 days`,
+  }),
+  [DatePreset.LAST_90D]: defineMessage({
+    id: 'enums.DatePreset.LAST_90D',
+    defaultMessage: `Last 90 days`,
+  }),
+  [DatePreset.THIS_WEEK_SUN_TODAY]: defineMessage({
+    id: 'enums.DatePreset.THIS_WEEK_SUN_TODAY',
+    defaultMessage: `This week`,
+  }),
+  [DatePreset.LAST_WEEK_SUN_SAT]: defineMessage({
+    id: 'enums.DatePreset.LAST_WEEK_SUN_SAT',
+    defaultMessage: `Last week`,
+  }),
+  [DatePreset.THIS_WEEK_MON_TODAY]: defineMessage({
+    id: 'enums.DatePreset.THIS_WEEK_MON_TODAY',
+    defaultMessage: `This week`,
+  }),
+  [DatePreset.LAST_WEEK_MON_SUN]: defineMessage({
+    id: 'enums.DatePreset.LAST_WEEK_MON_SUN',
+    defaultMessage: `Last week`,
+  }),
+  [DatePreset.THIS_MONTH]: defineMessage({
+    id: 'enums.DatePreset.THIS_MONTH',
+    defaultMessage: `This month`,
+  }),
+  [DatePreset.LAST_MONTH]: defineMessage({
+    id: 'enums.DatePreset.LAST_MONTH',
+    defaultMessage: `Last month`,
+  }),
+  [DatePreset.THIS_QUARTER]: defineMessage({
+    id: 'enums.DatePreset.THIS_QUARTER',
+    defaultMessage: `This quarter`,
+  }),
+  [DatePreset.LAST_QUARTER]: defineMessage({
+    id: 'enums.DatePreset.LAST_QUARTER',
+    defaultMessage: `Last quarter`,
+  }),
+  [DatePreset.THIS_YEAR]: defineMessage({
+    id: 'enums.DatePreset.THIS_YEAR',
+    defaultMessage: `This year`,
+  }),
+  [DatePreset.LAST_YEAR]: defineMessage({
+    id: 'enums.DatePreset.LAST_YEAR',
+    defaultMessage: `Last year`,
   }),
 };

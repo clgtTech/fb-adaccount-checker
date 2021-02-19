@@ -306,3 +306,25 @@ export enum BudgetType {
   DAILY = 'daily',
   LIFETIME = 'lifetime',
 }
+
+export enum DatePreset {
+  TODAY = 'today',
+  YESTERDAY = 'yesterday',
+  THIS_MONTH = 'this_month',
+  LAST_MONTH = 'last_month',
+  THIS_QUARTER = 'this_quarter',
+  LIFETIME = 'lifetime',
+  LAST_3D = 'last_3d',
+  LAST_7D = 'last_7d',
+  LAST_14D = 'last_14d',
+  LAST_28D = 'last_28d',
+  LAST_30D = 'last_30d',
+  LAST_90D = 'last_90d',
+  LAST_WEEK_MON_SUN = 'last_week_mon_sun',
+  LAST_WEEK_SUN_SAT = 'last_week_sun_sat',
+  LAST_QUARTER = 'last_quarter',
+  LAST_YEAR = 'last_year',
+  THIS_WEEK_MON_TODAY = 'this_week_mon_today',
+  THIS_WEEK_SUN_TODAY = 'this_week_sun_today',
+  THIS_YEAR = 'this_year',
+}

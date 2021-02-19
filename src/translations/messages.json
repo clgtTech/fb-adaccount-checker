@@ -416,6 +416,63 @@
   "enums.CommentFilter.VISIBLE": {
     "defaultMessage": "Visible"
   },
+  "enums.DatePreset.LAST_14D": {
+    "defaultMessage": "Last 14 days"
+  },
+  "enums.DatePreset.LAST_28D": {
+    "defaultMessage": "Last 28 days"
+  },
+  "enums.DatePreset.LAST_30D": {
+    "defaultMessage": "Last 30 days"
+  },
+  "enums.DatePreset.LAST_3D": {
+    "defaultMessage": "Last 3 days"
+  },
+  "enums.DatePreset.LAST_7D": {
+    "defaultMessage": "Last 7 days"
+  },
+  "enums.DatePreset.LAST_90D": {
+    "defaultMessage": "Last 90 days"
+  },
+  "enums.DatePreset.LAST_MONTH": {
+    "defaultMessage": "Last month"
+  },
+  "enums.DatePreset.LAST_QUARTER": {
+    "defaultMessage": "Last quarter"
+  },
+  "enums.DatePreset.LAST_WEEK_MON_SUN": {
+    "defaultMessage": "Last week"
+  },
+  "enums.DatePreset.LAST_WEEK_SUN_SAT": {
+    "defaultMessage": "Last week"
+  },
+  "enums.DatePreset.LAST_YEAR": {
+    "defaultMessage": "Last year"
+  },
+  "enums.DatePreset.LIFETIME": {
+    "defaultMessage": "Lifetime"
+  },
+  "enums.DatePreset.THIS_MONTH": {
+    "defaultMessage": "This month"
+  },
+  "enums.DatePreset.THIS_QUARTER": {
+    "defaultMessage": "This quarter"
+  },
+  "enums.DatePreset.THIS_WEEK_MON_TODAY": {
+    "defaultMessage": "This week"
+  },
+  "enums.DatePreset.THIS_WEEK_SUN_TODAY": {
+    "defaultMessage": "This week"
+  },
+  "enums.DatePreset.THIS_YEAR": {
+    "defaultMessage": "This year"
+  },
+  "enums.DatePreset.TODAY": {
+    "defaultMessage": "Today"
+  },
+  "enums.DatePreset.YESTERDAY": {
+    "defaultMessage": "Yesterday"
+  },
   "enums.Objective.APP_INSTALLS": {
     "defaultMessage": "App installs"
   },
@@ -563,19 +620,31 @@
   "screens.Ads.noAds.title": {
     "defaultMessage": "No ads found"
   },
+  "screens.Ads.searchFieldPlaceholder": {
+    "defaultMessage": "Search Ads by name"
+  },
   "screens.Adsets.noAdsets.description": {
     "defaultMessage": "This campaign does not have any ad sets. Try to select another campaign."
   },
   "screens.Adsets.noAdsets.title": {
     "defaultMessage": "No ad sets found"
   },
+  "screens.Adsets.searchFieldPlaceholder": {
+    "defaultMessage": "Search Ad Sets by name"
+  },
   "screens.Authenticator.authenticating": {
     "defaultMessage": "Checking Access Token..."
+  },
+  "screens.Campaigns.Workspace.datePresetAriaLabel": {
+    "defaultMessage": "Insights period"
   },
   "screens.Campaigns.noCampaigns.description": {
     "defaultMessage": "This ad account does not have any campaigns. Try to select another account."
   },
   "screens.Campaigns.noCampaigns.title": {
     "defaultMessage": "No campaigns found"
+  },
+  "screens.Campaigns.searchFieldPlaceholder": {
+    "defaultMessage": "Search Campaigns by name"
   }
 }
