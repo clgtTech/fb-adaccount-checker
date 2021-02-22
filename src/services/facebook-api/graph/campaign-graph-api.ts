@@ -3,6 +3,7 @@ import {
   BidStrategy,
   BuyingType,
   CampaignEffectiveStatus,
+  DatePreset,
   Objective,
   OperationResult,
   Status,
@@ -13,6 +14,7 @@ import {
   CampaignApi,
   CampaignDTO,
   CampaignUpdate,
+  InsightsDTO,
 } from '../../../stores/entities';
 import { AdAccountGraphApi } from './ad-account-graph-api';
 import { InsightsGraphApi, FacebookInsights } from './insights-graph-api';
@@ -39,12 +41,12 @@ export type FacebookCampaign = {
 export class CampaignGraphApi implements CampaignApi {
   async getAdAccountCampaigns(
     adAccountId: AdAccount['id'],
-    limit: number = API_OBJECTS_LIMIT
+    params?: { insightsDatePreset?: DatePreset; limit?: number }
   ): Promise<CampaignDTO[]> {
     const response = await makeRequest<{ data: FacebookCampaign[] }>({
       url: `/${AdAccountGraphApi.getActId(adAccountId)}/campaigns`,
       params: {
-        limit,
+        limit: params?.limit ?? API_OBJECTS_LIMIT,
         fields: [
           'id',
           'account_id',
@@ -57,7 +59,7 @@ export class CampaignGraphApi implements CampaignApi {
           'bid_strategy',
           'daily_budget',
           'lifetime_budget',
-          InsightsGraphApi.insightsQueryField,
+          InsightsGraphApi.getInsightsField(params?.insightsDatePreset),
         ],
       },
       options: { shouldUseUserAccessToken: true },
@@ -79,6 +81,31 @@ export class CampaignGraphApi implements CampaignApi {
         insights: InsightsGraphApi.formatFetchedInsights(campaign.insights),
       };
     });
+  }
+
+  async getAdAccountCampaignsInsights(
+    adAccountId: string,
+    params: { limit?: number; datePreset: DatePreset }
+  ): Promise<Map<Campaign['id'], InsightsDTO>> {
+    type ResponseItem = Pick<FacebookCampaign, 'id' | 'insights'>;
+
+    const response = await makeRequest<{ data: ResponseItem[] }>({
+      url: `/${AdAccountGraphApi.getActId(adAccountId)}/campaigns`,
+      options: { shouldUseUserAccessToken: true },
+      params: {
+        limit: params?.limit ?? API_OBJECTS_LIMIT,
+        fields: ['id', InsightsGraphApi.getInsightsField(params.datePreset)],
+      },
+    });
+
+    const campaignsInsights = new Map();
+    for (const item of response.data) {
+      const insightsDTO = InsightsGraphApi.formatFetchedInsights(item.insights);
+      if (insightsDTO) {
+        campaignsInsights.set(item.id, insightsDTO);
+      }
+    }
+    return campaignsInsights;
   }
 
   async updateCampaign(

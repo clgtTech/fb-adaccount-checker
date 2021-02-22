@@ -1,57 +1,71 @@
 import * as mobx from 'mobx';
-import { AsyncStatus } from '../types';
-import { AdAccount, Adset, AdsetApi, Campaign } from './entities';
+import { AsyncStatus, DatePreset } from '../types';
+import { AdAccount, Adset, AdsetApi } from './entities';
+import { RootStore } from './root-store';
 
 export class AdsetStore {
   adsets: Map<Adset['id'], Adset> = new Map();
-  campaignAdsets: Map<Campaign['id'], Adset['id'][]> = new Map();
-  loadStatusOfCampaignAdsets: Map<Campaign['id'], AsyncStatus> = new Map();
-  loadErrorOfCampaignAdsets: Map<Campaign['id'], Error | null> = new Map();
+  accountAdsetIds: Map<AdAccount['id'], Adset['id'][]> = new Map();
+  accountAdsetsLoadStatus: Map<AdAccount['id'], AsyncStatus> = new Map();
+  accountAdsetsLoadError: Map<AdAccount['id'], Error | null> = new Map();
+  adsetsInsightsLoadStatus: Map<AdAccount['id'], AsyncStatus> = new Map();
+  adsetsInsightsLoadError: Map<AdAccount['id'], Error | null> = new Map();
 
-  constructor(private adsetApi: AdsetApi) {
+  constructor(private adsetApi: AdsetApi, private stores: RootStore) {
     mobx.makeAutoObservable(this);
   }
 
   clear(): void {
     this.adsets.clear();
-    this.campaignAdsets.clear();
-    this.loadErrorOfCampaignAdsets.clear();
-    this.loadStatusOfCampaignAdsets.clear();
+    this.accountAdsetIds.clear();
+    this.accountAdsetsLoadError.clear();
+    this.accountAdsetsLoadStatus.clear();
   }
 
-  getAdset(id: string | number | undefined | null): Adset | undefined {
-    return id != null ? this.adsets.get('' + id) : undefined;
+  getById(id: string | number): Adset | undefined {
+    return this.adsets.get('' + id);
   }
 
-  getCampaignAdsets(campaign: Campaign): Adset[] {
-    const adsetIds = this.campaignAdsets.get(campaign.id) ?? [];
+  getAdsets(adAccount: AdAccount, params?: { campaignId?: string }): Adset[] {
+    const ids = this.accountAdsetIds.get(adAccount.id) ?? [];
+    const campaignId = params?.campaignId;
     const adsets = [];
-    for (const id of adsetIds) {
+    for (const id of ids) {
       const adset = this.adsets.get(id);
-      if (adset) {
+      if (adset && !(campaignId && adset.campaignId !== campaignId)) {
         adsets.push(adset);
       }
     }
     return adsets;
   }
 
-  getLoadStatusOfCampaignAdsets(campaign: Campaign): AsyncStatus {
-    return this.loadStatusOfCampaignAdsets.get(campaign.id) ?? AsyncStatus.idle;
+  getAdsetsLoadStatus(adAccount: AdAccount): AsyncStatus {
+    return this.accountAdsetsLoadStatus.get(adAccount.id) ?? AsyncStatus.idle;
   }
 
-  getLoadErrorOfCampaignAdsets(campaign: Campaign): Error | null {
-    return this.loadErrorOfCampaignAdsets.get(campaign.id) ?? null;
+  getAdsetsLoadError(adAccount: AdAccount): Error | null {
+    return this.accountAdsetsLoadError.get(adAccount.id) ?? null;
   }
 
-  shouldLoadCampaignAdsets(campaign: Campaign): boolean {
-    const loadStatus = this.getLoadStatusOfCampaignAdsets(campaign);
+  getAdsetsInsightsLoadStatus(adAccount: AdAccount): AsyncStatus {
+    return this.adsetsInsightsLoadStatus.get(adAccount.id) ?? AsyncStatus.idle;
+  }
+
+  getAdsetsInsightsLoadError(adAccount: AdAccount): Error | null {
+    return this.adsetsInsightsLoadError.get(adAccount.id) ?? null;
+  }
+
+  canStartLoading(adAccount: AdAccount): boolean {
+    const loadStatus = this.getAdsetsLoadStatus(adAccount);
     return loadStatus === AsyncStatus.idle || loadStatus === AsyncStatus.error;
   }
 
-  loadCampaignAdsets(adAccount: AdAccount, campaign: Campaign): void {
-    this.loadStatusOfCampaignAdsets.set(campaign.id, AsyncStatus.pending);
+  loadAdsets(adAccount: AdAccount): void {
+    this.accountAdsetsLoadStatus.set(adAccount.id, AsyncStatus.pending);
     this.adsetApi
-      .getCampaignAdsets(campaign.id)
+      .getAdAccountAdsets(adAccount.id, {
+        insightsDatePreset: this.stores.sessionStore.insightsDatePreset,
+      })
       .then((fetchedAdsets) => {
         const adsets = new Map();
         const adsetIds: Adset['id'][] = [];
@@ -62,15 +76,41 @@ export class AdsetStore {
         }
         mobx.runInAction(() => {
           this.adsets = new Map([...this.adsets, ...adsets]);
-          this.campaignAdsets.set(campaign.id, adsetIds);
-          this.loadErrorOfCampaignAdsets.delete(campaign.id);
-          this.loadStatusOfCampaignAdsets.set(campaign.id, AsyncStatus.success);
+          this.accountAdsetIds.set(adAccount.id, adsetIds);
+          this.accountAdsetsLoadError.delete(adAccount.id);
+          this.accountAdsetsLoadStatus.set(adAccount.id, AsyncStatus.success);
         });
       })
       .catch((e) => {
         mobx.runInAction(() => {
-          this.loadErrorOfCampaignAdsets.set(campaign.id, e);
-          this.loadStatusOfCampaignAdsets.set(campaign.id, AsyncStatus.error);
+          this.accountAdsetsLoadError.set(adAccount.id, e);
+          this.accountAdsetsLoadStatus.set(adAccount.id, AsyncStatus.error);
+        });
+      });
+  }
+
+  updateAdsetsInsights(adAccount: AdAccount, datePreset: DatePreset) {
+    const adsets = this.getAdsets(adAccount);
+    if (!adsets.length) {
+      return;
+    }
+
+    this.adsetsInsightsLoadStatus.set(adAccount.id, AsyncStatus.pending);
+    this.adsetApi
+      .getAdAccountAdsetsInsights(adAccount.id, { datePreset })
+      .then((fetchedInsights) => {
+        for (const adset of adsets) {
+          adset.setInsights(fetchedInsights.get(adset.id));
+        }
+        mobx.runInAction(() => {
+          this.adsetsInsightsLoadError.delete(adAccount.id);
+          this.adsetsInsightsLoadStatus.set(adAccount.id, AsyncStatus.success);
+        });
+      })
+      .catch((e) => {
+        mobx.runInAction(() => {
+          this.adsetsInsightsLoadError.set(adAccount.id, e);
+          this.adsetsInsightsLoadStatus.set(adAccount.id, AsyncStatus.error);
         });
       });
   }

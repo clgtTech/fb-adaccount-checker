@@ -1,5 +1,5 @@
 import * as mobx from 'mobx';
-import { AsyncStatus, Locale } from '../types';
+import { AsyncStatus, DatePreset, Locale } from '../types';
 import { DEFAULT_LOCALE } from '../constants';
 import { User, UserApi } from './entities';
 import { RootStore } from './root-store';
@@ -14,6 +14,7 @@ export class SessionStore {
   authStatus: AsyncStatus = AsyncStatus.idle;
   authError: Error | null = null;
   locale: Locale = DEFAULT_LOCALE;
+  insightsDatePreset: DatePreset = DatePreset.LIFETIME;
 
   constructor(
     private sessionCache: SessionCache,
@@ -27,6 +28,7 @@ export class SessionStore {
     });
     mobx.runInAction(() => {
       this.locale = this.sessionCache.getLocale();
+      this.insightsDatePreset = this.sessionCache.getInsightsDatePreset();
     });
     mobx.autorun(() => {
       const authUser = this.stores.userStore.get(this.authenticatedUserId);
@@ -41,6 +43,9 @@ export class SessionStore {
     mobx.autorun(() => {
       this.sessionCache.saveLocale(this.locale);
       this.apiConfig.setLocale(this.locale);
+    });
+    mobx.autorun(() => {
+      this.sessionCache.saveInsightsDatePreset(this.insightsDatePreset);
     });
   }
 
@@ -108,11 +113,17 @@ export class SessionStore {
   setLocale(locale: Locale) {
     this.locale = locale;
   }
+
+  setInsightsDatePreset(datePreset: DatePreset) {
+    this.insightsDatePreset = datePreset;
+  }
 }
 
 export interface SessionCache {
   saveLocale(locale: Locale): void;
   getLocale(): Locale;
+  saveInsightsDatePreset(datePreset: DatePreset): void;
+  getInsightsDatePreset(): DatePreset;
 }
 
 export interface ApiConfig {

@@ -119,6 +119,9 @@
   "components.CurrencyAmountField.saveButton": {
     "defaultMessage": "Save"
   },
+  "components.DatePresetSelect.ariaLabel": {
+    "defaultMessage": "Insights period"
+  },
   "components.FlashMessageView.closeAction": {
     "defaultMessage": "Close"
   },
@@ -590,6 +593,42 @@
   "insights.spend": {
     "defaultMessage": "Spend"
   },
+  "screens.AdAccountExplore.Ads.insightsLoadingFailed": {
+    "defaultMessage": "Failed to load ads insights for the selected period. Try to refresh the page."
+  },
+  "screens.AdAccountExplore.Ads.noAdsDescription": {
+    "defaultMessage": "This ad set does not have any ads. Try to select another ad set."
+  },
+  "screens.AdAccountExplore.Ads.noAdsTitle": {
+    "defaultMessage": "No ads found"
+  },
+  "screens.AdAccountExplore.Ads.searchFieldPlaceholder": {
+    "defaultMessage": "Search Ads by name"
+  },
+  "screens.AdAccountExplore.Adsets.insightsLoadingFailed": {
+    "defaultMessage": "Failed to load ad sets insights for the selected period. Try to refresh the page."
+  },
+  "screens.AdAccountExplore.Adsets.noAdsetsDescription": {
+    "defaultMessage": "This campaign does not have any ad sets. Try to select another campaign."
+  },
+  "screens.AdAccountExplore.Adsets.noAdsetsTitle": {
+    "defaultMessage": "No ad sets found"
+  },
+  "screens.AdAccountExplore.Adsets.searchFieldPlaceholder": {
+    "defaultMessage": "Search Ad Sets by name"
+  },
+  "screens.AdAccountExplore.Campaigns.insightsLoadingFailed": {
+    "defaultMessage": "Failed to load campaigns insights for the selected period. Try to refresh the page."
+  },
+  "screens.AdAccountExplore.Campaigns.noCampaignsDescription": {
+    "defaultMessage": "This ad account does not have any campaigns. Try to select another account."
+  },
+  "screens.AdAccountExplore.Campaigns.noCampaignsTitle": {
+    "defaultMessage": "No campaigns found"
+  },
+  "screens.AdAccountExplore.Campaigns.searchFieldPlaceholder": {
+    "defaultMessage": "Search Campaigns by name"
+  },
   "screens.AdAccountExplore.loadingAds": {
     "defaultMessage": "Loading Ads..."
   },
@@ -598,6 +637,9 @@
   },
   "screens.AdAccountExplore.loadingCampaigns": {
     "defaultMessage": "Loading Campaigns..."
+  },
+  "screens.AdAccountExplore.searchBarPlaceholder": {
+    "defaultMessage": "Search"
   },
   "screens.AdAccounts.loadingAdAccounts": {
     "defaultMessage": "Loading Ad Accounts..."
@@ -614,37 +656,7 @@
   "screens.AdAccounts.noAdAccountsState.title": {
     "defaultMessage": "No ad accounts found"
   },
-  "screens.Ads.noAds.description": {
-    "defaultMessage": "This ad set does not have any ads. Try to select another ad set."
-  },
-  "screens.Ads.noAds.title": {
-    "defaultMessage": "No ads found"
-  },
-  "screens.Ads.searchFieldPlaceholder": {
-    "defaultMessage": "Search Ads by name"
-  },
-  "screens.Adsets.noAdsets.description": {
-    "defaultMessage": "This campaign does not have any ad sets. Try to select another campaign."
-  },
-  "screens.Adsets.noAdsets.title": {
-    "defaultMessage": "No ad sets found"
-  },
-  "screens.Adsets.searchFieldPlaceholder": {
-    "defaultMessage": "Search Ad Sets by name"
-  },
   "screens.Authenticator.authenticating": {
     "defaultMessage": "Checking Access Token..."
-  },
-  "screens.Campaigns.Workspace.datePresetAriaLabel": {
-    "defaultMessage": "Insights period"
-  },
-  "screens.Campaigns.noCampaigns.description": {
-    "defaultMessage": "This ad account does not have any campaigns. Try to select another account."
-  },
-  "screens.Campaigns.noCampaigns.title": {
-    "defaultMessage": "No campaigns found"
-  },
-  "screens.Campaigns.searchFieldPlaceholder": {
-    "defaultMessage": "Search Campaigns by name"
   }
 }

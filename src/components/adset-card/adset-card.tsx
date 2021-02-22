@@ -16,13 +16,13 @@ import { ObjectMeta } from '../object-meta';
 export interface AdsetCardProps extends EntityCardProps {
   adAccount: AdAccount;
   adset: Adset;
-  getLinkToAds(adsetId: Adset['id']): string;
+  adsUrl: string;
 }
 
 export const AdsetCard = mobxReact.observer(function AdsetCard({
   adAccount,
   adset,
-  getLinkToAds,
+  adsUrl,
   ...props
 }: AdsetCardProps) {
   const intl = useIntl();
@@ -83,7 +83,7 @@ export const AdsetCard = mobxReact.observer(function AdsetCard({
         </EntityCard.Section>
       ) : null}
 
-      <ObjectLink href={getLinkToAds(adset.id)} onClick={onAdsLinkClick}>
+      <ObjectLink href={adsUrl} onClick={onAdsLinkClick}>
         <FormattedMessage
           tagName="span"
           id="components.AdsetCard.linkToAds"

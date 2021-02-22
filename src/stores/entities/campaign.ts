@@ -3,6 +3,7 @@ import {
   BidStrategy,
   BuyingType,
   CampaignEffectiveStatus,
+  DatePreset,
   Objective,
   OperationResult,
   Status,
@@ -21,7 +22,6 @@ export class Campaign {
   readonly objective: Objective;
   readonly buyingType: BuyingType;
   readonly bidStrategy?: BidStrategy;
-  readonly insights?: Insights;
 
   status: Status;
   isStatusUpdating: boolean = false;
@@ -31,6 +31,8 @@ export class Campaign {
   lifetimeBudget?: CurrencyAmount;
   isBudgetUpdating: boolean = false;
   budgetUpdateError: Error | null = null;
+
+  insights?: Insights;
 
   constructor(
     campaign: CampaignDTO,
@@ -46,7 +48,6 @@ export class Campaign {
       objective: false,
       buyingType: false,
       bidStrategy: false,
-      insights: false,
     });
 
     this.campaignApi = campaignApi;
@@ -69,6 +70,10 @@ export class Campaign {
     this.insights = campaign.insights
       ? new Insights(campaign.insights)
       : undefined;
+  }
+
+  setInsights(insights: CampaignDTO['insights']) {
+    this.insights = insights ? new Insights(insights) : undefined;
   }
 
   canUpdate(adAccount: AdAccount): boolean {
@@ -162,8 +167,18 @@ export interface CampaignUpdate {
 export interface CampaignApi {
   getAdAccountCampaigns(
     adAccountId: AdAccount['id'],
-    limit?: number
+    params?: {
+      insightsDatePreset?: DatePreset;
+      limit?: number;
+    }
   ): Promise<CampaignDTO[]>;
+  getAdAccountCampaignsInsights(
+    adAccountId: AdAccount['id'],
+    params: {
+      datePreset: DatePreset;
+      limit?: number;
+    }
+  ): Promise<Map<Campaign['id'], InsightsDTO>>;
   updateCampaign(
     id: Campaign['id'],
     update: CampaignUpdate['data']

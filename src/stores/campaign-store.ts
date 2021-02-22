@@ -1,32 +1,35 @@
 import * as mobx from 'mobx';
-import { AsyncStatus } from '../types';
+import { AsyncStatus, DatePreset } from '../types';
 import { AdAccount, Campaign, CampaignApi } from './entities';
+import { RootStore } from './root-store';
 
 export class CampaignStore {
   campaigns: Map<Campaign['id'], Campaign> = new Map();
-  adAccountCampaigns: Map<AdAccount['id'], Campaign['id'][]> = new Map();
-  loadStatusOfAdAccountCampaigns: Map<AdAccount['id'], AsyncStatus> = new Map();
-  loadErrorOfAdAccountCampaigns: Map<AdAccount['id'], Error | null> = new Map();
+  accountCampaignIds: Map<AdAccount['id'], Campaign['id'][]> = new Map();
+  accountCampaignsLoadStatus: Map<AdAccount['id'], AsyncStatus> = new Map();
+  accountCampaignsLoadError: Map<AdAccount['id'], Error | null> = new Map();
+  campaignsInsightsLoadStatus: Map<AdAccount['id'], AsyncStatus> = new Map();
+  campaignsInsightsLoadError: Map<AdAccount['id'], Error | null> = new Map();
 
-  constructor(private campaignApi: CampaignApi) {
+  constructor(private campaignApi: CampaignApi, private stores: RootStore) {
     mobx.makeAutoObservable(this);
   }
 
   clear(): void {
     this.campaigns.clear();
-    this.adAccountCampaigns.clear();
-    this.loadErrorOfAdAccountCampaigns.clear();
-    this.loadStatusOfAdAccountCampaigns.clear();
+    this.accountCampaignIds.clear();
+    this.accountCampaignsLoadError.clear();
+    this.accountCampaignsLoadStatus.clear();
   }
 
-  getCampaign(id: string | number | undefined | null): Campaign | undefined {
-    return id != null ? this.campaigns.get('' + id) : undefined;
+  getById(id: string | number): Campaign | undefined {
+    return this.campaigns.get('' + id);
   }
 
-  getAdAccountCampaigns(adAccount: AdAccount): Campaign[] {
-    const campaignIds = this.adAccountCampaigns.get(adAccount.id) ?? [];
+  getCampaigns(adAccount: AdAccount): Campaign[] {
+    const ids = this.accountCampaignIds.get(adAccount.id) ?? [];
     const campaigns = [];
-    for (const id of campaignIds) {
+    for (const id of ids) {
       const campaign = this.campaigns.get(id);
       if (campaign) {
         campaigns.push(campaign);
@@ -35,25 +38,37 @@ export class CampaignStore {
     return campaigns;
   }
 
-  getLoadStatusOfAdAccountCampaigns(adAccount: AdAccount): AsyncStatus {
+  getCampaignsLoadStatus(adAccount: AdAccount): AsyncStatus {
     return (
-      this.loadStatusOfAdAccountCampaigns.get(adAccount.id) ?? AsyncStatus.idle
+      this.accountCampaignsLoadStatus.get(adAccount.id) ?? AsyncStatus.idle
     );
   }
 
-  getLoadErrorOfAdAccountCampaigns(adAccount: AdAccount): Error | null {
-    return this.loadErrorOfAdAccountCampaigns.get(adAccount.id) ?? null;
+  getCampaignsLoadError(adAccount: AdAccount): Error | null {
+    return this.accountCampaignsLoadError.get(adAccount.id) ?? null;
   }
 
-  shouldLoadAdAccountCampaigns(adAccount: AdAccount): boolean {
-    const loadStatus = this.getLoadStatusOfAdAccountCampaigns(adAccount);
+  getCampaignsInsightsLoadStatus(adAccount: AdAccount): AsyncStatus {
+    return (
+      this.campaignsInsightsLoadStatus.get(adAccount.id) ?? AsyncStatus.idle
+    );
+  }
+
+  getCampaignsInsightsLoadError(adAccount: AdAccount): Error | null {
+    return this.campaignsInsightsLoadError.get(adAccount.id) ?? null;
+  }
+
+  canStartLoading(adAccount: AdAccount): boolean {
+    const loadStatus = this.getCampaignsLoadStatus(adAccount);
     return loadStatus === AsyncStatus.idle || loadStatus === AsyncStatus.error;
   }
 
-  loadAdAccountCampaigns(adAccount: AdAccount): void {
-    this.loadStatusOfAdAccountCampaigns.set(adAccount.id, AsyncStatus.pending);
+  loadCampaigns(adAccount: AdAccount): void {
+    this.accountCampaignsLoadStatus.set(adAccount.id, AsyncStatus.pending);
     this.campaignApi
-      .getAdAccountCampaigns(adAccount.id)
+      .getAdAccountCampaigns(adAccount.id, {
+        insightsDatePreset: this.stores.sessionStore.insightsDatePreset,
+      })
       .then((fetchedCampaigns) => {
         const campaigns = new Map();
         const campaignIds: Campaign['id'][] = [];
@@ -68,9 +83,9 @@ export class CampaignStore {
         }
         mobx.runInAction(() => {
           this.campaigns = new Map([...this.campaigns, ...campaigns]);
-          this.adAccountCampaigns.set(adAccount.id, campaignIds);
-          this.loadErrorOfAdAccountCampaigns.delete(adAccount.id);
-          this.loadStatusOfAdAccountCampaigns.set(
+          this.accountCampaignIds.set(adAccount.id, campaignIds);
+          this.accountCampaignsLoadError.delete(adAccount.id);
+          this.accountCampaignsLoadStatus.set(
             adAccount.id,
             AsyncStatus.success
           );
@@ -78,11 +93,37 @@ export class CampaignStore {
       })
       .catch((e) => {
         mobx.runInAction(() => {
-          this.loadErrorOfAdAccountCampaigns.set(adAccount.id, e);
-          this.loadStatusOfAdAccountCampaigns.set(
+          this.accountCampaignsLoadError.set(adAccount.id, e);
+          this.accountCampaignsLoadStatus.set(adAccount.id, AsyncStatus.error);
+        });
+      });
+  }
+
+  updateCampaignsInsights(adAccount: AdAccount, datePreset: DatePreset): void {
+    const campaigns = this.getCampaigns(adAccount);
+    if (!campaigns.length) {
+      return;
+    }
+
+    this.campaignsInsightsLoadStatus.set(adAccount.id, AsyncStatus.pending);
+    this.campaignApi
+      .getAdAccountCampaignsInsights(adAccount.id, { datePreset })
+      .then((fetchedInsights) => {
+        for (const campaign of campaigns) {
+          campaign.setInsights(fetchedInsights.get(campaign.id));
+        }
+        mobx.runInAction(() => {
+          this.campaignsInsightsLoadError.delete(adAccount.id);
+          this.campaignsInsightsLoadStatus.set(
             adAccount.id,
-            AsyncStatus.error
+            AsyncStatus.success
           );
+        });
+      })
+      .catch((e) => {
+        mobx.runInAction(() => {
+          this.campaignsInsightsLoadError.set(adAccount.id, e);
+          this.campaignsInsightsLoadStatus.set(adAccount.id, AsyncStatus.error);
         });
       });
   }

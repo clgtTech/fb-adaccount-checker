@@ -50,7 +50,7 @@ const campaign = new Campaign(
   <CampaignCard
     adAccount={adAccount}
     campaign={campaign}
-    getLinkToAdsets={(campaignId) => `/campaigns/${campaignId}`}
+    adsetsUrl={`/campaigns/${campaign.id}`}
   />
 </MemoryRouter>;
 ```

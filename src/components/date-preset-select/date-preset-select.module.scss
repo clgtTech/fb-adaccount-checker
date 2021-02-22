@@ -1,0 +1,27 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.select:disabled,
+.select[disabled] {
+  user-select: none;
+  color: transparent;
+  background-image: none;
+  -webkit-text-fill-color: transparent;
+}
+
+.spinner {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}

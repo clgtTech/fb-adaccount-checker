@@ -21,13 +21,10 @@ interface RequestConfig {
   data?: any;
 }
 
-export async function makeRequest<T = any>({
-  url,
-  method = 'get',
-  params = {},
-  options,
-  data,
-}: RequestConfig): Promise<T> {
+export async function makeRequest<T = any>(config: RequestConfig): Promise<T> {
+  const params = config.params ?? {};
+  const options = config.options ?? {};
+
   let accessToken: string | undefined;
   if (typeof options?.usePageAccessToken === 'string') {
     accessToken = facebookApiConfig.pageAccessTokens.get(
@@ -40,16 +37,16 @@ export async function makeRequest<T = any>({
   try {
     const { fields, ...otherParams } = params;
     const response: AxiosResponse<T> = await axios({
-      url: `https://graph.facebook.com/v9.0/${url.replace(/^\/*/, '')}`,
-      method: method || 'get',
+      url: `https://graph.facebook.com/v9.0/${config.url.replace(/^\/*/, '')}`,
+      method: config.method ?? 'get',
       params: {
         access_token: accessToken,
         locale: facebookApiConfig.locale,
         fields: Array.isArray(fields) ? fields.join(',') : undefined,
         ...otherParams,
       },
-      headers: options?.headers,
-      data,
+      headers: options.headers,
+      data: config.data,
     });
     return response.data;
   } catch (e) {

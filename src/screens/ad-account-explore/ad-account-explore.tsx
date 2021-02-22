@@ -1,30 +1,17 @@
 import * as React from 'react';
 import * as mobxReact from 'mobx-react-lite';
 import { FormattedMessage } from 'react-intl';
-import {
-  generatePath,
-  Route,
-  Switch,
-  useHistory,
-  useParams,
-} from 'react-router-dom';
+import { Route, Redirect, Switch, useParams } from 'react-router-dom';
 import { LoadingView } from 'draft-components';
 import { AsyncStatus } from '../../types';
-import { AdAccountExploreParams } from './route-params';
 import { AdAccount } from '../../stores/entities';
 import { ROUTES } from '../../constants';
-import {
-  adsetStore,
-  adStore,
-  campaignStore,
-  commentStore,
-  insightsStore,
-} from '../../stores';
-import { usePagePaths } from './use-page-paths';
+import { adsetStore, adStore, campaignStore, commentStore } from '../../stores';
+import { useRouteUrls, RouteParams } from './route-urls';
 import { ErrorView } from '../../components/error-view';
-import { Campaigns } from '../campaigns';
-import { Adsets } from '../adsets';
-import { Ads } from '../ads';
+import { Campaigns } from './campaigns';
+import { Adsets } from './adsets';
+import { Ads } from './ads';
 import styles from './ad-account-explore.module.scss';
 
 export interface AdAccountExploreProps {
@@ -34,68 +21,44 @@ export interface AdAccountExploreProps {
 export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
   adAccount,
 }: AdAccountExploreProps) {
-  const history = useHistory();
-  const params = useParams<AdAccountExploreParams>();
-  const activeCampaign = campaignStore.getCampaign(params.campaignId);
-  const activeAdset = adsetStore.getAdset(params.adsetId);
-  const pagePaths = usePagePaths({
-    params,
-    campaign: activeCampaign,
-    adset: activeAdset,
-  });
+  const params = useParams<RouteParams>();
+  const urls = useRouteUrls(params);
+  const selectedCampaign = params.campaignId
+    ? campaignStore.getById(params.campaignId)
+    : undefined;
+  const selectedAdset = params.adsetId
+    ? adsetStore.getById(params.adsetId)
+    : undefined;
 
-  function shouldShowLoadingView(status: AsyncStatus): boolean {
+  function isLoading(status: AsyncStatus): boolean {
     return status === AsyncStatus.idle || status === AsyncStatus.pending;
   }
 
-  function redirectToCampaigns() {
-    history.replace(
-      generatePath(ROUTES.campaigns, {
-        userId: params.userId,
-        adAccountId: params.adAccountId,
-      })
-    );
-  }
-
-  function redirectToAdsets() {
-    history.replace(
-      generatePath(ROUTES.adsets, {
-        userId: params.userId,
-        adAccountId: params.adAccountId,
-        campaignId: params.campaignId,
-      })
-    );
-  }
-
   React.useEffect(() => {
-    if (campaignStore.shouldLoadAdAccountCampaigns(adAccount)) {
-      campaignStore.loadAdAccountCampaigns(adAccount);
+    if (campaignStore.canStartLoading(adAccount)) {
+      campaignStore.loadCampaigns(adAccount);
     }
-    if (activeCampaign && adsetStore.shouldLoadCampaignAdsets(activeCampaign)) {
-      adsetStore.loadCampaignAdsets(adAccount, activeCampaign);
+    if (selectedCampaign && adsetStore.canStartLoading(adAccount)) {
+      adsetStore.loadAdsets(adAccount);
     }
-    if (activeAdset && adStore.shouldLoadAdsetAds(activeAdset)) {
-      adStore.loadAdsetAds(activeAdset);
+    if (selectedAdset && adStore.canStartLoading(adAccount)) {
+      adStore.loadAds(adAccount);
     }
-  }, [adAccount, activeCampaign, activeAdset]);
+  }, [adAccount, selectedCampaign, selectedAdset]);
+
   React.useEffect(() => {
     return () => {
       campaignStore.clear();
       adsetStore.clear();
       adStore.clear();
       commentStore.clear();
-      insightsStore.clear();
     };
   }, [adAccount]);
 
   return (
     <div className={styles.container}>
       {(function () {
-        if (
-          shouldShowLoadingView(
-            campaignStore.getLoadStatusOfAdAccountCampaigns(adAccount)
-          )
-        ) {
+        if (isLoading(campaignStore.getCampaignsLoadStatus(adAccount))) {
           return (
             <LoadingView>
               <FormattedMessage
@@ -105,10 +68,8 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
             </LoadingView>
           );
         } else if (
-          activeCampaign &&
-          shouldShowLoadingView(
-            adsetStore.getLoadStatusOfCampaignAdsets(activeCampaign)
-          )
+          selectedCampaign &&
+          isLoading(adsetStore.getAdsetsLoadStatus(adAccount))
         ) {
           return (
             <LoadingView>
@@ -119,8 +80,8 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
             </LoadingView>
           );
         } else if (
-          activeAdset &&
-          shouldShowLoadingView(adStore.getLoadStatusOfAdsetAds(activeAdset))
+          selectedAdset &&
+          isLoading(adStore.getAdsLoadStatus(adAccount))
         ) {
           return (
             <LoadingView>
@@ -133,10 +94,9 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
         }
 
         const loadError =
-          campaignStore.getLoadErrorOfAdAccountCampaigns(adAccount) ||
-          (activeCampaign &&
-            adsetStore.getLoadErrorOfCampaignAdsets(activeCampaign)) ||
-          (activeAdset && adStore.getLoadErrorOfAdsetAds(activeAdset));
+          campaignStore.getCampaignsLoadError(adAccount) ||
+          (selectedCampaign && adsetStore.getAdsetsLoadError(adAccount)) ||
+          (selectedAdset && adStore.getAdsLoadError(adAccount));
         if (loadError) {
           return <ErrorView error={loadError} />;
         }
@@ -144,45 +104,46 @@ export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
         return (
           <Switch>
             <Route
-              path={ROUTES.campaigns}
               exact={true}
-              render={() => <Campaigns adAccount={adAccount} />}
+              path={ROUTES.campaigns}
+              render={() => <Campaigns adAccount={adAccount} urls={urls} />}
             />
             <Route
-              path={ROUTES.adsets}
               exact={true}
+              path={ROUTES.adsets}
               render={() => {
-                if (activeCampaign == null) {
-                  redirectToCampaigns();
-                } else {
-                  return (
-                    <Adsets
-                      adAccount={adAccount}
-                      campaign={activeCampaign}
-                      campaignsPagePath={pagePaths.campaigns}
-                    />
-                  );
+                if (!selectedCampaign) {
+                  return <Redirect to={urls.getCampaignsUrl()} />;
                 }
+                return (
+                  <Adsets
+                    adAccount={adAccount}
+                    campaign={selectedCampaign}
+                    urls={urls}
+                  />
+                );
               }}
             />
             <Route
-              path={ROUTES.ads}
               exact={true}
+              path={ROUTES.ads}
               render={() => {
-                if (activeCampaign == null) {
-                  redirectToCampaigns();
-                } else if (activeAdset == null) {
-                  redirectToAdsets();
-                } else {
+                if (!selectedCampaign) {
+                  return <Redirect to={urls.getCampaignsUrl()} />;
+                }
+                if (!selectedAdset) {
                   return (
-                    <Ads
-                      adAccount={adAccount}
-                      campaign={activeCampaign}
-                      adset={activeAdset}
-                      adsetsPagePath={pagePaths.adsets}
-                    />
+                    <Redirect to={urls.getAdsetsUrl(selectedCampaign.id)} />
                   );
                 }
+                return (
+                  <Ads
+                    adAccount={adAccount}
+                    campaign={selectedCampaign}
+                    adset={selectedAdset}
+                    urls={urls}
+                  />
+                );
               }}
             />
           </Switch>

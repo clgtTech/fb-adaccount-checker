@@ -2,16 +2,19 @@ import { API_OBJECTS_LIMIT } from '../../../constants';
 import {
   AdsetEffectiveStatus,
   BidStrategy,
+  DatePreset,
   OperationResult,
   Status,
 } from '../../../types';
 import {
-  Campaign,
+  AdAccount,
   AdsetDTO,
   AdsetApi,
   Adset,
   AdsetUpdate,
+  InsightsDTO,
 } from '../../../stores/entities';
+import { AdAccountGraphApi } from './ad-account-graph-api';
 import { InsightsGraphApi, FacebookInsights } from './insights-graph-api';
 import { makeRequest } from '../make-request';
 import { toNumber } from '../helpers';
@@ -34,14 +37,14 @@ export type FacebookAdset = {
 };
 
 export class AdsetGraphApi implements AdsetApi {
-  async getCampaignAdsets(
-    campaignId: Campaign['id'],
-    limit: number = API_OBJECTS_LIMIT
+  async getAdAccountAdsets(
+    adAccountId: AdAccount['id'],
+    params?: { insightsDatePreset?: DatePreset; limit?: number }
   ): Promise<AdsetDTO[]> {
     const response = await makeRequest<{ data: FacebookAdset[] }>({
-      url: `/${campaignId}/adsets`,
+      url: `/${AdAccountGraphApi.getActId(adAccountId)}/adsets`,
       params: {
-        limit,
+        limit: params?.limit ?? API_OBJECTS_LIMIT,
         fields: [
           'id',
           'account_id',
@@ -53,7 +56,7 @@ export class AdsetGraphApi implements AdsetApi {
           'bid_strategy',
           'daily_budget',
           'lifetime_budget',
-          InsightsGraphApi.insightsQueryField,
+          InsightsGraphApi.getInsightsField(params?.insightsDatePreset),
         ],
       },
       options: { shouldUseUserAccessToken: true },
@@ -74,6 +77,31 @@ export class AdsetGraphApi implements AdsetApi {
         insights: InsightsGraphApi.formatFetchedInsights(adset.insights),
       };
     });
+  }
+
+  async getAdAccountAdsetsInsights(
+    adAccountId: string,
+    params: { limit?: number; datePreset: DatePreset }
+  ): Promise<Map<Adset['id'], InsightsDTO>> {
+    type ResponseItem = Pick<FacebookAdset, 'id' | 'insights'>;
+
+    const response = await makeRequest<{ data: ResponseItem[] }>({
+      url: `/${AdAccountGraphApi.getActId(adAccountId)}/adsets`,
+      options: { shouldUseUserAccessToken: true },
+      params: {
+        limit: params?.limit ?? API_OBJECTS_LIMIT,
+        fields: ['id', InsightsGraphApi.getInsightsField(params.datePreset)],
+      },
+    });
+
+    const adsetsInsights = new Map();
+    for (const item of response.data) {
+      const insightsDTO = InsightsGraphApi.formatFetchedInsights(item.insights);
+      if (insightsDTO) {
+        adsetsInsights.set(item.id, insightsDTO);
+      }
+    }
+    return adsetsInsights;
   }
 
   updateAdset(

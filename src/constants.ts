@@ -1,6 +1,7 @@
-import { Locale } from 'types';
+import { DatePreset, Locale } from 'types';
 
 export const DEFAULT_LOCALE = Locale.enUS;
+export const DEFAULT_DATE_PRESET = DatePreset.LIFETIME;
 
 export const API_OBJECTS_LIMIT = 1000;
 
@@ -8,6 +9,7 @@ export const LOCAL_STORAGE_KEYS = {
   uiState: 'fbDash.uiState',
   users: 'fbDash.users',
   locale: 'fbDash.locale',
+  insightsDatePreset: 'fbDash.insightsDatePreset',
 };
 
 export const FLASH_MESSAGE_DISMISS_TIMEOUT = 15 * 1000; // 15 seconds

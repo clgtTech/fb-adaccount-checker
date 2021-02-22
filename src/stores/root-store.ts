@@ -29,9 +29,9 @@ export class RootStore {
       this
     );
     this.adAccountStore = new AdAccountStore(facebookApi.adAccount);
-    this.campaignStore = new CampaignStore(facebookApi.campaign);
-    this.adsetStore = new AdsetStore(facebookApi.adset);
-    this.adStore = new AdStore(facebookApi.ad);
+    this.campaignStore = new CampaignStore(facebookApi.campaign, this);
+    this.adsetStore = new AdsetStore(facebookApi.adset, this);
+    this.adStore = new AdStore(facebookApi.ad, this);
     this.commentStore = new CommentStore(facebookApi.comment);
   }
 }
