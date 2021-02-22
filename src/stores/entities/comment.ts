@@ -1,5 +1,5 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus, OperationResult } from '../../types';
+import { AsyncStatus, OperationResult } from '../../types';
 
 export class CommentActor {
   id: string;
@@ -19,7 +19,7 @@ export class Comment {
   readonly createdTime: Date;
   readonly actor: CommentActor;
   isHidden: boolean;
-  updateStatus: AsyncActionStatus = AsyncActionStatus.idle;
+  updateStatus: AsyncStatus = AsyncStatus.idle;
   updateError: Error | null = null;
 
   constructor(comment: CommentDTO) {
@@ -36,7 +36,7 @@ export class Comment {
     this.actor = new CommentActor(comment.actor);
   }
 
-  setUpdateStatus(updateStatus: AsyncActionStatus) {
+  setUpdateStatus(updateStatus: AsyncStatus) {
     this.updateStatus = updateStatus;
   }
 

@@ -1,5 +1,9 @@
-import { Locale } from '../../types';
-import { LOCAL_STORAGE_KEYS, DEFAULT_LOCALE } from '../../constants';
+import { DatePreset, Locale } from '../../types';
+import {
+  LOCAL_STORAGE_KEYS,
+  DEFAULT_LOCALE,
+  DEFAULT_DATE_PRESET,
+} from '../../constants';
 import { User, UserCache } from '../../stores/entities';
 import { UiCache, UiState } from '../../stores/ui-store';
 import { SessionCache } from '../../stores/session-store';
@@ -79,14 +83,27 @@ export class LocalCache implements UiCache, UserCache, SessionCache {
 
   getLocale(): Locale {
     const savedLocale = window.localStorage.getItem(LOCAL_STORAGE_KEYS.locale);
-    const isLocaleValid = (locale: any): locale is Locale => {
-      return Object.values(Locale).includes(locale);
+    const isLocaleValid = (value: any): value is Locale => {
+      return Object.values(Locale).includes(value);
     };
+    return isLocaleValid(savedLocale) ? savedLocale : DEFAULT_LOCALE;
+  }
 
-    if (isLocaleValid(savedLocale)) {
-      return savedLocale;
-    }
-
-    return DEFAULT_LOCALE;
+  saveInsightsDatePreset(datePreset: DatePreset): void {
+    window.localStorage.setItem(
+      LOCAL_STORAGE_KEYS.insightsDatePreset,
+      datePreset
+    );
+  }
+  getInsightsDatePreset(): DatePreset {
+    const savedDatePreset = window.localStorage.getItem(
+      LOCAL_STORAGE_KEYS.insightsDatePreset
+    );
+    const isDatePresetValid = (value: any): value is DatePreset => {
+      return Object.values(DatePreset).includes(value);
+    };
+    return isDatePresetValid(savedDatePreset)
+      ? savedDatePreset
+      : DEFAULT_DATE_PRESET;
   }
 }

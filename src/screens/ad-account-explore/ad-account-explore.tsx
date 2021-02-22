@@ -1,23 +1,17 @@
 import * as React from 'react';
 import * as mobxReact from 'mobx-react-lite';
-import {
-  Switch,
-  Route,
-  useHistory,
-  useParams,
-  generatePath,
-} from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+import { Route, Redirect, Switch, useParams } from 'react-router-dom';
 import { LoadingView } from 'draft-components';
-import { AsyncActionStatus } from '../../types';
-import { AdAccountExploreParams } from './route-params';
+import { AsyncStatus } from '../../types';
 import { AdAccount } from '../../stores/entities';
 import { ROUTES } from '../../constants';
-import { campaignStore, adsetStore, adStore, commentStore } from '../../stores';
+import { adsetStore, adStore, campaignStore, commentStore } from '../../stores';
+import { useRouteUrls, RouteParams } from './route-urls';
 import { ErrorView } from '../../components/error-view';
-import { AdObjectsNav } from './ad-objects-nav';
-import { Campaigns } from '../campaigns';
-import { Adsets } from '../adsets';
-import { Ads } from '../ads';
+import { Campaigns } from './campaigns';
+import { Adsets } from './adsets';
+import { Ads } from './ads';
 import styles from './ad-account-explore.module.scss';
 
 export interface AdAccountExploreProps {
@@ -27,108 +21,134 @@ export interface AdAccountExploreProps {
 export const AdAccountExplore = mobxReact.observer(function AdAccountReview({
   adAccount,
 }: AdAccountExploreProps) {
-  const params = useParams<AdAccountExploreParams>();
-  const history = useHistory();
-  const redirectToCampaigns = () => {
-    history.replace(
-      generatePath(ROUTES.campaigns, {
-        userId: params.userId,
-        adAccountId: params.adAccountId,
-      })
-    );
-  };
-  const redirectToAdsets = () => {
-    history.replace(
-      generatePath(ROUTES.adsets, {
-        userId: params.userId,
-        adAccountId: params.adAccountId,
-        campaignId: params.campaignId,
-      })
-    );
-  };
+  const params = useParams<RouteParams>();
+  const urls = useRouteUrls(params);
+  const selectedCampaign = params.campaignId
+    ? campaignStore.getById(params.campaignId)
+    : undefined;
+  const selectedAdset = params.adsetId
+    ? adsetStore.getById(params.adsetId)
+    : undefined;
 
-  const loadStatus = [
-    campaignStore.loadStatus,
-    adsetStore.loadStatus,
-    adStore.loadStatus,
-  ];
-  const loadError =
-    campaignStore.loadError || adsetStore.loadError || adStore.loadError;
+  function isLoading(status: AsyncStatus): boolean {
+    return status === AsyncStatus.idle || status === AsyncStatus.pending;
+  }
+
   React.useEffect(() => {
-    campaignStore.loadCampaigns(adAccount);
-    adsetStore.loadAdsets(adAccount);
-    adStore.loadAdsets(adAccount);
+    if (campaignStore.canStartLoading(adAccount)) {
+      campaignStore.loadCampaigns(adAccount);
+    }
+    if (selectedCampaign && adsetStore.canStartLoading(adAccount)) {
+      adsetStore.loadAdsets(adAccount);
+    }
+    if (selectedAdset && adStore.canStartLoading(adAccount)) {
+      adStore.loadAds(adAccount);
+    }
+  }, [adAccount, selectedCampaign, selectedAdset]);
+
+  React.useEffect(() => {
     return () => {
-      campaignStore.resetLoadStatus();
-      adsetStore.resetLoadStatus();
-      adStore.resetLoadStatus();
+      campaignStore.clear();
+      adsetStore.clear();
+      adStore.clear();
       commentStore.clear();
     };
   }, [adAccount]);
 
-  if (
-    loadStatus.includes(AsyncActionStatus.idle) ||
-    loadStatus.includes(AsyncActionStatus.pending)
-  ) {
-    return <LoadingView />;
-  }
-
-  if (loadStatus.includes(AsyncActionStatus.error) && loadError) {
-    return <ErrorView error={loadError} />;
-  }
-
-  const selectedCampaign = campaignStore.get(params.campaignId);
-  const selectedAdset = adsetStore.get(params.adsetId);
-
   return (
     <div className={styles.container}>
-      <AdObjectsNav
-        className={styles.navigation}
-        params={params}
-        campaign={selectedCampaign}
-        adset={selectedAdset}
-      />
-      <div className={styles.content}>
-        <Switch>
-          <Route
-            path={ROUTES.campaigns}
-            exact={true}
-            render={() => <Campaigns adAccount={adAccount} />}
-          />
-          <Route
-            path={ROUTES.adsets}
-            exact={true}
-            render={() => {
-              if (selectedCampaign == null) {
-                redirectToCampaigns();
-              } else {
+      {(function () {
+        if (isLoading(campaignStore.getCampaignsLoadStatus(adAccount))) {
+          return (
+            <LoadingView>
+              <FormattedMessage
+                id="screens.AdAccountExplore.loadingCampaigns"
+                defaultMessage="Loading Campaigns..."
+              />
+            </LoadingView>
+          );
+        } else if (
+          selectedCampaign &&
+          isLoading(adsetStore.getAdsetsLoadStatus(adAccount))
+        ) {
+          return (
+            <LoadingView>
+              <FormattedMessage
+                id="screens.AdAccountExplore.loadingAdsets"
+                defaultMessage="Loading Ad Sets..."
+              />
+            </LoadingView>
+          );
+        } else if (
+          selectedAdset &&
+          isLoading(adStore.getAdsLoadStatus(adAccount))
+        ) {
+          return (
+            <LoadingView>
+              <FormattedMessage
+                id="screens.AdAccountExplore.loadingAds"
+                defaultMessage="Loading Ads..."
+              />
+            </LoadingView>
+          );
+        }
+
+        const loadError =
+          campaignStore.getCampaignsLoadError(adAccount) ||
+          (selectedCampaign && adsetStore.getAdsetsLoadError(adAccount)) ||
+          (selectedAdset && adStore.getAdsLoadError(adAccount));
+        if (loadError) {
+          return <ErrorView error={loadError} />;
+        }
+
+        return (
+          <Switch>
+            <Route
+              exact={true}
+              path={ROUTES.campaigns}
+              render={() => <Campaigns adAccount={adAccount} urls={urls} />}
+            />
+            <Route
+              exact={true}
+              path={ROUTES.adsets}
+              render={() => {
+                if (!selectedCampaign) {
+                  return <Redirect to={urls.getCampaignsUrl()} />;
+                }
                 return (
-                  <Adsets adAccount={adAccount} campaign={selectedCampaign} />
+                  <Adsets
+                    adAccount={adAccount}
+                    campaign={selectedCampaign}
+                    urls={urls}
+                  />
                 );
-              }
-            }}
-          />
-          <Route
-            path={ROUTES.ads}
-            exact={true}
-            render={() => {
-              if (selectedCampaign == null) {
-                redirectToCampaigns();
-              } else if (selectedAdset == null) {
-                redirectToAdsets();
-              } else {
+              }}
+            />
+            <Route
+              exact={true}
+              path={ROUTES.ads}
+              render={() => {
+                if (!selectedCampaign) {
+                  return <Redirect to={urls.getCampaignsUrl()} />;
+                }
+                if (!selectedAdset) {
+                  return (
+                    <Redirect to={urls.getAdsetsUrl(selectedCampaign.id)} />
+                  );
+                }
                 return (
                   <Ads
                     adAccount={adAccount}
                     campaign={selectedCampaign}
                     adset={selectedAdset}
+                    urls={urls}
                   />
                 );
-              }
-            }}
-          />
-        </Switch>
-      </div>
+              }}
+            />
+          </Switch>
+        );
+      })()}
     </div>
   );
 });

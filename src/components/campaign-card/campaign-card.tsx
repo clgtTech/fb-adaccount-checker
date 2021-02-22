@@ -16,13 +16,13 @@ import { Insights } from './insights';
 export interface CampaignCardProps extends EntityCardProps {
   adAccount: AdAccount;
   campaign: Campaign;
-  getLinkToAdsets(campaignId: Campaign['id']): string;
+  adsetsUrl: string;
 }
 
 export const CampaignCard = mobxReact.observer(function CampaignCard({
   adAccount,
   campaign,
-  getLinkToAdsets,
+  adsetsUrl,
   ...props
 }: CampaignCardProps) {
   const intl = useIntl();
@@ -93,10 +93,7 @@ export const CampaignCard = mobxReact.observer(function CampaignCard({
         </EntityCard.Section>
       ) : null}
 
-      <ObjectLink
-        href={getLinkToAdsets(campaign.id)}
-        onClick={onAdsetsLinkClick}
-      >
+      <ObjectLink href={adsetsUrl} onClick={onAdsetsLinkClick}>
         <FormattedMessage
           tagName="span"
           id="components.CampaignCard.linkToAdsets"

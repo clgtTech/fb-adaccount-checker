@@ -1,19 +1,7 @@
 @import '~draft-components/dist/scss/abstracts/variables';
 
 .container {
-  display: flex;
-  flex-direction: column;
+  overflow: auto;
   height: 100%;
-}
-
-.navigation {
-  flex: 0 0 auto;
-}
-
-.content {
-  overflow-y: auto;
-  flex: 1 1 100%;
-  box-sizing: border-box;
-  padding: $gap-4x;
-  -webkit-overflow-scrolling: touch;
+  width: 100%;
 }

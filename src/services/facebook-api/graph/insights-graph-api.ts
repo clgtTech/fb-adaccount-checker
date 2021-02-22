@@ -2,6 +2,7 @@ import {
   ActionAttributionWindows,
   ActionIndicator,
   ActionType,
+  DatePreset,
 } from '../../../types';
 import { InsightsDTO } from '../../../stores/entities';
 import { toNumber } from '../helpers';
@@ -48,14 +49,16 @@ export interface FacebookInsights {
 }
 
 export class InsightsGraphApi {
-  static insightsQueryField = `insights.date_preset(lifetime){${[
-    'results',
-    'cost_per_result',
-    'spend',
-    'cpc',
-    'cpm',
-    'ctr',
-  ].join(',')}}`;
+  static getInsightsField(datePreset = DatePreset.LIFETIME): string {
+    return `insights.date_preset(${datePreset}){${[
+      'results',
+      'cost_per_result',
+      'spend',
+      'cpc',
+      'cpm',
+      'ctr',
+    ].join(',')}}`;
+  }
 
   static formatFetchedInsights(
     insights: FacebookInsights | undefined

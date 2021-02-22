@@ -1,5 +1,10 @@
 import * as mobx from 'mobx';
-import { AdEffectiveStatus, OperationResult, Status } from '../../types';
+import {
+  AdEffectiveStatus,
+  DatePreset,
+  OperationResult,
+  Status,
+} from '../../types';
 import { AdAccount } from './ad-account';
 import { Insights, InsightsDTO } from './insights';
 
@@ -39,11 +44,12 @@ export class Ad {
   readonly deliveryStatus?: string;
   readonly reviewFeedback?: Record<string, string>;
   readonly creative?: AdCreative;
-  readonly insights?: Insights;
 
   status: Status;
   isStatusUpdating: boolean = false;
   statusUpdateError: Error | null = null;
+
+  insights?: Insights;
 
   constructor(ad: AdDTO, adApi: AdApi) {
     mobx.makeAutoObservable(this, {
@@ -55,7 +61,6 @@ export class Ad {
       name: false,
       deliveryStatus: false,
       reviewFeedback: false,
-      insights: false,
     });
 
     this.adApi = adApi;
@@ -71,6 +76,10 @@ export class Ad {
     this.reviewFeedback = ad.reviewFeedback;
     this.creative = ad.creative && new AdCreative(ad.creative);
     this.insights = ad.insights && new Insights(ad.insights);
+  }
+
+  setInsights(insights: AdDTO['insights']) {
+    this.insights = insights ? new Insights(insights) : undefined;
   }
 
   canUpdate(adAccount: AdAccount): boolean {
@@ -134,7 +143,11 @@ export interface AdUpdate {
 export interface AdApi {
   getAdAccountAds(
     adAccountId: AdAccount['id'],
-    limit?: number
+    params?: { insightsDatePreset?: DatePreset; limit?: number }
   ): Promise<AdDTO[]>;
+  getAdAccountAdsInsights(
+    adAccountId: AdAccount['id'],
+    params?: { datePreset: DatePreset; limit?: number }
+  ): Promise<Map<Ad['id'], InsightsDTO>>;
   updateAd(id: Ad['id'], update: AdUpdate['data']): Promise<OperationResult>;
 }

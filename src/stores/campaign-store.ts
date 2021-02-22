@@ -1,77 +1,130 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus } from '../types';
+import { AsyncStatus, DatePreset } from '../types';
 import { AdAccount, Campaign, CampaignApi } from './entities';
+import { RootStore } from './root-store';
 
 export class CampaignStore {
-  campaignsMap: Map<Campaign['id'], Campaign> = new Map();
-  loadStatus: AsyncActionStatus = AsyncActionStatus.idle;
-  loadError: Error | null = null;
+  campaigns: Map<Campaign['id'], Campaign> = new Map();
+  accountCampaignIds: Map<AdAccount['id'], Campaign['id'][]> = new Map();
+  accountCampaignsLoadStatus: Map<AdAccount['id'], AsyncStatus> = new Map();
+  accountCampaignsLoadError: Map<AdAccount['id'], Error | null> = new Map();
+  campaignsInsightsLoadStatus: Map<AdAccount['id'], AsyncStatus> = new Map();
+  campaignsInsightsLoadError: Map<AdAccount['id'], Error | null> = new Map();
 
-  constructor(private campaignApi: CampaignApi) {
+  constructor(private campaignApi: CampaignApi, private stores: RootStore) {
     mobx.makeAutoObservable(this);
   }
 
-  get isEmpty() {
-    return this.campaignsMap.size === 0;
+  clear(): void {
+    this.campaigns.clear();
+    this.accountCampaignIds.clear();
+    this.accountCampaignsLoadError.clear();
+    this.accountCampaignsLoadStatus.clear();
   }
 
-  resetLoadStatus() {
-    this.loadStatus = AsyncActionStatus.idle;
+  getById(id: string | number): Campaign | undefined {
+    return this.campaigns.get('' + id);
   }
 
-  loadCampaigns(adAccount: AdAccount) {
-    this.loadStatus = AsyncActionStatus.pending;
-    this.campaignApi
-      .getAdAccountCampaigns(adAccount.id)
-      .then((fetchedCampaigns) => {
-        const campaignsMap = new Map(
-          fetchedCampaigns.map((fetchedCampaign) => {
-            const campaign = new Campaign(
-              fetchedCampaign,
-              adAccount,
-              this.campaignApi
-            );
-            return [campaign.id, campaign];
-          })
-        );
-        mobx.runInAction(() => {
-          this.campaignsMap = campaignsMap;
-          this.loadStatus = AsyncActionStatus.success;
-          this.loadError = null;
-        });
-      })
-      .catch((e) => {
-        mobx.runInAction(() => {
-          this.campaignsMap = new Map();
-          this.loadStatus = AsyncActionStatus.error;
-          this.loadError = e;
-        });
-      });
-  }
-
-  get(campaignId: string | number | undefined | null): Campaign | undefined {
-    return campaignId != null
-      ? this.campaignsMap.get('' + campaignId)
-      : undefined;
-  }
-
-  map<T>(mapper: (campaign: Campaign, campaignId: Campaign['id']) => T): T[] {
-    const mapped: T[] = [];
-    for (const campaign of this.campaignsMap.values()) {
-      mapped.push(mapper(campaign, campaign.id));
-    }
-    return mapped;
-  }
-
-  filter(
-    filter: (campaign: Campaign, campaignId: Campaign['id']) => boolean
-  ): Campaign[] {
-    const campaigns: Campaign[] = [];
-    for (const campaign of this.campaignsMap.values()) {
-      if (filter(campaign, campaign.id)) {
+  getCampaigns(adAccount: AdAccount): Campaign[] {
+    const ids = this.accountCampaignIds.get(adAccount.id) ?? [];
+    const campaigns = [];
+    for (const id of ids) {
+      const campaign = this.campaigns.get(id);
+      if (campaign) {
         campaigns.push(campaign);
       }
     }
     return campaigns;
+  }
+
+  getCampaignsLoadStatus(adAccount: AdAccount): AsyncStatus {
+    return (
+      this.accountCampaignsLoadStatus.get(adAccount.id) ?? AsyncStatus.idle
+    );
+  }
+
+  getCampaignsLoadError(adAccount: AdAccount): Error | null {
+    return this.accountCampaignsLoadError.get(adAccount.id) ?? null;
+  }
+
+  getCampaignsInsightsLoadStatus(adAccount: AdAccount): AsyncStatus {
+    return (
+      this.campaignsInsightsLoadStatus.get(adAccount.id) ?? AsyncStatus.idle
+    );
+  }
+
+  getCampaignsInsightsLoadError(adAccount: AdAccount): Error | null {
+    return this.campaignsInsightsLoadError.get(adAccount.id) ?? null;
+  }
+
+  canStartLoading(adAccount: AdAccount): boolean {
+    const loadStatus = this.getCampaignsLoadStatus(adAccount);
+    return loadStatus === AsyncStatus.idle || loadStatus === AsyncStatus.error;
+  }
+
+  loadCampaigns(adAccount: AdAccount): void {
+    this.accountCampaignsLoadStatus.set(adAccount.id, AsyncStatus.pending);
+    this.campaignApi
+      .getAdAccountCampaigns(adAccount.id, {
+        insightsDatePreset: this.stores.sessionStore.insightsDatePreset,
+      })
+      .then((fetchedCampaigns) => {
+        const campaigns = new Map();
+        const campaignIds: Campaign['id'][] = [];
+        for (const fetchedCampaign of fetchedCampaigns) {
+          const campaign = new Campaign(
+            fetchedCampaign,
+            adAccount,
+            this.campaignApi
+          );
+          campaigns.set(campaign.id, campaign);
+          campaignIds.push(campaign.id);
+        }
+        mobx.runInAction(() => {
+          this.campaigns = new Map([...this.campaigns, ...campaigns]);
+          this.accountCampaignIds.set(adAccount.id, campaignIds);
+          this.accountCampaignsLoadError.delete(adAccount.id);
+          this.accountCampaignsLoadStatus.set(
+            adAccount.id,
+            AsyncStatus.success
+          );
+        });
+      })
+      .catch((e) => {
+        mobx.runInAction(() => {
+          this.accountCampaignsLoadError.set(adAccount.id, e);
+          this.accountCampaignsLoadStatus.set(adAccount.id, AsyncStatus.error);
+        });
+      });
+  }
+
+  updateCampaignsInsights(adAccount: AdAccount, datePreset: DatePreset): void {
+    const campaigns = this.getCampaigns(adAccount);
+    if (!campaigns.length) {
+      return;
+    }
+
+    this.campaignsInsightsLoadStatus.set(adAccount.id, AsyncStatus.pending);
+    this.campaignApi
+      .getAdAccountCampaignsInsights(adAccount.id, { datePreset })
+      .then((fetchedInsights) => {
+        for (const campaign of campaigns) {
+          campaign.setInsights(fetchedInsights.get(campaign.id));
+        }
+        mobx.runInAction(() => {
+          this.campaignsInsightsLoadError.delete(adAccount.id);
+          this.campaignsInsightsLoadStatus.set(
+            adAccount.id,
+            AsyncStatus.success
+          );
+        });
+      })
+      .catch((e) => {
+        mobx.runInAction(() => {
+          this.campaignsInsightsLoadError.set(adAccount.id, e);
+          this.campaignsInsightsLoadStatus.set(adAccount.id, AsyncStatus.error);
+        });
+      });
   }
 }

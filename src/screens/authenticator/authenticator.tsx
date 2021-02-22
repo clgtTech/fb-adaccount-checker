@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { LoadingView } from 'draft-components';
-import { AsyncActionStatus } from '../../types';
+import { AsyncStatus } from '../../types';
 import { ROUTES } from '../../constants';
 import { sessionStore, userStore } from '../../stores';
 import { useBorderedHeader } from '../../components/header';
@@ -29,23 +29,20 @@ export function Authenticator({ children }: AuthenticatorProps) {
   }, [params.userId, history]);
 
   if (
-    sessionStore.authStatus === AsyncActionStatus.idle ||
-    sessionStore.authStatus === AsyncActionStatus.pending
+    sessionStore.authStatus === AsyncStatus.idle ||
+    sessionStore.authStatus === AsyncStatus.pending
   ) {
     return (
       <LoadingView>
         <FormattedMessage
           id="screens.Authenticator.authenticating"
-          defaultMessage="Access Token checking..."
+          defaultMessage="Checking Access Token..."
         />
       </LoadingView>
     );
   }
 
-  if (
-    sessionStore.authStatus === AsyncActionStatus.error &&
-    sessionStore.authError
-  ) {
+  if (sessionStore.authStatus === AsyncStatus.error && sessionStore.authError) {
     return <ErrorView error={sessionStore.authError} />;
   }
 

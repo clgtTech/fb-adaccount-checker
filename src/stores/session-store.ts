@@ -1,5 +1,5 @@
 import * as mobx from 'mobx';
-import { AsyncActionStatus, Locale } from '../types';
+import { AsyncStatus, DatePreset, Locale } from '../types';
 import { DEFAULT_LOCALE } from '../constants';
 import { User, UserApi } from './entities';
 import { RootStore } from './root-store';
@@ -11,9 +11,10 @@ export class SessionStore {
 
   accessToken: string = '';
   authenticatedUserId: string = '';
-  authStatus: AsyncActionStatus = AsyncActionStatus.idle;
+  authStatus: AsyncStatus = AsyncStatus.idle;
   authError: Error | null = null;
   locale: Locale = DEFAULT_LOCALE;
+  insightsDatePreset: DatePreset = DatePreset.LIFETIME;
 
   constructor(
     private sessionCache: SessionCache,
@@ -27,6 +28,7 @@ export class SessionStore {
     });
     mobx.runInAction(() => {
       this.locale = this.sessionCache.getLocale();
+      this.insightsDatePreset = this.sessionCache.getInsightsDatePreset();
     });
     mobx.autorun(() => {
       const authUser = this.stores.userStore.get(this.authenticatedUserId);
@@ -41,6 +43,9 @@ export class SessionStore {
     mobx.autorun(() => {
       this.sessionCache.saveLocale(this.locale);
       this.apiConfig.setLocale(this.locale);
+    });
+    mobx.autorun(() => {
+      this.sessionCache.saveInsightsDatePreset(this.insightsDatePreset);
     });
   }
 
@@ -75,21 +80,21 @@ export class SessionStore {
     const authUserId = this.authenticatedUserId;
     this.accessToken = '';
     this.authenticatedUserId = '';
-    this.authStatus = AsyncActionStatus.idle;
+    this.authStatus = AsyncStatus.idle;
     this.authError = null;
     this._eventListeners.authReset.forEach((listener) => listener(authUserId));
   }
 
   authenticate(accessToken: string) {
     this.accessToken = accessToken;
-    this.authStatus = AsyncActionStatus.pending;
+    this.authStatus = AsyncStatus.pending;
     this.userApi
       .getUserRelatedToAccessToken(accessToken)
       .then((userDTO) => {
         mobx.runInAction(() => {
           const user = this.stores.userStore.addUser(userDTO);
           this.authenticatedUserId = user.id;
-          this.authStatus = AsyncActionStatus.success;
+          this.authStatus = AsyncStatus.success;
           this.authError = null;
           this._eventListeners.authenticate.forEach((onAuthenticate) =>
             onAuthenticate(user)
@@ -99,7 +104,7 @@ export class SessionStore {
       .catch((e) => {
         mobx.runInAction(() => {
           this.authenticatedUserId = '';
-          this.authStatus = AsyncActionStatus.error;
+          this.authStatus = AsyncStatus.error;
           this.authError = e;
         });
       });
@@ -108,11 +113,17 @@ export class SessionStore {
   setLocale(locale: Locale) {
     this.locale = locale;
   }
+
+  setInsightsDatePreset(datePreset: DatePreset) {
+    this.insightsDatePreset = datePreset;
+  }
 }
 
 export interface SessionCache {
   saveLocale(locale: Locale): void;
   getLocale(): Locale;
+  saveInsightsDatePreset(datePreset: DatePreset): void;
+  getInsightsDatePreset(): DatePreset;
 }
 
 export interface ApiConfig {

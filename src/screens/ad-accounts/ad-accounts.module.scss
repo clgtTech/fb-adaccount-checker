@@ -12,5 +12,6 @@
 
 .content {
   flex: 1 1 100%;
+  overflow: auto;
   background: var(--secondary-bg-color);
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as mobxReact from 'mobx-react-lite';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Checkbox, LoadingView } from 'draft-components';
-import { AsyncActionStatus, CommentFilter as Filter } from '../../types';
+import { AsyncStatus, CommentFilter as Filter } from '../../types';
 import { Ad, Comment, CommentUpdate } from '../../stores/entities';
 import { commentStore, uiStore } from '../../stores';
 import { ErrorView } from '../error-view';
@@ -66,15 +66,15 @@ export const CommentList = mobxReact.observer(function CommentList({
   React.useEffect(() => {
     const loadStatus = commentStore.getLoadStatusOfCommentsOnAd(ad);
     if (
-      loadStatus === AsyncActionStatus.idle ||
-      loadStatus === AsyncActionStatus.error
+      loadStatus === AsyncStatus.idle ||
+      loadStatus === AsyncStatus.error
     ) {
       commentStore.loadCommentsOnAd(ad);
     }
   }, [ad]);
 
   React.useEffect(() => {
-    if (updateStatus === AsyncActionStatus.error && updateError) {
+    if (updateStatus === AsyncStatus.error && updateError) {
       console.error(updateError);
       uiStore.showFlashMessage({
         type: 'error',
@@ -87,20 +87,20 @@ export const CommentList = mobxReact.observer(function CommentList({
   }, [intl, updateStatus, updateError]);
 
   if (
-    loadStatus === AsyncActionStatus.idle ||
-    loadStatus === AsyncActionStatus.pending
+    loadStatus === AsyncStatus.idle ||
+    loadStatus === AsyncStatus.pending
   ) {
     return (
       <LoadingView padY="md">
         <FormattedMessage
-          id="components.CommentList.loadAdComments"
+          id="components.CommentList.loadingAdComments"
           defaultMessage="Loading comments..."
         />
       </LoadingView>
     );
   }
 
-  if (loadStatus === AsyncActionStatus.error && loadError) {
+  if (loadStatus === AsyncStatus.error && loadError) {
     return <ErrorView padY="md" error={loadError} />;
   }
 
@@ -128,7 +128,7 @@ export const CommentList = mobxReact.observer(function CommentList({
           ) : null}
           {selectedCommentCount ? (
             <CommentControls
-              isDisabled={updateStatus === AsyncActionStatus.pending}
+              isDisabled={updateStatus === AsyncStatus.pending}
               onShowButtonClick={() => updateComments({ isHidden: false })}
               onHideButtonClick={() => updateComments({ isHidden: true })}
             />

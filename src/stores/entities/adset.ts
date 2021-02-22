@@ -2,6 +2,7 @@ import * as mobx from 'mobx';
 import {
   AdsetEffectiveStatus,
   BidStrategy,
+  DatePreset,
   OperationResult,
   Status,
 } from '../../types';
@@ -20,7 +21,6 @@ export class Adset {
   readonly name: string;
   readonly adCount: number;
   readonly bidStrategy?: BidStrategy;
-  readonly insights?: Insights;
 
   status: Status;
   isStatusUpdating: boolean = false;
@@ -31,6 +31,8 @@ export class Adset {
   isBudgetUpdating: boolean = false;
   budgetUpdateError: Error | null = null;
 
+  insights?: Insights;
+
   constructor(adset: AdsetDTO, adAccount: AdAccount, adsetApi: AdsetApi) {
     mobx.makeAutoObservable(this, {
       id: false,
@@ -40,7 +42,6 @@ export class Adset {
       name: false,
       adCount: false,
       bidStrategy: false,
-      insights: false,
     });
 
     this.adsetApi = adsetApi;
@@ -60,6 +61,10 @@ export class Adset {
       ? new CurrencyAmount(adset.lifetimeBudget, adAccount.currency)
       : undefined;
     this.insights = adset.insights ? new Insights(adset.insights) : undefined;
+  }
+
+  setInsights(insights: AdsetDTO['insights']) {
+    this.insights = insights ? new Insights(insights) : undefined;
   }
 
   canUpdate(adAccount: AdAccount): boolean {
@@ -147,8 +152,12 @@ export interface AdsetUpdate {
 export interface AdsetApi {
   getAdAccountAdsets(
     adAccountId: AdAccount['id'],
-    limit?: number
+    params?: { insightsDatePreset?: DatePreset; limit?: number }
   ): Promise<AdsetDTO[]>;
+  getAdAccountAdsetsInsights(
+    adAccountId: AdAccount['id'],
+    params?: { datePreset: DatePreset; limit?: number }
+  ): Promise<Map<Adset['id'], InsightsDTO>>;
   updateAdset(
     id: Adset['id'],
     update: AdsetUpdate['data']

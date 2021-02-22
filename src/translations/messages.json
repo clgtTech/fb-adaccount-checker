@@ -83,7 +83,7 @@
   "components.CommentList.batchUpdateError": {
     "defaultMessage": "An unknown error occurred during comments updating. Try to refresh the page and retry the operation."
   },
-  "components.CommentList.loadAdComments": {
+  "components.CommentList.loadingAdComments": {
     "defaultMessage": "Loading comments..."
   },
   "components.CommentList.noComments": {
@@ -118,6 +118,9 @@
   },
   "components.CurrencyAmountField.saveButton": {
     "defaultMessage": "Save"
+  },
+  "components.DatePresetSelect.ariaLabel": {
+    "defaultMessage": "Insights period"
   },
   "components.FlashMessageView.closeAction": {
     "defaultMessage": "Close"
@@ -416,6 +419,63 @@
   "enums.CommentFilter.VISIBLE": {
     "defaultMessage": "Visible"
   },
+  "enums.DatePreset.LAST_14D": {
+    "defaultMessage": "Last 14 days"
+  },
+  "enums.DatePreset.LAST_28D": {
+    "defaultMessage": "Last 28 days"
+  },
+  "enums.DatePreset.LAST_30D": {
+    "defaultMessage": "Last 30 days"
+  },
+  "enums.DatePreset.LAST_3D": {
+    "defaultMessage": "Last 3 days"
+  },
+  "enums.DatePreset.LAST_7D": {
+    "defaultMessage": "Last 7 days"
+  },
+  "enums.DatePreset.LAST_90D": {
+    "defaultMessage": "Last 90 days"
+  },
+  "enums.DatePreset.LAST_MONTH": {
+    "defaultMessage": "Last month"
+  },
+  "enums.DatePreset.LAST_QUARTER": {
+    "defaultMessage": "Last quarter"
+  },
+  "enums.DatePreset.LAST_WEEK_MON_SUN": {
+    "defaultMessage": "Last week"
+  },
+  "enums.DatePreset.LAST_WEEK_SUN_SAT": {
+    "defaultMessage": "Last week"
+  },
+  "enums.DatePreset.LAST_YEAR": {
+    "defaultMessage": "Last year"
+  },
+  "enums.DatePreset.LIFETIME": {
+    "defaultMessage": "Lifetime"
+  },
+  "enums.DatePreset.THIS_MONTH": {
+    "defaultMessage": "This month"
+  },
+  "enums.DatePreset.THIS_QUARTER": {
+    "defaultMessage": "This quarter"
+  },
+  "enums.DatePreset.THIS_WEEK_MON_TODAY": {
+    "defaultMessage": "This week"
+  },
+  "enums.DatePreset.THIS_WEEK_SUN_TODAY": {
+    "defaultMessage": "This week"
+  },
+  "enums.DatePreset.THIS_YEAR": {
+    "defaultMessage": "This year"
+  },
+  "enums.DatePreset.TODAY": {
+    "defaultMessage": "Today"
+  },
+  "enums.DatePreset.YESTERDAY": {
+    "defaultMessage": "Yesterday"
+  },
   "enums.Objective.APP_INSTALLS": {
     "defaultMessage": "App installs"
   },
@@ -533,8 +593,56 @@
   "insights.spend": {
     "defaultMessage": "Spend"
   },
-  "screens.AdAccounts.adAccountsLoading": {
-    "defaultMessage": "Ad Accounts loading..."
+  "screens.AdAccountExplore.Ads.insightsLoadingFailed": {
+    "defaultMessage": "Failed to load ads insights for the selected period. Try to refresh the page."
+  },
+  "screens.AdAccountExplore.Ads.noAdsDescription": {
+    "defaultMessage": "This ad set does not have any ads. Try to select another ad set."
+  },
+  "screens.AdAccountExplore.Ads.noAdsTitle": {
+    "defaultMessage": "No ads found"
+  },
+  "screens.AdAccountExplore.Ads.searchFieldPlaceholder": {
+    "defaultMessage": "Search Ads by name"
+  },
+  "screens.AdAccountExplore.Adsets.insightsLoadingFailed": {
+    "defaultMessage": "Failed to load ad sets insights for the selected period. Try to refresh the page."
+  },
+  "screens.AdAccountExplore.Adsets.noAdsetsDescription": {
+    "defaultMessage": "This campaign does not have any ad sets. Try to select another campaign."
+  },
+  "screens.AdAccountExplore.Adsets.noAdsetsTitle": {
+    "defaultMessage": "No ad sets found"
+  },
+  "screens.AdAccountExplore.Adsets.searchFieldPlaceholder": {
+    "defaultMessage": "Search Ad Sets by name"
+  },
+  "screens.AdAccountExplore.Campaigns.insightsLoadingFailed": {
+    "defaultMessage": "Failed to load campaigns insights for the selected period. Try to refresh the page."
+  },
+  "screens.AdAccountExplore.Campaigns.noCampaignsDescription": {
+    "defaultMessage": "This ad account does not have any campaigns. Try to select another account."
+  },
+  "screens.AdAccountExplore.Campaigns.noCampaignsTitle": {
+    "defaultMessage": "No campaigns found"
+  },
+  "screens.AdAccountExplore.Campaigns.searchFieldPlaceholder": {
+    "defaultMessage": "Search Campaigns by name"
+  },
+  "screens.AdAccountExplore.loadingAds": {
+    "defaultMessage": "Loading Ads..."
+  },
+  "screens.AdAccountExplore.loadingAdsets": {
+    "defaultMessage": "Loading Ad Sets..."
+  },
+  "screens.AdAccountExplore.loadingCampaigns": {
+    "defaultMessage": "Loading Campaigns..."
+  },
+  "screens.AdAccountExplore.searchBarPlaceholder": {
+    "defaultMessage": "Search"
+  },
+  "screens.AdAccounts.loadingAdAccounts": {
+    "defaultMessage": "Loading Ad Accounts..."
   },
   "screens.AdAccounts.noAdAccountState.description": {
     "defaultMessage": "← Select the ad account to see his ad campaigns."
@@ -548,25 +656,7 @@
   "screens.AdAccounts.noAdAccountsState.title": {
     "defaultMessage": "No ad accounts found"
   },
-  "screens.Ads.noAds.description": {
-    "defaultMessage": "This ad set does not have any ads. Try to select another ad set."
-  },
-  "screens.Ads.noAds.title": {
-    "defaultMessage": "No ads found"
-  },
-  "screens.Adsets.noAdsets.description": {
-    "defaultMessage": "This campaign does not have any ad sets. Try to select another campaign."
-  },
-  "screens.Adsets.noAdsets.title": {
-    "defaultMessage": "No ad sets found"
-  },
   "screens.Authenticator.authenticating": {
-    "defaultMessage": "Access Token checking..."
-  },
-  "screens.Campaigns.noCampaigns.description": {
-    "defaultMessage": "This ad account does not have any campaigns. Try to select another account."
-  },
-  "screens.Campaigns.noCampaigns.title": {
-    "defaultMessage": "No campaigns found"
+    "defaultMessage": "Checking Access Token..."
   }
 }

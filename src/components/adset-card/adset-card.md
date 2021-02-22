@@ -46,10 +46,6 @@ const adset = new Adset(
 );
 
 <MemoryRouter>
-  <AdsetCard
-    adAccount={adAccount}
-    adset={adset}
-    getLinkToAds={(adsetId) => `/ads/${adsetId}`}
-  />
+  <AdsetCard adAccount={adAccount} adset={adset} adsUrl={`/ads/${adset.id}`} />
 </MemoryRouter>;
 ```

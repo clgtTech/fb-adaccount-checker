@@ -1,14 +1,20 @@
 import { API_OBJECTS_LIMIT } from '../../../constants';
-import { AdEffectiveStatus, OperationResult, Status } from '../../../types';
 import {
-  Ad,
+  AdEffectiveStatus,
+  DatePreset,
+  OperationResult,
+  Status,
+} from '../../../types';
+import {
   AdAccount,
+  Ad,
   AdApi,
   AdDTO,
   AdUpdate,
+  InsightsDTO,
 } from '../../../stores/entities';
-import { AdAccountGraphApi } from './ad-account-graph-api';
 import { InsightsGraphApi, FacebookInsights } from './insights-graph-api';
+import { AdAccountGraphApi } from './ad-account-graph-api';
 import { makeRequest } from '../make-request';
 
 /**
@@ -41,12 +47,12 @@ export type FacebookAd = {
 export class AdGraphApi implements AdApi {
   async getAdAccountAds(
     adAccountId: AdAccount['id'],
-    limit: number = API_OBJECTS_LIMIT
+    params: { insightsDatePreset?: DatePreset; limit?: number }
   ): Promise<AdDTO[]> {
     const response = await makeRequest<{ data: FacebookAd[] }>({
       url: `/${AdAccountGraphApi.getActId(adAccountId)}/ads`,
       params: {
-        limit,
+        limit: params.limit ?? API_OBJECTS_LIMIT,
         fields: [
           'id',
           'account_id',
@@ -64,7 +70,7 @@ export class AdGraphApi implements AdApi {
             'thumbnail_url',
             'effective_object_story_id',
           ].join(',')}}`,
-          InsightsGraphApi.insightsQueryField,
+          InsightsGraphApi.getInsightsField(params.insightsDatePreset),
         ],
       },
       options: { shouldUseUserAccessToken: true },
@@ -92,6 +98,31 @@ export class AdGraphApi implements AdApi {
         insights: InsightsGraphApi.formatFetchedInsights(ad.insights),
       };
     });
+  }
+
+  async getAdAccountAdsInsights(
+    adAccountId: string,
+    params: { datePreset: DatePreset; limit?: number }
+  ): Promise<Map<Ad['id'], InsightsDTO>> {
+    type ResponseItem = Pick<FacebookAd, 'id' | 'insights'>;
+
+    const response = await makeRequest<{ data: ResponseItem[] }>({
+      url: `/${AdAccountGraphApi.getActId(adAccountId)}/ads`,
+      options: { shouldUseUserAccessToken: true },
+      params: {
+        limit: params?.limit ?? API_OBJECTS_LIMIT,
+        fields: ['id', InsightsGraphApi.getInsightsField(params.datePreset)],
+      },
+    });
+
+    const adsInsights = new Map();
+    for (const item of response.data) {
+      const insightsDTO = InsightsGraphApi.formatFetchedInsights(item.insights);
+      if (insightsDTO) {
+        adsInsights.set(item.id, insightsDTO);
+      }
+    }
+    return adsInsights;
   }
 
   updateAd(id: Ad['id'], update: AdUpdate['data']): Promise<OperationResult> {
