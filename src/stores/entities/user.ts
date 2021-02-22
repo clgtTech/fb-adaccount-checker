@@ -1,4 +1,5 @@
 import * as mobx from 'mobx';
+import parseJSON from 'date-fns/parseJSON';
 import { Task } from '../../types';
 import { Ad } from './ad';
 
@@ -30,7 +31,7 @@ export class User {
     this.id = '' + user.id;
     this.accessToken = user.accessToken;
     this.name = user.name;
-    this.addedAt = new Date(user.addedAt);
+    this.addedAt = parseJSON(user.addedAt);
     this.pictureUrl = user.pictureUrl ?? undefined;
     this.customName = user.customName ?? undefined;
     this.pages = new Map(

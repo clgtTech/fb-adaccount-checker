@@ -1,4 +1,5 @@
 import * as mobx from 'mobx';
+import parseJSON from 'date-fns/parseJSON';
 import { AsyncStatus, OperationResult } from '../../types';
 
 export class CommentActor {
@@ -31,7 +32,7 @@ export class Comment {
     });
     this.id = '' + comment.id;
     this.message = comment.message;
-    this.createdTime = new Date(comment.createdTime);
+    this.createdTime = parseJSON(comment.createdTime);
     this.isHidden = comment.isHidden;
     this.actor = new CommentActor(comment.actor);
   }

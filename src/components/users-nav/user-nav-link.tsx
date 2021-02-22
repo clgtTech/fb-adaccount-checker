@@ -50,7 +50,7 @@ export function UserNavLink({
             <p className={styles.name}>{userPresenter.name}</p>
             <time
               className={styles.addedAt}
-              dateTime={user.addedAt.toISOString()}
+              dateTime={userPresenter.addedAtISO}
             >
               {userPresenter.addedAt}
             </time>

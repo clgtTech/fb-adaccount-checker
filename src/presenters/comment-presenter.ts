@@ -1,3 +1,4 @@
+import formatISO from 'date-fns/formatISO';
 import { Comment, CommentActor } from '../stores/entities';
 import { UserPresenter } from './user-presenter';
 import { Formatters } from '../services/intl';
@@ -27,7 +28,7 @@ export class CommentPresenter {
     this.id = comment.id;
     this.message = comment.message;
     this.createdTime = Formatters.formatRelativeDatetime(comment.createdTime);
-    this.createdTimeISO = comment.createdTime.toISOString();
+    this.createdTimeISO = formatISO(comment.createdTime);
     this.actor = new CommentActorPresenter(comment.actor);
   }
 }

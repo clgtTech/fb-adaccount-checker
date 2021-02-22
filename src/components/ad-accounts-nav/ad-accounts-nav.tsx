@@ -1,4 +1,5 @@
 import * as React from 'react';
+import formatISO from 'date-fns/formatISO';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { classNames, SearchField } from 'draft-components';
 import { AdAccount } from '../../stores/entities';
@@ -75,8 +76,7 @@ export function AdAccountsNav({
 }
 
 function getCsvFileName(): string {
-  const [ISODate] = new Date().toISOString().split(/[T ]/);
-  return `ad-accounts-${ISODate}.csv`;
+  return `ad-accounts-${formatISO(new Date(), { representation: 'date' })}.csv`;
 }
 
 function getCsvObjectUrl(adAccounts: AdAccount[]): string {
