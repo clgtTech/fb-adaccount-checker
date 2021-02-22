@@ -27,7 +27,7 @@ export class CommentPresenter {
   constructor(comment: Comment) {
     this.id = comment.id;
     this.message = comment.message;
-    this.createdTime = Formatters.formatRelativeDatetime(comment.createdTime);
+    this.createdTime = Formatters.formatDateTime(comment.createdTime);
     this.createdTimeISO = formatISO(comment.createdTime);
     this.actor = new CommentActorPresenter(comment.actor);
   }
