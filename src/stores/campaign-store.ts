@@ -18,8 +18,10 @@ export class CampaignStore {
   clear(): void {
     this.campaigns.clear();
     this.accountCampaignIds.clear();
-    this.accountCampaignsLoadError.clear();
     this.accountCampaignsLoadStatus.clear();
+    this.accountCampaignsLoadError.clear();
+    this.campaignsInsightsLoadStatus.clear();
+    this.campaignsInsightsLoadError.clear();
   }
 
   getById(id: string | number): Campaign | undefined {

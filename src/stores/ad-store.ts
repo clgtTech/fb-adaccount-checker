@@ -18,8 +18,10 @@ export class AdStore {
   clear() {
     this.ads.clear();
     this.accountAdIds.clear();
+    this.accountAdsLoadStatus.clear();
     this.accountAdsLoadError.clear();
-    this.accountAdsLoadError.clear();
+    this.adsInsightsLoadStatus.clear();
+    this.adsInsightsLoadError.clear();
   }
 
   getById(id: string | number | undefined | null): Ad | undefined {

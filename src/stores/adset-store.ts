@@ -18,8 +18,10 @@ export class AdsetStore {
   clear(): void {
     this.adsets.clear();
     this.accountAdsetIds.clear();
-    this.accountAdsetsLoadError.clear();
     this.accountAdsetsLoadStatus.clear();
+    this.accountAdsetsLoadError.clear();
+    this.adsetsInsightsLoadStatus.clear();
+    this.adsetsInsightsLoadError.clear();
   }
 
   getById(id: string | number): Adset | undefined {
