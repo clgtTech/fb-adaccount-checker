@@ -23,7 +23,10 @@ export class UserPresenter {
     return name
       .split(/ +/)
       .slice(0, 2)
-      .map((word) => word[0].toUpperCase())
+      .map((word) => {
+        const firstChar = word?.[0];
+        return firstChar ? firstChar.toUpperCase() : '';
+      })
       .join('');
   }
 }
