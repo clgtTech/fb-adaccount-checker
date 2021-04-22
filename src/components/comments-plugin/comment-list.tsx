@@ -65,10 +65,7 @@ export const CommentList = mobxReact.observer(function CommentList({
 
   React.useEffect(() => {
     const loadStatus = commentStore.getLoadStatusOfCommentsOnAd(ad);
-    if (
-      loadStatus === AsyncStatus.idle ||
-      loadStatus === AsyncStatus.error
-    ) {
+    if (loadStatus === AsyncStatus.idle || loadStatus === AsyncStatus.error) {
       commentStore.loadCommentsOnAd(ad);
     }
   }, [ad]);
@@ -86,10 +83,7 @@ export const CommentList = mobxReact.observer(function CommentList({
     }
   }, [intl, updateStatus, updateError]);
 
-  if (
-    loadStatus === AsyncStatus.idle ||
-    loadStatus === AsyncStatus.pending
-  ) {
+  if (loadStatus === AsyncStatus.idle || loadStatus === AsyncStatus.pending) {
     return (
       <LoadingView padY="md">
         <FormattedMessage
@@ -101,7 +95,7 @@ export const CommentList = mobxReact.observer(function CommentList({
   }
 
   if (loadStatus === AsyncStatus.error && loadError) {
-    return <ErrorView padY="md" error={loadError} />;
+    return <ErrorView spacing="md" error={loadError} />;
   }
 
   return (

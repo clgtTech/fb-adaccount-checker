@@ -2,19 +2,18 @@ import * as React from 'react';
 import {
   classNames,
   NonIdealStateView,
-  NonIdealStateViewHtmlAttrs,
   NonIdealStateViewProps,
 } from 'draft-components';
 import { createErrorPresenter } from '../../presenters/error-presenter';
 import styles from './error-view.module.scss';
 
-export interface ErrorViewProps extends NonIdealStateViewHtmlAttrs {
-  padY?: NonIdealStateViewProps['padY'];
+export interface ErrorViewProps extends React.ComponentPropsWithoutRef<'div'> {
+  spacing?: NonIdealStateViewProps['spacing'];
   error: Error;
 }
 
 export function ErrorView({
-  padY,
+  spacing,
   error,
   className,
   ...props
@@ -25,9 +24,9 @@ export function ErrorView({
     <NonIdealStateView
       {...props}
       className={classNames(className, styles.wrapper)}
-      padY={padY}
+      spacing={spacing}
       icon="error"
-      title={errorPresenter.userTitle}
+      heading={errorPresenter.userTitle}
       description={errorPresenter.userMessage}
     />
   );

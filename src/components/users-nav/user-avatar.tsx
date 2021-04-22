@@ -29,7 +29,7 @@ export function UserAvatar({ userPresenter, ...props }: UserAvatarProps) {
     <Avatar
       {...props}
       size="lg"
-      color={getAvatarColor(userPresenter.id)}
+      fillColor={getAvatarFillColor(userPresenter.id)}
       src={isPictureUrlValid ? pictureUrl : undefined}
       altText={userPresenter.name}
       initials={userPresenter.initials}
@@ -37,7 +37,9 @@ export function UserAvatar({ userPresenter, ...props }: UserAvatarProps) {
   );
 }
 
-function getAvatarColor(userId: UserPresenter['id']): AvatarProps['color'] {
+function getAvatarFillColor(
+  userId: UserPresenter['id']
+): AvatarProps['fillColor'] {
   if (userId.endsWith('1')) {
     return 'blue';
   }

@@ -50,7 +50,7 @@ export const Adsets = mobxReact.observer(function Adsets({
           return (
             <NonIdealStateView
               icon={<SvgIcon size="4x" icon={Icons.stack} />}
-              title={intl.formatMessage({
+              heading={intl.formatMessage({
                 id: 'screens.AdAccountExplore.Adsets.noAdsetsTitle',
                 defaultMessage: `No ad sets found`,
               })}

@@ -18,7 +18,7 @@
     "@types/react-transition-group": "4.4.1",
     "axios": "0.21.1",
     "date-fns": "2.17.0",
-    "draft-components": "0.27.1",
+    "draft-components": "0.29.0",
     "mobx": "6.1.7",
     "mobx-react-lite": "3.2.0",
     "react": "17.0.1",

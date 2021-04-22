@@ -48,7 +48,7 @@ export const AdAccounts = mobxReact.observer(function AdAccounts() {
   ) {
     return (
       <NonIdealStateView
-        title={intl.formatMessage({
+        heading={intl.formatMessage({
           id: 'screens.AdAccounts.noAdAccountsState.title',
           defaultMessage: `No ad accounts found`,
         })}
@@ -75,7 +75,7 @@ export const AdAccounts = mobxReact.observer(function AdAccounts() {
             render={() => {
               return (
                 <NonIdealStateView
-                  title={intl.formatMessage({
+                  heading={intl.formatMessage({
                     id: 'screens.AdAccounts.noAdAccountState.title',
                     defaultMessage: `No ad account select`,
                   })}
