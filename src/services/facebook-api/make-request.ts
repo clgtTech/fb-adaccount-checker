@@ -4,7 +4,7 @@ import { facebookApiConfig } from './facebook-api-config';
 
 interface RequestParams {
   [param: string]: boolean | string | number | (string | number)[] | undefined;
-  fields?: string[];
+  fields?: string[] | string;
 }
 
 interface RequestOptions {
@@ -42,7 +42,7 @@ export async function makeRequest<T = any>(config: RequestConfig): Promise<T> {
       params: {
         access_token: accessToken,
         locale: facebookApiConfig.locale,
-        fields: Array.isArray(fields) ? fields.join(',') : undefined,
+        fields: Array.isArray(fields) ? fields.join(',') : fields,
         ...otherParams,
       },
       headers: options.headers,

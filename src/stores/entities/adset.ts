@@ -10,6 +10,7 @@ import { CurrencyAmount } from './currency-amount';
 import { AdAccount } from './ad-account';
 import { BudgetUpdate } from './campaign';
 import { Insights, InsightsDTO } from './insights';
+import { DeliveryStatus, DeliveryStatusDTO } from './delivery-status';
 
 export class Adset {
   private adsetApi: AdsetApi;
@@ -17,6 +18,7 @@ export class Adset {
   readonly id: string;
   readonly adAccountId: string;
   readonly campaignId: string;
+  readonly deliveryStatus?: DeliveryStatus;
   readonly effectiveStatus: AdsetEffectiveStatus;
   readonly name: string;
   readonly adCount: number;
@@ -33,7 +35,7 @@ export class Adset {
 
   insights?: Insights;
 
-  constructor(adset: AdsetDTO, adAccount: AdAccount, adsetApi: AdsetApi) {
+  constructor(adsetDTO: AdsetDTO, adAccount: AdAccount, adsetApi: AdsetApi) {
     mobx.makeAutoObservable(this, {
       id: false,
       adAccountId: false,
@@ -46,21 +48,26 @@ export class Adset {
 
     this.adsetApi = adsetApi;
 
-    this.id = '' + adset.id;
-    this.adAccountId = '' + adset.adAccountId;
-    this.campaignId = '' + adset.campaignId;
-    this.effectiveStatus = adset.effectiveStatus;
-    this.status = adset.status;
-    this.name = adset.name;
-    this.adCount = adset.adCount;
-    this.bidStrategy = adset.bidStrategy ? adset.bidStrategy : undefined;
-    this.dailyBudget = adset.dailyBudget
-      ? new CurrencyAmount(adset.dailyBudget, adAccount.currency)
+    this.id = '' + adsetDTO.id;
+    this.adAccountId = '' + adsetDTO.adAccountId;
+    this.campaignId = '' + adsetDTO.campaignId;
+    this.deliveryStatus = adsetDTO.deliveryStatus
+      ? new DeliveryStatus(adsetDTO.deliveryStatus)
       : undefined;
-    this.lifetimeBudget = adset.lifetimeBudget
-      ? new CurrencyAmount(adset.lifetimeBudget, adAccount.currency)
+    this.effectiveStatus = adsetDTO.effectiveStatus;
+    this.status = adsetDTO.status;
+    this.name = adsetDTO.name;
+    this.adCount = adsetDTO.adCount;
+    this.bidStrategy = adsetDTO.bidStrategy ? adsetDTO.bidStrategy : undefined;
+    this.dailyBudget = adsetDTO.dailyBudget
+      ? new CurrencyAmount(adsetDTO.dailyBudget, adAccount.currency)
       : undefined;
-    this.insights = adset.insights ? new Insights(adset.insights) : undefined;
+    this.lifetimeBudget = adsetDTO.lifetimeBudget
+      ? new CurrencyAmount(adsetDTO.lifetimeBudget, adAccount.currency)
+      : undefined;
+    this.insights = adsetDTO.insights
+      ? new Insights(adsetDTO.insights)
+      : undefined;
   }
 
   setInsights(insights: AdsetDTO['insights']) {
@@ -130,6 +137,7 @@ export interface AdsetDTO {
   id: string | number;
   adAccountId: string | number;
   campaignId: string | number;
+  deliveryStatus?: DeliveryStatusDTO | null;
   effectiveStatus: AdsetEffectiveStatus;
   status: Status;
   name: string;

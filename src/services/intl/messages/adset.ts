@@ -1,5 +1,10 @@
 import { defineMessage } from 'react-intl';
 
+export const deliveryStatus = defineMessage({
+  id: 'fields.Adset.deliveryStatus',
+  defaultMessage: 'Delivery status',
+});
+
 export const effectiveStatus = defineMessage({
   id: 'fields.Adset.effectiveStatus',
   defaultMessage: 'Effective status',

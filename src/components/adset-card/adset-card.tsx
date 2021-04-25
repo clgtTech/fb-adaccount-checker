@@ -7,11 +7,12 @@ import { AdsetPresenter } from '../../presenters/adset-presenter';
 import { Messages } from '../../services/intl';
 import { EntityCard, EntityCardProps } from '../entity-card';
 import { ObjectName } from '../object-name';
+import { ObjectMeta } from '../object-meta';
+import { DeliveryStatusInfo } from '../delivery-status-info';
 import { ObjectLink } from '../object-link';
 import { AdObjectStatusSwitch } from '../ad-object-status-switch';
 import { AdBudget } from '../ad-budget';
 import { Insights } from '../campaign-card';
-import { ObjectMeta } from '../object-meta';
 
 export interface AdsetCardProps extends EntityCardProps {
   adAccount: AdAccount;
@@ -43,8 +44,12 @@ export const AdsetCard = mobxReact.observer(function AdsetCard({
           <ObjectMeta
             items={[
               {
-                name: intl.formatMessage(Messages.Adset.effectiveStatus),
-                value: adsetPresenter.effectiveStatus,
+                name: intl.formatMessage(Messages.Adset.deliveryStatus),
+                value: (
+                  <DeliveryStatusInfo
+                    deliveryStatusPresenter={adsetPresenter.deliveryStatus}
+                  />
+                ),
               },
             ]}
           />

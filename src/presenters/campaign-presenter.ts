@@ -1,11 +1,13 @@
 import { BidStrategy, BuyingType, Objective } from '../types';
 import { AdAccount, Campaign } from '../stores/entities';
 import { Formatters, Messages } from '../services/intl';
+import { DeliveryStatusPresenter } from './delivery-status-presenter';
 import { InsightsPresenter } from './insights-presenter';
 
 export class CampaignPresenter {
   id: string;
   name: string;
+  deliveryStatus?: DeliveryStatusPresenter;
   effectiveStatus: string;
   buyingType: string;
   objective: string;
@@ -17,6 +19,9 @@ export class CampaignPresenter {
   constructor(campaign: Campaign, adAccount: AdAccount) {
     this.id = campaign.id;
     this.name = campaign.name;
+    this.deliveryStatus = campaign.deliveryStatus
+      ? new DeliveryStatusPresenter(campaign.deliveryStatus, 'campaign')
+      : undefined;
     this.effectiveStatus = Formatters.formatEnumValue(campaign.effectiveStatus);
     this.buyingType = CampaignPresenter.formatBuyingType(campaign.buyingType);
     this.objective = CampaignPresenter.formatObjective(campaign.objective);

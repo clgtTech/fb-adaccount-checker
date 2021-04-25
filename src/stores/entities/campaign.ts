@@ -10,12 +10,14 @@ import {
 } from '../../types';
 import { CurrencyAmount } from './currency-amount';
 import { AdAccount } from './ad-account';
+import { DeliveryStatus, DeliveryStatusDTO } from './delivery-status';
 import { Insights, InsightsDTO } from './insights';
 
 export class Campaign {
   private campaignApi: CampaignApi;
   readonly id: string;
   readonly adAccountId: string;
+  readonly deliveryStatus?: DeliveryStatus;
   readonly effectiveStatus: CampaignEffectiveStatus;
   readonly name: string;
   readonly adsetCount: number;
@@ -35,7 +37,7 @@ export class Campaign {
   insights?: Insights;
 
   constructor(
-    campaign: CampaignDTO,
+    campaignDTO: CampaignDTO,
     adAccount: AdAccount,
     campaignApi: CampaignApi
   ) {
@@ -52,23 +54,28 @@ export class Campaign {
 
     this.campaignApi = campaignApi;
 
-    this.id = '' + campaign.id;
-    this.adAccountId = '' + campaign.adAccountId;
-    this.effectiveStatus = campaign.effectiveStatus;
-    this.status = campaign.status;
-    this.name = campaign.name;
-    this.adsetCount = campaign.adsetCount;
-    this.objective = campaign.objective;
-    this.buyingType = campaign.buyingType;
-    this.bidStrategy = campaign.bidStrategy ? campaign.bidStrategy : undefined;
-    this.dailyBudget = campaign.dailyBudget
-      ? new CurrencyAmount(campaign.dailyBudget, adAccount.currency)
+    this.id = '' + campaignDTO.id;
+    this.adAccountId = '' + campaignDTO.adAccountId;
+    this.deliveryStatus = campaignDTO.deliveryStatus
+      ? new DeliveryStatus(campaignDTO.deliveryStatus)
       : undefined;
-    this.lifetimeBudget = campaign.lifetimeBudget
-      ? new CurrencyAmount(campaign.lifetimeBudget, adAccount.currency)
+    this.effectiveStatus = campaignDTO.effectiveStatus;
+    this.status = campaignDTO.status;
+    this.name = campaignDTO.name;
+    this.adsetCount = campaignDTO.adsetCount;
+    this.objective = campaignDTO.objective;
+    this.buyingType = campaignDTO.buyingType;
+    this.bidStrategy = campaignDTO.bidStrategy
+      ? campaignDTO.bidStrategy
       : undefined;
-    this.insights = campaign.insights
-      ? new Insights(campaign.insights)
+    this.dailyBudget = campaignDTO.dailyBudget
+      ? new CurrencyAmount(campaignDTO.dailyBudget, adAccount.currency)
+      : undefined;
+    this.lifetimeBudget = campaignDTO.lifetimeBudget
+      ? new CurrencyAmount(campaignDTO.lifetimeBudget, adAccount.currency)
+      : undefined;
+    this.insights = campaignDTO.insights
+      ? new Insights(campaignDTO.insights)
       : undefined;
   }
 
@@ -147,6 +154,7 @@ export interface CampaignDTO {
   bidStrategy?: BidStrategy | null;
   dailyBudget?: string | number | null;
   lifetimeBudget?: string | number | null;
+  deliveryStatus?: DeliveryStatusDTO | null;
   insights?: InsightsDTO | null;
 }
 

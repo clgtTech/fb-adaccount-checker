@@ -29,7 +29,7 @@ const ad = new Ad(
     effectiveStatus: AdEffectiveStatus.DISAPPROVED,
     status: Status.ACTIVE,
     name: 'Ad card example',
-    deliveryStatus: 'rejected',
+    deliveryInfoStatus: 'rejected',
     reviewFeedback: {
       'Page Not Allowed to Advertise': `Ad DisabledThis ad was disabled because this Page isn't allowed to advertise.See details`,
     },

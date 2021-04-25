@@ -8,6 +8,7 @@ import { Messages } from '../../services/intl';
 import { EntityCard, EntityCardProps } from '../entity-card';
 import { ObjectName } from '../object-name';
 import { ObjectMeta } from '../object-meta';
+import { DeliveryStatusInfo } from '../delivery-status-info';
 import { ObjectLink } from '../object-link';
 import { AdObjectStatusSwitch } from '../ad-object-status-switch';
 import { AdBudget } from '../ad-budget';
@@ -43,8 +44,12 @@ export const CampaignCard = mobxReact.observer(function CampaignCard({
           <ObjectMeta
             items={[
               {
-                name: intl.formatMessage(Messages.Campaign.effectiveStatus),
-                value: campaignPresenter.effectiveStatus,
+                name: intl.formatMessage(Messages.Campaign.deliveryStatus),
+                value: (
+                  <DeliveryStatusInfo
+                    deliveryStatusPresenter={campaignPresenter.deliveryStatus}
+                  />
+                ),
               },
               {
                 name: intl.formatMessage(Messages.Campaign.objective),

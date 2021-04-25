@@ -7,6 +7,7 @@ import {
 } from '../../types';
 import { AdAccount } from './ad-account';
 import { Insights, InsightsDTO } from './insights';
+import { DeliveryStatus, DeliveryStatusDTO } from './delivery-status';
 
 export class AdCreative {
   readonly id: string;
@@ -39,9 +40,10 @@ export class Ad {
   readonly adAccountId: string;
   readonly campaignId: string;
   readonly adsetId: string;
+  readonly deliveryStatus?: DeliveryStatus;
   readonly effectiveStatus: AdEffectiveStatus;
   readonly name: string;
-  readonly deliveryStatus?: string;
+  readonly deliveryInfoStatus?: string;
   readonly reviewFeedback?: Record<string, string>;
   readonly creative?: AdCreative;
 
@@ -51,7 +53,7 @@ export class Ad {
 
   insights?: Insights;
 
-  constructor(ad: AdDTO, adApi: AdApi) {
+  constructor(adDTO: AdDTO, adApi: AdApi) {
     mobx.makeAutoObservable(this, {
       id: false,
       adAccountId: false,
@@ -59,23 +61,26 @@ export class Ad {
       adsetId: false,
       effectiveStatus: false,
       name: false,
-      deliveryStatus: false,
+      deliveryInfoStatus: false,
       reviewFeedback: false,
     });
 
     this.adApi = adApi;
 
-    this.id = '' + ad.id;
-    this.adAccountId = '' + ad.adAccountId;
-    this.campaignId = '' + ad.campaignId;
-    this.adsetId = '' + ad.adsetId;
-    this.effectiveStatus = ad.effectiveStatus;
-    this.status = ad.status;
-    this.name = ad.name;
-    this.deliveryStatus = ad.deliveryStatus;
-    this.reviewFeedback = ad.reviewFeedback;
-    this.creative = ad.creative && new AdCreative(ad.creative);
-    this.insights = ad.insights && new Insights(ad.insights);
+    this.id = '' + adDTO.id;
+    this.adAccountId = '' + adDTO.adAccountId;
+    this.campaignId = '' + adDTO.campaignId;
+    this.adsetId = '' + adDTO.adsetId;
+    this.deliveryStatus = adDTO.deliveryStatus
+      ? new DeliveryStatus(adDTO.deliveryStatus)
+      : undefined;
+    this.effectiveStatus = adDTO.effectiveStatus;
+    this.status = adDTO.status;
+    this.name = adDTO.name;
+    this.deliveryInfoStatus = adDTO.deliveryInfoStatus;
+    this.reviewFeedback = adDTO.reviewFeedback;
+    this.creative = adDTO.creative && new AdCreative(adDTO.creative);
+    this.insights = adDTO.insights && new Insights(adDTO.insights);
   }
 
   setInsights(insights: AdDTO['insights']) {
@@ -116,10 +121,11 @@ export interface AdDTO {
   adAccountId: number | string;
   campaignId: number | string;
   adsetId: number | string;
+  deliveryStatus?: DeliveryStatusDTO | null;
   effectiveStatus: AdEffectiveStatus;
   status: Status;
   name: string;
-  deliveryStatus?: string;
+  deliveryInfoStatus?: string;
   reviewFeedback?: Record<string, string>;
   creative?: AdCreativeDTO;
   insights?: InsightsDTO;

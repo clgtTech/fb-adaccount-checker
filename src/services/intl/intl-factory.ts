@@ -2,6 +2,7 @@ import {
   createIntl as createIntlShape,
   createIntlCache,
   IntlShape,
+  IntlFormatters,
 } from 'react-intl';
 import { Locale } from '../../types';
 import { DEFAULT_LOCALE } from '../../constants';
@@ -11,6 +12,9 @@ import ruRU from '../../translations/ru-RU.json';
 let intl = createIntl(DEFAULT_LOCALE);
 
 export const IntlFactory = {
+  _(...args: Parameters<IntlFormatters['formatMessage']>): string {
+    return intl.formatMessage(...args);
+  },
   getIntl() {
     return intl;
   },

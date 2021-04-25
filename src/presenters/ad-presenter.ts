@@ -1,6 +1,7 @@
 import { AdAccount, Ad, AdCreative } from '../stores/entities';
 import { Formatters } from '../services/intl';
 import { InsightsPresenter } from './insights-presenter';
+import { DeliveryStatusPresenter } from './delivery-status-presenter';
 
 export interface DisapprovalReason {
   title: string;
@@ -17,8 +18,9 @@ export interface CreativePreview {
 export class AdPresenter {
   id: string;
   name: string;
+  deliveryStatus?: DeliveryStatusPresenter;
   effectiveStatus: string;
-  deliveryStatus?: string;
+  deliveryInfoStatus?: string;
   creativePreview?: CreativePreview;
   disapprovalReasons?: DisapprovalReason[];
   insights?: InsightsPresenter;
@@ -26,9 +28,12 @@ export class AdPresenter {
   constructor(ad: Ad, adAccount: AdAccount) {
     this.id = ad.id;
     this.name = ad.name;
-    this.effectiveStatus = Formatters.formatEnumValue(ad.effectiveStatus);
     this.deliveryStatus = ad.deliveryStatus
-      ? Formatters.formatEnumValue(ad.deliveryStatus)
+      ? new DeliveryStatusPresenter(ad.deliveryStatus, 'ad')
+      : undefined;
+    this.effectiveStatus = Formatters.formatEnumValue(ad.effectiveStatus);
+    this.deliveryInfoStatus = ad.deliveryInfoStatus
+      ? Formatters.formatEnumValue(ad.deliveryInfoStatus)
       : undefined;
     this.creativePreview = ad.creative
       ? AdPresenter.creativeToCreativePreview(ad.creative)

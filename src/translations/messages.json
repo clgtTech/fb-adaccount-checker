@@ -149,6 +149,186 @@
   "components.UsersNav.title": {
     "defaultMessage": "History"
   },
+  "deliverySubstatus.accountClosed": {
+    "defaultMessage": "Account Closed",
+    "description": "Facebook substatuses: account_closed"
+  },
+  "deliverySubstatus.accountDisabled": {
+    "defaultMessage": "Account Disabled",
+    "description": "Facebook substatuses: account_disabled"
+  },
+  "deliverySubstatus.accountError": {
+    "defaultMessage": "Account Error",
+    "description": "Facebook substatuses: account_needs_credit, account_needs_tax_number, account_spend_limit_reached"
+  },
+  "deliverySubstatus.active": {
+    "defaultMessage": "Active",
+    "description": "Facebook substatuses: active, holdout_learning_exit, ad_set_holdout_learning_exit, ad_partial_active, partial_active"
+  },
+  "deliverySubstatus.adLimitReached": {
+    "defaultMessage": "Ad Limit Reached",
+    "description": "Facebook substatuses: ad_limit_reached"
+  },
+  "deliverySubstatus.adNotApproved": {
+    "defaultMessage": "Rejected",
+    "description": "Facebook substatuses: ad_not_approved"
+  },
+  "deliverySubstatus.adSetOff": {
+    "defaultMessage": "Ad Set Off",
+    "description": "Facebook substatuses: ad_set_off"
+  },
+  "deliverySubstatus.allAdSetsInError": {
+    "defaultMessage": "Ad Set Error(s)",
+    "description": "Facebook substatuses: all_ad_sets_in_error, campaign_inconsistent_bid_strategy_change"
+  },
+  "deliverySubstatus.allAdsInError": {
+    "defaultMessage": "Ad Error(s)",
+    "description": "Facebook substatuses: all_ads_in_error"
+  },
+  "deliverySubstatus.bidLimited": {
+    "defaultMessage": "Bid Limited",
+    "description": "Facebook substatuses: aaa_bid_limited, bid_limited_learning_success, bid_limited"
+  },
+  "deliverySubstatus.campaignOff": {
+    "defaultMessage": "Campaign Off",
+    "description": "Facebook substatuses: campaign_off"
+  },
+  "deliverySubstatus.completed": {
+    "defaultMessage": "Completed",
+    "description": "Facebook substatuses: completed, ad_set_completed, all_ad_sets_completed"
+  },
+  "deliverySubstatus.costLimited": {
+    "defaultMessage": "Cost Limited",
+    "description": "Facebook substatuses: cost_limited_learning_success"
+  },
+  "deliverySubstatus.creativeFatigue": {
+    "defaultMessage": "Creative Fatigue",
+    "description": "Facebook substatuses: creative_fatigue, has_ad_creative_fatigue"
+  },
+  "deliverySubstatus.deleted": {
+    "defaultMessage": "Deleted",
+    "description": "Facebook substatuses: archived, deleted"
+  },
+  "deliverySubstatus.deliveryError": {
+    "defaultMessage": "Delivery Error",
+    "description": "Facebook substatuses: ad_set_with_issues, campaign_with_issues, with_issues"
+  },
+  "deliverySubstatus.draft_validation_error": {
+    "defaultMessage": "Setup Error",
+    "description": "Facebook substatuses: draft_validation_error"
+  },
+  "deliverySubstatus.dynamicAdsNoValidItems": {
+    "defaultMessage": "Items Invalid",
+    "description": "Facebook substatuses: dynamic_ads_no_valid_items"
+  },
+  "deliverySubstatus.inDraft": {
+    "defaultMessage": "In Draft",
+    "description": "Facebook substatuses: in_draft"
+  },
+  "deliverySubstatus.inReview": {
+    "defaultMessage": "In Review",
+    "description": "Facebook substatuses: in_review, has_ad_in_review"
+  },
+  "deliverySubstatus.invalidSplitTest": {
+    "defaultMessage": "Invalid A/B Test",
+    "description": "Facebook substatuses: invalid_iterative_split_test, invalid_split_test"
+  },
+  "deliverySubstatus.iosCampaignInCooldown": {
+    "defaultMessage": "Updating iOS 14 Limit",
+    "description": "Facebook substatuses: ios_campaign_in_cooldown"
+  },
+  "deliverySubstatus.isAdFarmPenalized": {
+    "defaultMessage": "Low Quality Landing Page",
+    "description": "Facebook substatuses: is_ad_farm_penalized"
+  },
+  "deliverySubstatus.isLqwePenalized": {
+    "defaultMessage": "Low Quality Asset",
+    "description": "Facebook substatuses: is_lqwe_penalized"
+  },
+  "deliverySubstatus.learning": {
+    "defaultMessage": "Learning",
+    "description": "Facebook substatuses: ad_set_in_learning_phase, in_learning_phase"
+  },
+  "deliverySubstatus.learningLimited": {
+    "defaultMessage": "Learning Limited",
+    "description": "Facebook substatuses: ad_set_learning_exit_unsuccessfully, auction_overlap_limited_learning_fail, bid_limited_learning_fail, budget_limited_learning_fail, learning_exit_unsuccessfully"
+  },
+  "deliverySubstatus.lowQuality": {
+    "defaultMessage": "Low Quality",
+    "description": "Facebook substatuses: is_clickbait_penalized, is_engagement_bait_penalized, is_sensationalism_penalized"
+  },
+  "deliverySubstatus.multiAllAdSetsOff": {
+    "defaultMessage": "Ad Sets Off",
+    "description": "Facebook substatuses: multi_all_ad_sets_off"
+  },
+  "deliverySubstatus.multiAllAdsOff": {
+    "defaultMessage": "Ads Off",
+    "description": "Facebook substatuses: multi_all_ads_off"
+  },
+  "deliverySubstatus.noActiveAd": {
+    "defaultMessage": "Ads Inactive",
+    "description": "Facebook substatuses: no_active_ad"
+  },
+  "deliverySubstatus.noActiveAdSet": {
+    "defaultMessage": "Ad Sets Inactive",
+    "description": "Facebook substatuses: no_active_ad_set"
+  },
+  "deliverySubstatus.noAds": {
+    "defaultMessage": "No Ads",
+    "description": "Facebook substatuses: no_ads"
+  },
+  "deliverySubstatus.notDelivering": {
+    "defaultMessage": "Not Delivering",
+    "description": "Facebook substatuses: ad_set_affected_by_cbo_bid_strategy_change, ad_set_inconsistent_bid_strategy_in_cbo"
+  },
+  "deliverySubstatus.off": {
+    "defaultMessage": "Off",
+    "description": "Facebook substatuses: off"
+  },
+  "deliverySubstatus.overIosCampaignLimit": {
+    "defaultMessage": "Pending iOS 14 Limit",
+    "description": "Facebook substatuses: over_ios_campaign_limit"
+  },
+  "deliverySubstatus.pendingProcess": {
+    "defaultMessage": "Processing",
+    "description": "Facebook substatuses: pending_process"
+  },
+  "deliverySubstatus.scheduled": {
+    "defaultMessage": "Scheduled",
+    "description": "Facebook substatuses: scheduled, ad_set_scheduled, has_ad_set_scheduled"
+  },
+  "deliverySubstatus.signalDiagnosticIssue": {
+    "defaultMessage": "Pixel Issue",
+    "description": "Facebook substatuses: signal_diagnostic_issue"
+  },
+  "deliverySubstatus.singleAllAdOff": {
+    "defaultMessage": "Ad Off",
+    "description": "Facebook substatuses: single_all_ad_off"
+  },
+  "deliverySubstatus.singleAllAdSetOff": {
+    "defaultMessage": "Ad Set Off",
+    "description": "Facebook substatuses: single_all_ad_set_off"
+  },
+  "deliverySubstatus.softErrorValidation": {
+    "defaultMessage": "Schedule Change",
+    "description": "Facebook substatuses: soft_error_validation"
+  },
+  "deliverySubstatus.tooMuchText": {
+    "defaultMessage": "Too Much Text",
+    "description": "Facebook substatuses: text_penalty_high, text_penalty"
+  },
+  "deliverySubstatus.underDelivery": {
+    "defaultMessage": "Under-delivery",
+    "description": "Facebook substatuses: reach_and_frequency_underdelivering_pacing_on_track, reach_and_frequency_underdelivering_pacing_off_track"
+  },
+  "deliverySubstatus.unsupportedEvent": {
+    "defaultMessage": "Unsupported Event",
+    "description": "Facebook substatuses: ad_set_unsupported_event_dynamic_ads, ad_set_unsupported_event"
+  },
+  "deliverySubstatus.updatingEvents": {
+    "defaultMessage": "Updating Events",
+    "description": "Facebook substatuses: all_ad_sets_in_updating_conversion_event, all_ads_in_updating_conversion_event, mmp_conversion_bits_need_update, updating_conversion_event"
+  },
   "entities.ads": {
     "defaultMessage": "Ads"
   },
@@ -533,6 +713,9 @@
   "fields.Ad.creative": {
     "defaultMessage": "Creative"
   },
+  "fields.Ad.deliveryStatus": {
+    "defaultMessage": "Delivery status"
+  },
   "fields.Ad.effectiveStatus": {
     "defaultMessage": "Effective status"
   },
@@ -551,6 +734,9 @@
   "fields.Adset.campaignBudget": {
     "defaultMessage": "Using campaign budget"
   },
+  "fields.Adset.deliveryStatus": {
+    "defaultMessage": "Delivery status"
+  },
   "fields.Adset.effectiveStatus": {
     "defaultMessage": "Effective status"
   },
@@ -568,6 +754,9 @@
   },
   "fields.Campaign.buyingType": {
     "defaultMessage": "Buying type"
+  },
+  "fields.Campaign.deliveryStatus": {
+    "defaultMessage": "Delivery status"
   },
   "fields.Campaign.effectiveStatus": {
     "defaultMessage": "Effective status"
