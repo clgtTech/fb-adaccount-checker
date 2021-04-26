@@ -3,6 +3,7 @@ import { IntlFactory } from './intl-factory';
 import startCase from 'lodash/startCase';
 import capitalize from 'lodash/capitalize';
 import { CurrencyAmount } from '../../stores/entities';
+import { Locale } from '../../types';
 
 const SECONDS_IN_MINUTE = 60;
 const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * 60;
@@ -26,7 +27,7 @@ export function formatMonetaryValue(value: number, currency: string): string {
     style: 'currency',
     currencyDisplay: 'symbol',
     useGrouping: true,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: value < 0.01 ? 4 : 2,
   });
 }
 
@@ -102,5 +103,7 @@ export function formatEnumValue(
   if (messages && value in messages) {
     return intl.formatMessage(messages[value]);
   }
-  return capitalize(startCase(value));
+  return intl.locale === Locale.enUS
+    ? startCase(value)
+    : capitalize(startCase(value));
 }

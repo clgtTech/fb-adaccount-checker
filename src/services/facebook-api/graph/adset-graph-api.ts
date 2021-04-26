@@ -2,12 +2,7 @@ import { API_OBJECTS_LIMIT } from '../../../constants';
 import { AdsetEffectiveStatus, BidStrategy, Status } from '../../../types';
 import { AdsetApi } from '../../../stores/entities';
 import { AdAccountGraphApi } from './ad-account-graph-api';
-import {
-  FacebookInsights,
-  adObjectGraphApi,
-  prepareInsightFieldsForRequest,
-  fetchedInsightsToInsightsDTO,
-} from './ad-object-graph-api';
+import { FacebookInsights, adObjectGraphApi } from './ad-object-graph-api';
 import { makeRequest } from '../make-request';
 import { toNumber } from '../helpers';
 
@@ -47,12 +42,14 @@ const getAdAccountAdsets: AdsetApi['getAdAccountAdsets'] = async (
         'bid_strategy',
         'daily_budget',
         'lifetime_budget',
-        prepareInsightFieldsForRequest(params?.insightsDatePreset),
+        adObjectGraphApi.helpers.getInsightsFieldForNestedRequest(
+          params?.insightsDatePreset
+        ),
       ],
     },
     options: { shouldUseUserAccessToken: true },
   });
-  const deliveryStatuses = await adObjectGraphApi.getDeliveryStatuses(
+  const deliveryStatuses = await adObjectGraphApi.fetchDeliveryStatuses(
     response.data.map((adset) => adset.id)
   );
 
@@ -69,7 +66,7 @@ const getAdAccountAdsets: AdsetApi['getAdAccountAdsets'] = async (
       bidStrategy: adset.bid_strategy,
       dailyBudget: adset.daily_budget,
       lifetimeBudget: adset.lifetime_budget,
-      insights: fetchedInsightsToInsightsDTO(adset.insights),
+      insights: adObjectGraphApi.helpers.deserializeInsights(adset.insights),
     };
   });
 };
@@ -85,13 +82,20 @@ const getAdAccountAdsetsInsights: AdsetApi['getAdAccountAdsetsInsights'] = async
     options: { shouldUseUserAccessToken: true },
     params: {
       limit: params?.limit ?? API_OBJECTS_LIMIT,
-      fields: ['id', prepareInsightFieldsForRequest(params?.datePreset)],
+      fields: [
+        'id',
+        adObjectGraphApi.helpers.getInsightsFieldForNestedRequest(
+          params?.datePreset
+        ),
+      ],
     },
   });
 
   const adsetsInsights = new Map();
   for (const item of response.data) {
-    const insightsDTO = fetchedInsightsToInsightsDTO(item.insights);
+    const insightsDTO = adObjectGraphApi.helpers.deserializeInsights(
+      item.insights
+    );
     if (insightsDTO) {
       adsetsInsights.set(item.id, insightsDTO);
     }

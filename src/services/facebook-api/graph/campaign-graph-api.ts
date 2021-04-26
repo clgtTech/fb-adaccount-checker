@@ -8,12 +8,7 @@ import {
 } from '../../../types';
 import { CampaignApi } from '../../../stores/entities';
 import { AdAccountGraphApi } from './ad-account-graph-api';
-import {
-  FacebookInsights,
-  adObjectGraphApi,
-  prepareInsightFieldsForRequest,
-  fetchedInsightsToInsightsDTO,
-} from './ad-object-graph-api';
+import { FacebookInsights, adObjectGraphApi } from './ad-object-graph-api';
 import { makeRequest } from '../make-request';
 
 /**
@@ -55,12 +50,14 @@ const getAdAccountCampaigns: CampaignApi['getAdAccountCampaigns'] = async (
         'daily_budget',
         'lifetime_budget',
         'cost_per_mobile_app_install',
-        prepareInsightFieldsForRequest(params?.insightsDatePreset),
+        adObjectGraphApi.helpers.getInsightsFieldForNestedRequest(
+          params?.insightsDatePreset
+        ),
       ],
     },
     options: { shouldUseUserAccessToken: true },
   });
-  const deliveryStatuses = await adObjectGraphApi.getDeliveryStatuses(
+  const deliveryStatuses = await adObjectGraphApi.fetchDeliveryStatuses(
     response.data.map((campaign) => campaign.id)
   );
 
@@ -78,7 +75,7 @@ const getAdAccountCampaigns: CampaignApi['getAdAccountCampaigns'] = async (
       bidStrategy: campaign.bid_strategy,
       dailyBudget: campaign.daily_budget,
       lifetimeBudget: campaign.lifetime_budget,
-      insights: fetchedInsightsToInsightsDTO(campaign.insights),
+      insights: adObjectGraphApi.helpers.deserializeInsights(campaign.insights),
     };
   });
 };
@@ -94,13 +91,20 @@ const getAdAccountCampaignsInsights: CampaignApi['getAdAccountCampaignsInsights'
     options: { shouldUseUserAccessToken: true },
     params: {
       limit: params?.limit ?? API_OBJECTS_LIMIT,
-      fields: ['id', prepareInsightFieldsForRequest(params.datePreset)],
+      fields: [
+        'id',
+        adObjectGraphApi.helpers.getInsightsFieldForNestedRequest(
+          params.datePreset
+        ),
+      ],
     },
   });
 
   const campaignsInsights = new Map();
   for (const item of response.data) {
-    const insightsDTO = fetchedInsightsToInsightsDTO(item.insights);
+    const insightsDTO = adObjectGraphApi.helpers.deserializeInsights(
+      item.insights
+    );
     if (insightsDTO) {
       campaignsInsights.set(item.id, insightsDTO);
     }

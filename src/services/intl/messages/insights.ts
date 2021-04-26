@@ -1,8 +1,13 @@
 import { defineMessage } from 'react-intl';
 
-export const costPerActionType = defineMessage({
-  id: 'insights.costPerActionType',
-  defaultMessage: 'Cost per action type',
+export const targetActionCost = defineMessage({
+  id: 'insights.targetActionCost',
+  defaultMessage: 'Cost per target action',
+});
+
+export const customActionCost = defineMessage({
+  id: 'insights.customActionCost',
+  defaultMessage: 'Cost per {action}',
 });
 
 export const spend = defineMessage({

@@ -9,7 +9,7 @@ import {
 } from '../../../types';
 import { defineMessage } from 'react-intl';
 
-export const BidStrategies = {
+export const BidStrategyTexts = {
   [BidStrategy.LOWEST_COST_WITHOUT_CAP]: defineMessage({
     id: `enums.BidStrategy.LOWEST_COST_WITHOUT_CAP`,
     defaultMessage: `Lowest cost`,
@@ -28,7 +28,7 @@ export const BidStrategies = {
   }),
 };
 
-export const BuyingTypes = {
+export const BuyingTypeTexts = {
   [BuyingType.AUCTION]: defineMessage({
     id: `enums.BuyingType.AUCTION`,
     defaultMessage: `Auction`,
@@ -39,7 +39,7 @@ export const BuyingTypes = {
   }),
 };
 
-export const Objectives = {
+export const ObjectiveTexts = {
   [Objective.BRAND_AWARENESS]: defineMessage({
     id: `enums.Objective.BRAND_AWARENESS`,
     defaultMessage: `Brand awareness`,
@@ -106,7 +106,7 @@ export const Objectives = {
   }),
 };
 
-export const ActionTypes = {
+export const ActionTypeTexts = {
   [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ACHIEVEMENT_UNLOCKED]: defineMessage({
     id: `enums.ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ACHIEVEMENT_UNLOCKED`,
     defaultMessage: `Mobile App Achievements Unlocked`,
@@ -295,6 +295,186 @@ export const ActionTypes = {
     id: `enums.ActionType.VIDEO_VIEW`,
     defaultMessage: `3-Second Video Views`,
   }),
+  [ActionType.CONTACT_TOTAL]: defineMessage({
+    id: 'enums.ActionType.CONTACT_TOTAL',
+    defaultMessage: `Contacts`,
+  }),
+  [ActionType.CONTACT_WEBSITE]: defineMessage({
+    id: 'enums.ActionType.CONTACT_WEBSITE',
+    defaultMessage: `Website Contacts`,
+  }),
+  [ActionType.CONTACT_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.CONTACT_MOBILE_APP',
+    defaultMessage: `Mobile App Contacts`,
+  }),
+  [ActionType.CONTACT_OFFLINE]: defineMessage({
+    id: 'enums.ActionType.CONTACT_OFFLINE',
+    defaultMessage: `Offline Contacts`,
+  }),
+  [ActionType.CUSTOMIZE_PRODUCT_TOTAL]: defineMessage({
+    id: 'enums.ActionType.CUSTOMIZE_PRODUCT_TOTAL',
+    defaultMessage: `Products Customized`,
+  }),
+  [ActionType.CUSTOMIZE_PRODUCT_WEBSITE]: defineMessage({
+    id: 'enums.ActionType.CUSTOMIZE_PRODUCT_WEBSITE',
+    defaultMessage: `Website Products Customized`,
+  }),
+  [ActionType.CUSTOMIZE_PRODUCT_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.CUSTOMIZE_PRODUCT_MOBILE_APP',
+    defaultMessage: `Mobile App Products Customized`,
+  }),
+  [ActionType.CUSTOMIZE_PRODUCT_OFFLINE]: defineMessage({
+    id: 'enums.ActionType.CUSTOMIZE_PRODUCT_OFFLINE',
+    defaultMessage: `Offline Products Customized`,
+  }),
+  [ActionType.DONATE_TOTAL]: defineMessage({
+    id: 'enums.ActionType.DONATE_TOTAL',
+    defaultMessage: `Donations`,
+  }),
+  [ActionType.DONATE_WEBSITE]: defineMessage({
+    id: 'enums.ActionType.DONATE_WEBSITE',
+    defaultMessage: `Website Donations`,
+  }),
+  [ActionType.DONATE_ON_FACEBOOK]: defineMessage({
+    id: 'enums.ActionType.DONATE_ON_FACEBOOK',
+    defaultMessage: `On Facebook Donations`,
+  }),
+  [ActionType.DONATE_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.DONATE_MOBILE_APP',
+    defaultMessage: `Mobile App Donations`,
+  }),
+  [ActionType.DONATE_OFFLINE]: defineMessage({
+    id: 'enums.ActionType.DONATE_OFFLINE',
+    defaultMessage: `Offline Donations`,
+  }),
+  [ActionType.FIND_LOCATION_TOTAL]: defineMessage({
+    id: 'enums.ActionType.FIND_LOCATION_TOTAL',
+    defaultMessage: `Location Searches`,
+  }),
+  [ActionType.FIND_LOCATION_WEBSITE]: defineMessage({
+    id: 'enums.ActionType.FIND_LOCATION_WEBSITE',
+    defaultMessage: `Website Location Searches`,
+  }),
+  [ActionType.FIND_LOCATION_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.FIND_LOCATION_MOBILE_APP',
+    defaultMessage: `Mobile App Location Searches`,
+  }),
+  [ActionType.FIND_LOCATION_OFFLINE]: defineMessage({
+    id: 'enums.ActionType.FIND_LOCATION_OFFLINE',
+    defaultMessage: `Offline Location Searches`,
+  }),
+  [ActionType.SCHEDULE_TOTAL]: defineMessage({
+    id: 'enums.ActionType.SCHEDULE_TOTAL',
+    defaultMessage: `Appointments Scheduled`,
+  }),
+  [ActionType.SCHEDULE_WEBSITE]: defineMessage({
+    id: 'enums.ActionType.SCHEDULE_WEBSITE',
+    defaultMessage: `Website Appointments Scheduled`,
+  }),
+  [ActionType.SCHEDULE_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.SCHEDULE_MOBILE_APP',
+    defaultMessage: `Mobile App Appointments Scheduled`,
+  }),
+  [ActionType.SCHEDULE_OFFLINE]: defineMessage({
+    id: 'enums.ActionType.SCHEDULE_OFFLINE',
+    defaultMessage: `Offline Appointments Scheduled`,
+  }),
+  [ActionType.START_TRIAL_TOTAL]: defineMessage({
+    id: 'enums.ActionType.START_TRIAL_TOTAL',
+    defaultMessage: `Trials Started`,
+  }),
+  [ActionType.START_TRIAL_WEBSITE]: defineMessage({
+    id: 'enums.ActionType.START_TRIAL_WEBSITE',
+    defaultMessage: `Website Trials Started`,
+  }),
+  [ActionType.START_TRIAL_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.START_TRIAL_MOBILE_APP',
+    defaultMessage: `Mobile App Trials Started`,
+  }),
+  [ActionType.START_TRIAL_OFFLINE]: defineMessage({
+    id: 'enums.ActionType.START_TRIAL_OFFLINE',
+    defaultMessage: `Offline Trials Started`,
+  }),
+  [ActionType.SUBMIT_APPLICATION_TOTAL]: defineMessage({
+    id: 'enums.ActionType.SUBMIT_APPLICATION_TOTAL',
+    defaultMessage: `Applications Submitted`,
+  }),
+  [ActionType.SUBMIT_APPLICATION_WEBSITE]: defineMessage({
+    id: 'enums.ActionType.SUBMIT_APPLICATION_WEBSITE',
+    defaultMessage: `Website Applications Submitted`,
+  }),
+  [ActionType.SUBMIT_APPLICATION_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.SUBMIT_APPLICATION_MOBILE_APP',
+    defaultMessage: `Mobile App Applications Submitted`,
+  }),
+  [ActionType.SUBMIT_APPLICATION_OFFLINE]: defineMessage({
+    id: 'enums.ActionType.SUBMIT_APPLICATION_OFFLINE',
+    defaultMessage: `Offline Applications Submitted`,
+  }),
+  [ActionType.SUBMIT_APPLICATION_ON_FACEBOOK]: defineMessage({
+    id: 'enums.ActionType.SUBMIT_APPLICATION_ON_FACEBOOK',
+    defaultMessage: `On Facebook Applications Submitted`,
+  }),
+  [ActionType.SUBSCRIBE_TOTAL]: defineMessage({
+    id: 'enums.ActionType.SUBSCRIBE_TOTAL',
+    defaultMessage: `Subscriptions`,
+  }),
+  [ActionType.SUBSCRIBE_WEBSITE]: defineMessage({
+    id: 'enums.ActionType.SUBSCRIBE_WEBSITE',
+    defaultMessage: `Website Subscriptions`,
+  }),
+  [ActionType.SUBSCRIBE_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.SUBSCRIBE_MOBILE_APP',
+    defaultMessage: `Mobile App Subscriptions`,
+  }),
+  [ActionType.SUBSCRIBE_OFFLINE]: defineMessage({
+    id: 'enums.ActionType.SUBSCRIBE_OFFLINE',
+    defaultMessage: `Offline Subscriptions`,
+  }),
+  [ActionType.RECURRING_SUBSCRIPTION_PAYMENT_TOTAL]: defineMessage({
+    id: 'enums.ActionType.RECURRING_SUBSCRIPTION_PAYMENT_TOTAL',
+    defaultMessage: `Recurring Subscription Payments`,
+  }),
+  [ActionType.RECURRING_SUBSCRIPTION_PAYMENT_WEBSITE]: defineMessage({
+    id: 'enums.ActionType.RECURRING_SUBSCRIPTION_PAYMENT_WEBSITE',
+    defaultMessage: `Website Recurring Subscription Payments`,
+  }),
+  [ActionType.RECURRING_SUBSCRIPTION_PAYMENT_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.RECURRING_SUBSCRIPTION_PAYMENT_MOBILE_APP',
+    defaultMessage: `Mobile App Recurring Subscription Payments`,
+  }),
+  [ActionType.RECURRING_SUBSCRIPTION_PAYMENT_OFFLINE]: defineMessage({
+    id: 'enums.ActionType.RECURRING_SUBSCRIPTION_PAYMENT_OFFLINE',
+    defaultMessage: `Offline Mobile App Recurring Subscription Payments`,
+  }),
+  [ActionType.CANCEL_SUBSCRIPTION_TOTAL]: defineMessage({
+    id: 'enums.ActionType.CANCEL_SUBSCRIPTION_TOTAL',
+    defaultMessage: `Canceled Subscriptions`,
+  }),
+  [ActionType.CANCEL_SUBSCRIPTION_WEBSITE]: defineMessage({
+    id: 'enums.ActionType.CANCEL_SUBSCRIPTION_WEBSITE',
+    defaultMessage: `Website Canceled Subscriptions`,
+  }),
+  [ActionType.CANCEL_SUBSCRIPTION_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.CANCEL_SUBSCRIPTION_MOBILE_APP',
+    defaultMessage: `Mobile App Canceled Subscriptions`,
+  }),
+  [ActionType.CANCEL_SUBSCRIPTION_OFFLINE]: defineMessage({
+    id: 'enums.ActionType.CANCEL_SUBSCRIPTION_OFFLINE',
+    defaultMessage: `Offline Canceled Subscriptions`,
+  }),
+  [ActionType.AD_CLICK_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.AD_CLICK_MOBILE_APP',
+    defaultMessage: `In-App Ad Clicks`,
+  }),
+  [ActionType.AD_IMPRESSION_MOBILE_APP]: defineMessage({
+    id: 'enums.ActionType.AD_IMPRESSION_MOBILE_APP',
+    defaultMessage: `In-App Ad Impressions`,
+  }),
+  [ActionType.CLICK_TO_CALL_CALL_CONFIRM]: defineMessage({
+    id: 'enums.ActionType.CLICK_TO_CALL_CALL_CONFIRM',
+    defaultMessage: `Call Confirmation Clicks`,
+  }),
   [ActionType.PAGE_ENGAGEMENT]: defineMessage({
     id: `enums.ActionType.PAGE_ENGAGEMENT`,
     defaultMessage: `Page Engagements`,
@@ -417,7 +597,498 @@ export const ActionTypes = {
   }),
 };
 
-export const CommentFilters = {
+export const CostPerActionTypeTexts = {
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ACHIEVEMENT_UNLOCKED]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_ACHIEVEMENT_UNLOCKED`,
+    defaultMessage: `Cost per Mobile App Achievement Unlocked`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ACTIVATE_APP]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_ACTIVATE_APP`,
+    defaultMessage: `Cost per Mobile App Session`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_PAYMENT_INFO]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_PAYMENT_INFO`,
+    defaultMessage: `Cost per Mobile App Add of Payment Info`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_TO_CART]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_TO_CART`,
+    defaultMessage: `Cost per Mobile App Add to Cart`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_TO_WISHLIST]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_TO_WISHLIST`,
+    defaultMessage: `Cost per Mobile App Add to Wishlist`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_COMPLETE_REGISTRATION]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_COMPLETE_REGISTRATION`,
+    defaultMessage: `Cost per Mobile App Registration Completed`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_CONTENT_VIEW]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_CONTENT_VIEW`,
+    defaultMessage: `Cost per Mobile App Content View`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_INITIATED_CHECKOUT]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_INITIATED_CHECKOUT`,
+    defaultMessage: `Cost per Mobile App Checkout Initiated`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_LEVEL_ACHIEVED]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_LEVEL_ACHIEVED`,
+    defaultMessage: `Cost per Mobile App Level Completed`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_RATE]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_RATE`,
+    defaultMessage: `Cost per Mobile App Rating Submitted`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_SEARCH]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_SEARCH`,
+    defaultMessage: `Cost per Mobile App Search`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_SPENT_CREDITS]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_SPENT_CREDITS`,
+    defaultMessage: `Cost per Mobile App Credit Spend`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_FB_MOBILE_TUTORIAL_COMPLETION]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_TUTORIAL_COMPLETION`,
+    defaultMessage: `Cost per Mobile App Tutorial Completed`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT_OTHER]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT_OTHER`,
+    defaultMessage: `Cost per Other Mobile App Action`,
+  }),
+  [ActionType.APP_INSTALL]: defineMessage({
+    id: `enums.CostPerActionType.APP_INSTALL`,
+    defaultMessage: `Cost per Desktop App Install`,
+  }),
+  [ActionType.APP_USE]: defineMessage({
+    id: `enums.CostPerActionType.APP_USE`,
+    defaultMessage: `Cost per Desktop App Use`,
+  }),
+  [ActionType.CHECKIN]: defineMessage({
+    id: `enums.CostPerActionType.CHECKIN`,
+    defaultMessage: `Cost per Check-In`,
+  }),
+  [ActionType.POST_COMMENT]: defineMessage({
+    id: `enums.CostPerActionType.POST_COMMENT`,
+    defaultMessage: `Cost per Post Comment`,
+  }),
+  [ActionType.CREDIT_SPENT]: defineMessage({
+    id: `enums.CostPerActionType.CREDIT_SPENT`,
+    defaultMessage: `Cost per Desktop App Credit Spend`,
+  }),
+  [ActionType.GAME_PLAYS]: defineMessage({
+    id: `enums.CostPerActionType.GAME_PLAYS`,
+    defaultMessage: `Cost per Game Play`,
+  }),
+  [ActionType.LANDING_PAGE_VIEW]: defineMessage({
+    id: `enums.CostPerActionType.LANDING_PAGE_VIEW`,
+    defaultMessage: `Cost per Landing Page View`,
+  }),
+  [ActionType.LIKE]: defineMessage({
+    id: `enums.CostPerActionType.LIKE`,
+    defaultMessage: `Cost per Page like`,
+  }),
+  [ActionType.LINK_CLICK]: defineMessage({
+    id: `enums.CostPerActionType.LINK_CLICK`,
+    defaultMessage: `Cost per Link Click`,
+  }),
+  [ActionType.MOBILE_APP_INSTALL]: defineMessage({
+    id: `enums.CostPerActionType.MOBILE_APP_INSTALL`,
+    defaultMessage: `Cost per Mobile App Install`,
+  }),
+  [ActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_PAYMENT_INFO]: defineMessage({
+    id: `enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_PAYMENT_INFO`,
+    defaultMessage: `Cost per Offline Add of Payment Info`,
+  }),
+  [ActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_TO_CART]: defineMessage({
+    id: `enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_TO_CART`,
+    defaultMessage: `Cost per Offline Add to Cart`,
+  }),
+  [ActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_TO_WISHLIST]: defineMessage({
+    id: `enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_TO_WISHLIST`,
+    defaultMessage: `Cost per Offline Add to Wishlist`,
+  }),
+  [ActionType.OFFSITE_CONVERSION_FB_PIXEL_COMPLETE_REGISTRATION]: defineMessage(
+    {
+      id: `enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_COMPLETE_REGISTRATION`,
+      defaultMessage: `Cost per Offline Registration Completed`,
+    }
+  ),
+  [ActionType.OFFSITE_CONVERSION_FB_PIXEL_CUSTOM]: defineMessage({
+    id: `enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_CUSTOM`,
+    defaultMessage: `Cost per Custom pixel event`,
+  }),
+  [ActionType.OFFSITE_CONVERSION_FB_PIXEL_INITIATE_CHECKOUT]: defineMessage({
+    id: `enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_INITIATE_CHECKOUT`,
+    defaultMessage: `Cost per Website Checkout Initiated`,
+  }),
+  [ActionType.OFFSITE_CONVERSION_FB_PIXEL_LEAD]: defineMessage({
+    id: `enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_LEAD`,
+    defaultMessage: `Cost per Website Lead`,
+  }),
+  [ActionType.OFFSITE_CONVERSION_FB_PIXEL_PURCHASE]: defineMessage({
+    id: `enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_PURCHASE`,
+    defaultMessage: `Cost per Website Purchase`,
+  }),
+  [ActionType.OFFSITE_CONVERSION_FB_PIXEL_SEARCH]: defineMessage({
+    id: `enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_SEARCH`,
+    defaultMessage: `Cost per Website Search`,
+  }),
+  [ActionType.OFFSITE_CONVERSION_FB_PIXEL_VIEW_CONTENT]: defineMessage({
+    id: `enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_VIEW_CONTENT`,
+    defaultMessage: `Cost per Website Content View`,
+  }),
+  [ActionType.ONSITE_CONVERSION_FLOW_COMPLETE]: defineMessage({
+    id: `enums.CostPerActionType.ONSITE_CONVERSION_FLOW_COMPLETE`,
+    defaultMessage: `Cost per On-Facebook Workflow Completion`,
+  }),
+  [ActionType.ONSITE_CONVERSION_MESSAGING_BLOCK]: defineMessage({
+    id: `enums.CostPerActionType.ONSITE_CONVERSION_MESSAGING_BLOCK`,
+    defaultMessage: `Cost per Blocked Messaging Connection`,
+  }),
+  [ActionType.ONSITE_CONVERSION_MESSAGING_CONVERSATION_STARTED_7D]: defineMessage(
+    {
+      id: `enums.CostPerActionType.ONSITE_CONVERSION_MESSAGING_CONVERSATION_STARTED_7D`,
+      defaultMessage: `Cost per Messaging Conversation Started`,
+    }
+  ),
+  [ActionType.ONSITE_CONVERSION_MESSAGING_FIRST_REPLY]: defineMessage({
+    id: `enums.CostPerActionType.ONSITE_CONVERSION_MESSAGING_FIRST_REPLY`,
+    defaultMessage: `Cost per New Messaging Connection`,
+  }),
+  [ActionType.ONSITE_CONVERSION_POST_SAVE]: defineMessage({
+    id: `enums.CostPerActionType.ONSITE_CONVERSION_POST_SAVE`,
+    defaultMessage: `Cost per Post Save`,
+  }),
+  [ActionType.ONSITE_CONVERSION_PURCHASE]: defineMessage({
+    id: `enums.CostPerActionType.ONSITE_CONVERSION_PURCHASE`,
+    defaultMessage: `Cost per On-Facebook Purchase`,
+  }),
+  [ActionType.OUTBOUND_CLICK]: defineMessage({
+    id: `enums.CostPerActionType.OUTBOUND_CLICK`,
+    defaultMessage: `Cost per Outbound Click`,
+  }),
+  [ActionType.PHOTO_VIEW]: defineMessage({
+    id: `enums.CostPerActionType.PHOTO_VIEW`,
+    defaultMessage: `Cost per Photo View`,
+  }),
+  [ActionType.POST]: defineMessage({
+    id: `enums.CostPerActionType.POST`,
+    defaultMessage: `Cost per Post Share`,
+  }),
+  [ActionType.POST_REACTION]: defineMessage({
+    id: `enums.CostPerActionType.POST_REACTION`,
+    defaultMessage: `Cost per Post Reaction`,
+  }),
+  [ActionType.RSVP]: defineMessage({
+    id: `enums.CostPerActionType.RSVP`,
+    defaultMessage: `Cost per Event Response`,
+  }),
+  [ActionType.VIDEO_VIEW]: defineMessage({
+    id: `enums.CostPerActionType.VIDEO_VIEW`,
+    defaultMessage: `Cost per 3-Second Video View`,
+  }),
+  [ActionType.CONTACT_TOTAL]: defineMessage({
+    id: 'enums.CostPerActionType.CONTACT_TOTAL',
+    defaultMessage: `Cost per Contact`,
+  }),
+  [ActionType.CONTACT_WEBSITE]: defineMessage({
+    id: 'enums.CostPerActionType.CONTACT_WEBSITE',
+    defaultMessage: `Cost per Website Contact`,
+  }),
+  [ActionType.CONTACT_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.CONTACT_MOBILE_APP',
+    defaultMessage: `Cost per Mobile App Contact`,
+  }),
+  [ActionType.CONTACT_OFFLINE]: defineMessage({
+    id: 'enums.CostPerActionType.CONTACT_OFFLINE',
+    defaultMessage: `Cost per Offline Contact`,
+  }),
+  [ActionType.CUSTOMIZE_PRODUCT_TOTAL]: defineMessage({
+    id: 'enums.CostPerActionType.CUSTOMIZE_PRODUCT_TOTAL',
+    defaultMessage: `Cost per Customize Product`,
+  }),
+  [ActionType.CUSTOMIZE_PRODUCT_WEBSITE]: defineMessage({
+    id: 'enums.CostPerActionType.CUSTOMIZE_PRODUCT_WEBSITE',
+    defaultMessage: `Cost per Website Customize Product`,
+  }),
+  [ActionType.CUSTOMIZE_PRODUCT_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.CUSTOMIZE_PRODUCT_MOBILE_APP',
+    defaultMessage: `Cost per Mobile App Customize Product`,
+  }),
+  [ActionType.CUSTOMIZE_PRODUCT_OFFLINE]: defineMessage({
+    id: 'enums.CostPerActionType.CUSTOMIZE_PRODUCT_OFFLINE',
+    defaultMessage: `Cost per Offline Customize Product`,
+  }),
+  [ActionType.DONATE_TOTAL]: defineMessage({
+    id: 'enums.CostPerActionType.DONATE_TOTAL',
+    defaultMessage: `Cost per Donation`,
+  }),
+  [ActionType.DONATE_WEBSITE]: defineMessage({
+    id: 'enums.CostPerActionType.DONATE_WEBSITE',
+    defaultMessage: `Cost per Website Donation`,
+  }),
+  [ActionType.DONATE_ON_FACEBOOK]: defineMessage({
+    id: 'enums.CostPerActionType.DONATE_ON_FACEBOOK',
+    defaultMessage: `Cost per On Facebook Donation`,
+  }),
+  [ActionType.DONATE_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.DONATE_MOBILE_APP',
+    defaultMessage: `Cost per Mobile App Donation`,
+  }),
+  [ActionType.DONATE_OFFLINE]: defineMessage({
+    id: 'enums.CostPerActionType.DONATE_OFFLINE',
+    defaultMessage: `Cost per Offline Donation`,
+  }),
+  [ActionType.FIND_LOCATION_TOTAL]: defineMessage({
+    id: 'enums.CostPerActionType.FIND_LOCATION_TOTAL',
+    defaultMessage: `Cost per Find Location`,
+  }),
+  [ActionType.FIND_LOCATION_WEBSITE]: defineMessage({
+    id: 'enums.CostPerActionType.FIND_LOCATION_WEBSITE',
+    defaultMessage: `Cost per Website Find Location`,
+  }),
+  [ActionType.FIND_LOCATION_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.FIND_LOCATION_MOBILE_APP',
+    defaultMessage: `Cost per Mobile App Find Location`,
+  }),
+  [ActionType.FIND_LOCATION_OFFLINE]: defineMessage({
+    id: 'enums.CostPerActionType.FIND_LOCATION_OFFLINE',
+    defaultMessage: `Cost per Offline Find Location`,
+  }),
+  [ActionType.SCHEDULE_TOTAL]: defineMessage({
+    id: 'enums.CostPerActionType.SCHEDULE_TOTAL',
+    defaultMessage: `Cost per Schedule`,
+  }),
+  [ActionType.SCHEDULE_WEBSITE]: defineMessage({
+    id: 'enums.CostPerActionType.SCHEDULE_WEBSITE',
+    defaultMessage: `Cost per Website Schedule`,
+  }),
+  [ActionType.SCHEDULE_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.SCHEDULE_MOBILE_APP',
+    defaultMessage: `Cost per Mobile App Schedule`,
+  }),
+  [ActionType.SCHEDULE_OFFLINE]: defineMessage({
+    id: 'enums.CostPerActionType.SCHEDULE_OFFLINE',
+    defaultMessage: `Cost per Offline Schedule`,
+  }),
+  [ActionType.START_TRIAL_TOTAL]: defineMessage({
+    id: 'enums.CostPerActionType.START_TRIAL_TOTAL',
+    defaultMessage: `Cost per Start Trial`,
+  }),
+  [ActionType.START_TRIAL_WEBSITE]: defineMessage({
+    id: 'enums.CostPerActionType.START_TRIAL_WEBSITE',
+    defaultMessage: `Cost per Website Start Trial`,
+  }),
+  [ActionType.START_TRIAL_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.START_TRIAL_MOBILE_APP',
+    defaultMessage: `Cost per Mobile App Start Trial`,
+  }),
+  [ActionType.START_TRIAL_OFFLINE]: defineMessage({
+    id: 'enums.CostPerActionType.START_TRIAL_OFFLINE',
+    defaultMessage: `Cost per Offline Start Trial`,
+  }),
+  [ActionType.SUBMIT_APPLICATION_TOTAL]: defineMessage({
+    id: 'enums.CostPerActionType.SUBMIT_APPLICATION_TOTAL',
+    defaultMessage: `Cost per Submit Application`,
+  }),
+  [ActionType.SUBMIT_APPLICATION_WEBSITE]: defineMessage({
+    id: 'enums.CostPerActionType.SUBMIT_APPLICATION_WEBSITE',
+    defaultMessage: `Cost per Website Submit Application`,
+  }),
+  [ActionType.SUBMIT_APPLICATION_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.SUBMIT_APPLICATION_MOBILE_APP',
+    defaultMessage: `Cost per Mobile App Submit Application`,
+  }),
+  [ActionType.SUBMIT_APPLICATION_OFFLINE]: defineMessage({
+    id: 'enums.CostPerActionType.SUBMIT_APPLICATION_OFFLINE',
+    defaultMessage: `Cost per Offline Submit Application`,
+  }),
+  [ActionType.SUBMIT_APPLICATION_ON_FACEBOOK]: defineMessage({
+    id: 'enums.CostPerActionType.SUBMIT_APPLICATION_ON_FACEBOOK',
+    defaultMessage: `Cost per On Facebook Submit Application`,
+  }),
+  [ActionType.SUBSCRIBE_TOTAL]: defineMessage({
+    id: 'enums.CostPerActionType.SUBSCRIBE_TOTAL',
+    defaultMessage: `Cost per Subscription`,
+  }),
+  [ActionType.SUBSCRIBE_WEBSITE]: defineMessage({
+    id: 'enums.CostPerActionType.SUBSCRIBE_WEBSITE',
+    defaultMessage: `Cost per Website Subscription`,
+  }),
+  [ActionType.SUBSCRIBE_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.SUBSCRIBE_MOBILE_APP',
+    defaultMessage: `Cost per Mobile App Subscription`,
+  }),
+  [ActionType.SUBSCRIBE_OFFLINE]: defineMessage({
+    id: 'enums.CostPerActionType.SUBSCRIBE_OFFLINE',
+    defaultMessage: `Cost per Offline Subscription`,
+  }),
+  [ActionType.RECURRING_SUBSCRIPTION_PAYMENT_TOTAL]: defineMessage({
+    id: 'enums.CostPerActionType.RECURRING_SUBSCRIPTION_PAYMENT_TOTAL',
+    defaultMessage: `Cost per Recurring Subscription Payment`,
+  }),
+  [ActionType.RECURRING_SUBSCRIPTION_PAYMENT_WEBSITE]: defineMessage({
+    id: 'enums.CostPerActionType.RECURRING_SUBSCRIPTION_PAYMENT_WEBSITE',
+    defaultMessage: `Cost per Website Recurring Subscription Payment`,
+  }),
+  [ActionType.RECURRING_SUBSCRIPTION_PAYMENT_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.RECURRING_SUBSCRIPTION_PAYMENT_MOBILE_APP',
+    defaultMessage: `Cost per Mobile App Recurring Subscription Payment`,
+  }),
+  [ActionType.RECURRING_SUBSCRIPTION_PAYMENT_OFFLINE]: defineMessage({
+    id: 'enums.CostPerActionType.RECURRING_SUBSCRIPTION_PAYMENT_OFFLINE',
+    defaultMessage: `Cost per Offline Mobile App Recurring Subscription Payment`,
+  }),
+  [ActionType.CANCEL_SUBSCRIPTION_TOTAL]: defineMessage({
+    id: 'enums.CostPerActionType.CANCEL_SUBSCRIPTION_TOTAL',
+    defaultMessage: `Cost per Cancel Subscription`,
+  }),
+  [ActionType.CANCEL_SUBSCRIPTION_WEBSITE]: defineMessage({
+    id: 'enums.CostPerActionType.CANCEL_SUBSCRIPTION_WEBSITE',
+    defaultMessage: `Cost per Website Cancel Subscription`,
+  }),
+  [ActionType.CANCEL_SUBSCRIPTION_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.CANCEL_SUBSCRIPTION_MOBILE_APP',
+    defaultMessage: `Cost per Mobile App Cancel Subscription`,
+  }),
+  [ActionType.CANCEL_SUBSCRIPTION_OFFLINE]: defineMessage({
+    id: 'enums.CostPerActionType.CANCEL_SUBSCRIPTION_OFFLINE',
+    defaultMessage: `Cost per Offline Cancel Subscription`,
+  }),
+  [ActionType.AD_CLICK_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.AD_CLICK_MOBILE_APP',
+    defaultMessage: `Cost per In-App Ad Click`,
+  }),
+  [ActionType.AD_IMPRESSION_MOBILE_APP]: defineMessage({
+    id: 'enums.CostPerActionType.AD_IMPRESSION_MOBILE_APP',
+    defaultMessage: `Cost per 1,000 In-App Ad Impressions`,
+  }),
+  [ActionType.CLICK_TO_CALL_CALL_CONFIRM]: defineMessage({
+    id: 'enums.CostPerActionType.CLICK_TO_CALL_CALL_CONFIRM',
+    defaultMessage: `Cost per Call Confirmation Click`,
+  }),
+  [ActionType.PAGE_ENGAGEMENT]: defineMessage({
+    id: `enums.CostPerActionType.PAGE_ENGAGEMENT`,
+    defaultMessage: `Cost per Page Engagement`,
+  }),
+  [ActionType.POST_ENGAGEMENT]: defineMessage({
+    id: `enums.CostPerActionType.POST_ENGAGEMENT`,
+    defaultMessage: `Cost per Post Engagement`,
+  }),
+  [ActionType.OFFSITE_CONVERSION]: defineMessage({
+    id: `enums.CostPerActionType.OFFSITE_CONVERSION`,
+    defaultMessage: `Cost per Website Conversion`,
+  }),
+  [ActionType.ONSITE_CONVERSION]: defineMessage({
+    id: `enums.CostPerActionType.ONSITE_CONVERSION`,
+    defaultMessage: `Cost per On-Facebook Conversion`,
+  }),
+  [ActionType.APP_CUSTOM_EVENT]: defineMessage({
+    id: `enums.CostPerActionType.APP_CUSTOM_EVENT`,
+    defaultMessage: `Cost per Mobile App Action`,
+  }),
+  [ActionType.ADD_TO_CART]: defineMessage({
+    id: `enums.CostPerActionType.ADD_TO_CART`,
+    defaultMessage: `Cost per Add to Cart`,
+  }),
+  [ActionType.COMPLETE_REGISTRATION]: defineMessage({
+    id: `enums.CostPerActionType.COMPLETE_REGISTRATION`,
+    defaultMessage: `Cost per Registration Completed`,
+  }),
+  [ActionType.PURCHASE]: defineMessage({
+    id: `enums.CostPerActionType.PURCHASE`,
+    defaultMessage: `Cost per Purchase`,
+  }),
+  [ActionType.ONSITE_CONVERSION_LEAD_GROUPED]: defineMessage({
+    id: `enums.CostPerActionType.ONSITE_CONVERSION_LEAD_GROUPED`,
+    defaultMessage: `Cost per On-Facebook Lead`,
+  }),
+  [ActionType.VIEW_CONTENT]: defineMessage({
+    id: `enums.CostPerActionType.VIEW_CONTENT`,
+    defaultMessage: `Cost per Content View`,
+  }),
+  [ActionType.INITIATE_CHECKOUT]: defineMessage({
+    id: `enums.CostPerActionType.INITIATE_CHECKOUT`,
+    defaultMessage: `Cost per Checkout Initiated`,
+  }),
+  [ActionType.ADD_PAYMENT_INFO]: defineMessage({
+    id: `enums.CostPerActionType.ADD_PAYMENT_INFO`,
+    defaultMessage: `Cost per Add of Payment Info`,
+  }),
+  [ActionType.ADD_TO_WISHLIST]: defineMessage({
+    id: `enums.CostPerActionType.ADD_TO_WISHLIST`,
+    defaultMessage: `Cost per Add to Wishlist`,
+  }),
+  [ActionType.LEAD]: defineMessage({
+    id: `enums.CostPerActionType.LEAD`,
+    defaultMessage: `Cost per Lead`,
+  }),
+  [ActionType.LEADGEN_GROUPED]: defineMessage({
+    id: `enums.CostPerActionType.LEADGEN_GROUPED`,
+    defaultMessage: `Cost per Lead (Form)`,
+  }),
+  [ActionType.OMNI_APP_INSTALL]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_APP_INSTALL`,
+    defaultMessage: `Cost per App Install`,
+  }),
+  [ActionType.OMNI_PURCHASE]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_PURCHASE`,
+    defaultMessage: `Cost per Purchase`,
+  }),
+  [ActionType.OMNI_ADD_TO_CART]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_ADD_TO_CART`,
+    defaultMessage: `Cost per Add to Cart`,
+  }),
+  [ActionType.OMNI_COMPLETE_REGISTRATION]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_COMPLETE_REGISTRATION`,
+    defaultMessage: `Cost per Registration Completed`,
+  }),
+  [ActionType.OMNI_VIEW_CONTENT]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_VIEW_CONTENT`,
+    defaultMessage: `Cost per Content View`,
+  }),
+  [ActionType.OMNI_SEARCH]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_SEARCH`,
+    defaultMessage: `Cost per Search`,
+  }),
+  [ActionType.OMNI_INITIATED_CHECKOUT]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_INITIATED_CHECKOUT`,
+    defaultMessage: `Cost per Checkout Initiated`,
+  }),
+  [ActionType.OMNI_ACHIEVEMENT_UNLOCKED]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_ACHIEVEMENT_UNLOCKED`,
+    defaultMessage: `Cost per Achievement Unlocked`,
+  }),
+  [ActionType.OMNI_ACTIVATE_APP]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_ACTIVATE_APP`,
+    defaultMessage: `Cost per App Activation`,
+  }),
+  [ActionType.OMNI_LEVEL_ACHIEVED]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_LEVEL_ACHIEVED`,
+    defaultMessage: `Cost per Level Achieved`,
+  }),
+  [ActionType.OMNI_RATE]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_RATE`,
+    defaultMessage: `Cost per Rating Submitted`,
+  }),
+  [ActionType.OMNI_SPEND_CREDITS]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_SPEND_CREDITS`,
+    defaultMessage: `Cost per Credit Spend`,
+  }),
+  [ActionType.OMNI_TUTORIAL_COMPLETION]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_TUTORIAL_COMPLETION`,
+    defaultMessage: `Cost per Tutorial Completed`,
+  }),
+  [ActionType.OMNI_CUSTOM]: defineMessage({
+    id: `enums.CostPerActionType.OMNI_CUSTOM`,
+    defaultMessage: `Cost per Custom Event`,
+  }),
+  [ActionType.SUBSCRIBE]: defineMessage({
+    id: `enums.CostPerActionType.SUBSCRIBE`,
+    defaultMessage: `Cost per Subscription`,
+  }),
+};
+
+export const CommentFilterTexts = {
   [CommentFilter.ALL]: defineMessage({
     id: 'enums.CommentFilter.ALL',
     defaultMessage: `All`,
@@ -432,7 +1103,7 @@ export const CommentFilters = {
   }),
 };
 
-export const BudgetTypes = {
+export const BudgetTypeTexts = {
   [BudgetType.DAILY]: defineMessage({
     id: 'enums.BudgetType.DAILY',
     defaultMessage: `Daily`,
@@ -443,7 +1114,7 @@ export const BudgetTypes = {
   }),
 };
 
-export const DatePresets = {
+export const DatePresetTexts = {
   [DatePreset.LIFETIME]: defineMessage({
     id: 'enums.DatePreset.LIFETIME',
     defaultMessage: `Lifetime`,
@@ -520,4 +1191,15 @@ export const DatePresets = {
     id: 'enums.DatePreset.LAST_YEAR',
     defaultMessage: `Last year`,
   }),
+};
+
+export const EnumTexts = {
+  BidStrategy: BidStrategyTexts,
+  BuyingType: BuyingTypeTexts,
+  Objective: ObjectiveTexts,
+  ActionType: ActionTypeTexts,
+  CostPerActionType: CostPerActionTypeTexts,
+  CommentFilter: CommentFilterTexts,
+  BudgetType: BudgetTypeTexts,
+  DatePreset: DatePresetTexts,
 };

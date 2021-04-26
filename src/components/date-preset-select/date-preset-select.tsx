@@ -40,7 +40,7 @@ export function DatePresetSelect({
       >
         {allowedDatePresets.map((datePreset) => (
           <option key={datePreset} value={datePreset}>
-            {intl.formatMessage(Messages.Enums.DatePresets[datePreset])}
+            {intl.formatMessage(Messages.Enums.DatePreset[datePreset])}
           </option>
         ))}
       </Select>

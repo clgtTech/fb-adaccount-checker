@@ -12,7 +12,7 @@ import { DeliveryStatusInfo } from '../delivery-status-info';
 import { ObjectLink } from '../object-link';
 import { AdObjectStatusSwitch } from '../ad-object-status-switch';
 import { AdBudget } from '../ad-budget';
-import { Insights } from '../campaign-card';
+import { InsightsInfo } from '../insights-info';
 
 export interface AdsetCardProps extends EntityCardProps {
   adAccount: AdAccount;
@@ -84,7 +84,7 @@ export const AdsetCard = mobxReact.observer(function AdsetCard({
         <EntityCard.Section
           caption={intl.formatMessage(Messages.Adset.insights)}
         >
-          <Insights insights={adsetPresenter.insights} />
+          <InsightsInfo insightsPresenter={adsetPresenter.insights} />
         </EntityCard.Section>
       ) : null}
 

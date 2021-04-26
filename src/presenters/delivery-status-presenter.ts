@@ -1,3 +1,4 @@
+import capitalize from 'lodash/capitalize';
 import { DeliveryStatus } from '../stores/entities';
 import { IntlFactory, DeliverySubstatusTexts } from '../services/intl';
 
@@ -180,10 +181,7 @@ export class DeliveryStatusPresenter {
       case 'with_issues':
         return IntlFactory._(DeliverySubstatusTexts.deliveryError);
       default:
-        return substatus
-          .split(/[_-]/)
-          .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
-          .join(' ');
+        return substatus.split(/[_-]/).map(capitalize).join(' ');
     }
   }
 }

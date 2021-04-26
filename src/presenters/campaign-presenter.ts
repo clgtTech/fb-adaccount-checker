@@ -40,17 +40,17 @@ export class CampaignPresenter {
   }
 
   static formatBuyingType(buyingType: BuyingType): string {
-    return Formatters.formatEnumValue(buyingType, Messages.Enums.BuyingTypes);
+    return Formatters.formatEnumValue(buyingType, Messages.Enums.BuyingType);
   }
 
   static formatObjective(objective: Objective): string {
-    return Formatters.formatEnumValue(objective, Messages.Enums.Objectives);
+    return Formatters.formatEnumValue(objective, Messages.Enums.Objective);
   }
 
   static formatBidStrategy(bidStrategy: BidStrategy): string {
     return Formatters.formatEnumValue(
       bidStrategy,
-      Messages.Enums.BidStrategies
+      Messages.Enums.BidStrategy
     );
   }
 }

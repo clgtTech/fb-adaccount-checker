@@ -1,4 +1,4 @@
-export * as EnumTexts from './enums';
+export { EnumTexts } from './enums';
 export * as EntityTexts from './entities';
 export * as CampaignTexts from './campaign';
 export * as AdsetTexts from './adset';

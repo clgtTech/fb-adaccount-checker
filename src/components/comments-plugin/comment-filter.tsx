@@ -27,7 +27,7 @@ export function CommentFilter({
           isActive={filter === activeFilter}
           onClick={() => onFilterChange(filter)}
         >
-          <FormattedMessage {...Messages.Enums.CommentFilters[filter]} />
+          <FormattedMessage {...Messages.Enums.CommentFilter[filter]} />
         </ScopeButtons.Button>
       ))}
     </ScopeButtons>

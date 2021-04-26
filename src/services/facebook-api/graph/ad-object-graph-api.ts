@@ -1,12 +1,24 @@
 import { makeRequest } from '../make-request';
-import { DeliveryStatusDTO, InsightsDTO } from '../../../stores/entities';
 import {
   ActionAttributionWindows,
   ActionIndicator,
   ActionType,
   DatePreset,
 } from '../../../types';
+import {
+  ActionStats,
+  DeliveryStatusDTO,
+  InsightsDTO,
+} from '../../../stores/entities';
 import { toNumber } from '../helpers';
+
+/**
+ * @see https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/
+ */
+export interface FacebookAdsActionStats {
+  action_type: ActionType;
+  value: string;
+}
 
 /**
  * @see https://developers.facebook.com/docs/marketing-api/insights
@@ -39,6 +51,8 @@ export interface FacebookInsights {
           ];
         }
       ];
+      actions: FacebookAdsActionStats[];
+      cost_per_action_type: FacebookAdsActionStats[];
       spend: string;
       cpc: string;
       cpm: string;
@@ -49,52 +63,15 @@ export interface FacebookInsights {
   ];
 }
 
-export const prepareInsightFieldsForRequest = (
-  datePreset = DatePreset.LIFETIME
-): string => {
-  return `insights.date_preset(${datePreset}){${[
-    'results',
-    'cost_per_result',
-    'spend',
-    'cpc',
-    'cpm',
-    'ctr',
-  ].join(',')}}`;
-};
-
-export const fetchedInsightsToInsightsDTO = (
-  insights: FacebookInsights | null | undefined
-): InsightsDTO | undefined => {
-  if (!insights) {
-    return;
-  }
-
-  const data = insights?.data?.[0];
-  const actionIndicator = data.results?.[0]?.indicator;
-  if (!actionIndicator) {
-    return;
-  }
-
-  return {
-    actionType: actionIndicator.replace('actions:', '') as ActionType,
-    actionTypeResult: toNumber(data.results[0].values?.[0]?.value),
-    costPerActionType: toNumber(data.cost_per_result?.[0]?.values?.[0]?.value),
-    spend: toNumber(data.spend),
-    cpc: toNumber(data.cpc),
-    cpm: toNumber(data.cpm),
-    ctr: toNumber(data.ctr),
-  };
-};
-
 interface FacebookDeliveryStatus {
+  id: string;
   delivery_status: {
     status: string;
     substatuses: string[];
   };
-  id: string;
 }
 
-const getDeliveryStatuses = async (
+const fetchDeliveryStatuses = async (
   ids: string[]
 ): Promise<Record<string, DeliveryStatusDTO>> => {
   const response = await makeRequest<Record<string, FacebookDeliveryStatus>>({
@@ -123,5 +100,64 @@ const getDeliveryStatuses = async (
 };
 
 export const adObjectGraphApi = {
-  getDeliveryStatuses,
+  fetchDeliveryStatuses,
+  helpers: {
+    getInsightsFieldForNestedRequest,
+    deserializeAdsActionStatsList,
+    deserializeInsights,
+  },
 };
+
+function getInsightsFieldForNestedRequest(
+  datePreset = DatePreset.LIFETIME
+): string {
+  return `insights.date_preset(${datePreset}){${[
+    'results',
+    'cost_per_result',
+    'actions',
+    'cost_per_action_type',
+    'spend',
+    'cpc',
+    'cpm',
+    'ctr',
+  ].join(',')}}`;
+}
+
+function deserializeAdsActionStatsList(
+  adsActionStatsList: FacebookAdsActionStats[] | null | undefined
+): ActionStats {
+  if (!Array.isArray(adsActionStatsList)) {
+    return {};
+  }
+
+  return adsActionStatsList.reduce<ActionStats>((actionStats, item) => {
+    actionStats[item.action_type] = toNumber(item.value);
+    return actionStats;
+  }, {});
+}
+
+function deserializeInsights(
+  insights: FacebookInsights | null | undefined
+): InsightsDTO | undefined {
+  if (!insights) {
+    return;
+  }
+
+  const data = insights?.data?.[0];
+  const actionIndicator = data.results?.[0]?.indicator;
+  if (!actionIndicator) {
+    return;
+  }
+
+  return {
+    targetAction: actionIndicator.replace('actions:', '') as ActionType,
+    targetActionResult: toNumber(data.results[0].values?.[0]?.value),
+    targetActionCost: toNumber(data.cost_per_result?.[0]?.values?.[0]?.value),
+    actions: deserializeAdsActionStatsList(data.actions),
+    costPerAction: deserializeAdsActionStatsList(data.cost_per_action_type),
+    spend: toNumber(data.spend),
+    cpc: toNumber(data.cpc),
+    cpm: toNumber(data.cpm),
+    ctr: toNumber(data.ctr),
+  };
+}

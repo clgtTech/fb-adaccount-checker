@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as mobxReact from 'mobx-react-lite';
 import { useHistory } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { ActionType, Objective } from '../../types';
 import { AdAccount, Campaign } from '../../stores/entities';
 import { CampaignPresenter } from '../../presenters/campaign-presenter';
 import { Messages } from '../../services/intl';
@@ -12,7 +13,7 @@ import { DeliveryStatusInfo } from '../delivery-status-info';
 import { ObjectLink } from '../object-link';
 import { AdObjectStatusSwitch } from '../ad-object-status-switch';
 import { AdBudget } from '../ad-budget';
-import { Insights } from './insights';
+import { InsightsInfo } from '../insights-info';
 
 export interface CampaignCardProps extends EntityCardProps {
   adAccount: AdAccount;
@@ -94,7 +95,20 @@ export const CampaignCard = mobxReact.observer(function CampaignCard({
         <EntityCard.Section
           caption={intl.formatMessage(Messages.Campaign.insights)}
         >
-          <Insights insights={campaignPresenter.insights} />
+          <InsightsInfo
+            insightsPresenter={campaignPresenter.insights}
+            additionalActionItems={
+              campaign.objective === Objective.APP_INSTALLS
+                ? [
+                    {
+                      action: ActionType.OMNI_APP_INSTALL,
+                      shouldShowActionResult: true,
+                      shouldShowActionCost: true,
+                    },
+                  ]
+                : undefined
+            }
+          />
         </EntityCard.Section>
       ) : null}
 

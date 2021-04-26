@@ -64,7 +64,7 @@ export function AdBudget({
               {Formatters.formatCurrencyAmount(budget)}
             </span>
             <span className={styles.budgetType}>
-              <FormattedMessage {...Messages.Enums.BudgetTypes[budgetType]} />
+              <FormattedMessage {...Messages.Enums.BudgetType[budgetType]} />
             </span>
           </div>
           {(function () {

@@ -1,29 +1,39 @@
 import { ActionType } from '../../types';
 
 export class Insights {
-  readonly actionType: ActionType;
-  readonly actionTypeResult: number;
-  readonly costPerActionType: number;
+  readonly targetAction: ActionType;
+  readonly targetActionResult: number;
+  readonly targetActionCost: number;
+  readonly actions: ActionStats;
+  readonly costPerAction: ActionStats;
   readonly spend: number;
   readonly cpc: number;
   readonly cpm: number;
   readonly ctr: number;
 
-  constructor(insights: InsightsDTO) {
-    this.actionType = insights.actionType;
-    this.actionTypeResult = insights.actionTypeResult;
-    this.costPerActionType = insights.costPerActionType;
-    this.spend = insights.spend;
-    this.cpc = insights.cpc;
-    this.cpm = insights.cpm;
-    this.ctr = insights.ctr;
+  constructor(insightsDTO: InsightsDTO) {
+    this.targetAction = insightsDTO.targetAction;
+    this.targetActionResult = insightsDTO.targetActionResult;
+    this.targetActionCost = insightsDTO.targetActionCost;
+    this.actions = insightsDTO.actions;
+    this.costPerAction = insightsDTO.costPerAction;
+    this.spend = insightsDTO.spend;
+    this.cpc = insightsDTO.cpc;
+    this.cpm = insightsDTO.cpm;
+    this.ctr = insightsDTO.ctr;
   }
 }
 
+export type ActionStats = {
+  [key in ActionType]?: number;
+};
+
 export interface InsightsDTO {
-  actionType: ActionType;
-  actionTypeResult: number;
-  costPerActionType: number;
+  targetAction: ActionType;
+  targetActionResult: number;
+  targetActionCost: number;
+  actions: ActionStats;
+  costPerAction: ActionStats;
   spend: number;
   cpc: number;
   cpm: number;

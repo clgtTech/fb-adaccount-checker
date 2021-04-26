@@ -347,6 +347,12 @@
   "enums.ActionType.ADD_TO_WISHLIST": {
     "defaultMessage": "Adds to Wishlist"
   },
+  "enums.ActionType.AD_CLICK_MOBILE_APP": {
+    "defaultMessage": "In-App Ad Clicks"
+  },
+  "enums.ActionType.AD_IMPRESSION_MOBILE_APP": {
+    "defaultMessage": "In-App Ad Impressions"
+  },
   "enums.ActionType.APP_CUSTOM_EVENT": {
     "defaultMessage": "Mobile App Actions"
   },
@@ -398,14 +404,80 @@
   "enums.ActionType.APP_USE": {
     "defaultMessage": "Desktop App Uses"
   },
+  "enums.ActionType.CANCEL_SUBSCRIPTION_MOBILE_APP": {
+    "defaultMessage": "Mobile App Canceled Subscriptions"
+  },
+  "enums.ActionType.CANCEL_SUBSCRIPTION_OFFLINE": {
+    "defaultMessage": "Offline Canceled Subscriptions"
+  },
+  "enums.ActionType.CANCEL_SUBSCRIPTION_TOTAL": {
+    "defaultMessage": "Canceled Subscriptions"
+  },
+  "enums.ActionType.CANCEL_SUBSCRIPTION_WEBSITE": {
+    "defaultMessage": "Website Canceled Subscriptions"
+  },
   "enums.ActionType.CHECKIN": {
     "defaultMessage": "Check-Ins"
+  },
+  "enums.ActionType.CLICK_TO_CALL_CALL_CONFIRM": {
+    "defaultMessage": "Call Confirmation Clicks"
   },
   "enums.ActionType.COMPLETE_REGISTRATION": {
     "defaultMessage": "Registrations Completed"
   },
+  "enums.ActionType.CONTACT_MOBILE_APP": {
+    "defaultMessage": "Mobile App Contacts"
+  },
+  "enums.ActionType.CONTACT_OFFLINE": {
+    "defaultMessage": "Offline Contacts"
+  },
+  "enums.ActionType.CONTACT_TOTAL": {
+    "defaultMessage": "Contacts"
+  },
+  "enums.ActionType.CONTACT_WEBSITE": {
+    "defaultMessage": "Website Contacts"
+  },
   "enums.ActionType.CREDIT_SPENT": {
     "defaultMessage": "Desktop App Credit Spends"
+  },
+  "enums.ActionType.CUSTOMIZE_PRODUCT_MOBILE_APP": {
+    "defaultMessage": "Mobile App Products Customized"
+  },
+  "enums.ActionType.CUSTOMIZE_PRODUCT_OFFLINE": {
+    "defaultMessage": "Offline Products Customized"
+  },
+  "enums.ActionType.CUSTOMIZE_PRODUCT_TOTAL": {
+    "defaultMessage": "Products Customized"
+  },
+  "enums.ActionType.CUSTOMIZE_PRODUCT_WEBSITE": {
+    "defaultMessage": "Website Products Customized"
+  },
+  "enums.ActionType.DONATE_MOBILE_APP": {
+    "defaultMessage": "Mobile App Donations"
+  },
+  "enums.ActionType.DONATE_OFFLINE": {
+    "defaultMessage": "Offline Donations"
+  },
+  "enums.ActionType.DONATE_ON_FACEBOOK": {
+    "defaultMessage": "On Facebook Donations"
+  },
+  "enums.ActionType.DONATE_TOTAL": {
+    "defaultMessage": "Donations"
+  },
+  "enums.ActionType.DONATE_WEBSITE": {
+    "defaultMessage": "Website Donations"
+  },
+  "enums.ActionType.FIND_LOCATION_MOBILE_APP": {
+    "defaultMessage": "Mobile App Location Searches"
+  },
+  "enums.ActionType.FIND_LOCATION_OFFLINE": {
+    "defaultMessage": "Offline Location Searches"
+  },
+  "enums.ActionType.FIND_LOCATION_TOTAL": {
+    "defaultMessage": "Location Searches"
+  },
+  "enums.ActionType.FIND_LOCATION_WEBSITE": {
+    "defaultMessage": "Website Location Searches"
   },
   "enums.ActionType.GAME_PLAYS": {
     "defaultMessage": "Game Plays"
@@ -554,11 +626,74 @@
   "enums.ActionType.PURCHASE": {
     "defaultMessage": "Purchases"
   },
+  "enums.ActionType.RECURRING_SUBSCRIPTION_PAYMENT_MOBILE_APP": {
+    "defaultMessage": "Mobile App Recurring Subscription Payments"
+  },
+  "enums.ActionType.RECURRING_SUBSCRIPTION_PAYMENT_OFFLINE": {
+    "defaultMessage": "Offline Mobile App Recurring Subscription Payments"
+  },
+  "enums.ActionType.RECURRING_SUBSCRIPTION_PAYMENT_TOTAL": {
+    "defaultMessage": "Recurring Subscription Payments"
+  },
+  "enums.ActionType.RECURRING_SUBSCRIPTION_PAYMENT_WEBSITE": {
+    "defaultMessage": "Website Recurring Subscription Payments"
+  },
   "enums.ActionType.RSVP": {
     "defaultMessage": "Event Responses"
   },
+  "enums.ActionType.SCHEDULE_MOBILE_APP": {
+    "defaultMessage": "Mobile App Appointments Scheduled"
+  },
+  "enums.ActionType.SCHEDULE_OFFLINE": {
+    "defaultMessage": "Offline Appointments Scheduled"
+  },
+  "enums.ActionType.SCHEDULE_TOTAL": {
+    "defaultMessage": "Appointments Scheduled"
+  },
+  "enums.ActionType.SCHEDULE_WEBSITE": {
+    "defaultMessage": "Website Appointments Scheduled"
+  },
+  "enums.ActionType.START_TRIAL_MOBILE_APP": {
+    "defaultMessage": "Mobile App Trials Started"
+  },
+  "enums.ActionType.START_TRIAL_OFFLINE": {
+    "defaultMessage": "Offline Trials Started"
+  },
+  "enums.ActionType.START_TRIAL_TOTAL": {
+    "defaultMessage": "Trials Started"
+  },
+  "enums.ActionType.START_TRIAL_WEBSITE": {
+    "defaultMessage": "Website Trials Started"
+  },
+  "enums.ActionType.SUBMIT_APPLICATION_MOBILE_APP": {
+    "defaultMessage": "Mobile App Applications Submitted"
+  },
+  "enums.ActionType.SUBMIT_APPLICATION_OFFLINE": {
+    "defaultMessage": "Offline Applications Submitted"
+  },
+  "enums.ActionType.SUBMIT_APPLICATION_ON_FACEBOOK": {
+    "defaultMessage": "On Facebook Applications Submitted"
+  },
+  "enums.ActionType.SUBMIT_APPLICATION_TOTAL": {
+    "defaultMessage": "Applications Submitted"
+  },
+  "enums.ActionType.SUBMIT_APPLICATION_WEBSITE": {
+    "defaultMessage": "Website Applications Submitted"
+  },
   "enums.ActionType.SUBSCRIBE": {
     "defaultMessage": "Subscriptions"
+  },
+  "enums.ActionType.SUBSCRIBE_MOBILE_APP": {
+    "defaultMessage": "Mobile App Subscriptions"
+  },
+  "enums.ActionType.SUBSCRIBE_OFFLINE": {
+    "defaultMessage": "Offline Subscriptions"
+  },
+  "enums.ActionType.SUBSCRIBE_TOTAL": {
+    "defaultMessage": "Subscriptions"
+  },
+  "enums.ActionType.SUBSCRIBE_WEBSITE": {
+    "defaultMessage": "Website Subscriptions"
   },
   "enums.ActionType.VIDEO_VIEW": {
     "defaultMessage": "3-Second Video Views"
@@ -598,6 +733,369 @@
   },
   "enums.CommentFilter.VISIBLE": {
     "defaultMessage": "Visible"
+  },
+  "enums.CostPerActionType.ADD_PAYMENT_INFO": {
+    "defaultMessage": "Cost per Add of Payment Info"
+  },
+  "enums.CostPerActionType.ADD_TO_CART": {
+    "defaultMessage": "Cost per Add to Cart"
+  },
+  "enums.CostPerActionType.ADD_TO_WISHLIST": {
+    "defaultMessage": "Cost per Add to Wishlist"
+  },
+  "enums.CostPerActionType.AD_CLICK_MOBILE_APP": {
+    "defaultMessage": "Cost per In-App Ad Click"
+  },
+  "enums.CostPerActionType.AD_IMPRESSION_MOBILE_APP": {
+    "defaultMessage": "Cost per 1,000 In-App Ad Impressions"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT": {
+    "defaultMessage": "Cost per Mobile App Action"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_ACHIEVEMENT_UNLOCKED": {
+    "defaultMessage": "Cost per Mobile App Achievement Unlocked"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_ACTIVATE_APP": {
+    "defaultMessage": "Cost per Mobile App Session"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_PAYMENT_INFO": {
+    "defaultMessage": "Cost per Mobile App Add of Payment Info"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_TO_CART": {
+    "defaultMessage": "Cost per Mobile App Add to Cart"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_ADD_TO_WISHLIST": {
+    "defaultMessage": "Cost per Mobile App Add to Wishlist"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_COMPLETE_REGISTRATION": {
+    "defaultMessage": "Cost per Mobile App Registration Completed"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_CONTENT_VIEW": {
+    "defaultMessage": "Cost per Mobile App Content View"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_INITIATED_CHECKOUT": {
+    "defaultMessage": "Cost per Mobile App Checkout Initiated"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_LEVEL_ACHIEVED": {
+    "defaultMessage": "Cost per Mobile App Level Completed"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_RATE": {
+    "defaultMessage": "Cost per Mobile App Rating Submitted"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_SEARCH": {
+    "defaultMessage": "Cost per Mobile App Search"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_SPENT_CREDITS": {
+    "defaultMessage": "Cost per Mobile App Credit Spend"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_FB_MOBILE_TUTORIAL_COMPLETION": {
+    "defaultMessage": "Cost per Mobile App Tutorial Completed"
+  },
+  "enums.CostPerActionType.APP_CUSTOM_EVENT_OTHER": {
+    "defaultMessage": "Cost per Other Mobile App Action"
+  },
+  "enums.CostPerActionType.APP_INSTALL": {
+    "defaultMessage": "Cost per Desktop App Install"
+  },
+  "enums.CostPerActionType.APP_USE": {
+    "defaultMessage": "Cost per Desktop App Use"
+  },
+  "enums.CostPerActionType.CANCEL_SUBSCRIPTION_MOBILE_APP": {
+    "defaultMessage": "Cost per Mobile App Cancel Subscription"
+  },
+  "enums.CostPerActionType.CANCEL_SUBSCRIPTION_OFFLINE": {
+    "defaultMessage": "Cost per Offline Cancel Subscription"
+  },
+  "enums.CostPerActionType.CANCEL_SUBSCRIPTION_TOTAL": {
+    "defaultMessage": "Cost per Cancel Subscription"
+  },
+  "enums.CostPerActionType.CANCEL_SUBSCRIPTION_WEBSITE": {
+    "defaultMessage": "Cost per Website Cancel Subscription"
+  },
+  "enums.CostPerActionType.CHECKIN": {
+    "defaultMessage": "Cost per Check-In"
+  },
+  "enums.CostPerActionType.CLICK_TO_CALL_CALL_CONFIRM": {
+    "defaultMessage": "Cost per Call Confirmation Click"
+  },
+  "enums.CostPerActionType.COMPLETE_REGISTRATION": {
+    "defaultMessage": "Cost per Registration Completed"
+  },
+  "enums.CostPerActionType.CONTACT_MOBILE_APP": {
+    "defaultMessage": "Cost per Mobile App Contact"
+  },
+  "enums.CostPerActionType.CONTACT_OFFLINE": {
+    "defaultMessage": "Cost per Offline Contact"
+  },
+  "enums.CostPerActionType.CONTACT_TOTAL": {
+    "defaultMessage": "Cost per Contact"
+  },
+  "enums.CostPerActionType.CONTACT_WEBSITE": {
+    "defaultMessage": "Cost per Website Contact"
+  },
+  "enums.CostPerActionType.CREDIT_SPENT": {
+    "defaultMessage": "Cost per Desktop App Credit Spend"
+  },
+  "enums.CostPerActionType.CUSTOMIZE_PRODUCT_MOBILE_APP": {
+    "defaultMessage": "Cost per Mobile App Customize Product"
+  },
+  "enums.CostPerActionType.CUSTOMIZE_PRODUCT_OFFLINE": {
+    "defaultMessage": "Cost per Offline Customize Product"
+  },
+  "enums.CostPerActionType.CUSTOMIZE_PRODUCT_TOTAL": {
+    "defaultMessage": "Cost per Customize Product"
+  },
+  "enums.CostPerActionType.CUSTOMIZE_PRODUCT_WEBSITE": {
+    "defaultMessage": "Cost per Website Customize Product"
+  },
+  "enums.CostPerActionType.DONATE_MOBILE_APP": {
+    "defaultMessage": "Cost per Mobile App Donation"
+  },
+  "enums.CostPerActionType.DONATE_OFFLINE": {
+    "defaultMessage": "Cost per Offline Donation"
+  },
+  "enums.CostPerActionType.DONATE_ON_FACEBOOK": {
+    "defaultMessage": "Cost per On Facebook Donation"
+  },
+  "enums.CostPerActionType.DONATE_TOTAL": {
+    "defaultMessage": "Cost per Donation"
+  },
+  "enums.CostPerActionType.DONATE_WEBSITE": {
+    "defaultMessage": "Cost per Website Donation"
+  },
+  "enums.CostPerActionType.FIND_LOCATION_MOBILE_APP": {
+    "defaultMessage": "Cost per Mobile App Find Location"
+  },
+  "enums.CostPerActionType.FIND_LOCATION_OFFLINE": {
+    "defaultMessage": "Cost per Offline Find Location"
+  },
+  "enums.CostPerActionType.FIND_LOCATION_TOTAL": {
+    "defaultMessage": "Cost per Find Location"
+  },
+  "enums.CostPerActionType.FIND_LOCATION_WEBSITE": {
+    "defaultMessage": "Cost per Website Find Location"
+  },
+  "enums.CostPerActionType.GAME_PLAYS": {
+    "defaultMessage": "Cost per Game Play"
+  },
+  "enums.CostPerActionType.INITIATE_CHECKOUT": {
+    "defaultMessage": "Cost per Checkout Initiated"
+  },
+  "enums.CostPerActionType.LANDING_PAGE_VIEW": {
+    "defaultMessage": "Cost per Landing Page View"
+  },
+  "enums.CostPerActionType.LEAD": {
+    "defaultMessage": "Cost per Lead"
+  },
+  "enums.CostPerActionType.LEADGEN_GROUPED": {
+    "defaultMessage": "Cost per Lead (Form)"
+  },
+  "enums.CostPerActionType.LIKE": {
+    "defaultMessage": "Cost per Page like"
+  },
+  "enums.CostPerActionType.LINK_CLICK": {
+    "defaultMessage": "Cost per Link Click"
+  },
+  "enums.CostPerActionType.MOBILE_APP_INSTALL": {
+    "defaultMessage": "Cost per Mobile App Install"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION": {
+    "defaultMessage": "Cost per Website Conversion"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_PAYMENT_INFO": {
+    "defaultMessage": "Cost per Offline Add of Payment Info"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_TO_CART": {
+    "defaultMessage": "Cost per Offline Add to Cart"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_ADD_TO_WISHLIST": {
+    "defaultMessage": "Cost per Offline Add to Wishlist"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_COMPLETE_REGISTRATION": {
+    "defaultMessage": "Cost per Offline Registration Completed"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_CUSTOM": {
+    "defaultMessage": "Cost per Custom pixel event"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_INITIATE_CHECKOUT": {
+    "defaultMessage": "Cost per Website Checkout Initiated"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_LEAD": {
+    "defaultMessage": "Cost per Website Lead"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_PURCHASE": {
+    "defaultMessage": "Cost per Website Purchase"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_SEARCH": {
+    "defaultMessage": "Cost per Website Search"
+  },
+  "enums.CostPerActionType.OFFSITE_CONVERSION_FB_PIXEL_VIEW_CONTENT": {
+    "defaultMessage": "Cost per Website Content View"
+  },
+  "enums.CostPerActionType.OMNI_ACHIEVEMENT_UNLOCKED": {
+    "defaultMessage": "Cost per Achievement Unlocked"
+  },
+  "enums.CostPerActionType.OMNI_ACTIVATE_APP": {
+    "defaultMessage": "Cost per App Activation"
+  },
+  "enums.CostPerActionType.OMNI_ADD_TO_CART": {
+    "defaultMessage": "Cost per Add to Cart"
+  },
+  "enums.CostPerActionType.OMNI_APP_INSTALL": {
+    "defaultMessage": "Cost per App Install"
+  },
+  "enums.CostPerActionType.OMNI_COMPLETE_REGISTRATION": {
+    "defaultMessage": "Cost per Registration Completed"
+  },
+  "enums.CostPerActionType.OMNI_CUSTOM": {
+    "defaultMessage": "Cost per Custom Event"
+  },
+  "enums.CostPerActionType.OMNI_INITIATED_CHECKOUT": {
+    "defaultMessage": "Cost per Checkout Initiated"
+  },
+  "enums.CostPerActionType.OMNI_LEVEL_ACHIEVED": {
+    "defaultMessage": "Cost per Level Achieved"
+  },
+  "enums.CostPerActionType.OMNI_PURCHASE": {
+    "defaultMessage": "Cost per Purchase"
+  },
+  "enums.CostPerActionType.OMNI_RATE": {
+    "defaultMessage": "Cost per Rating Submitted"
+  },
+  "enums.CostPerActionType.OMNI_SEARCH": {
+    "defaultMessage": "Cost per Search"
+  },
+  "enums.CostPerActionType.OMNI_SPEND_CREDITS": {
+    "defaultMessage": "Cost per Credit Spend"
+  },
+  "enums.CostPerActionType.OMNI_TUTORIAL_COMPLETION": {
+    "defaultMessage": "Cost per Tutorial Completed"
+  },
+  "enums.CostPerActionType.OMNI_VIEW_CONTENT": {
+    "defaultMessage": "Cost per Content View"
+  },
+  "enums.CostPerActionType.ONSITE_CONVERSION": {
+    "defaultMessage": "Cost per On-Facebook Conversion"
+  },
+  "enums.CostPerActionType.ONSITE_CONVERSION_FLOW_COMPLETE": {
+    "defaultMessage": "Cost per On-Facebook Workflow Completion"
+  },
+  "enums.CostPerActionType.ONSITE_CONVERSION_LEAD_GROUPED": {
+    "defaultMessage": "Cost per On-Facebook Lead"
+  },
+  "enums.CostPerActionType.ONSITE_CONVERSION_MESSAGING_BLOCK": {
+    "defaultMessage": "Cost per Blocked Messaging Connection"
+  },
+  "enums.CostPerActionType.ONSITE_CONVERSION_MESSAGING_CONVERSATION_STARTED_7D": {
+    "defaultMessage": "Cost per Messaging Conversation Started"
+  },
+  "enums.CostPerActionType.ONSITE_CONVERSION_MESSAGING_FIRST_REPLY": {
+    "defaultMessage": "Cost per New Messaging Connection"
+  },
+  "enums.CostPerActionType.ONSITE_CONVERSION_POST_SAVE": {
+    "defaultMessage": "Cost per Post Save"
+  },
+  "enums.CostPerActionType.ONSITE_CONVERSION_PURCHASE": {
+    "defaultMessage": "Cost per On-Facebook Purchase"
+  },
+  "enums.CostPerActionType.OUTBOUND_CLICK": {
+    "defaultMessage": "Cost per Outbound Click"
+  },
+  "enums.CostPerActionType.PAGE_ENGAGEMENT": {
+    "defaultMessage": "Cost per Page Engagement"
+  },
+  "enums.CostPerActionType.PHOTO_VIEW": {
+    "defaultMessage": "Cost per Photo View"
+  },
+  "enums.CostPerActionType.POST": {
+    "defaultMessage": "Cost per Post Share"
+  },
+  "enums.CostPerActionType.POST_COMMENT": {
+    "defaultMessage": "Cost per Post Comment"
+  },
+  "enums.CostPerActionType.POST_ENGAGEMENT": {
+    "defaultMessage": "Cost per Post Engagement"
+  },
+  "enums.CostPerActionType.POST_REACTION": {
+    "defaultMessage": "Cost per Post Reaction"
+  },
+  "enums.CostPerActionType.PURCHASE": {
+    "defaultMessage": "Cost per Purchase"
+  },
+  "enums.CostPerActionType.RECURRING_SUBSCRIPTION_PAYMENT_MOBILE_APP": {
+    "defaultMessage": "Cost per Mobile App Recurring Subscription Payment"
+  },
+  "enums.CostPerActionType.RECURRING_SUBSCRIPTION_PAYMENT_OFFLINE": {
+    "defaultMessage": "Cost per Offline Mobile App Recurring Subscription Payment"
+  },
+  "enums.CostPerActionType.RECURRING_SUBSCRIPTION_PAYMENT_TOTAL": {
+    "defaultMessage": "Cost per Recurring Subscription Payment"
+  },
+  "enums.CostPerActionType.RECURRING_SUBSCRIPTION_PAYMENT_WEBSITE": {
+    "defaultMessage": "Cost per Website Recurring Subscription Payment"
+  },
+  "enums.CostPerActionType.RSVP": {
+    "defaultMessage": "Cost per Event Response"
+  },
+  "enums.CostPerActionType.SCHEDULE_MOBILE_APP": {
+    "defaultMessage": "Cost per Mobile App Schedule"
+  },
+  "enums.CostPerActionType.SCHEDULE_OFFLINE": {
+    "defaultMessage": "Cost per Offline Schedule"
+  },
+  "enums.CostPerActionType.SCHEDULE_TOTAL": {
+    "defaultMessage": "Cost per Schedule"
+  },
+  "enums.CostPerActionType.SCHEDULE_WEBSITE": {
+    "defaultMessage": "Cost per Website Schedule"
+  },
+  "enums.CostPerActionType.START_TRIAL_MOBILE_APP": {
+    "defaultMessage": "Cost per Mobile App Start Trial"
+  },
+  "enums.CostPerActionType.START_TRIAL_OFFLINE": {
+    "defaultMessage": "Cost per Offline Start Trial"
+  },
+  "enums.CostPerActionType.START_TRIAL_TOTAL": {
+    "defaultMessage": "Cost per Start Trial"
+  },
+  "enums.CostPerActionType.START_TRIAL_WEBSITE": {
+    "defaultMessage": "Cost per Website Start Trial"
+  },
+  "enums.CostPerActionType.SUBMIT_APPLICATION_MOBILE_APP": {
+    "defaultMessage": "Cost per Mobile App Submit Application"
+  },
+  "enums.CostPerActionType.SUBMIT_APPLICATION_OFFLINE": {
+    "defaultMessage": "Cost per Offline Submit Application"
+  },
+  "enums.CostPerActionType.SUBMIT_APPLICATION_ON_FACEBOOK": {
+    "defaultMessage": "Cost per On Facebook Submit Application"
+  },
+  "enums.CostPerActionType.SUBMIT_APPLICATION_TOTAL": {
+    "defaultMessage": "Cost per Submit Application"
+  },
+  "enums.CostPerActionType.SUBMIT_APPLICATION_WEBSITE": {
+    "defaultMessage": "Cost per Website Submit Application"
+  },
+  "enums.CostPerActionType.SUBSCRIBE": {
+    "defaultMessage": "Cost per Subscription"
+  },
+  "enums.CostPerActionType.SUBSCRIBE_MOBILE_APP": {
+    "defaultMessage": "Cost per Mobile App Subscription"
+  },
+  "enums.CostPerActionType.SUBSCRIBE_OFFLINE": {
+    "defaultMessage": "Cost per Offline Subscription"
+  },
+  "enums.CostPerActionType.SUBSCRIBE_TOTAL": {
+    "defaultMessage": "Cost per Subscription"
+  },
+  "enums.CostPerActionType.SUBSCRIBE_WEBSITE": {
+    "defaultMessage": "Cost per Website Subscription"
+  },
+  "enums.CostPerActionType.VIDEO_VIEW": {
+    "defaultMessage": "Cost per 3-Second Video View"
+  },
+  "enums.CostPerActionType.VIEW_CONTENT": {
+    "defaultMessage": "Cost per Content View"
   },
   "enums.DatePreset.LAST_14D": {
     "defaultMessage": "Last 14 days"
@@ -767,9 +1265,6 @@
   "fields.Campaign.objective": {
     "defaultMessage": "Objective"
   },
-  "insights.costPerActionType": {
-    "defaultMessage": "Cost per action type"
-  },
   "insights.cpc": {
     "defaultMessage": "CPC"
   },
@@ -779,8 +1274,14 @@
   "insights.ctr": {
     "defaultMessage": "CTR"
   },
+  "insights.customActionCost": {
+    "defaultMessage": "Cost per {action}"
+  },
   "insights.spend": {
     "defaultMessage": "Spend"
+  },
+  "insights.targetActionCost": {
+    "defaultMessage": "Cost per target action"
   },
   "screens.AdAccountExplore.Ads.insightsLoadingFailed": {
     "defaultMessage": "Failed to load ads insights for the selected period. Try to refresh the page."

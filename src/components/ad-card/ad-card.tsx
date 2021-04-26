@@ -10,7 +10,7 @@ import { ObjectMeta } from '../object-meta';
 import { DeliveryStatusInfo } from '../delivery-status-info';
 import { AdObjectStatusSwitch } from '../ad-object-status-switch';
 import { AdCreativePreview } from '../ad-creative-preview';
-import { Insights } from '../campaign-card';
+import { InsightsInfo } from '../insights-info';
 import { ReviewFeedback } from './review-feedback';
 import { CommentsPlugin } from '../comments-plugin';
 import styles from './ad-card.module.scss';
@@ -75,7 +75,7 @@ export const AdCard = mobxReact.observer(function AdCard({
 
       {adPresenter.insights ? (
         <EntityCard.Section caption={intl.formatMessage(Messages.Ad.insights)}>
-          <Insights insights={adPresenter.insights} />
+          <InsightsInfo insightsPresenter={adPresenter.insights} />
         </EntityCard.Section>
       ) : null}
 
