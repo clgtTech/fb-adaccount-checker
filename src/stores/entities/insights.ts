@@ -1,9 +1,7 @@
 import { ActionType } from '../../types';
 
 export class Insights {
-  readonly targetAction: ActionType;
-  readonly targetActionResult: number;
-  readonly targetActionCost: number;
+  readonly targetAction?: ActionType;
   readonly actions: ActionStats;
   readonly costPerAction: ActionStats;
   readonly spend: number;
@@ -12,9 +10,9 @@ export class Insights {
   readonly ctr: number;
 
   constructor(insightsDTO: InsightsDTO) {
-    this.targetAction = insightsDTO.targetAction;
-    this.targetActionResult = insightsDTO.targetActionResult;
-    this.targetActionCost = insightsDTO.targetActionCost;
+    this.targetAction = insightsDTO.targetAction
+      ? insightsDTO.targetAction
+      : undefined;
     this.actions = insightsDTO.actions;
     this.costPerAction = insightsDTO.costPerAction;
     this.spend = insightsDTO.spend;
@@ -29,9 +27,7 @@ export type ActionStats = {
 };
 
 export interface InsightsDTO {
-  targetAction: ActionType;
-  targetActionResult: number;
-  targetActionCost: number;
+  targetAction?: ActionType | null;
   actions: ActionStats;
   costPerAction: ActionStats;
   spend: number;

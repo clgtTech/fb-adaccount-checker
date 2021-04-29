@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { ActionType } from '../../types';
 import { IntlFactory, InsightsTexts } from '../../services/intl';
-import { ObjectDetails, ObjectDetailsProps } from '../object-details';
+import {
+  ObjectDetails,
+  ObjectDetailsProps,
+  ObjectDetailsItem,
+} from '../object-details';
 import { InsightsPresenter } from '../../presenters/insights-presenter';
 
 export interface ActionItemConfig {
@@ -20,7 +24,7 @@ export function InsightsInfo({
   additionalActionItems = [],
   ...props
 }: InsightsInfoProps) {
-  const requiredItems = [
+  const requiredItems: ObjectDetailsItem[] = [
     {
       name: IntlFactory._(InsightsTexts.spend),
       value: insightsPresenter.spend,
@@ -39,16 +43,20 @@ export function InsightsInfo({
     },
   ];
 
-  const actionItems = [
-    {
-      name: insightsPresenter.targetActionTitle,
-      value: insightsPresenter.targetActionResult,
-    },
-    {
-      name: insightsPresenter.targetActionCostTitle,
-      value: insightsPresenter.targetActionCost,
-    },
-  ];
+  const actionItems: ObjectDetailsItem[] = [];
+  const targetAction = insightsPresenter.targetAction;
+  if (targetAction) {
+    actionItems.push(
+      {
+        name: insightsPresenter.getTextForActionResult(targetAction),
+        value: insightsPresenter.getActionResult(targetAction),
+      },
+      {
+        name: insightsPresenter.getTextForActionCost(targetAction),
+        value: insightsPresenter.getActionCost(targetAction),
+      }
+    );
+  }
   additionalActionItems?.forEach((itemConfig) => {
     if (itemConfig.shouldShowActionResult) {
       actionItems.push({

@@ -8,10 +8,6 @@ import {
 import { ActionType } from '../types';
 
 export class InsightsPresenter {
-  targetActionTitle: string;
-  targetActionCostTitle: string;
-  targetActionResult: string;
-  targetActionCost: string;
   spend: string;
   cpc: string;
   cpm: string;
@@ -21,17 +17,6 @@ export class InsightsPresenter {
     private readonly insights: Insights,
     private readonly adAccount: AdAccount
   ) {
-    this.targetActionTitle = this.getTextForActionResult(insights.targetAction);
-    this.targetActionCostTitle = this.getTextForActionCost(
-      insights.targetAction
-    );
-    this.targetActionResult = Formatters.formatNumericValue(
-      insights.targetActionResult
-    );
-    this.targetActionCost = Formatters.formatMonetaryValue(
-      insights.targetActionCost,
-      adAccount.currency
-    );
     this.spend = Formatters.formatMonetaryValue(
       insights.spend,
       adAccount.currency
@@ -41,6 +26,10 @@ export class InsightsPresenter {
     this.ctr = Formatters.formatNumericValue(insights.ctr);
   }
 
+  get targetAction(): ActionType | undefined {
+    return this.insights.targetAction;
+  }
+
   getActionResult(actionType: ActionType): string {
     return Formatters.formatNumericValue(
       this.insights.actions[actionType] || 0
@@ -48,7 +37,6 @@ export class InsightsPresenter {
   }
 
   getActionCost(actionType: ActionType): string {
-    console.log(this.insights.costPerAction);
     return Formatters.formatMonetaryValue(
       this.insights.costPerAction[actionType] || 0,
       this.adAccount.currency

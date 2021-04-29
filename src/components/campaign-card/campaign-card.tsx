@@ -13,7 +13,7 @@ import { DeliveryStatusInfo } from '../delivery-status-info';
 import { ObjectLink } from '../object-link';
 import { AdObjectStatusSwitch } from '../ad-object-status-switch';
 import { AdBudget } from '../ad-budget';
-import { InsightsInfo } from '../insights-info';
+import { ActionItemConfig, InsightsInfo } from '../insights-info';
 
 export interface CampaignCardProps extends EntityCardProps {
   adAccount: AdAccount;
@@ -97,17 +97,9 @@ export const CampaignCard = mobxReact.observer(function CampaignCard({
         >
           <InsightsInfo
             insightsPresenter={campaignPresenter.insights}
-            additionalActionItems={
-              campaign.objective === Objective.APP_INSTALLS
-                ? [
-                    {
-                      action: ActionType.OMNI_APP_INSTALL,
-                      shouldShowActionResult: true,
-                      shouldShowActionCost: true,
-                    },
-                  ]
-                : undefined
-            }
+            additionalActionItems={getAdditionalActionsForCampaignObjective(
+              campaign.objective
+            )}
           />
         </EntityCard.Section>
       ) : null}
@@ -123,3 +115,36 @@ export const CampaignCard = mobxReact.observer(function CampaignCard({
     </EntityCard>
   );
 });
+
+function getAdditionalActionsForCampaignObjective(
+  objective: Objective
+): ActionItemConfig[] {
+  switch (objective) {
+    case Objective.APP_INSTALLS:
+      return [
+        {
+          action: ActionType.OMNI_APP_INSTALL,
+          shouldShowActionResult: true,
+          shouldShowActionCost: true,
+        },
+      ];
+    case Objective.CONVERSIONS:
+      return [
+        {
+          action: ActionType.LINK_CLICK,
+          shouldShowActionResult: true,
+          shouldShowActionCost: true,
+        },
+      ];
+    case Objective.LINK_CLICKS:
+      return [
+        {
+          action: ActionType.LANDING_PAGE_VIEW,
+          shouldShowActionResult: true,
+          shouldShowActionCost: true,
+        },
+      ];
+    default:
+      return [];
+  }
+}
