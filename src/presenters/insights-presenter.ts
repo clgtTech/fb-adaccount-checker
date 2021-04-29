@@ -8,6 +8,8 @@ import {
 import { ActionType } from '../types';
 
 export class InsightsPresenter {
+  targetActionResult: string;
+  targetActionCost: string;
   spend: string;
   cpc: string;
   cpm: string;
@@ -17,6 +19,13 @@ export class InsightsPresenter {
     private readonly insights: Insights,
     private readonly adAccount: AdAccount
   ) {
+    this.targetActionResult = Formatters.formatNumericValue(
+      insights.targetActionResult
+    );
+    this.targetActionCost = Formatters.formatMonetaryValue(
+      insights.targetActionCost,
+      adAccount.currency
+    );
     this.spend = Formatters.formatMonetaryValue(
       insights.spend,
       adAccount.currency

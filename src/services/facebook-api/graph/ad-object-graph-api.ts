@@ -40,6 +40,17 @@ export interface FacebookInsights {
           ];
         }
       ];
+      cost_per_result: [
+        {
+          indicator: ActionIndicator;
+          values?: [
+            {
+              value: string;
+              attribution_windows: ActionAttributionWindows[];
+            }
+          ];
+        }
+      ];
       actions: FacebookAdsActionStats[];
       cost_per_action_type: FacebookAdsActionStats[];
       spend: string;
@@ -102,6 +113,7 @@ function getInsightsFieldForNestedRequest(
 ): string {
   return `insights.date_preset(${datePreset}){${[
     'results',
+    'cost_per_result',
     'actions',
     'cost_per_action_type',
     'spend',
@@ -137,6 +149,8 @@ function deserializeInsights(
     targetAction: targetActionIndicator
       ? (targetActionIndicator.replace('actions:', '') as ActionType)
       : undefined,
+    targetActionResult: toNumber(data.results[0].values?.[0]?.value),
+    targetActionCost: toNumber(data.cost_per_result?.[0]?.values?.[0]?.value),
     actions: deserializeAdsActionStatsList(data.actions),
     costPerAction: deserializeAdsActionStatsList(data.cost_per_action_type),
     spend: toNumber(data.spend),

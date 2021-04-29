@@ -49,11 +49,11 @@ export function InsightsInfo({
     actionItems.push(
       {
         name: insightsPresenter.getTextForActionResult(targetAction),
-        value: insightsPresenter.getActionResult(targetAction),
+        value: insightsPresenter.targetActionResult,
       },
       {
         name: insightsPresenter.getTextForActionCost(targetAction),
-        value: insightsPresenter.getActionCost(targetAction),
+        value: insightsPresenter.targetActionCost,
       }
     );
   }
