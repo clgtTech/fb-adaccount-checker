@@ -4,22 +4,22 @@
 }
 
 .header {
-  padding-bottom: $gap-3x;
+  padding-bottom: $gap-2x;
+}
+
+.toolbar {
+  margin-top: $gap-2x;
 }
 
 .content {
 }
 
-.linkList {
+.items {
   margin: 0;
   padding: 0;
 }
 
-.linkList > * {
-  padding-bottom: $gap-1x;
+.items > * {
+  padding: $gap-1x 0;
   border-bottom: 0.0625rem solid var(--border-color);
-}
-
-.linkList > * + * {
-  margin-top: $gap-1x;
 }

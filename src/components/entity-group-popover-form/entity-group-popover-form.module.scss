@@ -1,0 +1,26 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  position: relative;
+  padding: $gap-3x $gap-4x;
+}
+
+.colorPicker {
+  margin-top: $gap-2x;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  margin-top: $gap-3x;
+
+  & > * + * {
+    margin-top: $gap-2x;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.375rem;
+  right: 0.375rem;
+}

@@ -59,7 +59,7 @@ export function UserNavLink({
             <dt>
               <FormattedMessage
                 id="components.UserNavLink.userIdTerm"
-                defaultMessage="User ID:"
+                defaultMessage="ID:"
               />
             </dt>
             <dd>

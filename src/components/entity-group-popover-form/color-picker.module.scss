@@ -1,0 +1,45 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+@import '~draft-components/dist/scss/abstracts/mixins';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container > * + * {
+  margin-left: $gap-2x;
+}
+
+.item {
+  display: inline-flex;
+}
+
+.itemInput {
+  @include visually-hidden;
+}
+
+.itemColor {
+  display: inline-block;
+  width: 1.125rem;
+  height: 1.125rem;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.itemInput:focus ~ .itemColor {
+  box-shadow: 0 0 0 0.2rem var(--dc-focus-ring-color);
+}
+
+.itemInput:checked ~ .itemColor {
+  box-shadow: inset 0 0 0 0.1875rem currentColor, inset 0 0 0 0.3125rem white;
+}
+
+.itemInput:checked:focus ~ .itemColor {
+  box-shadow: inset 0 0 0 0.1875rem currentColor, inset 0 0 0 0.3125rem white,
+    0 0 0 0.2rem var(--dc-focus-ring-color);
+}
+
+.itemInput:disabled ~ .itemColor {
+  opacity: $opacity-50;
+}

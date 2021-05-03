@@ -1,12 +1,19 @@
 import * as React from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { classNames, SearchField } from 'draft-components';
-import { User } from '../../stores/entities';
+import { EntityGroup, EntityGroupParams, User } from '../../stores/entities';
 import { SideNav, SideNavProps } from '../side-nav';
+import { EntityGroupView } from '../entity-group-view';
+import { CreateEntityGroupPopover } from '../create-entity-group-popover';
 import { UserNavLink, UserNavLinkProps } from './user-nav-link';
 import styles from './users-nav.module.scss';
 
 export interface UsersNavProps extends SideNavProps {
+  groups: EntityGroup[];
+  userPerGroup: Record<User['id'], EntityGroup['id']>;
+  onGroupAdd(params: EntityGroupParams): void;
+  onGroupUpdate(groupId: EntityGroup['id'], params: EntityGroupParams): void;
+  onGroupDelete(groupId: EntityGroup['id']): void;
   users: User[];
   onUserDelete: UserNavLinkProps['onDelete'];
   onUserUpdate: UserNavLinkProps['onUpdate'];
@@ -14,16 +21,52 @@ export interface UsersNavProps extends SideNavProps {
 }
 
 export function UsersNav({
+  groups,
+  userPerGroup,
+  onGroupAdd,
+  onGroupUpdate,
+  onGroupDelete,
   users,
-  onUserDelete,
   onUserUpdate,
+  onUserDelete,
   getLinkToUser,
   className,
   ...props
 }: UsersNavProps) {
   const intl = useIntl();
+
   const [searchValue, setSearchValue] = React.useState('');
   const searchQuery = searchValue.toLowerCase();
+
+  const groupItems: Record<EntityGroup['id'], React.ReactNodeArray> = {};
+  const renderedUsers: JSX.Element[] = [];
+  for (const user of users) {
+    if (!user.displayedName.toLowerCase().includes(searchQuery)) {
+      continue;
+    }
+
+    const element = (
+      <li key={user.id}>
+        <UserNavLink
+          user={user}
+          to={getLinkToUser(user.id)}
+          onDelete={getLinkToUser}
+          onUpdate={onUserUpdate}
+        />
+      </li>
+    );
+
+    const groupId = userPerGroup[user.id];
+    if (groupId) {
+      if (groupItems[groupId]) {
+        groupItems[groupId].push(element);
+      } else {
+        groupItems[groupId] = [element];
+      }
+    } else {
+      renderedUsers.push(element);
+    }
+  }
 
   return (
     <SideNav {...props} className={classNames(className, styles.container)}>
@@ -44,24 +87,33 @@ export function UsersNav({
             setSearchValue(event.target.value);
           }}
         />
+
+        <div className={styles.toolbar}>
+          <CreateEntityGroupPopover onCreate={onGroupAdd} />
+        </div>
       </SideNav.Header>
       <SideNav.Content className={styles.content}>
         <nav>
-          <ul className={styles.linkList}>
-            {users
-              .filter((user) => {
-                return user.displayedName.toLowerCase().includes(searchQuery);
-              })
-              .map((user) => (
-                <li key={user.id}>
-                  <UserNavLink
-                    user={user}
-                    to={getLinkToUser(user.id)}
-                    onDelete={onUserDelete}
-                    onUpdate={onUserUpdate}
-                  />
-                </li>
-              ))}
+          <ul className={styles.items}>
+            {groups.map((group) => (
+              <li key={group.id}>
+                <EntityGroupView
+                  group={group}
+                  renderDescription={(numberOfItems) => (
+                    <FormattedMessage
+                      id="components.UsersNav.groupDescription"
+                      defaultMessage="Users: {numberOfItems}"
+                      values={{ numberOfItems }}
+                    />
+                  )}
+                  onUpdate={onGroupUpdate}
+                  onDelete={onGroupDelete}
+                >
+                  {groupItems[group.id] ?? []}
+                </EntityGroupView>
+              </li>
+            ))}
+            {renderedUsers}
           </ul>
         </nav>
       </SideNav.Content>

@@ -12,10 +12,9 @@
 
 .navLink {
   display: flex;
-  align-items: center;
   text-decoration: none !important;
   color: $gray-800;
-  padding: 0 $border-radius-lg;
+  padding: $gap-2x $border-radius-lg;
   border-radius: $border-radius-lg;
 }
 
@@ -39,12 +38,11 @@
 
 .picture {
   flex-shrink: 0;
-  margin-left: 0 $gap-2x;
 }
 
 .content {
   flex-grow: 1;
-  padding: $gap-3x 0 $gap-3x $gap-4x;
+  padding-left: $gap-3x;
 }
 
 .headline {
@@ -66,6 +64,8 @@
 }
 
 .id {
+  display: inline-flex;
+  align-items: baseline;
   margin: $gap-1x 0 0;
   font-size: $font-size-sm;
   line-height: $leading-tight;
@@ -73,6 +73,10 @@
   dt,
   dd {
     margin: 0;
+  }
+
+  dt {
+    padding-right: $gap-1x;
   }
 
   dd {

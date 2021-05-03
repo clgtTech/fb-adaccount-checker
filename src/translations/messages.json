@@ -113,6 +113,9 @@
   "components.CommentsPlugin.viewCommentsButton": {
     "defaultMessage": "View comments"
   },
+  "components.CreateEntityGroupPopover.createGroupButton": {
+    "defaultMessage": "Add group"
+  },
   "components.CurrencyAmountField.cancelButton": {
     "defaultMessage": "Cancel"
   },
@@ -121,6 +124,18 @@
   },
   "components.DatePresetSelect.ariaLabel": {
     "defaultMessage": "Insights period"
+  },
+  "components.EntityGroupPopoverForm.deleteButton": {
+    "defaultMessage": "Delete"
+  },
+  "components.EntityGroupPopoverForm.nameFieldLabel": {
+    "defaultMessage": "Group name"
+  },
+  "components.EntityGroupPopoverForm.saveButton": {
+    "defaultMessage": "Save"
+  },
+  "components.EntityGroupView.description": {
+    "defaultMessage": "Items: {numberOfItems}"
   },
   "components.FlashMessageView.closeAction": {
     "defaultMessage": "Close"
@@ -141,7 +156,10 @@
     "defaultMessage": "Enter new name for the saved user:"
   },
   "components.UserNavLink.userIdTerm": {
-    "defaultMessage": "User ID:"
+    "defaultMessage": "ID:"
+  },
+  "components.UsersNav.groupDescription": {
+    "defaultMessage": "Users: {numberOfItems}"
   },
   "components.UsersNav.searchFieldPlaceholder": {
     "defaultMessage": "Search users by name"

@@ -1,0 +1,72 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  padding: $gap-1x $gap-2x $gap-1x 0;
+}
+
+.arrow {
+  transition: $transition-normal;
+}
+
+.arrow_rotated {
+  transform: rotate(90deg);
+}
+
+.icon {
+  margin-left: $gap-1x;
+  color: currentColor;
+}
+
+.content {
+  flex: auto;
+  padding-left: $gap-3x;
+  color: var(--primary-text-color);
+}
+
+.name {
+  font-weight: $font-weight-bold;
+}
+
+.description {
+}
+
+.items {
+  position: relative;
+  padding: 0 0 0 0.625rem;
+  list-style: none;
+}
+
+.items > * {
+  position: relative;
+  padding: $gap-1x 0 $gap-1x $gap-4x;
+
+  &::before,
+  &::after {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 1rem;
+    content: '';
+    border-left: 0.125rem solid currentColor;
+  }
+
+  &::before {
+    height: 50%;
+    border-bottom: 0.125rem solid currentColor;
+    border-bottom-left-radius: $border-radius-xl;
+  }
+
+  &::after {
+    height: 100%;
+  }
+
+  &:last-child::after {
+    border-left: none;
+  }
+}

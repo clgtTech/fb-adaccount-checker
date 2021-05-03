@@ -11,7 +11,7 @@ import { classNames, Select } from 'draft-components';
 import { AsyncStatus, Locale } from './types';
 import { ROUTES } from './constants';
 import { SessionEventListeners } from './stores/session-store';
-import { sessionStore, uiStore, userStore } from './stores';
+import { sessionStore, uiStore, userStore, userGroupStore } from './stores';
 import { UsersNav } from './components/users-nav';
 import { Header } from './components/header';
 import { SidebarSwitch } from './components/sidebar-switch';
@@ -21,7 +21,6 @@ import { Home } from './screens/home';
 import { Authenticator } from './screens/authenticator';
 import { AdAccounts } from './screens/ad-accounts';
 import styles from './app.module.scss';
-
 
 export const App = mobxReact.observer(function App() {
   const history = useHistory();
@@ -62,6 +61,17 @@ export const App = mobxReact.observer(function App() {
         <UsersNav
           className={styles.sidebar}
           users={userStore.toArray()}
+          groups={userGroupStore.toArray()}
+          userPerGroup={userGroupStore.userPerGroup}
+          onGroupAdd={(params) => {
+            userGroupStore.addGroup(params);
+          }}
+          onGroupUpdate={(groupId, params) => {
+            userGroupStore.updateGroup(groupId, params);
+          }}
+          onGroupDelete={(groupId) => {
+            userGroupStore.deleteGroup(groupId);
+          }}
           onUserDelete={(userId) => {
             userStore.deleteUser(userId);
           }}
