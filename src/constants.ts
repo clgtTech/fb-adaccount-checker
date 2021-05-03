@@ -10,6 +10,7 @@ export const API_OBJECTS_LIMIT = 1000;
 export const LOCAL_STORAGE_KEYS = {
   uiState: 'fbDash.uiState',
   users: 'fbDash.users',
+  userGroups: 'fbDash.userGroups',
   locale: 'fbDash.locale',
   insightsDatePreset: 'fbDash.insightsDatePreset',
 };

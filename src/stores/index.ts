@@ -6,6 +6,7 @@ export const {
   uiStore,
   sessionStore,
   userStore,
+  userGroupStore,
   adAccountStore,
   campaignStore,
   adsetStore,

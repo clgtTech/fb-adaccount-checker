@@ -3,6 +3,7 @@ import { facebookApiConfig, facebookApi } from 'services/facebook-api';
 import { UiStore } from './ui-store';
 import { SessionStore } from './session-store';
 import { UserStore } from './user-store';
+import { UserGroupsStore } from './user-group-store';
 import { AdAccountStore } from './ad-account-store';
 import { CampaignStore } from './campaign-store';
 import { AdsetStore } from './adset-store';
@@ -13,6 +14,7 @@ export class RootStore {
   uiStore: UiStore;
   sessionStore: SessionStore;
   userStore: UserStore;
+  userGroupStore: UserGroupsStore;
   adAccountStore: AdAccountStore;
   campaignStore: CampaignStore;
   adsetStore: AdsetStore;
@@ -22,6 +24,7 @@ export class RootStore {
   constructor() {
     this.uiStore = new UiStore(cache);
     this.userStore = new UserStore(cache, this);
+    this.userGroupStore = new UserGroupsStore(cache, this);
     this.sessionStore = new SessionStore(
       cache,
       facebookApiConfig,
