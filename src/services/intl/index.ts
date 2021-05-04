@@ -1,5 +1,6 @@
 import {
   EnumTexts,
+  CommonTexts,
   EntityTexts,
   CampaignTexts,
   AdsetTexts,
@@ -12,6 +13,7 @@ export * from './intl-factory';
 export * as Formatters from './intl-formatters';
 export const Messages = {
   Enums: EnumTexts,
+  Common: CommonTexts,
   Entities: EntityTexts,
   Campaign: CampaignTexts,
   Adset: AdsetTexts,

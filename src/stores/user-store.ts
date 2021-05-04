@@ -1,11 +1,11 @@
 import * as mobx from 'mobx';
-import { User, UserCache, UserDTO } from './entities';
+import { User, UserCache, UserDTO, UserParams } from './entities';
 import { RootStore } from './root-store';
 
 export class UserStore {
   usersMap: Map<User['id'], User> = new Map();
 
-  constructor(private userCache: UserCache, private stores: RootStore) {
+  constructor(private _userCache: UserCache, private _stores: RootStore) {
     mobx.makeAutoObservable(this);
     mobx.runInAction(() => {
       this.restoreFromCache();
@@ -17,12 +17,12 @@ export class UserStore {
 
   restoreFromCache() {
     this.usersMap = new Map(
-      this.userCache.getUsers().map((user) => [user.id, user])
+      this._userCache.getUsers().map((user) => [user.id, user])
     );
   }
 
   saveToCache() {
-    this.userCache.saveUsers(this.toArray());
+    this._userCache.saveUsers(this.toArray());
   }
 
   get(userId: string | number | undefined | null): User | undefined {
@@ -74,16 +74,31 @@ export class UserStore {
     return user;
   }
 
-  updateUser(userId: User['id'], update: Partial<User>) {
-    if (this.usersMap.has(userId)) {
-      Object.assign(this.usersMap.get(userId), update);
+  updateUser(
+    userId: User['id'],
+    params: UserParams
+  ): [isUpdated: true, user: User] | [isUpdated: false, user: undefined] {
+    const user = this.get(userId);
+    if (!user) {
+      return [false, user];
     }
+
+    user.customName = params.customName;
+    this.usersMap.set(user.id, user);
+
+    if (params.groupId) {
+      this._stores.userGroupStore.addUsersToGroup(params.groupId, [user.id]);
+    } else {
+      this._stores.userGroupStore.deleteUsersFromAnyGroup([user.id]);
+    }
+
+    return [true, user];
   }
 
   deleteUser(userId: User['id']): boolean {
     const isDeleted = this.usersMap.delete(userId);
-    if (isDeleted && userId === this.stores.sessionStore.authenticatedUserId) {
-      this.stores.sessionStore.resetAuth();
+    if (isDeleted && userId === this._stores.sessionStore.authenticatedUserId) {
+      this._stores.sessionStore.resetAuth();
     }
     return isDeleted;
   }

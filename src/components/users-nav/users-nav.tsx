@@ -1,22 +1,29 @@
 import * as React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { classNames, SearchField } from 'draft-components';
-import { EntityGroup, EntityGroupParams, User } from '../../stores/entities';
+import { classNames, SearchField, Dialog } from 'draft-components';
+import {
+  EntityGroup,
+  EntityGroupParams,
+  User,
+  UserParams,
+} from '../../stores/entities';
+import { UserToGroupMapping } from '../../stores/user-group-store';
 import { SideNav, SideNavProps } from '../side-nav';
 import { EntityGroupView } from '../entity-group-view';
 import { CreateEntityGroupPopover } from '../create-entity-group-popover';
-import { UserNavLink, UserNavLinkProps } from './user-nav-link';
+import { UserNavLink } from './user-nav-link';
+import { UserForm } from '../user-form';
 import styles from './users-nav.module.scss';
 
 export interface UsersNavProps extends SideNavProps {
+  users: User[];
   groups: EntityGroup[];
-  userPerGroup: Record<User['id'], EntityGroup['id']>;
+  userPerGroup: UserToGroupMapping;
   onGroupAdd(params: EntityGroupParams): void;
   onGroupUpdate(groupId: EntityGroup['id'], params: EntityGroupParams): void;
   onGroupDelete(groupId: EntityGroup['id']): void;
-  users: User[];
-  onUserDelete: UserNavLinkProps['onDelete'];
-  onUserUpdate: UserNavLinkProps['onUpdate'];
+  onUserUpdate(userId: User['id'], params: UserParams): void;
+  onUserDelete(userId: User['id']): void;
   getLinkToUser(userId: User['id']): string;
 }
 
@@ -38,6 +45,18 @@ export function UsersNav({
   const [searchValue, setSearchValue] = React.useState('');
   const searchQuery = searchValue.toLowerCase();
 
+  const [userForUpdate, setUserForUpdate] = React.useState<User>();
+  const unsetUserForUpdate = () => setUserForUpdate(undefined);
+  const deleteUser = (user: User) => {
+    const message = intl.formatMessage({
+      id: 'components.UserNav.confirmDelete',
+      defaultMessage: `Are you sure you want to delete the saved user?`,
+    });
+    if (window.confirm(message)) {
+      onUserDelete(user.id);
+    }
+  };
+
   const groupItems: Record<EntityGroup['id'], React.ReactNodeArray> = {};
   const renderedUsers: JSX.Element[] = [];
   for (const user of users) {
@@ -50,8 +69,8 @@ export function UsersNav({
         <UserNavLink
           user={user}
           to={getLinkToUser(user.id)}
-          onDelete={getLinkToUser}
-          onUpdate={onUserUpdate}
+          onDelete={deleteUser}
+          onUpdate={setUserForUpdate}
         />
       </li>
     );
@@ -117,6 +136,32 @@ export function UsersNav({
           </ul>
         </nav>
       </SideNav.Content>
+
+      {userForUpdate && (
+        <Dialog
+          isOpen={true}
+          width={460}
+          heading={intl.formatMessage(
+            {
+              id: 'components.UsersNav.editDialogHeading',
+              defaultMessage: 'Edit user #{userId}',
+            },
+            { userId: userForUpdate.id }
+          )}
+          onClose={unsetUserForUpdate}
+        >
+          <UserForm
+            user={userForUpdate}
+            userPerGroup={userPerGroup}
+            groups={groups}
+            onCancel={unsetUserForUpdate}
+            onSave={(params) => {
+              onUserUpdate(userForUpdate.id, params);
+              unsetUserForUpdate();
+            }}
+          />
+        </Dialog>
+      )}
     </SideNav>
   );
 }

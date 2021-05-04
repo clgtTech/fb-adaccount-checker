@@ -17,6 +17,21 @@
   "apiErrors.unknownError.title": {
     "defaultMessage": "An unknown error occurred during the request"
   },
+  "common.cancelButton": {
+    "defaultMessage": "Cancel"
+  },
+  "common.closeButton": {
+    "defaultMessage": "Close"
+  },
+  "common.deleteButton": {
+    "defaultMessage": "Delete"
+  },
+  "common.editButton": {
+    "defaultMessage": "Edit"
+  },
+  "common.saveButton": {
+    "defaultMessage": "Save"
+  },
   "components.AccessTokenField.label": {
     "defaultMessage": "Access Token:"
   },
@@ -125,14 +140,8 @@
   "components.DatePresetSelect.ariaLabel": {
     "defaultMessage": "Insights period"
   },
-  "components.EntityGroupPopoverForm.deleteButton": {
-    "defaultMessage": "Delete"
-  },
   "components.EntityGroupPopoverForm.nameFieldLabel": {
     "defaultMessage": "Group name"
-  },
-  "components.EntityGroupPopoverForm.saveButton": {
-    "defaultMessage": "Save"
   },
   "components.EntityGroupView.description": {
     "defaultMessage": "Items: {numberOfItems}"
@@ -143,20 +152,23 @@
   "components.SidebarSwitch.children": {
     "defaultMessage": "Users"
   },
-  "components.UserNavLink.changeNameAction": {
-    "defaultMessage": "Change name"
+  "components.UserForm.groupField": {
+    "defaultMessage": "Group"
   },
-  "components.UserNavLink.deleteAction": {
-    "defaultMessage": "Delete"
+  "components.UserForm.nameField": {
+    "defaultMessage": "User name"
   },
-  "components.UserNavLink.deleteConfirm": {
+  "components.UserForm.noGroupOption": {
+    "defaultMessage": "Group not selected"
+  },
+  "components.UserNav.confirmDelete": {
     "defaultMessage": "Are you sure you want to delete the saved user?"
-  },
-  "components.UserNavLink.namePrompt": {
-    "defaultMessage": "Enter new name for the saved user:"
   },
   "components.UserNavLink.userIdTerm": {
     "defaultMessage": "ID:"
+  },
+  "components.UsersNav.editDialogHeading": {
+    "defaultMessage": "Edit user #{userId}"
   },
   "components.UsersNav.groupDescription": {
     "defaultMessage": "Users: {numberOfItems}"

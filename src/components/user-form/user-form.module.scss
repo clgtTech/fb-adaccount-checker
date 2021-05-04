@@ -1,0 +1,16 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container > * + * {
+  margin-top: $gap-2x;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: $gap-4x;
+}
+
+.actions > * + * {
+  margin-left: $gap-2x;
+}

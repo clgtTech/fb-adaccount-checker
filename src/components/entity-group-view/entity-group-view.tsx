@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import {
   classNames,
   Subheadline,
@@ -8,7 +8,6 @@ import {
   SvgIcon,
   Icons,
 } from 'draft-components';
-import { Transition } from 'react-transition-group';
 import { EntityGroup, EntityGroupParams } from '../../stores/entities';
 import { EditEntityGroupPopover } from '../edit-entity-group-popover';
 import styles from './entity-group-view.module.scss';
@@ -23,11 +22,18 @@ export interface EntityGroupViewProps
   onDelete(groupId: EntityGroup['id']): void;
 }
 
+enum State {
+  opening = 'opening',
+  opened = 'opened',
+  closing = 'closing',
+  closed = 'closed',
+}
 const timeout = 200;
 const defaultStyle = {
   overflow: 'hidden',
   height: 0,
-  transition: `height ${timeout}ms ease-in-out`,
+  transition: `${timeout}ms ease-in-out`,
+  transitionProperty: 'height',
 };
 
 export function EntityGroupView({
@@ -41,7 +47,43 @@ export function EntityGroupView({
   className,
   ...props
 }: EntityGroupViewProps) {
-  const [isOpen, setIsOpen] = React.useState(defaultIsOpen);
+  const listRef = React.useRef<HTMLUListElement | null>(null);
+  const [state, setState] = React.useState(State.closed);
+  const toggle = () => {
+    if (state === State.closed) {
+      setState(State.opening);
+      setTimeout(() => setState(State.opened), timeout);
+    } else if (state === State.opened) {
+      setState(State.closing);
+      setTimeout(() => setState(State.closed), timeout);
+    }
+  };
+
+  React.useEffect(() => {
+    const listEl = listRef.current;
+    if (!listEl) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      if (state === State.opening) {
+        listEl.style.height = `${calcListHeight(listEl)}px`;
+      } else if (state === State.closing) {
+        listEl.style.height = '0px';
+      }
+    });
+  }, [state]);
+
+  React.useEffect(() => {
+    const listEl = listRef.current;
+    if (!listEl) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      listEl.style.height = `${calcListHeight(listEl)}px`;
+    });
+  }, [items]);
 
   if (typeof renderDescription !== 'function') {
     renderDescription = (numberOfItems) => (
@@ -61,10 +103,18 @@ export function EntityGroupView({
     >
       <div className={styles.body}>
         <IconButton
-          className={classNames(styles.arrow, isOpen && styles.arrow_rotated)}
+          style={{
+            transitionDuration: defaultStyle.transition,
+            transitionProperty: 'transform',
+          }}
+          className={classNames(
+            styles.arrow,
+            (state === State.opening || state === State.opened) &&
+              styles.arrow_rotated
+          )}
           icon={<SvgIcon icon={Icons.chevronRight} size={16} />}
           size="sm"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={toggle}
         />
         <SvgIcon className={styles.icon} icon={Icons.folder} size={42} />
         <div className={styles.content}>
@@ -78,26 +128,19 @@ export function EntityGroupView({
         />
       </div>
 
-      <Transition
-        in={isOpen}
-        timeout={timeout}
-        mountOnEnter={true}
-        unmountOnExit={true}
-        onEntering={(listEl: HTMLElement) => {
-          let height = 0;
-          for (const child of listEl.childNodes) {
-            height += (child as HTMLElement).offsetHeight || 0;
-          }
-          listEl.style.height = `${height}px`;
-        }}
-        onExiting={(listEl: HTMLElement) => {
-          listEl.style.height = '0px';
-        }}
-      >
-        <ul style={defaultStyle} className={styles.items}>
+      {state !== State.closed && (
+        <ul ref={listRef} style={defaultStyle} className={styles.items}>
           {items}
         </ul>
-      </Transition>
+      )}
     </div>
   );
+}
+
+function calcListHeight(listEl: HTMLUListElement): number {
+  let height = 0;
+  for (const child of listEl.childNodes) {
+    height += (child as HTMLElement).offsetHeight || 0;
+  }
+  return height;
 }

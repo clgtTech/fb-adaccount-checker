@@ -72,11 +72,11 @@ export const App = mobxReact.observer(function App() {
           onGroupDelete={(groupId) => {
             userGroupStore.deleteGroup(groupId);
           }}
+          onUserUpdate={(userId, params) => {
+            userStore.updateUser(userId, params);
+          }}
           onUserDelete={(userId) => {
             userStore.deleteUser(userId);
-          }}
-          onUserUpdate={(userId, update) => {
-            userStore.updateUser(userId, update);
           }}
           getLinkToUser={getLinkToUserReview}
         />

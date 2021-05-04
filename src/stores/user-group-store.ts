@@ -6,7 +6,7 @@ import { uniqueId } from 'draft-components';
 
 export class UserGroupsStore {
   groupsMap: Map<EntityGroup['id'], EntityGroup> = new Map();
-  userPerGroup: Record<User['id'], EntityGroup['id']> = {};
+  userPerGroup: UserToGroupMapping = {};
 
   constructor(private _cache: UserGroupsCache, private _stores: RootStore) {
     mobx.makeAutoObservable(this);
@@ -89,20 +89,12 @@ export class UserGroupsStore {
     return [false, group];
   }
 
-  deleteUsersFromGroup(
-    groupId: EntityGroup['id'],
-    userIds: User['id'][]
-  ):
-    | [wereDeleted: true, group: EntityGroup]
-    | [wereDeleted: false, group: undefined] {
-    const group = this.get(groupId);
-    if (group) {
-      this.userPerGroup = omitBy(this.userPerGroup, (userId) =>
-        userIds.includes(userId)
-      );
-      return [true, group];
-    }
-    return [false, group];
+  deleteUsersFromAnyGroup(userIds: User['id'][]) {
+    const userPerGroupCopy = { ...this.userPerGroup };
+    userIds.forEach((userId) => {
+      delete userPerGroupCopy[userId];
+    });
+    this.userPerGroup = userPerGroupCopy;
   }
 
   get(id: string | undefined | null): EntityGroup | undefined {
@@ -122,13 +114,14 @@ export class UserGroupsStore {
   }
 }
 
+export type UserToGroupMapping = Record<User['id'], EntityGroup['id']>;
+
 export interface UserGroupsState {
   groups: EntityGroup[];
-  userPerGroup: Record<User['id'], EntityGroup['id']>;
+  userPerGroup: UserToGroupMapping;
 }
 
 export interface UserGroupsCache {
   saveUserGroupsState(state: UserGroupsState): void;
-
   getUserGroupsState(): UserGroupsState;
 }

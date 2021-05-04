@@ -2,6 +2,7 @@ import * as mobx from 'mobx';
 import parseJSON from 'date-fns/parseJSON';
 import { Task } from '../../types';
 import { Ad } from './ad';
+import { EntityGroup } from './entity-group';
 
 export class Page {
   readonly id: string;
@@ -107,4 +108,9 @@ export interface PageDTO {
   name: string;
   accessToken: string;
   tasks?: Task[];
+}
+
+export interface UserParams {
+  customName: string;
+  groupId?: EntityGroup['id'];
 }

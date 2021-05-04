@@ -10,6 +10,7 @@ import {
   Icons,
 } from 'draft-components';
 import { EntityGroup, EntityGroupParams } from '../../stores/entities';
+import { CommonTexts } from '../../services/intl/messages';
 import { ColorPicker } from './color-picker';
 import styles from './entity-group-popover-form.module.scss';
 
@@ -81,10 +82,7 @@ export function EntityGroupPopoverForm({
 
       <div className={styles.actions}>
         <Button hasFullWidth={true} appearance="primary" type="submit">
-          <FormattedMessage
-            id="components.EntityGroupPopoverForm.saveButton"
-            defaultMessage="Save"
-          />
+          <FormattedMessage {...CommonTexts.saveButton} />
         </Button>
         {typeof onDelete === 'function' ? (
           <Button
@@ -94,10 +92,7 @@ export function EntityGroupPopoverForm({
             type="button"
             onClick={onDelete}
           >
-            <FormattedMessage
-              id="components.EntityGroupPopoverForm.deleteButton"
-              defaultMessage="Delete"
-            />
+            <FormattedMessage {...CommonTexts.deleteButton} />
           </Button>
         ) : null}
       </div>

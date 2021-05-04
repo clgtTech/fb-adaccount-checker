@@ -1,28 +1,18 @@
 import * as React from 'react';
-import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import { classNames, ActionsGroup, SvgIcon, Icons } from 'draft-components';
 import { User } from '../../stores/entities';
 import { UserPresenter } from '../../presenters/user-presenter';
+import { CommonTexts } from '../../services/intl/messages';
 import { CopiedValue } from '../copied-value';
 import { UserAvatar } from './user-avatar';
 import styles from './user-nav-link.module.scss';
 
-export const messages = {
-  namePrompt: defineMessage({
-    id: 'components.UserNavLink.namePrompt',
-    defaultMessage: `Enter new name for the saved user:`,
-  }),
-  deleteConfirm: defineMessage({
-    id: 'components.UserNavLink.deleteConfirm',
-    defaultMessage: `Are you sure you want to delete the saved user?`,
-  }),
-};
-
 export interface UserNavLinkProps extends NavLinkProps {
   user: User;
-  onDelete(userId: User['id']): void;
-  onUpdate(userId: User['id'], update: Pick<User, 'customName'>): void;
+  onDelete(user: User): void;
+  onUpdate(user: User): void;
 }
 
 export function UserNavLink({
@@ -76,39 +66,22 @@ export function UserNavLink({
         </div>
       </NavLink>
       <ActionsGroup
-        className={classNames(styles.actions, {
-          [styles.isActionsVisible]: isActionsVisible,
-        })}
+        className={classNames(
+          styles.actions,
+          styles.isActionsVisible && isActionsVisible
+        )}
         onFocus={() => setIsActionsVisible(true)}
         onBlur={() => setIsActionsVisible(false)}
       >
         <ActionsGroup.Button
-          title={intl.formatMessage({
-            id: 'components.UserNavLink.changeNameAction',
-            defaultMessage: 'Change name',
-          })}
+          title={intl.formatMessage(CommonTexts.editButton)}
           icon={<SvgIcon icon={Icons.pencil} />}
-          onClick={() => {
-            const customName = window.prompt(
-              intl.formatMessage(messages.namePrompt),
-              userPresenter.name
-            );
-            if (customName && customName !== userPresenter.name) {
-              onUpdate(user.id, { customName });
-            }
-          }}
+          onClick={() => onUpdate(user)}
         />
         <ActionsGroup.Button
-          title={intl.formatMessage({
-            id: 'components.UserNavLink.deleteAction',
-            defaultMessage: 'Delete',
-          })}
+          title={intl.formatMessage(CommonTexts.deleteButton)}
           icon={<SvgIcon icon={Icons.trash} />}
-          onClick={() => {
-            if (window.confirm(intl.formatMessage(messages.deleteConfirm))) {
-              onDelete(user.id);
-            }
-          }}
+          onClick={() => onDelete(user)}
         />
       </ActionsGroup>
     </div>
