@@ -7,7 +7,7 @@ import {
   Status,
 } from '../../../types';
 import { CampaignApi } from '../../../stores/entities';
-import { AdAccountGraphApi } from './ad-account-graph-api';
+import { adAccountGraphApi } from './ad-account-graph-api';
 import { FacebookInsights, adObjectGraphApi } from './ad-object-graph-api';
 import { makeRequest } from '../make-request';
 
@@ -34,7 +34,7 @@ const getAdAccountCampaigns: CampaignApi['getAdAccountCampaigns'] = async (
   params
 ) => {
   const response = await makeRequest<{ data: FacebookCampaign[] }>({
-    url: `/${AdAccountGraphApi.getActId(adAccountId)}/campaigns`,
+    url: `/${adAccountGraphApi.helpers.getActId(adAccountId)}/campaigns`,
     params: {
       limit: params?.limit ?? API_OBJECTS_LIMIT,
       fields: [
@@ -87,7 +87,7 @@ const getAdAccountCampaignsInsights: CampaignApi['getAdAccountCampaignsInsights'
   type DataItem = Pick<FacebookCampaign, 'id' | 'insights'>;
 
   const response = await makeRequest<{ data: DataItem[] }>({
-    url: `/${AdAccountGraphApi.getActId(adAccountId)}/campaigns`,
+    url: `/${adAccountGraphApi.helpers.getActId(adAccountId)}/campaigns`,
     options: { shouldUseUserAccessToken: true },
     params: {
       limit: params?.limit ?? API_OBJECTS_LIMIT,

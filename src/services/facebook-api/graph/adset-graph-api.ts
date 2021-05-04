@@ -1,7 +1,7 @@
 import { API_OBJECTS_LIMIT } from '../../../constants';
 import { AdsetEffectiveStatus, BidStrategy, Status } from '../../../types';
 import { AdsetApi } from '../../../stores/entities';
-import { AdAccountGraphApi } from './ad-account-graph-api';
+import { adAccountGraphApi } from './ad-account-graph-api';
 import { FacebookInsights, adObjectGraphApi } from './ad-object-graph-api';
 import { makeRequest } from '../make-request';
 import { toNumber } from '../helpers';
@@ -28,7 +28,7 @@ const getAdAccountAdsets: AdsetApi['getAdAccountAdsets'] = async (
   params
 ) => {
   const response = await makeRequest<{ data: FacebookAdset[] }>({
-    url: `/${AdAccountGraphApi.getActId(adAccountId)}/adsets`,
+    url: `/${adAccountGraphApi.helpers.getActId(adAccountId)}/adsets`,
     params: {
       limit: params?.limit ?? API_OBJECTS_LIMIT,
       fields: [
@@ -78,7 +78,7 @@ const getAdAccountAdsetsInsights: AdsetApi['getAdAccountAdsetsInsights'] = async
   type ResponseItem = Pick<FacebookAdset, 'id' | 'insights'>;
 
   const response = await makeRequest<{ data: ResponseItem[] }>({
-    url: `/${AdAccountGraphApi.getActId(adAccountId)}/adsets`,
+    url: `/${adAccountGraphApi.helpers.getActId(adAccountId)}/adsets`,
     options: { shouldUseUserAccessToken: true },
     params: {
       limit: params?.limit ?? API_OBJECTS_LIMIT,

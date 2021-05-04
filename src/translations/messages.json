@@ -59,8 +59,20 @@
   "components.AdAccountNavLink.ctr": {
     "defaultMessage": "CTR:"
   },
+  "components.AdAccountNavLink.limitPerDay": {
+    "defaultMessage": "Limit:"
+  },
+  "components.AdAccountNavLink.limitPerDayValue": {
+    "defaultMessage": "{limitPerDay} / day"
+  },
+  "components.AdAccountNavLink.paymentMethod": {
+    "defaultMessage": "Payment method:"
+  },
   "components.AdAccountNavLink.status": {
     "defaultMessage": "Status:"
+  },
+  "components.AdAccountTime.tillNewDay": {
+    "defaultMessage": "Till new day: {hours}h"
   },
   "components.AdAccountsNav.exportLink": {
     "defaultMessage": "Download .csv report"

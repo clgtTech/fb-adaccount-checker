@@ -373,3 +373,27 @@ export enum DatePreset {
   THIS_WEEK_SUN_TODAY = 'this_week_sun_today',
   THIS_YEAR = 'this_year',
 }
+
+export enum FundingSourceType {
+  UNSET = 0,
+  CREDIT_CARD = 1,
+  FACEBOOK_WALLET = 2,
+  FACEBOOK_PAID_CREDIT = 3,
+  FACEBOOK_EXTENDED_CREDIT = 4,
+  ORDER = 5,
+  INVOICE = 6,
+  FACEBOOK_TOKEN = 7,
+  EXTERNAL_FUNDING = 8,
+  FEE = 9,
+  FX = 10,
+  DISCOUNT = 11,
+  PAYPAL_TOKEN = 12,
+  PAYPAL_BILLING_AGREEMENT = 13,
+  FS_NULL = 14,
+  EXTERNAL_DEPOSIT = 15,
+  TAX = 16,
+  DIRECT_DEBIT = 17,
+  DUMMY = 18,
+  ALTPAY = 19,
+  STORED_BALANCE = 20,
+}

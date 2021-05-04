@@ -1,0 +1,25 @@
+@import '~draft-components/dist/scss/abstracts/variables';
+
+.container {
+  display: flex;
+  align-items: baseline;
+}
+
+.time {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1875rem $gap-1x;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid rgba($gray-900, $opacity-15);
+  border-radius: $border-radius-md;
+  background: rgba($gray-900, $opacity-5);
+
+  svg {
+    margin-right: $gap-1x;
+  }
+}
+
+.restDay {
+  margin-left: $gap-2x;
+}

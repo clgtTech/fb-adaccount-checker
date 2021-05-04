@@ -5,6 +5,7 @@ import { classNames } from 'draft-components';
 import { AdAccount } from '../../stores/entities';
 import { AdAccountPresenter } from '../../presenters/ad-account-presenter';
 import { CopiedValue } from '../copied-value';
+import { AdAccountTime } from '../ad-account-time';
 import styles from './ad-account-nav-link.module.scss';
 
 export interface AdAccountNavLinkProps extends NavLinkProps {
@@ -55,6 +56,8 @@ export function AdAccountNavLink({
           />
         </CopiedValue>
 
+        <AdAccountTime className={styles.time} timeZone={adAccount.timeZone} />
+
         <dl className={styles.meta}>
           <dt>
             <FormattedMessage
@@ -68,6 +71,32 @@ export function AdAccountNavLink({
               ? `(${adAccountPresenter.disableReason})`
               : null}
           </dd>
+
+          <dt>
+            <FormattedMessage
+              id="components.AdAccountNavLink.limitPerDay"
+              defaultMessage="Limit:"
+            />
+          </dt>
+          <dd>
+            <FormattedMessage
+              id="components.AdAccountNavLink.limitPerDayValue"
+              defaultMessage="{limitPerDay} / day"
+              values={{ limitPerDay: adAccountPresenter.limitPerDay }}
+            />
+          </dd>
+
+          {adAccount.displayedPaymentMethod && (
+            <>
+              <dt>
+                <FormattedMessage
+                  id="components.AdAccountNavLink.paymentMethod"
+                  defaultMessage="Payment method:"
+                />
+              </dt>
+              <dd>{adAccount.displayedPaymentMethod}</dd>
+            </>
+          )}
 
           <dt>
             <FormattedMessage

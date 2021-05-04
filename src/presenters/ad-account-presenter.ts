@@ -6,7 +6,10 @@ export class AdAccountPresenter {
   id: string;
   name: string;
   spend: string;
+  limitPerDay: string;
   ctr: string;
+  cpc: string;
+  cpm: string;
   status: string;
   isActive: boolean;
   disableReason: string;
@@ -19,7 +22,19 @@ export class AdAccountPresenter {
       adAccount.spend,
       adAccount.currency
     );
+    this.limitPerDay = Formatters.formatMonetaryValue(
+      adAccount.limitPerDay,
+      adAccount.currency
+    );
     this.ctr = Formatters.formatNumericValue(adAccount.ctr, 3);
+    this.cpc = Formatters.formatMonetaryValue(
+      adAccount.cpc,
+      adAccount.currency
+    );
+    this.cpm = Formatters.formatMonetaryValue(
+      adAccount.cpm,
+      adAccount.currency
+    );
     this.status = AdAccountPresenter.getDisplayedStatus(adAccount.status);
     this.disableReason = AdAccountPresenter.getDisplayedDisableReason(
       adAccount.disableReason

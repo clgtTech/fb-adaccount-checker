@@ -1,8 +1,8 @@
 import { API_OBJECTS_LIMIT } from '../../../constants';
 import { AdEffectiveStatus, Status } from '../../../types';
 import { AdApi } from '../../../stores/entities';
+import { adAccountGraphApi } from './ad-account-graph-api';
 import { FacebookInsights, adObjectGraphApi } from './ad-object-graph-api';
-import { AdAccountGraphApi } from './ad-account-graph-api';
 import { makeRequest } from '../make-request';
 
 /**
@@ -37,7 +37,7 @@ const getAdAccountAds: AdApi['getAdAccountAds'] = async (
   params
 ) => {
   const response = await makeRequest<{ data: FacebookAd[] }>({
-    url: `/${AdAccountGraphApi.getActId(adAccountId)}/ads`,
+    url: `/${adAccountGraphApi.helpers.getActId(adAccountId)}/ads`,
     params: {
       limit: params?.limit ?? API_OBJECTS_LIMIT,
       fields: [
@@ -100,7 +100,7 @@ const getAdAccountAdsInsights: AdApi['getAdAccountAdsInsights'] = async (
   type ResponseItem = Pick<FacebookAd, 'id' | 'insights'>;
 
   const response = await makeRequest<{ data: ResponseItem[] }>({
-    url: `/${AdAccountGraphApi.getActId(adAccountId)}/ads`,
+    url: `/${adAccountGraphApi.helpers.getActId(adAccountId)}/ads`,
     options: { shouldUseUserAccessToken: true },
     params: {
       limit: params?.limit ?? API_OBJECTS_LIMIT,
