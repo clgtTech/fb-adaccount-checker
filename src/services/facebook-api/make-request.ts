@@ -37,7 +37,7 @@ export async function makeRequest<T = any>(config: RequestConfig): Promise<T> {
   try {
     const { fields, ...otherParams } = params;
     const response: AxiosResponse<T> = await axios({
-      url: `https://graph.facebook.com/v9.0/${config.url.replace(/^\/*/, '')}`,
+      url: `https://graph.facebook.com/v10.0/${config.url.replace(/^\/*/, '')}`,
       method: config.method ?? 'get',
       params: {
         access_token: accessToken,
