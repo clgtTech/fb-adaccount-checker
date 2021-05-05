@@ -49,7 +49,6 @@ const getAdAccountCampaigns: CampaignApi['getAdAccountCampaigns'] = async (
         'bid_strategy',
         'daily_budget',
         'lifetime_budget',
-        'cost_per_mobile_app_install',
         adObjectGraphApi.helpers.getInsightsFieldForNestedRequest(
           params?.insightsDatePreset
         ),
