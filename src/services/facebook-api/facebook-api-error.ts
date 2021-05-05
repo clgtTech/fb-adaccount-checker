@@ -40,14 +40,12 @@ export class FacebookApiError extends Error {
     let httpStatus: FacebookApiError['httpStatus'];
 
     if (isAxiosError(error)) {
-      if (error.response && error.response.status < 500) {
+      if (error.response) {
         const errorResponse = error.response.data.error;
         message = errorResponse.message;
         code = errorResponse.code;
         userTitle = errorResponse.error_user_title;
         userMessage = errorResponse.error_user_msg;
-        httpStatus = error.response.status;
-      } else if (error.response && error.response.status >= 500) {
         httpStatus = error.response.status;
       } else if (error.request) {
         httpStatus = 500;
