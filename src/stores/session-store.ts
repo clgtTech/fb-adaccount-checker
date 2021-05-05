@@ -14,7 +14,7 @@ export class SessionStore {
   authStatus: AsyncStatus = AsyncStatus.idle;
   authError: Error | null = null;
   locale: Locale = DEFAULT_LOCALE;
-  insightsDatePreset: DatePreset = DatePreset.LIFETIME;
+  insightsDatePreset: DatePreset = DatePreset.MAXIMUM;
 
   constructor(
     private sessionCache: SessionCache,

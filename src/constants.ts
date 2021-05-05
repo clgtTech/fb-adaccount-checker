@@ -3,7 +3,7 @@ import { DatePreset, Locale } from 'types';
 export const NO_VALUE_PLACEHOLDER = '--';
 
 export const DEFAULT_LOCALE = Locale.enUS;
-export const DEFAULT_DATE_PRESET = DatePreset.LIFETIME;
+export const DEFAULT_DATE_PRESET = DatePreset.MAXIMUM;
 
 export const API_OBJECTS_LIMIT = 1000;
 

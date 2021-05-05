@@ -109,7 +109,7 @@ export const adObjectGraphApi = {
 };
 
 function getInsightsFieldForNestedRequest(
-  datePreset = DatePreset.LIFETIME
+  datePreset = DatePreset.MAXIMUM
 ): string {
   return `insights.date_preset(${datePreset}){${[
     'results',

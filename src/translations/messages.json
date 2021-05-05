@@ -1172,8 +1172,8 @@
   "enums.DatePreset.LAST_YEAR": {
     "defaultMessage": "Last year"
   },
-  "enums.DatePreset.LIFETIME": {
-    "defaultMessage": "Lifetime"
+  "enums.DatePreset.MAXIMUM": {
+    "defaultMessage": "Maximum"
   },
   "enums.DatePreset.THIS_MONTH": {
     "defaultMessage": "This month"

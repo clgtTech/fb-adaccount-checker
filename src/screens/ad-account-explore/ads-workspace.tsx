@@ -26,7 +26,7 @@ export interface AdsWorkspaceProps
 }
 
 export const allowedDatePresets = [
-  DatePreset.LIFETIME,
+  DatePreset.MAXIMUM,
   DatePreset.TODAY,
   DatePreset.YESTERDAY,
   DatePreset.LAST_3D,

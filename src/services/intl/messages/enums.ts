@@ -1115,9 +1115,9 @@ export const BudgetTypeTexts = {
 };
 
 export const DatePresetTexts = {
-  [DatePreset.LIFETIME]: defineMessage({
-    id: 'enums.DatePreset.LIFETIME',
-    defaultMessage: `Lifetime`,
+  [DatePreset.MAXIMUM]: defineMessage({
+    id: 'enums.DatePreset.MAXIMUM',
+    defaultMessage: `Maximum`,
   }),
   [DatePreset.TODAY]: defineMessage({
     id: 'enums.DatePreset.TODAY',

@@ -376,6 +376,7 @@
 	"enums.DatePreset.LAST_WEEK_SUN_SAT": "Прошлая неделя",
 	"enums.DatePreset.LAST_YEAR": "Прошлый год",
 	"enums.DatePreset.LIFETIME": "Весь срок действия",
+	"enums.DatePreset.MAXIMUM": "Максимум",
 	"enums.DatePreset.THIS_MONTH": "В этом месяце",
 	"enums.DatePreset.THIS_QUARTER": "В этом квартале",
 	"enums.DatePreset.THIS_WEEK_MON_TODAY": "На этой неделе",

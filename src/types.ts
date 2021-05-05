@@ -358,7 +358,7 @@ export enum DatePreset {
   THIS_MONTH = 'this_month',
   LAST_MONTH = 'last_month',
   THIS_QUARTER = 'this_quarter',
-  LIFETIME = 'lifetime',
+  MAXIMUM = 'maximum',
   LAST_3D = 'last_3d',
   LAST_7D = 'last_7d',
   LAST_14D = 'last_14d',
