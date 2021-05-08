@@ -37,6 +37,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --no-cache --watchAll=false",
     "eject": "react-scripts eject",
     "formatjs:extract": "formatjs extract 'src/**/*.ts*' --ignore 'src/**/*.d.ts' --out-file src/translations/messages.json",
     "formatjs:compile": "formatjs compile src/translations/messages.json --out-file src/translations/en-US.json",

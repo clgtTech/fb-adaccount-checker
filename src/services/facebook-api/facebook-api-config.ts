@@ -2,20 +2,20 @@ import { Locale } from '../../types';
 import { ApiConfig } from '../../stores/session-store';
 
 class FacebookApiConfig implements ApiConfig {
-  private _locale: string = '';
-  private _accessToken: string = '';
-  private _pageAccessTokens: Map<string, string> = new Map();
+  private _locale = '';
+  private _accessToken = '';
+  private _pageAccessTokens = new Map<string, string>();
 
-  get accessToken(): string {
+  get locale() {
+    return this._locale;
+  }
+
+  get accessToken() {
     return this._accessToken;
   }
 
-  get pageAccessTokens(): Map<string, string> {
+  get pageAccessTokens() {
     return this._pageAccessTokens;
-  }
-
-  get locale(): string {
-    return this._locale;
   }
 
   setAccessToken(accessToken: string): void {
@@ -28,6 +28,16 @@ class FacebookApiConfig implements ApiConfig {
 
   setLocale(locale: Locale): void {
     this._locale = locale.replace('-', '_');
+  }
+
+  getPageAccessToken(pageId: string): string | undefined {
+    return this.pageAccessTokens.get(pageId);
+  }
+
+  reset() {
+    this._locale = '';
+    this._accessToken = '';
+    this._pageAccessTokens = new Map();
   }
 }
 
