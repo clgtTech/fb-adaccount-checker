@@ -1,6 +1,6 @@
-import { UserApi, UserDTO } from '../../../stores/entities';
-import { makeRequest } from '../make-request';
 import { Task } from '../../../types';
+import { UserApi } from '../../../stores/entities';
+import { makeRequest } from '../make-request';
 import { API_OBJECTS_LIMIT } from '../../../constants';
 
 /**
@@ -21,7 +21,7 @@ export interface FacebookPage {
 export interface FacebookUser {
   id: string;
   name: string;
-  picture: {
+  picture?: {
     data: {
       width: number;
       height: number;
@@ -33,35 +33,39 @@ export interface FacebookUser {
   };
 }
 
-export class UserGraphApi implements UserApi {
-  async getUserRelatedToAccessToken(accessToken: string): Promise<UserDTO> {
-    const user = await makeRequest<FacebookUser>({
-      url: '/me',
-      params: {
-        access_token: accessToken,
-        fields: [
-          'id',
-          'name',
-          'picture.width(200).height(200)',
-          `accounts.limit(${API_OBJECTS_LIMIT}){id,name,access_token,tasks}`,
-        ],
-      },
-    });
-    const pages = user.accounts?.data;
-    return {
-      accessToken,
-      id: user.id,
-      name: user.name,
-      addedAt: new Date(),
-      pictureUrl: user.picture?.data?.url,
-      pages: Array.isArray(pages)
-        ? pages.map((page) => ({
-            id: page.id,
-            name: page.name,
-            accessToken: page.access_token,
-            tasks: page.tasks,
-          }))
-        : [],
-    };
-  }
-}
+const getUserRelatedToAccessToken: UserApi['getUserRelatedToAccessToken'] = async (
+  accessToken
+) => {
+  const user = await makeRequest<FacebookUser>({
+    url: '/me',
+    params: {
+      access_token: accessToken,
+      fields: [
+        'id',
+        'name',
+        'picture.width(200).height(200)',
+        `accounts.limit(${API_OBJECTS_LIMIT}){id,name,access_token,tasks}`,
+      ],
+    },
+  });
+  const pages = user.accounts?.data;
+  return {
+    accessToken,
+    id: user.id,
+    name: user.name,
+    addedAt: new Date(),
+    pictureUrl: user.picture?.data?.url,
+    pages: Array.isArray(pages)
+      ? pages.map((page) => ({
+          id: page.id,
+          name: page.name,
+          accessToken: page.access_token,
+          tasks: page.tasks,
+        }))
+      : [],
+  };
+};
+
+export const userGraphApi = {
+  getUserRelatedToAccessToken,
+};
