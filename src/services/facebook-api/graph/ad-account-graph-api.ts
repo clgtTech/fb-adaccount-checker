@@ -27,7 +27,7 @@ export type FacebookAdAccount = {
     display_string: string;
   };
   insights?: {
-    data?: [
+    data: [
       {
         date_start: string;
         date_stop: string;
@@ -50,26 +50,28 @@ const getAdAccounts: AdAccountApi['getAdAccounts'] = async (
   userId,
   limit = API_OBJECTS_LIMIT
 ) => {
-  const response = await makeRequest<{ data: FacebookAdAccount[] }>({
-    url: `/${userId}/adaccounts`,
-    params: {
-      limit,
-      fields: [
-        'account_id',
-        'account_status',
-        'disable_reason',
-        'name',
-        'currency',
-        'timezone_id',
-        'timezone_name',
-        'adtrust_dsl',
-        'funding_source_details{id,type,display_string}',
-        'insights.date_preset(lifetime){spend,ctr,cpc,cpm}',
-      ],
-    },
-    options: { shouldUseUserAccessToken: true },
-  });
-  return response.data.map((adAccount) => {
+  const { data: adAccounts } = await makeRequest<{ data: FacebookAdAccount[] }>(
+    {
+      url: `/${userId}/adaccounts`,
+      params: {
+        limit,
+        fields: [
+          'account_id',
+          'account_status',
+          'disable_reason',
+          'name',
+          'currency',
+          'timezone_id',
+          'timezone_name',
+          'adtrust_dsl',
+          'funding_source_details{id,type,display_string}',
+          'insights.date_preset(lifetime){spend,ctr,cpc,cpm}',
+        ],
+      },
+      options: { shouldUseUserAccessToken: true },
+    }
+  );
+  return adAccounts.map((adAccount) => {
     const insights = adAccount?.insights?.data?.[0];
     const fundingSourceDetails = adAccount?.funding_source_details;
     return {
