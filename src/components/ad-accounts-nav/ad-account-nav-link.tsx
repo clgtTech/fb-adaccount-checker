@@ -19,6 +19,11 @@ export function AdAccountNavLink({
   ...props
 }: AdAccountNavLinkProps) {
   const adAccountPresenter = new AdAccountPresenter(adAccount);
+  const renderLimit = () => {
+    if (adAccount.limitPerDay < 0) {
+    }
+  };
+
   return (
     <NavLink
       {...props}
@@ -79,11 +84,18 @@ export function AdAccountNavLink({
             />
           </dt>
           <dd>
-            <FormattedMessage
-              id="components.AdAccountNavLink.limitPerDayValue"
-              defaultMessage="{limitPerDay} / day"
-              values={{ limitPerDay: adAccountPresenter.limitPerDay }}
-            />
+            {adAccount.limitPerDay < 0 ? (
+              <FormattedMessage
+                id="components.AdAccountNavLink.unlimitedLabel"
+                defaultMessage="Unlimited"
+              />
+            ) : (
+              <FormattedMessage
+                id="components.AdAccountNavLink.limitPerDayValue"
+                defaultMessage="{limitPerDay} / day"
+                values={{ limitPerDay: adAccountPresenter.limitPerDay }}
+              />
+            )}
           </dd>
 
           {adAccount.displayedPaymentMethod && (

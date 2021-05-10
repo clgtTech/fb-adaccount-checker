@@ -71,6 +71,9 @@
   "components.AdAccountNavLink.status": {
     "defaultMessage": "Status:"
   },
+  "components.AdAccountNavLink.unlimitedLabel": {
+    "defaultMessage": "Unlimited"
+  },
   "components.AdAccountTime.tillNewDay": {
     "defaultMessage": "Till new day: {hours}h"
   },
