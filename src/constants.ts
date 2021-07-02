@@ -1,5 +1,7 @@
 import { DatePreset, Locale } from 'types';
 
+export const FB_API_URL = process.env.REACT_APP_FB_API_URL;
+
 export const NO_VALUE_PLACEHOLDER = '--';
 
 export const DEFAULT_LOCALE = Locale.enUS;

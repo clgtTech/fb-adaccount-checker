@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, Method } from 'axios';
+import { FB_API_URL } from '../../constants';
 import { FacebookApiError } from './facebook-api-error';
 import { facebookApiConfig } from './facebook-api-config';
 
@@ -20,7 +21,6 @@ export interface RequestConfig {
   data?: any;
 }
 
-export const GRAPH_API_URL = 'https://graph.facebook.com/v10.0';
 export async function makeRequest<T = any>({
   url,
   method = 'get',
@@ -40,7 +40,7 @@ export async function makeRequest<T = any>({
   try {
     const { access_token, locale, fields, ...otherParams } = params;
     const response: AxiosResponse<T> = await axios({
-      url: GRAPH_API_URL + normalizePathname(url),
+      url: FB_API_URL + normalizePathname(url),
       method,
       params: {
         access_token: access_token || accessToken,

@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
-import { makeRequest, GRAPH_API_URL, RequestConfig } from '../make-request';
+import { makeRequest, RequestConfig } from '../make-request';
 import { facebookApiConfig } from '../facebook-api-config';
+import { FB_API_URL } from '../../../constants';
 import { Locale } from '../../../types';
 import { FacebookApiError } from '../facebook-api-error';
 
@@ -25,7 +26,7 @@ it('should call facebook graph API with user access token', async () => {
     statusText: '',
     data: { id: '123', name: 'John Doe' },
     config: {
-      url: GRAPH_API_URL + config.url,
+      url: FB_API_URL + config.url,
       method: 'get',
       params: {
         locale: 'en_US',
@@ -68,7 +69,7 @@ it('should call facebook graph API with page access token', async () => {
     statusText: '',
     data: { id: pageId, name: 'Test Page' },
     config: {
-      url: GRAPH_API_URL + '/' + pageId,
+      url: FB_API_URL + '/' + pageId,
       method: 'get',
       params: {
         locale: '',
@@ -108,7 +109,7 @@ it('should call facebook graph API without access token', async () => {
       },
     },
     config: {
-      url: GRAPH_API_URL + '/',
+      url: FB_API_URL + '/',
       method: 'get',
       params: {
         locale: '',
